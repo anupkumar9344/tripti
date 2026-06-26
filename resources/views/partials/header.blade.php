@@ -5,7 +5,7 @@
 				<div class="container">
 					<!-- Logo Start -->
 					<a class="navbar-brand" href="{{ url('/') }}">
-						<img src="{{ asset('images/logo.svg') }}" alt="Logo">
+						<img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj Aarogyam">
 					</a>
 					<!-- Logo End -->
 
@@ -31,7 +31,7 @@
                         
                         <!-- Header Contact Btn Start -->
                         <div class="header-contact-btn">
-                            <a href="{{ url('/book-appointment') }}" class="btn-default">Book Appointment</a>
+                            <a href="#" class="btn-default js-book-appointment" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">Book Appointment</a>
                         </div>
                         <!-- Header Contact Btn End -->
 					</div>

@@ -9,6 +9,7 @@
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
 <body id="body" class="dark-sidebar">
@@ -18,11 +19,11 @@
         <div class="brand">
             <a href="{{ route('admin.dashboard') }}" class="logo">
                 <span>
-                    <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
+                    <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj logo" class="logo-sm" height="40">
                 </span>
                 <span>
-                    <img src="{{ asset('admin/assets/images/logo.png') }}" alt="logo-large" class="logo-lg logo-light">
-                    <img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="logo-large" class="logo-lg logo-dark">
+                    <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj logo" class="logo-lg logo-light" height="45">
+                    <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj logo" class="logo-lg logo-dark" height="45">
                 </span>
             </a>
         </div>
@@ -52,6 +53,19 @@
                         <a class="nav-link" href="{{ url('/') }}" target="_blank">
                             <i class="ti ti-world menu-icon"></i>
                             <span>View Website</span>
+                        </a>
+                    </li>
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold">C<span>ontent</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
+                            <i class="ti ti-briefcase menu-icon"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">
+                            <i class="ti ti-users menu-icon"></i>
+                            <span>Expert Team</span>
                         </a>
                     </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
@@ -114,12 +128,7 @@
     <div class="page-wrapper">
         <div class="page-content-tab">
             <div class="container-fluid">
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+                @include('admin.partials.alerts')
 
                 @yield('content')
             </div>
@@ -131,6 +140,8 @@
     </div>
 
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
+    <script src="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/admin-confirm.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

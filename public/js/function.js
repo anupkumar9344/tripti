@@ -56,6 +56,75 @@
 		},
 	});
 
+	/* Home Trust Strip Swiper */
+	if ($('.trust-strip-swiper').length) {
+		const trustStripSwiper = new Swiper('.trust-strip-swiper', {
+			slidesPerView: 2,
+			slidesPerGroup: 1,
+			spaceBetween: 14,
+			speed: 700,
+			loop: true,
+			grabCursor: true,
+			autoplay: {
+				delay: 3000,
+				disableOnInteraction: false,
+				pauseOnMouseEnter: true,
+			},
+			breakpoints: {
+				992: {
+					slidesPerView: 4,
+					slidesPerGroup: 1,
+					spaceBetween: 22,
+				},
+			},
+		});
+
+		trustStripSwiper.on('resize', function () {
+			this.update();
+		});
+	}
+
+	/* Book Appointment Modal */
+	if ($('#bookAppointmentModal').length) {
+		$('#bookAppointmentForm').on('submit', function (event) {
+			event.preventDefault();
+
+			if (!this.checkValidity()) {
+				event.stopPropagation();
+				$(this).addClass('was-validated');
+				return;
+			}
+
+			$('.book-appointment-form-wrap').addClass('d-none');
+			$('.book-appointment-success').removeClass('d-none');
+		});
+
+		$('#bookAppointmentModal').on('hidden.bs.modal', function () {
+			const form = document.getElementById('bookAppointmentForm');
+
+			form.reset();
+			$(form).removeClass('was-validated');
+			$('.book-appointment-form-wrap').removeClass('d-none');
+			$('.book-appointment-success').addClass('d-none');
+		});
+	}
+
+	/* Contact Page Form */
+	if ($('#contactPageForm').length) {
+		$('#contactPageForm').on('submit', function (event) {
+			event.preventDefault();
+
+			if (!this.checkValidity()) {
+				event.stopPropagation();
+				$(this).addClass('was-validated');
+				return;
+			}
+
+			$(this).addClass('d-none');
+			$('.contact-message-success').removeClass('d-none');
+		});
+	}
+
 	/* Skill Bar */
 	if ($('.skills-progress-bar').length) {
 		$('.skills-progress-bar').waypoint(function() {

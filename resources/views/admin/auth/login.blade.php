@@ -21,7 +21,7 @@
                                 <div class="card-body p-0 auth-header-box">
                                     <div class="text-center p-3">
                                         <a href="{{ route('admin.login') }}" class="logo logo-admin">
-                                            <img src="{{ asset('admin/assets/images/logo-sm.png') }}" height="50" alt="logo" class="auth-logo">
+                                            <img src="{{ asset('images/logo/logo.webp') }}" height="50" alt="Sahaj logo" class="auth-logo">
                                         </a>
                                         <h4 class="mt-3 mb-1 fw-semibold text-white font-18">Welcome to Sahaj Admin</h4>
                                         <p class="text-muted mb-0">Sign in to continue to your dashboard.</p>

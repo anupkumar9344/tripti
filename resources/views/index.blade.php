@@ -51,330 +51,151 @@
     <!-- Hero Section End -->
 
 <!-- Trust Strip Section Start -->
-    <div class="scrolling-ticker" id="home-trust">
-        <!-- Trust Strip Box Start -->
-        <div class="scrolling-ticker-box">
-            <!-- Scrolling Content Start -->
-            <div class="scrolling-content">
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Serene Flow</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Mindful Movement</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Yoga Journey</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Flex & Relax</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Calm & Balance</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Serene Flow</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Mindful Movement</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Yoga Journey</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Flex & Relax</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Calm & Balance</span>
+    @php
+        $trustItems = [
+            ['image' => 'experience.webp', 'text' => '25+ Years Clinical Experience'],
+            ['image' => 'successfull.webp', 'text' => '3500+ Patients Successfully Treated'],
+            ['image' => 'expert.webp', 'text' => 'Multidisciplinary Expert Team'],
+            ['image' => 'natural.webp', 'text' => 'Natural, Safe & Evidence-Based Treatments'],
+            ['image' => 'extracted_icon.webp', 'text' => 'Multidimensional Treatment Approach'],
+            ['image' => 'social-media-banner-3-1.webp', 'text' => 'Personalized Treatment protocols & Plans'],
+        ];
+    @endphp
+    <div class="home-trust-strip" id="home-trust">
+        <div class="trust-strip-inner">
+            <div class="container-fluid">
+                <div class="swiper trust-strip-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach (array_merge($trustItems, $trustItems) as $item)
+                            <div class="swiper-slide">
+                                <div class="trust-strip-item">
+                                    <div class="trust-strip-icon">
+                                        <img src="{{ asset('images/trusts/' . $item['image']) }}" alt="">
+                                    </div>
+                                    <p>{{ $item['text'] }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
-            <!-- Scrolling Content End -->
-            
-            <!-- Scrolling Content Start -->
-            <div class="scrolling-content">
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Serene Flow</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Mindful Movement</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Yoga Journey</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Flex & Relax</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Calm & Balance</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Serene Flow</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Mindful Movement</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Yoga Journey</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Flex & Relax</span>
-                <span><img src="{{ asset('images/icon-asterisk.svg') }}" alt="">Calm & Balance</span>
-            </div>
-            <!-- Scrolling Content End -->
-            
-            <!-- Scrolling Ticker Images Start -->
-            <div class="scrolling-ticker-images">
-                <!-- Scrolling Ticker Image Start -->
-                <div class="scrolling-ticker-image">
-                    <figure class="image-anime">
-                        <img src="{{ asset('images/scrolling-ticker-image-1.jpg') }}" alt="">
-                    </figure>
-                </div>
-                <!-- Scrolling Ticker Image End -->
-    
-                <!-- Scrolling Ticker Image Start -->
-                <div class="scrolling-ticker-image">
-                    <figure class="image-anime">
-                        <img src="{{ asset('images/scrolling-ticker-image-2.jpg') }}" alt="">
-                    </figure>
-                </div>
-                <!-- Scrolling Ticker Image End -->
-    
-                <!-- Scrolling Ticker Image Start -->
-                <div class="scrolling-ticker-image">
-                    <figure class="image-anime">
-                        <img src="{{ asset('images/scrolling-ticker-image-3.jpg') }}" alt="">
-                    </figure>
-                </div>
-                <!-- Scrolling Ticker Image End -->
-    
-                <!-- Scrolling Ticker Image Start -->
-                <div class="scrolling-ticker-image">
-                    <figure class="image-anime">
-                        <img src="{{ asset('images/scrolling-ticker-image-4.jpg') }}" alt="">
-                    </figure>
-                </div>
-                <!-- Scrolling Ticker Image End -->
-    
-                <!-- Scrolling Ticker Image Start -->
-                <div class="scrolling-ticker-image">
-                    <figure class="image-anime">
-                        <img src="{{ asset('images/scrolling-ticker-image-5.jpg') }}" alt="">
-                    </figure>
-                </div>
-                <!-- Scrolling Ticker Image End -->
-            </div>
-            <!-- Scrolling Ticker Images End -->      
+            <span class="trust-strip-edge trust-strip-edge-left" aria-hidden="true"></span>
+            <span class="trust-strip-edge trust-strip-edge-right" aria-hidden="true"></span>
         </div>
-        <!-- Trust Strip Box End -->     
     </div>
-	<!-- Trust Strip Section End -->
+    <!-- Trust Strip Section End -->
+
+<!-- Home About Intro Section Start -->
+    <div class="home-about-intro">
+        <div class="container">
+            <div class="row align-items-center g-4 g-lg-5">
+                <div class="col-lg-6">
+                    <div class="home-about-intro-media wow fadeInUp">
+                        <span class="home-about-intro-shape" aria-hidden="true"></span>
+                        <div class="home-about-intro-frame">
+                            <figure>
+                                <img src="{{ asset('images/home-about-team.jpg') }}" alt="Sahaj Aarogyam expert team">
+                            </figure>
+                            <div class="home-about-intro-badge">
+                                <strong>25+</strong>
+                                <span>Years of Trusted Care</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="home-about-intro-content">
+                        <div class="section-title">
+                            <h3 class="wow fadeInUp">About us</h3>
+                            <h2 class="text-anime-style-2" data-cursor="-opaque">A holistic path to <span>natural healing</span></h2>
+                            <p class="wow fadeInUp" data-wow-delay="0.2s">At Sahaj Aarogyam, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.</p>
+                        </div>
+
+                        <div class="home-about-intro-btn wow fadeInUp" data-wow-delay="0.3s">
+                            <a href="{{ url('/about-us') }}" class="btn-default">Learn More About Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Home About Intro Section End -->
 
 <!-- Why Choose Section Start -->
-    <div class="why-choose-us">
+    @php
+        $whyChooseItems = [
+            ['icon' => 'fa-shield-halved', 'title' => 'Root-Cause Diagnosis', 'text' => 'We identify what\'s actually causing the issue — not just suppress symptoms.'],
+            ['icon' => 'fa-user-doctor', 'title' => 'Integrated Specialists', 'text' => 'Physiotherapists, Ayurveda doctors, nutritionists & therapists under one roof.'],
+            ['icon' => 'fa-hand-holding-heart', 'title' => 'Personalised Protocols', 'text' => 'Every patient receives a treatment plan designed for their unique condition.'],
+            ['icon' => 'fa-leaf', 'title' => 'Non-Surgical & Natural', 'text' => 'Avoid risky surgery wherever possible with safe, evidence-based therapies.'],
+            ['icon' => 'fa-award', 'title' => '25+ Years Experience', 'text' => 'Decades of clinical work treating complex pain and lifestyle disorders.'],
+            ['icon' => 'fa-heart-pulse', 'title' => 'Long-Term Wellness', 'text' => 'Lasting results — we treat the body, mind, metabolism and aesthetics together.'],
+        ];
+    @endphp
+    <div class="home-why-choose">
         <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">Why Choose</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Experience excellence in <span>yoga and meditation</span></h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- Section Title Content Start -->
-                    <div class="section-title-content wow fadeInUp" data-wow-delay="0.2s">
-                        <p>Join us to experience expert-guided yoga and meditation practices designed to enhance your physical health, mental clarity, and overall well-being.</p>
-                    </div>
-                    <!-- Section Title Content End -->
-                </div>
+            <div class="home-why-choose-header text-center">
+                <span class="home-why-choose-eyebrow wow fadeInUp">Why Sahaj Aarogyam</span>
+                <h2 class="wow fadeInUp" data-wow-delay="0.1s">Why Choose Sahaj Aarogyam</h2>
+                <p class="wow fadeInUp" data-wow-delay="0.2s">A structured integrated healthcare brand — not just another clinic.</p>
             </div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Why Choose Content Start -->
-                    <div class="why-choose-content">
-                        <!-- Why Choose Image Start -->
-                        <div class="why-choose-image">
-                            <figure class="image-anime reveal">
-                                <img src="{{ asset('images/why-choose-image.jpg') }}" alt="">
-                            </figure>
+            <div class="row g-4">
+                @foreach ($whyChooseItems as $index => $item)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="home-why-choose-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.1, 1) }}s">
+                            <span class="home-why-choose-card-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                            <div class="home-why-choose-card-icon">
+                                <i class="fa-solid {{ $item['icon'] }}"></i>
+                            </div>
+                            <h3>{{ $item['title'] }}</h3>
+                            <p>{{ $item['text'] }}</p>
                         </div>
-                        <!-- Why Choose Image End -->
-
-                        <!-- Why Choose Item Start -->
-                        <div class="why-choose-item wow fadeInUp">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-why-choose-item-1.svg') }}" alt="">
-                            </div>
-                            <div class="why-choose-item-content">
-                                <h3>Yoga for Balance</h3>
-                                <p>Achieve harmony of body and spirit through gent practices designed to enhance physical stability, mental clarity.</p>
-                            </div>
-                        </div>
-                        <!-- Why Choose Item End -->
-
-                        <!-- Why Choose Item Start -->
-                        <div class="why-choose-item wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-why-choose-item-2.svg') }}" alt="">
-                            </div>
-                            <div class="why-choose-item-content">
-                                <h3>Inner Peace Workshops</h3>
-                                <p>Achieve harmony of body and spirit through gent practices designed to enhance physical stability, mental clarity.</p>
-                            </div>
-                        </div>
-                        <!-- Why Choose Item End -->
                     </div>
-                    <!-- Why Choose Content End -->
-
-                    <!-- Why Choose Counter Box Start -->
-                    <div class="why-choose-counter-box">
-                        <!-- Why Choose Counter Item Start -->
-                        <div class="why-choose-counter-item">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-why-choose-counter-1.svg') }}" alt="">
-                            </div>
-                            <div class="why-choose-counter-content">
-                                <h3><span class="counter">25</span>+</h3>
-                                <p>Years Of Experience</p>
-                            </div>
-                        </div>
-                        <!-- Why Choose Counter Item End -->
-
-                        <!-- Why Choose Counter Item Start -->
-                        <div class="why-choose-counter-item">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-why-choose-counter-2.svg') }}" alt="">
-                            </div>
-                            <div class="why-choose-counter-content">
-                                <h3><span class="counter">150</span>K+</h3>
-                                <p>Satisfied clients</p>
-                            </div>
-                        </div>
-                        <!-- Why Choose Counter Item End -->
-
-                        <!-- Why Choose Counter Item Start -->
-                        <div class="why-choose-counter-item">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-why-choose-counter-3.svg') }}" alt="">
-                            </div>
-                            <div class="why-choose-counter-content">
-                                <h3><span class="counter">30</span>+</h3>
-                                <p>Countries Reached</p>
-                            </div>
-                        </div>
-                        <!-- Why Choose Counter Item End -->
-
-                        <!-- Why Choose Counter Item Start -->
-                        <div class="why-choose-counter-item">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-why-choose-counter-4.svg') }}" alt="">
-                            </div>
-                            <div class="why-choose-counter-content">
-                                <h3><span class="counter">2</span>K+</h3>
-                                <p>Classes Conducted</p>
-                            </div>
-                        </div>
-                        <!-- Why Choose Counter Item End -->
-                    </div>
-                    <!-- Why Choose Counter Box End -->
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
     <!-- Why Choose Section End -->
 
 <!-- What We Treat Section Start -->
-    <div class="our-services">
-        <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">What We Treat</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Conditions we help you <span>heal naturally</span></h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- Section Button Start -->
-                    <div class="section-btn wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="{{ url('/services') }}" class="btn-default">view all services</a>
-                    </div>
-                    <!-- Section Button End -->
-                </div>
+    @php
+        $whatWeTreatItems = [
+            ['icon' => 'fa-award', 'title' => 'Back Pain & Spine disorders', 'text' => 'Advanced non-surgical care for chronic back pain, stiffness, and spinal discomfort.'],
+            ['icon' => 'fa-hand-holding-heart', 'title' => 'Slip Disc & Sciatica', 'text' => 'Targeted therapies designed to reduce disc-related pain and improve mobility.'],
+            ['icon' => 'fa-clipboard-medical', 'title' => 'Liver & Metabolic Disorders', 'text' => 'Natural pain management solutions for sciatica, nerve pain and numbness.'],
+            ['icon' => 'fa-bone', 'title' => 'Knee Pain & Joints pain', 'text' => 'Personalized therapies to improve knee strength, flexibility, and movement.'],
+            ['icon' => 'fa-venus-mars', 'title' => 'Male and Female Wellness', 'text' => 'Specialized rehabilitation care for shoulder pain, stiffness, and restricted motion.'],
+            ['icon' => 'fa-user-doctor', 'title' => 'Cervical & Ankylosing Spondylitis', 'text' => 'Effective care for neck pain, posture correction, and cervical discomfort.'],
+        ];
+    @endphp
+    <div class="home-what-we-treat">
+        <div class="home-what-we-treat-overlay"></div>
+        <div class="container position-relative">
+            <div class="home-what-we-treat-header text-center">
+                <h2 class="wow fadeInUp">What We Treat</h2>
             </div>
 
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <!-- Service Item Start -->
-                    <div class="service-item wow fadeInUp">
-                        <!-- Service Header Start -->
-                        <div class="service-header">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-service-item-1.svg') }}" alt="">
+            <div class="row g-4">
+                @foreach ($whatWeTreatItems as $index => $item)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="home-treat-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.08, 2) }}s">
+                            <div class="home-treat-card-icon">
+                                <i class="fa-solid {{ $item['icon'] }}"></i>
                             </div>
-                            <div class="service-btn">
-                                <a href="service-single.html"><img src="{{ asset('images/arrow-white.svg') }}" alt=""></a>
+                            <div class="home-treat-card-body">
+                                <h3>{{ $item['title'] }}</h3>
+                                <p>{{ $item['text'] }}</p>
                             </div>
+                            <a href="{{ url('/treatment') }}" class="home-treat-card-link">Read More</a>
                         </div>
-                        <!-- Service Header End -->
-
-                        <!-- Service Content Start -->
-                        <div class="service-content">
-                            <h3><a href="service-single.html">Beginner Yoga Classes</a></h3>
-                            <p>Learn foundational poses and techniques yoga journey.</p>
-                        </div>
-                        <!-- Service Content End -->
                     </div>
-                    <!-- Service Item End -->
-                </div>
+                @endforeach
+            </div>
 
-                <div class="col-lg-3 col-md-6">
-                    <!-- Service Item Start -->
-                    <div class="service-item wow fadeInUp" data-wow-delay="0.2s">
-                        <!-- Service Header Start -->
-                        <div class="service-header">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-service-item-2.svg') }}" alt="">
-                            </div>
-                            <div class="service-btn">
-                                <a href="service-single.html"><img src="{{ asset('images/arrow-white.svg') }}" alt=""></a>
-                            </div>
-                        </div>
-                        <!-- Service Header End -->
-
-                        <!-- Service Content Start -->
-                        <div class="service-content">
-                            <h3><a href="service-single.html">Stress Relief Sessions</a></h3>
-                            <p>Learn foundational poses and techniques yoga journey.</p>
-                        </div>
-                        <!-- Service Content End -->
-                    </div>
-                    <!-- Service Item End -->
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <!-- Service Item Start -->
-                    <div class="service-item wow fadeInUp" data-wow-delay="0.4s">
-                        <!-- Service Header Start -->
-                        <div class="service-header">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-service-item-3.svg') }}" alt="">
-                            </div>
-                            <div class="service-btn">
-                                <a href="service-single.html"><img src="{{ asset('images/arrow-white.svg') }}" alt=""></a>
-                            </div>
-                        </div>
-                        <!-- Service Header End -->
-
-                        <!-- Service Content Start -->
-                        <div class="service-content">
-                            <h3><a href="service-single.html">Mindful Meditation</a></h3>
-                            <p>Learn foundational poses and techniques yoga journey.</p>
-                        </div>
-                        <!-- Service Content End -->
-                    </div>
-                    <!-- Service Item End -->
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <!-- Service Item Start -->
-                    <div class="service-item wow fadeInUp" data-wow-delay="0.6s">
-                        <!-- Service Header Start -->
-                        <div class="service-header">
-                            <div class="icon-box">
-                                <img src="{{ asset('images/icon-service-item-4.svg') }}" alt="">
-                            </div>
-                            <div class="service-btn">
-                                <a href="service-single.html"><img src="{{ asset('images/arrow-white.svg') }}" alt=""></a>
-                            </div>
-                        </div>
-                        <!-- Service Header End -->
-
-                        <!-- Service Content Start -->
-                        <div class="service-content">
-                            <h3><a href="service-single.html">Mental Clarity Meditation</a></h3>
-                            <p>Learn foundational poses and techniques yoga journey.</p>
-                        </div>
-                        <!-- Service Content End -->
-                    </div>
-                    <!-- Service Item End -->
-                </div>
-
-                <div class="col-lg-12">
-                    <!-- Section Footer Text Start -->
-                    <div class="section-footer-text wow fadeInUp" data-wow-delay="0.2s">
-                        <p><span>Free</span>Let's make something great work together. <a href="contact.html">Get Free Quote</a></p>
-                    </div>
-                    <!-- Section Footer Text End -->
-                </div>
+            <div class="home-what-we-treat-action text-center wow fadeInUp" data-wow-delay="0.3s">
+                <a href="{{ url('/treatment') }}" class="btn-default btn-highlighted">View All</a>
             </div>
         </div>
     </div>

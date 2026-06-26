@@ -28,6 +28,11 @@ class GeneralSettingController extends Controller
         'phone_2',
         'whatsapp_number',
         'address',
+        'opening_hours',
+        'facebook_url',
+        'instagram_url',
+        'youtube_url',
+        'google_map_embed',
     ];
 
     /**
@@ -58,9 +63,27 @@ class GeneralSettingController extends Controller
             'phone_2' => ['nullable', 'string', 'max:50'],
             'whatsapp_number' => ['nullable', 'string', 'max:50'],
             'address' => ['nullable', 'string', 'max:1000'],
+            'opening_hours' => ['nullable', 'string', 'max:1000'],
+            'facebook_url' => ['nullable', 'url', 'max:500'],
+            'instagram_url' => ['nullable', 'url', 'max:500'],
+            'youtube_url' => ['nullable', 'url', 'max:500'],
+            'google_map_embed' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        foreach (['website_name', 'email_1', 'email_2', 'phone_1', 'phone_2', 'whatsapp_number', 'address'] as $key) {
+        foreach ([
+            'website_name',
+            'email_1',
+            'email_2',
+            'phone_1',
+            'phone_2',
+            'whatsapp_number',
+            'address',
+            'opening_hours',
+            'facebook_url',
+            'instagram_url',
+            'youtube_url',
+            'google_map_embed',
+        ] as $key) {
             Setting::setValue($key, $validated[$key] ?? null);
         }
 
