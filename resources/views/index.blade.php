@@ -201,940 +201,635 @@
     </div>
     <!-- What We Treat Section End -->
 
-<!-- Core Specialty Section Start -->
-    <div class="our-features">
+<!-- Our Core Services Section Start -->
+    @php
+        $coreServices = [
+            [
+                'image' => 'service-featured-image.jpg',
+                'title' => 'Pain & Rehabilitation',
+                'text' => 'Personalized rehabilitation therapies focused on pain relief, mobility, recovery, and physical strength.',
+                'tags' => ['Physiotherapy', 'Neuro Rehab'],
+            ],
+            [
+                'image' => 'gallery-2.jpg',
+                'title' => 'Ayurveda & Detox',
+                'text' => 'Traditional Ayurvedic detox therapies designed to restore balance, cleanse the body, and wellness.',
+                'tags' => ['Panchakarma', 'Naturopathy'],
+            ],
+            [
+                'image' => 'gallery-3.jpg',
+                'title' => 'Metabolic Care',
+                'text' => 'Customized wellness programs for weight management, metabolism support, and nutritional balance.',
+                'tags' => ['Weight Loss', 'Nutrition'],
+            ],
+            [
+                'image' => 'service-benefits-img.jpg',
+                'title' => 'Hijama & Cupping',
+                'text' => 'Therapeutic cupping treatments to improve circulation, relieve pain, and support natural healing.',
+                'tags' => ['Hijama Therapy', 'Pain Relief'],
+            ],
+            [
+                'image' => 'gallery-5.jpg',
+                'title' => 'Acupuncture & Acupressure',
+                'text' => 'Evidence-based needle and pressure-point therapies to restore energy flow and reduce chronic discomfort.',
+                'tags' => ['Acupuncture', 'Acupressure'],
+            ],
+            [
+                'image' => 'what-we-benefit-image.jpg',
+                'title' => 'Holistic Wellness Programs',
+                'text' => 'Integrated care plans combining multiple therapies for long-term health, vitality, and lifestyle balance.',
+                'tags' => ['Integrated Care', 'Lifestyle Support'],
+            ],
+        ];
+    @endphp
+    <div class="home-core-services">
         <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">Core Specialty</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Unlock wellness through <span>unique yoga features</span></h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- Section Title Content Start -->
-                    <div class="section-title-content wow fadeInUp" data-wow-delay="0.2s">
-                        <p>Join us to experience expert-guided yoga and meditation practices designed to enhance your physical health, mental clarity, and overall well-being.</p>
-                    </div>
-                    <!-- Section Title Content End -->
-                </div>
+            <div class="home-core-services-header text-center">
+                <h2 class="wow fadeInUp">Our Core Services</h2>
             </div>
 
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Features Item Start -->
-                    <div class="features-item wow fadeInUp">
-                        <div class="features-item-content">
-                            <p>Ashtanga Yoga</p>
-                            <h3>Healing Retreats and Workshops</h3>
-                        </div>
-                        <div class="features-item-image">
-                            <figure>
-                                <img src="{{ asset('images/features-image-1.png') }}" alt="">
-                            </figure>
-                        </div>
+            <div class="row g-4">
+                @foreach ($coreServices as $index => $service)
+                    <div class="col-lg-4 col-md-6">
+                        <article class="home-core-service-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.08, 2) }}s">
+                            <div class="home-core-service-media">
+                                <img src="{{ asset('images/' . $service['image']) }}" alt="{{ $service['title'] }}">
+                                <span class="home-core-service-badge" aria-hidden="true">
+                                    <i class="fa-solid fa-mortar-pestle"></i>
+                                </span>
+                            </div>
+                            <div class="home-core-service-content">
+                                <h3>{{ $service['title'] }}</h3>
+                                <p>{{ $service['text'] }}</p>
+                                <ul class="home-core-service-tags">
+                                    @foreach ($service['tags'] as $tag)
+                                        <li><i class="fa-solid fa-circle-check"></i> {{ $tag }}</li>
+                                    @endforeach
+                                </ul>
+                                <a href="{{ url('/services') }}" class="home-core-service-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                            </div>
+                        </article>
                     </div>
-                    <!-- Features Item End -->
-                </div>
+                @endforeach
+            </div>
 
-                <div class="col-lg-6">
-                    <!-- Our Features Boxes Start -->
-                    <div class="our-features-boxes">
-                        <!-- Features Box Start -->
-                        <div class="features-box box-1 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="features-box-content">
-                                <p>Ashtanga Yoga</p>
-                                <h3>Community Support and Yoga Encouragement</h3>
-                            </div>
-                            <div class="features-box-image">
-                                <figure>
-                                    <img src="{{ asset('images/features-image-2.jpg') }}" alt="">
-                                </figure>
-                            </div>
-                        </div>
-                        <!-- Features Box End -->
-
-                        <!-- Features Box Start -->
-                        <div class="features-box box-2 wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="features-box-content">
-                                <p>Ashtanga</p>
-                                <h3>Guided Meditation Sessions</h3>
-                            </div>
-                            <div class="features-box-image">
-                                <figure>
-                                    <img src="{{ asset('images/features-image-3.jpg') }}" alt="">
-                                </figure>
-                            </div>
-                        </div>
-                        <!-- Features Box End -->
-
-                        <!-- Features Item Start -->
-                        <div class="features-item features-box box-3 wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="features-box-content">
-                                <p>Ashtanga</p>
-                                <h3>Stress-Relief Programs</h3>
-                            </div>
-                            <div class="features-item-image">
-                                <figure>
-                                    <img src="{{ asset('images/features-image-4.png') }}" alt="">
-                                </figure>
-                            </div>
-                        </div>
-                        <!-- Features Item End -->
-                    </div>
-                    <!-- Our Features Boxes End -->
-                </div>
+            <div class="home-core-services-action text-center wow fadeInUp" data-wow-delay="0.3s">
+                <a href="{{ url('/services') }}" class="btn-default">View All</a>
             </div>
         </div>
     </div>
-    <!-- Core Specialty Section End -->
+    <!-- Our Core Services Section End -->
 
-<!-- Programs & Camps Section Start -->
-    <div class="our-pricing">
+<!-- Health Programs & Camps Section Start -->
+    @php
+        $programDetails = [
+            ['label' => 'Program Name', 'value' => 'Diabetes Reversal & Lifestyle Management Camp', 'tone' => 'primary'],
+            ['label' => 'Date & Time', 'value' => '15 April 2026 · 10:00 AM – 2:00 PM', 'tone' => 'accent', 'icon' => 'fa-calendar-days'],
+            ['label' => 'Location', 'value' => 'Agarwal Public School, Indore', 'tone' => 'warm', 'icon' => 'fa-location-dot'],
+            ['label' => 'Chief Consultant', 'value' => 'Dr Ravindra Verma', 'tone' => 'primary', 'icon' => 'fa-user-doctor'],
+            ['label' => 'Key Benefits', 'value' => 'Diabetes Management, Personalized Diet Plan, Stress Reduction Techniques, Lifestyle Counseling, Health Screening', 'tone' => 'accent'],
+        ];
+    @endphp
+    <div class="home-programs-camps">
         <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">Programs & Camps</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Wellness programs and <span>healing camps</span></h2>
+            <div class="row align-items-center g-4 g-lg-5">
+                <div class="col-lg-5">
+                    <div class="home-programs-camps-video wow fadeInUp">
+                        <figure class="home-programs-camps-video-frame">
+                            <img src="{{ asset('images/gallery-4.jpg') }}" alt="Health programs and wellness camps at Sahaj Aarogyam">
+                        </figure>
+                        <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" class="home-programs-camps-play popup-video" aria-label="Watch health programs video">
+                            <span class="home-programs-camps-play-icon"><i class="fa-solid fa-play"></i></span>
+                            <span class="home-programs-camps-play-text">Watch Our Camps</span>
+                        </a>
                     </div>
-                    <!-- Section Title End -->
                 </div>
 
-                <div class="col-lg-6">
-                    <!-- Section Title Content Start -->
-                    <div class="section-title-content wow fadeInUp" data-wow-delay="0.2s">
-                        <p>Choose from our flexible pricing plans designed to suit your needs. Whether you're a beginner or advanced practitioner, we offer affordable.</p>
-                    </div>
-                    <!-- Section Title Content End -->
-                </div>
-            </div>            
+                <div class="col-lg-7">
+                    <div class="home-programs-camps-content">
+                        <span class="home-programs-camps-eyebrow wow fadeInUp">Health Programs & Camps</span>
+                        <h2 class="home-programs-camps-title wow fadeInUp" data-wow-delay="0.1s">Group Healing. Lasting Wellness.</h2>
+                        <p class="home-programs-camps-lead wow fadeInUp" data-wow-delay="0.15s">Join our weekend wellness camps, weight-management programs, detox retreats and community healing sessions led by our multidisciplinary team.</p>
 
-            <div class="row align-items-center">
-                <div class="col-lg-4 col-md-6">
-                    <!-- Pricing Item Start -->
-                    <div class="pricing-item wow fadeInUp">
-                        <!-- Pricing Image Start -->
-                        <div class="pricing-image">
-                            <figure class="image-anime">
-                                <img src="{{ asset('images/pricing-image-1.jpg') }}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Pricing Image End -->
-
-                        <!-- Pricing Content Start -->
-                        <div class="pricing-content">
-                            <div class="pricing-title">
-                                <h3>Basic Plan</h3>
-                            </div>
-                            <h2>$29</h2>
-                            <p>per month</p>
-                        </div>
-                        <!-- Pricing Content End -->
-
-                        <!-- Pricing Body Start -->
-                        <div class="pricing-body">
-                            <!-- Pricing List Start -->
-                            <div class="pricing-list">
-                                <ul>
-                                    <li>Weekly Group Yoga Practice</li>
-                                    <li>Stress Relief Yoga Programs</li>
-                                    <li>Flexible Class Schedules</li>
-                                    <li>In-Person and Online Options</li>
-                                </ul>
-                            </div>
-                            <!-- Pricing List End -->
-
-                            <!-- Pricing Button Start -->
-                            <div class="pricing-btn">
-                                <a href="contact.html" class="btn-default">get started now</a>
-                            </div>
-                            <!-- Pricing Button End -->
-                        </div>
-                        <!-- Pricing Body End -->                   
-                    </div>
-                    <!-- Pricing Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Pricing Item Start -->
-                    <div class="pricing-item highlighted-box wow fadeInUp" data-wow-delay="0.2s">
-                        <!-- Pricing Image Start -->
-                        <div class="pricing-image">
-                            <figure class="image-anime">
-                                <img src="{{ asset('images/pricing-image-2.jpg') }}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Pricing Image End -->
-
-                        <!-- Pricing Content Start -->
-                        <div class="pricing-content">
-                            <div class="pricing-title">
-                                <h3>Standard plan</h3>
-                            </div>
-                            <h2>$39</h2>
-                            <p>per month</p>
-                        </div>
-                        <!-- Pricing Content End -->
-
-                        <!-- Pricing Body Start -->
-                        <div class="pricing-body">
-                            <!-- Pricing List Start -->
-                            <div class="pricing-list">
-                                <ul>
-                                    <li>Weekly Group Yoga Practice</li>
-                                    <li>Stress Relief Yoga Programs</li>
-                                    <li>Flexible Class Schedules</li>
-                                    <li>In-Person and Online Options</li>
-                                </ul>
-                            </div>
-                            <!-- Pricing List End -->
-
-                            <!-- Pricing Button Start -->
-                            <div class="pricing-btn">
-                                <a href="contact.html" class="btn-default btn-highlighted">get started now</a>
-                            </div>
-                            <!-- Pricing Button End -->
-                        </div>
-                        <!-- Pricing Body End -->
-                    </div>
-                    <!-- Pricing Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Pricing Item Start -->
-                    <div class="pricing-item wow fadeInUp" data-wow-delay="0.4s">
-                        <!-- Pricing Image Start -->
-                        <div class="pricing-image">
-                            <figure class="image-anime">
-                                <img src="{{ asset('images/pricing-image-3.jpg') }}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Pricing Image End -->
-
-                        <!-- Pricing Content Start -->
-                        <div class="pricing-content">
-                            <div class="pricing-title">
-                                <h3>Premium plan</h3>
-                            </div>
-                            <h2>$49</h2>
-                            <p>per month</p>
-                        </div>
-                        <!-- Pricing Content End -->
-
-                        <!-- Pricing Body Start -->
-                        <div class="pricing-body">
-                            <!-- Pricing List Start -->
-                            <div class="pricing-list">
-                                <ul>
-                                    <li>Weekly Group Yoga Practice</li>
-                                    <li>Stress Relief Yoga Programs</li>
-                                    <li>Flexible Class Schedules</li>
-                                    <li>In-Person and Online Options</li>
-                                </ul>
-                            </div>
-                            <!-- Pricing List End -->
-
-                            <!-- Pricing Button Start -->
-                            <div class="pricing-btn">
-                                <a href="contact.html" class="btn-default">get started now</a>
-                            </div>
-                            <!-- Pricing Button End -->
-                        </div>
-                        <!-- Pricing Body End -->
-                    </div>
-                    <!-- Pricing Item End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Programs & Camps Section End -->
-
-<!-- About Us Section Start -->
-    <div class="about-us" id="home-about">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <!-- About Images Start -->
-                    <div class="about-images">
-                        <!-- About Image Start -->
-                        <div class="about-image">
-                            <figure>
-                                <img src="{{ asset('images/about-us-img.png') }}" alt="">
-                            </figure>
-                        </div>
-                        <!-- About Image End -->
-
-                        <!-- About Image Title Start -->
-                        <div class="about-image-title">
-                            <h2>about us</h2>
-                        </div>
-                        <!-- About Image Title End -->
-                    </div>
-                    <!-- About Images End -->
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- About Us Content Start -->
-                    <div class="about-us-content">
-                        <!-- Section Title Start -->
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">About us</h3>
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Our Integrated Non–Surgical <span>Holistic Approach</span></h2>
-                            <P class="wow fadeInUp" data-wow-delay="0.2s">Discover inner peace and well-being through yoga Our practice combines physical movement, mindfulness, and breathing techniques to help you achieve balance, reduce stress, and foster personal growth.</P>
-                        </div>
-                        <!-- Section Title End -->
-
-                        <!-- About Content Body Start -->
-                        <div class="about-content-body">
-                            <!-- About Benefit Item Start -->
-                            <div class="about-benefit-item wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="icon-box">
-                                    <img src="{{ asset('images/icon-about-benefit-1.svg') }}" alt="">
+                        <div class="home-programs-camps-details">
+                            @foreach ($programDetails as $index => $detail)
+                                <div class="home-programs-camps-detail home-programs-camps-detail--{{ $detail['tone'] }} wow fadeInUp" data-wow-delay="{{ number_format(0.2 + ($index * 0.05), 2) }}s">
+                                    <span class="home-programs-camps-detail-label">{{ $detail['label'] }}</span>
+                                    <p class="home-programs-camps-detail-value">
+                                        @if (!empty($detail['icon']))
+                                            <i class="fa-solid {{ $detail['icon'] }}"></i>
+                                        @endif
+                                        {{ $detail['value'] }}
+                                    </p>
                                 </div>
-                                <div class="about-benefit-item-content">
-                                    <h3>Community Support and Encouragement</h3>
-                                    <p>Foster a sense of belonging with our supportive community. Share your journey, exchange experiences.</p>
-                                </div>
-                            </div>
-                            <!-- About Benefit Item End -->
+                            @endforeach
+                        </div>
 
-                            <!-- About Benefit Item Start -->
-                            <div class="about-benefit-item wow fadeInUp" data-wow-delay="0.6s">
-                                <div class="icon-box">
-                                    <img src="{{ asset('images/icon-about-benefit-2.svg') }}" alt="">
-                                </div>
-                                <div class="about-benefit-item-content">
-                                    <h3>Enhanced Physical Flexibility and Strength</h3>
-                                    <p>Foster a sense of belonging with our supportive community. Share your journey, exchange experiences.</p>
-                                </div>
-                            </div>
-                            <!-- About Benefit Item End -->                           
-                        </div>
-                        <!-- About Content Body End -->
-
-                        <!-- About Content Button Start -->
-                        <div class="about-content-btn wow fadeInUp" data-wow-delay="0.8s">
-                            <a href="{{ url('/about-us') }}" class="btn-default">more about us</a>
-                        </div>
-                        <!-- About Content Button End -->
-                    </div>
-                    <!-- About Us Content End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About Us Section End -->
-
-    <!-- Meet our Experts Section Start -->
-    <div class="page-team home-experts">
-        <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">Meet our Experts</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Trusted specialists in <span>holistic healing</span></h2>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="section-btn wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="{{ url('/our-expert-team') }}" class="btn-default">View all experts</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item wow fadeInUp">
-                        <div class="team-image">
-                            <a href="{{ url('/our-expert-team') }}" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/team-1.jpg') }}" alt="">
-                                </figure>
-                            </a>
-                            <div class="team-social-icon">
-                                <ul>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-content">
-                            <h2><a href="{{ url('/our-expert-team') }}">Dr. Sarah Miller</a></h2>
-                            <p>Holistic Physician</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="team-image">
-                            <a href="{{ url('/our-expert-team') }}" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/team-2.jpg') }}" alt="">
-                                </figure>
-                            </a>
-                            <div class="team-social-icon">
-                                <ul>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-content">
-                            <h2><a href="{{ url('/our-expert-team') }}">Dr. Brooklyn Simmons</a></h2>
-                            <p>Naturopathy Specialist</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="team-image">
-                            <a href="{{ url('/our-expert-team') }}" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/team-3.jpg') }}" alt="">
-                                </figure>
-                            </a>
-                            <div class="team-social-icon">
-                                <ul>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-content">
-                            <h2><a href="{{ url('/our-expert-team') }}">Dr. Leslie Alexander</a></h2>
-                            <p>Physiotherapy Expert</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="team-image">
-                            <a href="{{ url('/our-expert-team') }}" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/team-4.jpg') }}" alt="">
-                                </figure>
-                            </a>
-                            <div class="team-social-icon">
-                                <ul>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="team-content">
-                            <h2><a href="{{ url('/our-expert-team') }}">Dr. Maya Thompson</a></h2>
-                            <p>Meditation Coach</p>
+                        <div class="home-programs-camps-action wow fadeInUp" data-wow-delay="0.45s">
+                            <a href="{{ url('/contact-us') }}" class="btn-default">Explore Latest Programs <i class="fa-solid fa-arrow-right-long"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Meet our Experts Section End -->
+    <!-- Health Programs & Camps Section End -->
 
-<!-- Our Testimonials Section Start -->
-    <div class="our-testimonials">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Testimonial Image Content Start -->
-                    <div class="testimonial-image-content">
-                        <!-- Testimonial Image Start -->
-                        <div class="testimonial-image">
-                            <figure class="image-anime reveal">
-                                <img src="{{ asset('images/testimonial-image.jpg') }}" alt="">
-                            </figure>
-                        </div>
-                        <!-- Testimonial Image End -->
+<!-- Meet Our Experts Section Start -->
+    @php
+        $homeExperts = [
+            [
+                'image' => 'team-1.jpg',
+                'name' => 'Dr. Ravindra Verma',
+                'role' => 'Founder & Chairman',
+                'specialty' => 'Alternative Therapy Specialist',
+                'stats' => '25+ Years Experience',
+                'bio' => 'Leads the overall integrated treatment system and treatment philosophy.',
+            ],
+            [
+                'image' => 'team-2.jpg',
+                'name' => 'Dr. Rachana Gangrade',
+                'role' => 'Co-Founder & Managing Director',
+                'specialty' => 'Dietitian & Nutritionist',
+                'stats' => '25+ Years Experience | Ph.D. in Food & Nutrition | Weight Management Specialist',
+                'bio' => 'Expert in Integrated Nutrition for Metabolic Health, Weight Loss & Lifestyle Disorders.',
+            ],
+            [
+                'image' => 'team-3.jpg',
+                'name' => 'Dr. Pankaj Jain',
+                'role' => 'Director & Chief Medical Officer',
+                'specialty' => 'Ayurveda & Panchakarma Specialist',
+                'stats' => '25+ Years Experience | Kerala Panchakarma Specialist | Senior Ayurveda Consultant',
+                'bio' => 'Expert in Integrated Ayurveda & Panchakarma for Chronic Diseases, Pain Management & Metabolic Disorders.',
+            ],
+            [
+                'image' => 'team-4.jpg',
+                'name' => 'Dr. Shaziya Gandhi',
+                'role' => 'Co-Founder & Director',
+                'specialty' => 'Unani Medicine & Hijama Specialist',
+                'stats' => '16+ Years Experience | BUMS | Specialist in Unani Medicine & Hijama Therapy',
+                'bio' => 'Expert in Integrated Unani Healing for Detoxification, Pain Management & Lifestyle Disorders.',
+            ],
+            [
+                'image' => 'team-5.jpg',
+                'name' => 'Dr. Sanjay Patel',
+                'role' => 'Head of Physiotherapy',
+                'specialty' => 'Pain & Rehabilitation Specialist',
+                'stats' => '18+ Years Experience | MPT Orthopedics | Neuro Rehab Expert',
+                'bio' => 'Specialist in non-surgical pain relief, spine disorders, and advanced physiotherapy rehabilitation.',
+            ],
+            [
+                'image' => 'team-6.jpg',
+                'name' => 'Dr. Neha Singh',
+                'role' => 'Senior Wellness Consultant',
+                'specialty' => 'Acupuncture & Acupressure Specialist',
+                'stats' => '12+ Years Experience | Certified Acupuncturist | Holistic Pain Management',
+                'bio' => 'Expert in acupuncture, acupressure, and integrative therapies for chronic pain and wellness recovery.',
+            ],
+        ];
+    @endphp
+    <div class="home-meet-experts">
+        <div class="home-meet-experts-overlay"></div>
+        <div class="container position-relative">
+            <div class="home-meet-experts-header text-center">
+                <span class="home-meet-experts-eyebrow wow fadeInUp">Meet Our Experts</span>
+                <h2 class="wow fadeInUp" data-wow-delay="0.1s">A Multidisciplinary Team</h2>
+            </div>
 
-                        <!-- Testimonial Review Box Start -->
-                        <div class="testimonial-review-box wow fadeInUp">
-                            <div class="testimonial-review-header">
-                                <div class="testimonial-review-title">
-                                    <h3>Try a free Class Today!</h3>
-                                </div>
-                                <div class="testimonial-review-counter">
-                                    <span>30K+</span>
-                                    <p>Worldwide Client</p>
-                                </div>
+            <div class="row g-4">
+                @foreach ($homeExperts as $index => $expert)
+                    <div class="col-lg-4 col-md-6">
+                        <article class="home-expert-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.08, 2) }}s">
+                            <div class="home-expert-card-media">
+                                <img src="{{ asset('images/' . $expert['image']) }}" alt="{{ $expert['name'] }}">
                             </div>
-                            <div class="testimonial-review-body">
-                                <div class="testimonial-review-content">
-                                    <p>Experience the benefits of yoga with a free trial class! Discover how mindful movement, techniques, and guided relaxation can enhance your well-being No matter your skill level, this is the perfect.</p>
-                                </div>
-                                <div class="testimonial-review-btn">
-                                    <a href="contact.html"><img src="{{ asset('images/arrow-white.svg') }}" alt=""></a>
-                                </div>
+                            <div class="home-expert-card-body">
+                                <h3 class="home-expert-card-name">{{ $expert['name'] }}</h3>
+                                <p class="home-expert-card-role">{{ $expert['role'] }}</p>
+                                <p class="home-expert-card-specialty">{{ $expert['specialty'] }}</p>
+                                <hr class="home-expert-card-divider">
+                                <p class="home-expert-card-stats">{{ $expert['stats'] }}</p>
+                                <p class="home-expert-card-bio">{{ $expert['bio'] }}</p>
                             </div>
-                        </div>
-                        <!-- Testimonial Review Box End -->
+                        </article>
                     </div>
-                    <!-- Testimonial Image Content End -->
-                </div>
+                @endforeach
+            </div>
 
-                <div class="col-lg-6">
-                    <!-- Our Testimonial Content Start -->
-                    <div class="our-testimonial-content">
-                        <!-- Section Title Start -->
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">Our testimonials</h3>
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Real stories transformation <span>and growth</span></h2>                            
-                        </div>
-                        <!-- Section Title End -->
-                        
-                        <div class="our-testimonial-box">
-                            <!-- Testimonial Item Start -->
-                            <div class="testimonial-item wow fadeInUp" data-wow-delay="0.2s">
-                                <div class="testimonial-author">
-                                    <div class="author-image">
-                                        <figure class="image-anime">
-                                            <img src="{{ asset('images/scrolling-ticker-image-1.jpg') }}" alt="">
-                                        </figure>
-                                    </div>            
-                                    <div class="author-content">
-                                        <h3>Sarah Miller</h3>
-                                        <p>Founder & Lead Yoga Instructor</p>
+            <div class="home-meet-experts-action text-center wow fadeInUp" data-wow-delay="0.3s">
+                <a href="{{ url('/our-expert-team') }}" class="btn-default">Know More <i class="fa-solid fa-arrow-right-long"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- Meet Our Experts Section End -->
+
+<!-- Patient Feedback Section Start -->
+    @php
+        $patientReviews = [
+            [
+                'name' => 'Kiran Mehta',
+                'initial' => 'K',
+                'avatar_tone' => 'accent',
+                'time' => '6 months ago',
+                'text' => 'I came to Sahaj Aarogyam with chronic back pain and limited mobility. Within weeks of integrated physiotherapy and Ayurveda support, my pain reduced significantly. The team is compassionate, professional, and truly focused on root-cause healing.',
+            ],
+            [
+                'name' => 'Amit Sharma',
+                'initial' => 'A',
+                'avatar_tone' => 'primary',
+                'time' => '3 months ago',
+                'text' => 'Excellent experience for my father\'s knee pain treatment. Non-surgical care, clear guidance, and regular follow-ups made a huge difference. Staff explained every step patiently. Highly recommended for anyone seeking natural recovery.',
+            ],
+            [
+                'name' => 'Priya Verma',
+                'initial' => 'P',
+                'avatar_tone' => 'warm',
+                'time' => '1 year ago',
+                'text' => 'The weight management and nutrition program changed my lifestyle completely. Dr Rachana\'s diet plan was practical and easy to follow. I lost weight sustainably without crash dieting. Very grateful to the entire team.',
+            ],
+            [
+                'name' => 'Rajesh Gupta',
+                'initial' => 'R',
+                'avatar_tone' => 'accent',
+                'time' => '2 months ago',
+                'text' => 'Panchakarma detox at Sahaj Aarogyam was a transformative experience. Clean facility, expert Ayurveda doctors, and personalized therapy plan. I feel lighter, more energetic, and mentally refreshed after the program.',
+            ],
+            [
+                'name' => 'Sunita Jain',
+                'initial' => 'S',
+                'avatar_tone' => 'primary',
+                'time' => '4 weeks ago',
+                'text' => 'Hijama therapy and Unani consultation helped with my long-standing fatigue and joint stiffness. Dr Shaziya was thorough and caring. The holistic approach here treats the person, not just symptoms.',
+            ],
+            [
+                'name' => 'Mohan Das',
+                'initial' => 'M',
+                'avatar_tone' => 'warm',
+                'time' => '8 months ago',
+                'text' => 'Slip disc pain had made daily life difficult. After structured rehab and acupuncture sessions, I am back to normal activities without surgery. Transparent pricing, skilled therapists, and genuine care throughout.',
+            ],
+        ];
+    @endphp
+    <div class="home-patient-feedback">
+        <div class="container">
+            <div class="home-patient-feedback-header text-center wow fadeInUp">
+                <h2>Our Patient Feedback</h2>
+                <div class="home-patient-feedback-rating">
+                    <span class="home-patient-feedback-rating-label">Excellent</span>
+                    <div class="home-patient-feedback-stars" aria-label="5 out of 5 stars">
+                        @for ($i = 0; $i < 5; $i++)
+                            <i class="fa-solid fa-star"></i>
+                        @endfor
+                    </div>
+                    <p class="home-patient-feedback-count">Based on <strong>346 reviews</strong></p>
+                    <div class="home-patient-feedback-google" aria-hidden="true">
+                        <i class="fa-brands fa-google"></i>
+                        <span>Google Reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-patient-feedback-slider-wrap wow fadeInUp" data-wow-delay="0.15s">
+                <button type="button" class="home-patient-feedback-nav home-patient-feedback-prev" aria-label="Previous review">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div class="swiper home-patient-feedback-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($patientReviews as $review)
+                            <div class="swiper-slide">
+                                <article class="home-feedback-card">
+                                    <div class="home-feedback-card-top">
+                                        <div class="home-feedback-author">
+                                            <span class="home-feedback-avatar home-feedback-avatar--{{ $review['avatar_tone'] }}">{{ $review['initial'] }}</span>
+                                            <div>
+                                                <h3>{{ $review['name'] }}</h3>
+                                                <time>{{ $review['time'] }}</time>
+                                            </div>
+                                        </div>
+                                        <span class="home-feedback-google-badge" aria-label="Google review">
+                                            <i class="fa-brands fa-google"></i>
+                                        </span>
                                     </div>
-                                </div>
-                                <div class="testimonial-item-content">
-                                    <p>"Joining this yoga and meditation program was life-changing. I feel more balanced, focused, and at peace than ever before The instructors are knowledgeable, patient, and truly inspiring."</p>
-                                </div>
-                                <div class="testimonial-rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>   
-                            </div>
-                            <!-- Testimonial Item End -->
-
-                            <!-- Testimonial Item Start -->
-                            <div class="testimonial-item wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="testimonial-author">
-                                    <div class="author-image">
-                                        <figure class="image-anime">
-                                            <img src="{{ asset('images/scrolling-ticker-image-2.jpg') }}" alt="">
-                                        </figure>
-                                    </div>            
-                                    <div class="author-content">
-                                        <h3>Sarah Miller</h3>
-                                        <p>Founder & Lead Yoga Instructor</p>
+                                    <div class="home-feedback-card-rating">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            <i class="fa-solid fa-star"></i>
+                                        @endfor
+                                        <span class="home-feedback-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>
                                     </div>
-                                </div>
-                                <div class="testimonial-item-content">
-                                    <p>"Joining this yoga and meditation program was life-changing. I feel more balanced, focused, and at peace than ever before The instructors are knowledgeable, patient, and truly inspiring."</p>
-                                </div>
-                                <div class="testimonial-rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>   
+                                    <div class="home-feedback-card-text">
+                                        <p class="home-feedback-review-text">{{ $review['text'] }}</p>
+                                        <button type="button" class="home-feedback-read-more" aria-expanded="false">Read more</button>
+                                    </div>
+                                </article>
                             </div>
-                            <!-- Testimonial Item End -->
-                        </div>
+                        @endforeach
                     </div>
-                    <!-- Our Testimonial Content End -->
                 </div>
+
+                <button type="button" class="home-patient-feedback-nav home-patient-feedback-next" aria-label="Next review">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="home-patient-feedback-action text-center wow fadeInUp" data-wow-delay="0.25s">
+                <a href="#" class="btn-default" target="_blank" rel="noopener noreferrer">Read More Reviews <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
         </div>
     </div>
-    <!-- Our Testimonial Section End -->
+    <!-- Patient Feedback Section End -->
 
-    <!-- Gallery Section Start -->
-    <div class="page-gallery home-gallery">
+<!-- Gallery Section Start -->
+    @php
+        $galleryPanels = [
+            [
+                'image' => 'gallery-2.jpg',
+                'title' => 'Ayurveda & Panchakarma',
+                'text' => 'Traditional detox and rejuvenation therapies for deep healing and balance.',
+            ],
+            [
+                'image' => 'gallery-3.jpg',
+                'title' => 'Metabolic Wellness',
+                'text' => 'Personalized nutrition and lifestyle guidance for sustainable health outcomes.',
+            ],
+            [
+                'image' => 'gallery-4.jpg',
+                'title' => 'Mindfulness & Meditation',
+                'text' => 'Reduce stress, improve focus, and cultivate inner peace through guided meditation practices.',
+                'featured' => true,
+                'icons' => ['fa-leaf', 'fa-spa', 'fa-person-praying', 'fa-heart-pulse', 'fa-seedling', 'fa-hand-holding-heart'],
+            ],
+            [
+                'image' => 'gallery-5.jpg',
+                'title' => 'Hijama & Cupping',
+                'text' => 'Natural detox and pain-relief therapies rooted in time-tested healing traditions.',
+            ],
+            [
+                'image' => 'gallery-6.jpg',
+                'title' => 'Therapeutic Massage',
+                'text' => 'Expert manual therapy to relieve tension, restore mobility, and accelerate recovery.',
+            ],
+        ];
+    @endphp
+    <div class="home-gallery-showcase">
         <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">Gallery</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">A glimpse of our <span>healing centre</span></h2>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="section-btn wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="{{ url('/gallery') }}" class="btn-default">View full gallery</a>
-                    </div>
-                </div>
+            <div class="home-gallery-showcase-header text-center wow fadeInUp">
+                <h2>Gallery</h2>
             </div>
-            <div class="row gallery-items page-gallery-box">
-                <div class="col-lg-4 col-6">
-                    <div class="photo-gallery wow fadeInUp">
-                        <a href="{{ asset('images/gallery-1.jpg') }}" data-cursor-text="View">
-                            <figure class="image-anime"><img src="{{ asset('images/gallery-1.jpg') }}" alt=""></figure>
+        </div>
+
+        <div class="home-gallery-accordion-wrap gallery-items wow fadeInUp" data-wow-delay="0.1s">
+            <div class="home-gallery-accordion" role="list">
+                @foreach ($galleryPanels as $index => $panel)
+                    <article
+                        class="home-gallery-panel{{ !empty($panel['featured']) ? ' is-featured' : '' }}"
+                        role="listitem"
+                        data-panel-index="{{ $index }}"
+                    >
+                        <a href="{{ asset('images/' . $panel['image']) }}" class="home-gallery-panel-link" data-cursor-text="View">
+                            <img src="{{ asset('images/' . $panel['image']) }}" alt="{{ $panel['title'] }}">
+                            <span class="home-gallery-panel-shade" aria-hidden="true"></span>
+                            <div class="home-gallery-panel-content">
+                                @if (!empty($panel['icons']))
+                                    <div class="home-gallery-panel-icons" aria-hidden="true">
+                                        @foreach ($panel['icons'] as $icon)
+                                            <span><i class="fa-solid {{ $icon }}"></i></span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <h3>{{ $panel['title'] }}</h3>
+                                <p>{{ $panel['text'] }}</p>
+                            </div>
                         </a>
-                    </div>
+                    </article>
+                @endforeach
+            </div>
+
+            <div class="home-gallery-accordion-mobile swiper home-gallery-mobile-swiper">
+                <div class="swiper-wrapper">
+                    @foreach ($galleryPanels as $panel)
+                        <div class="swiper-slide">
+                            <article class="home-gallery-mobile-card">
+                                <a href="{{ asset('images/' . $panel['image']) }}" class="home-gallery-mobile-link" data-cursor-text="View">
+                                    <img src="{{ asset('images/' . $panel['image']) }}" alt="{{ $panel['title'] }}">
+                                    <span class="home-gallery-panel-shade" aria-hidden="true"></span>
+                                    <div class="home-gallery-panel-content">
+                                        <h3>{{ $panel['title'] }}</h3>
+                                        <p>{{ $panel['text'] }}</p>
+                                    </div>
+                                </a>
+                            </article>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="col-lg-4 col-6">
-                    <div class="photo-gallery wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="{{ asset('images/gallery-2.jpg') }}" data-cursor-text="View">
-                            <figure class="image-anime"><img src="{{ asset('images/gallery-2.jpg') }}" alt=""></figure>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <div class="photo-gallery wow fadeInUp" data-wow-delay="0.4s">
-                        <a href="{{ asset('images/gallery-3.jpg') }}" data-cursor-text="View">
-                            <figure class="image-anime"><img src="{{ asset('images/gallery-3.jpg') }}" alt=""></figure>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <div class="photo-gallery wow fadeInUp" data-wow-delay="0.6s">
-                        <a href="{{ asset('images/gallery-4.jpg') }}" data-cursor-text="View">
-                            <figure class="image-anime"><img src="{{ asset('images/gallery-4.jpg') }}" alt=""></figure>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <div class="photo-gallery wow fadeInUp" data-wow-delay="0.8s">
-                        <a href="{{ asset('images/gallery-5.jpg') }}" data-cursor-text="View">
-                            <figure class="image-anime"><img src="{{ asset('images/gallery-5.jpg') }}" alt=""></figure>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6">
-                    <div class="photo-gallery wow fadeInUp" data-wow-delay="1s">
-                        <a href="{{ asset('images/gallery-6.jpg') }}" data-cursor-text="View">
-                            <figure class="image-anime"><img src="{{ asset('images/gallery-6.jpg') }}" alt=""></figure>
-                        </a>
-                    </div>
-                </div>
+                <div class="home-gallery-mobile-pagination swiper-pagination"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="home-gallery-showcase-action text-center wow fadeInUp" data-wow-delay="0.2s">
+                <a href="{{ url('/gallery') }}" class="btn-default">See More <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
         </div>
     </div>
     <!-- Gallery Section End -->
 
-<!-- Blogs Section Start -->
-    <div class="our-blog">
+<!-- Blog Post Section Start -->
+    @php
+        $homeBlogPosts = [
+            [
+                'image' => 'post-1.jpg',
+                'title' => '5 Natural Ways to Improve Your Gut Health',
+                'excerpt' => 'Good gut health is the foundation of overall well-being. A healthy gut improves digestion, boosts immunity, enhances mood, and helps maintain a healthy weight.',
+                'date' => 'May 29, 2026',
+            ],
+            [
+                'image' => 'post-2.jpg',
+                'title' => 'Ayurveda vs Modern Lifestyle Disorders',
+                'excerpt' => 'Modern lifestyle has led to an increase in disorders like obesity, diabetes, hypertension, PCOS, thyroid issues, and stress-related conditions. While modern medicine manages symptoms, Ayurveda treats the root cause.',
+                'date' => 'May 29, 2026',
+            ],
+            [
+                'image' => 'post-3.jpg',
+                'title' => 'How Physiotherapy Helps in Chronic Pain Recovery',
+                'excerpt' => 'Chronic pain can affect your daily life and limit your ability to move, work, and enjoy the things you love. Physiotherapy focuses on reducing pain, improving mobility, and restoring function naturally.',
+                'date' => 'May 29, 2026',
+            ],
+        ];
+    @endphp
+    <div class="home-blog-posts">
         <div class="container">
-            <div class="row section-row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">Blogs</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Explore our latest <span>yoga insights</span></h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-    
-                <div class="col-lg-6">
-                    <!-- Section Title Content Start -->
-                    <div class="section-btn wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="{{ url('/blog') }}" class="btn-default">View all post</a>
-                    </div>
-                    <!-- Section Title Content End -->
-                </div>
+            <div class="home-blog-posts-header text-center wow fadeInUp">
+                <h2>Blog Post</h2>
             </div>
-            
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <!-- Post Item Start -->
-                    <div class="post-item wow fadeInUp">
-                        <!-- Post Featured Image Start-->
-                        <div class="post-featured-image">
-                            <a href="blog-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/post-1.jpg') }}" alt="">
-                                </figure>
+
+            <div class="row g-4">
+                @foreach ($homeBlogPosts as $index => $post)
+                    <div class="col-lg-4 col-md-6">
+                        <article class="home-blog-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.1, 1) }}s">
+                            <a href="{{ url('/blog') }}" class="home-blog-card-image" data-cursor-text="View">
+                                <img src="{{ asset('images/' . $post['image']) }}" alt="{{ $post['title'] }}">
                             </a>
-                        </div>
-                        <!-- Post Featured Image End -->
-
-                        <!-- Post Item Body Start -->
-                        <div class="post-item-body">
-                            <!-- Post Item Content Start -->
-                            <div class="post-item-content">
-                                <h2><a href="blog-single.html">Chakra Balancing Through Yoga and Meditation</a></h2>
+                            <div class="home-blog-card-body">
+                                <ul class="home-blog-card-meta">
+                                    <li><i class="fa-solid fa-user"></i> sahajaarogyam</li>
+                                    <li><i class="fa-solid fa-calendar-days"></i> {{ $post['date'] }}</li>
+                                    <li><i class="fa-solid fa-folder"></i> Blog</li>
+                                </ul>
+                                <h3><a href="{{ url('/blog') }}">{{ $post['title'] }}</a></h3>
+                                <p>{{ $post['excerpt'] }}</p>
+                                <a href="{{ url('/blog') }}" class="home-blog-readmore">Read more</a>
                             </div>
-                            <!-- Post Item Content End -->
-
-                            <!-- Post Item Readmore Button Start-->
-                            <div class="post-item-btn">
-                                <a href="blog-single.html" class="readmore-btn">read more</a>
-                            </div>
-                            <!-- Post Item Readmore Button End-->
-                        </div>
-                        <!-- Post Item Body End -->
+                        </article>
                     </div>
-                    <!-- Post Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Post Item Start -->
-                    <div class="post-item wow fadeInUp" data-wow-delay="0.2s">
-                       <!-- Post Featured Image Start-->
-                       <div class="post-featured-image">
-                            <a href="blog-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/post-2.jpg') }}" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- Post Featured Image End -->
-
-                        <!-- Post Item Body Start -->
-                        <div class="post-item-body">
-                            <!-- Post Item Content Start -->
-                            <div class="post-item-content">
-                                <h2><a href="blog-single.html">The Science Behind Mindfulness Practices</a></h2>
-                            </div>
-                            <!-- Post Item Content End -->
-
-                            <!-- Post Item Readmore Button Start-->
-                            <div class="post-item-btn">
-                                <a href="blog-single.html" class="readmore-btn">read more</a>
-                            </div>
-                            <!-- Post Item Readmore Button End-->
-                        </div>
-                        <!-- Post Item Body End -->
-                    </div>
-                    <!-- Post Item End -->
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <!-- Post Item Start -->
-                    <div class="post-item wow fadeInUp" data-wow-delay="0.4s">
-                        <!-- Post Featured Image Start-->
-                        <div class="post-featured-image">
-                            <a href="blog-single.html" data-cursor-text="View">
-                                <figure class="image-anime">
-                                    <img src="{{ asset('images/post-3.jpg') }}" alt="">
-                                </figure>
-                            </a>
-                        </div>
-                        <!-- Post Featured Image End -->
-
-                        <!-- Post Item Body Start -->
-                        <div class="post-item-body">
-                            <!-- Post Item Content Start -->
-                            <div class="post-item-content">
-                                <h2><a href="blog-single.html">Creating a Peaceful Meditation Space at Home</a></h2>
-                            </div>
-                            <!-- Post Item Content End -->
-
-                            <!-- Post Item Readmore Button Start-->
-                            <div class="post-item-btn">
-                                <a href="blog-single.html" class="readmore-btn">read more</a>
-                            </div>
-                            <!-- Post Item Readmore Button End-->
-                        </div>
-                        <!-- Post Item Body End -->
-                    </div>
-                    <!-- Post Item End -->
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
-    <!-- Blogs Section End -->
+    <!-- Blog Post Section End -->
 
 <!-- FAQ Section Start -->
-    <div class="our-faqs">
+    @php
+        $homeFaqs = [
+            [
+                'question' => 'What treatments does Sahaj Aarogyam offer?',
+                'answer' => 'We offer integrated non-surgical care including physiotherapy, Ayurveda, Panchakarma, Hijama, acupuncture, nutrition counselling, pain rehabilitation, and lifestyle disorder management — all under one roof.',
+            ],
+            [
+                'question' => 'Do I need a doctor\'s referral to visit?',
+                'answer' => 'No referral is required. You can book a consultation directly. Our specialists will assess your condition and recommend a personalised treatment plan during your first visit.',
+            ],
+            [
+                'question' => 'Are your treatments non-surgical?',
+                'answer' => 'Yes. Our focus is on natural, evidence-based therapies that help you recover without surgery wherever possible. Treatment plans are tailored to your condition, age, and health goals.',
+            ],
+            [
+                'question' => 'How long does a typical treatment plan take?',
+                'answer' => 'It depends on your condition and severity. Some patients notice relief within a few sessions, while chronic or long-standing issues may need a structured plan over several weeks.',
+            ],
+            [
+                'question' => 'Do you offer personalised diet and lifestyle plans?',
+                'answer' => 'Absolutely. Our nutritionists and wellness consultants create practical diet, exercise, and lifestyle protocols to support recovery, weight management, and long-term health.',
+            ],
+            [
+                'question' => 'How do I book an appointment?',
+                'answer' => 'You can book online through our website, call our clinic directly, or visit us in person. Our team will help you schedule a consultation at your convenience.',
+            ],
+        ];
+    @endphp
+    <div class="home-faq">
         <div class="container">
-            <div class="row section-row align-items-center">
+            <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-6">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h3 class="wow fadeInUp">FAQs</h3>
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Answers to common yoga <span>meditation questions</span></h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- Section Button Start -->
-                    <div class="section-btn wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="{{ url('/contact-us') }}#faq" class="btn-default">view all faqs</a>
-                    </div>
-                    <!-- Section Button End -->
-                </div>
-            </div>
-
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Our FAQs Content Start -->
-                    <div class="our-faqs-content">
-                        <!-- FAQ Accordion Start -->
-                        <div class="faq-accordion" id="accordion">
-                            <!-- FAQ Item Start -->
-                            <div class="accordion-item wow fadeInUp">
-                                <h2 class="accordion-header" id="heading1">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                        What is yoga, and how can it benefit me?
-                                    </button>
-                                </h2>
-                                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <p>No prior experience is required. Our classes cater to all levels, from beginners to advanced practitioners. Instructors will guide you every step of the way.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- FAQ Item End -->
-                
-                            <!-- FAQ Item Start -->
-                            <div class="accordion-item wow fadeInUp" data-wow-delay="0.2s">
-                                <h2 class="accordion-header" id="heading2">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                        Do I need prior experience to join a class?
-                                    </button>
-                                </h2>
-                                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <p>No prior experience is required. Our classes cater to all levels, from beginners to advanced practitioners. Instructors will guide you every step of the way.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- FAQ Item End -->
-                
-                            <!-- FAQ Item Start -->
-                            <div class="accordion-item wow fadeInUp" data-wow-delay="0.4s">
-                                <h2 class="accordion-header" id="heading3">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                        What's the difference between yoga and meditation?
-                                    </button>
-                                </h2>
-                                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <p>No prior experience is required. Our classes cater to all levels, from beginners to advanced practitioners. Instructors will guide you every step of the way.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- FAQ Item End -->
-                
-                            <!-- FAQ Item Start -->
-                            <div class="accordion-item wow fadeInUp" data-wow-delay="0.6s">
-                                <h2 class="accordion-header" id="heading4">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                        What types of yoga classes do you offer?
-                                    </button>
-                                </h2>
-                                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <p>No prior experience is required. Our classes cater to all levels, from beginners to advanced practitioners. Instructors will guide you every step of the way.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- FAQ Item End -->
-
-                            <!-- FAQ Item Start -->
-                            <div class="accordion-item wow fadeInUp" data-wow-delay="0.8s">
-                                <h2 class="accordion-header" id="heading5">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                                        How do I know which class is right for me?
-                                    </button>
-                                </h2>
-                                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <p>No prior experience is required. Our classes cater to all levels, from beginners to advanced practitioners. Instructors will guide you every step of the way.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- FAQ Item End -->
+                    <div class="home-faq-content">
+                        <div class="home-faq-header wow fadeInUp">
+                            <span class="home-faq-eyebrow">FAQs</span>
+                            <h2>Frequently Asked Questions</h2>
+                            <p>Quick answers about our treatments, appointments, and holistic care approach.</p>
                         </div>
-                        <!-- FAQ Accordion End -->
+
+                        <div class="home-faq-accordion accordion wow fadeInUp" data-wow-delay="0.1s" id="homeFaqAccordion">
+                            @foreach ($homeFaqs as $index => $faq)
+                                <div class="accordion-item home-faq-item">
+                                    <h3 class="accordion-header" id="homeFaqHeading{{ $index }}">
+                                        <button
+                                            class="accordion-button{{ $index === 0 ? '' : ' collapsed' }}"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#homeFaqCollapse{{ $index }}"
+                                            aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
+                                            aria-controls="homeFaqCollapse{{ $index }}"
+                                        >
+                                            {{ $faq['question'] }}
+                                        </button>
+                                    </h3>
+                                    <div
+                                        id="homeFaqCollapse{{ $index }}"
+                                        class="accordion-collapse collapse{{ $index === 0 ? ' show' : '' }}"
+                                        aria-labelledby="homeFaqHeading{{ $index }}"
+                                        data-bs-parent="#homeFaqAccordion"
+                                    >
+                                        <div class="accordion-body">
+                                            <p>{{ $faq['answer'] }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                    <!-- Our FAQs Content End -->
                 </div>
 
                 <div class="col-lg-6">
-                    <!-- Faqs Image Start -->
-                    <div class="faqs-image">
-                        <figure class="image-anime reveal">
-                            <img src="{{ asset('images/faqs-image.jpg') }}" alt="">
+                    <div class="home-faq-media wow fadeInUp" data-wow-delay="0.15s">
+                        <figure class="home-faq-image">
+                            <img src="{{ asset('images/faqs-image.jpg') }}" alt="Sahaj Aarogyam consultation">
                         </figure>
-
-                        <!-- Faqs Contact Box Start -->
-                        <div class="faqs-contact-box">
-                            <div class="icon-box">
-                                <i class="fa-solid fa-phone-volume"></i>
-                            </div>
-                            <div class="faqs-contact-box-content">
-                                <h3>Still have Question?</h3>
-                                <p><a href="https://html.awaikenthemes.com/restraint/0761852398"></a>(0) - 0761-852-398</p>
-                            </div>
-                        </div>
-                        <!-- Faqs Contact Box End -->
+                        <a href="{{ url('/contact-us') }}" class="home-faq-contact-box">
+                            <span class="home-faq-contact-icon"><i class="fa-solid fa-phone-volume"></i></span>
+                            <span class="home-faq-contact-text">
+                                <strong>Still Have Questions?</strong>
+                                <span>Call us at +91 94259 63336</span>
+                            </span>
+                        </a>
                     </div>
-                    <!-- Faqs Image End -->
                 </div>
             </div>
         </div>
     </div>
     <!-- FAQ Section End -->
 
-    <!-- Location SEO Section Start -->
-    <div class="page-contact-us home-location" id="location">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="contact-us-content">
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">Location</h3>
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Visit our <span>wellness centre</span></h2>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Find us easily and plan your visit. We welcome patients seeking non-surgical holistic care for pain relief, rehabilitation, and long-term wellness.</p>
-                        </div>
-                        <div class="contact-info-list">
-                            <div class="contact-info-item wow fadeInUp">
-                                <div class="icon-box"><img src="{{ asset('images/icon-location.svg') }}" alt=""></div>
-                                <div class="contact-item-content">
-                                    <h3>Address</h3>
-                                    <p>123 High Street LN1 1AB, United Kingdom</p>
-                                </div>
-                            </div>
-                            <div class="contact-info-item wow fadeInUp" data-wow-delay="0.2s">
-                                <div class="icon-box"><img src="{{ asset('images/icon-phone.svg') }}" alt=""></div>
-                                <div class="contact-item-content">
-                                    <h3>Phone</h3>
-                                    <p><a href="tel:761853398">+(1) 761-853-398</a></p>
-                                </div>
-                            </div>
-                            <div class="contact-info-item wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="icon-box"><img src="{{ asset('images/icon-clock.svg') }}" alt=""></div>
-                                <div class="contact-item-content">
-                                    <h3>Opening Hours</h3>
-                                    <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
-                                </div>
-                            </div>
-                        </div>
+<!-- Location Map Section Start -->
+    @php
+        $defaultMap = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.0!2d75.857!3d22.7196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSahaj%20Aarogyam!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+        $mapEmbed = ($settings['google_map_embed'] ?? '') ?: $defaultMap;
+        $locationAddress = ($settings['address'] ?? '') ?: '560 Sector B Greater Brajeshwari, Near Agrawal Public School, Indore, India, 452001';
+        $locationPhone = ($settings['phone_1'] ?? '') ?: '+91 94259 63336';
+        $locationEmailPrimary = ($settings['email_1'] ?? '') ?: 'info@sahajaarogyam.com';
+        $locationEmailSecondary = ($settings['email_2'] ?? '') ?: 'sahajaarogyam@gmail.com';
+    @endphp
+    <div class="home-location-map" id="location">
+        <div class="home-location-map-overlay"></div>
+        <div class="container position-relative">
+            <div class="row align-items-center g-4 g-lg-5">
+                <div class="col-lg-5">
+                    <div class="home-location-content wow fadeInUp">
+                        <h2>Serving Indore &amp; Nearby</h2>
+                        <p>Conveniently located in the heart of Indore, we proudly serve patients from across the city and nearby areas.</p>
+
+                        <ul class="home-location-details">
+                            <li>
+                                <span class="home-location-icon"><i class="fa-solid fa-location-dot"></i></span>
+                                <span>{{ $locationAddress }}</span>
+                            </li>
+                            <li>
+                                <span class="home-location-icon"><i class="fa-solid fa-phone"></i></span>
+                                <span><a href="tel:{{ preg_replace('/\s+/', '', $locationPhone) }}">{{ $locationPhone }}</a></span>
+                            </li>
+                            <li>
+                                <span class="home-location-icon"><i class="fa-solid fa-envelope"></i></span>
+                                <span>
+                                    <a href="mailto:{{ $locationEmailPrimary }}">{{ $locationEmailPrimary }}</a>,
+                                    <a href="mailto:{{ $locationEmailSecondary }}">{{ $locationEmailSecondary }}</a>
+                                </span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="google-map-iframe wow fadeInUp" data-wow-delay="0.2s">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96737.10562045308!2d-74.08535042841811!3d40.739265258395164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1703158537552!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                <div class="col-lg-7">
+                    <div class="home-location-map-frame wow fadeInUp" data-wow-delay="0.15s">
+                        <iframe
+                            src="{{ $mapEmbed }}"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Sahaj Aarogyam clinic location on Google Maps"
+                        ></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Location SEO Section End -->
+    <!-- Location Map Section End -->
 
-<!-- Final CTA Section Start -->
-    <div class="cta-box">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-9">
-                    <!-- Section Title Start -->
-                    <div class="section-title">
-                        <h2 class="text-anime-style-2" data-cursor="-opaque">Journey to Explore Yoga Amidst Stunning Natural Landscapes</h2>
-                    </div>
-                    <!-- Section Title End -->
-                </div>
-
-                <div class="col-lg-3">
-                    <!-- Section Button Start -->
-                    <div class="section-btn wow fadeInUp">
-                        <a href="{{ url('/contact-us') }}" class="btn-default btn-highlighted">Book Appointment</a>
-                    </div>
-                    <!-- Section Button End -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Final CTA Section End -->
 @endsection

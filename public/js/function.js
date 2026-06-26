@@ -84,6 +84,83 @@
 		});
 	}
 
+	/* Home Patient Feedback Swiper */
+	if ($('.home-patient-feedback-swiper').length) {
+		const patientFeedbackSwiper = new Swiper('.home-patient-feedback-swiper', {
+			slidesPerView: 1.12,
+			spaceBetween: 16,
+			speed: 650,
+			loop: true,
+			grabCursor: true,
+			autoplay: {
+				delay: 4500,
+				disableOnInteraction: false,
+				pauseOnMouseEnter: true,
+			},
+			navigation: {
+				nextEl: '.home-patient-feedback-next',
+				prevEl: '.home-patient-feedback-prev',
+			},
+			breakpoints: {
+				576: {
+					slidesPerView: 1.35,
+					spaceBetween: 18,
+				},
+				768: {
+					slidesPerView: 2,
+					spaceBetween: 20,
+				},
+				1200: {
+					slidesPerView: 3,
+					spaceBetween: 22,
+				},
+				1400: {
+					slidesPerView: 4,
+					spaceBetween: 24,
+				},
+			},
+		});
+
+		patientFeedbackSwiper.on('resize', function () {
+			this.update();
+		});
+	}
+
+	/* Patient Feedback Read More */
+	$(document).on('click', '.home-feedback-read-more', function () {
+		const card = $(this).closest('.home-feedback-card');
+		const isExpanded = card.hasClass('is-expanded');
+
+		card.toggleClass('is-expanded', !isExpanded);
+		$(this).text(isExpanded ? 'Read more' : 'Read less');
+		$(this).attr('aria-expanded', !isExpanded);
+	});
+
+	/* Home Gallery Mobile Swiper */
+	if ($('.home-gallery-mobile-swiper').length) {
+		const galleryMobileSwiper = new Swiper('.home-gallery-mobile-swiper', {
+			slidesPerView: 1.08,
+			spaceBetween: 16,
+			speed: 650,
+			loop: true,
+			grabCursor: true,
+			centeredSlides: true,
+			autoplay: {
+				delay: 4000,
+				disableOnInteraction: false,
+				pauseOnMouseEnter: true,
+			},
+			pagination: {
+				el: '.home-gallery-mobile-pagination',
+				clickable: true,
+			},
+		});
+
+		galleryMobileSwiper.on('resize', function () {
+			this.update();
+		});
+	}
+
 	/* Book Appointment Modal */
 	if ($('#bookAppointmentModal').length) {
 		$('#bookAppointmentForm').on('submit', function (event) {
