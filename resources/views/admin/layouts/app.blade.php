@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@yield('title', 'Dashboard') - Sahaj Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
+    <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    @stack('styles')
+</head>
+<body id="body" class="dark-sidebar">
+
+    <!-- Sidebar -->
+    <div class="left-sidebar">
+        <div class="brand">
+            <a href="{{ route('admin.dashboard') }}" class="logo">
+                <span>
+                    <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
+                </span>
+                <span>
+                    <img src="{{ asset('admin/assets/images/logo.png') }}" alt="logo-large" class="logo-lg logo-light">
+                    <img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="logo-large" class="logo-lg logo-dark">
+                </span>
+            </a>
+        </div>
+
+        <div class="sidebar-user-pro media border-end">
+            <div class="position-relative mx-auto">
+                <img src="{{ auth()->user()->avatarUrl() }}" alt="user" class="rounded-circle thumb-md">
+                <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
+            </div>
+            <div class="media-body ms-2 user-detail align-self-center">
+                <h5 class="font-14 m-0 fw-bold">{{ auth()->user()->name }}</h5>
+                <p class="opacity-50 mb-0">{{ auth()->user()->email }}</p>
+            </div>
+        </div>
+
+        <div class="menu-content h-100" data-simplebar>
+            <div class="menu-body navbar-vertical">
+                <ul class="navbar-nav">
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold">M<span>enu</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            <i class="ti ti-smart-home menu-icon"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/') }}" target="_blank">
+                            <i class="ti ti-world menu-icon"></i>
+                            <span>View Website</span>
+                        </a>
+                    </li>
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.settings.general') ? 'active' : '' }}" href="{{ route('admin.settings.general') }}">
+                            <i class="ti ti-settings menu-icon"></i>
+                            <span>General Settings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}" href="{{ route('admin.profile.edit') }}">
+                            <i class="ti ti-user menu-icon"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <nav class="navbar-custom" id="navbar-custom">
+            <ul class="list-unstyled topbar-nav float-end mb-0">
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ auth()->user()->avatarUrl() }}" alt="profile-user" class="rounded-circle me-2 thumb-sm" />
+                            <div>
+                                <small class="d-none d-md-block font-11">Admin</small>
+                                <span class="d-none d-md-block fw-semibold font-12">{{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
+                            <i class="ti ti-user font-16 me-1 align-text-bottom"></i> Profile
+                        </a>
+                        <form action="{{ route('admin.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                                <i class="ti ti-power font-16 me-1 align-text-bottom"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled topbar-nav mb-0">
+                <li>
+                    <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
+                        <i class="ti ti-menu-2"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-wrapper">
+        <div class="page-content-tab">
+            <div class="container-fluid">
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @yield('content')
+            </div>
+
+            <footer class="footer text-center text-sm-start">
+                &copy; {{ date('Y') }} Sahaj Admin
+            </footer>
+        </div>
+    </div>
+
+    <script src="{{ asset('admin/assets/js/app.js') }}"></script>
+    @stack('scripts')
+</body>
+</html>
