@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\View\View;
 
 /**
@@ -62,53 +63,12 @@ class DashboardController extends Controller
             ],
         ];
 
-        $latestContacts = [
-            [
-                'name' => 'Priya Sharma',
-                'email' => 'priya.sharma@gmail.com',
-                'phone' => '+91 98260 12345',
-                'subject' => 'Physiotherapy Appointment',
-                'message' => 'I have been experiencing lower back pain for the past two weeks. Would like to book a consultation.',
-                'date' => '26 Jun 2026, 10:42 AM',
-                'status' => 'new',
-            ],
-            [
-                'name' => 'Rahul Mehta',
-                'email' => 'rahul.mehta@outlook.com',
-                'phone' => '+91 88712 33456',
-                'subject' => 'Ayurveda Consultation',
-                'message' => 'Looking for Panchakarma detox program details and available slots this month.',
-                'date' => '25 Jun 2026, 4:15 PM',
-                'status' => 'new',
-            ],
-            [
-                'name' => 'Anita Joshi',
-                'email' => 'anita.joshi@yahoo.com',
-                'phone' => '+91 93025 77889',
-                'subject' => 'Diabetes Management Program',
-                'message' => 'Interested in the health camp mentioned on your website. Please share registration details.',
-                'date' => '24 Jun 2026, 11:20 AM',
-                'status' => 'read',
-            ],
-            [
-                'name' => 'Vikram Singh',
-                'email' => 'vikram.singh@gmail.com',
-                'phone' => '+91 94250 66771',
-                'subject' => 'General Inquiry',
-                'message' => 'Do you offer home visit physiotherapy services in Indore?',
-                'date' => '23 Jun 2026, 6:05 PM',
-                'status' => 'read',
-            ],
-            [
-                'name' => 'Neha Patel',
-                'email' => 'neha.patel@gmail.com',
-                'phone' => '+91 97550 88990',
-                'subject' => 'Acupuncture Treatment',
-                'message' => 'Need information about acupuncture sessions for chronic neck pain.',
-                'date' => '22 Jun 2026, 9:30 AM',
-                'status' => 'read',
-            ],
-        ];
+        $latestContacts = Contact::query()
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $newContactCount = Contact::query()->where('status', 'new')->count();
 
         $latestBlogs = [
             [
@@ -150,6 +110,6 @@ class DashboardController extends Controller
 
         $totalContent = collect($stats)->sum('count');
 
-        return view('admin.dashboard.index', compact('stats', 'totalContent', 'latestContacts', 'latestBlogs'));
+        return view('admin.dashboard.index', compact('stats', 'totalContent', 'latestContacts', 'latestBlogs', 'newContactCount'));
     }
 }

@@ -44,12 +44,6 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}" target="_blank">
-                            <i class="ti ti-world menu-icon"></i>
-                            <span>View Website</span>
-                        </a>
-                    </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">C<span>ontent</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
@@ -61,6 +55,12 @@
                         <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">
                             <i class="ti ti-users menu-icon"></i>
                             <span>Expert Team</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+                            <i class="ti ti-mail menu-icon"></i>
+                            <span>Contact Messages</span>
                         </a>
                     </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
@@ -85,6 +85,11 @@
     <div class="topbar">
         <nav class="navbar-custom" id="navbar-custom">
             <ul class="list-unstyled topbar-nav float-end mb-0">
+                <li>
+                    <a class="nav-link arrow-none nav-icon" href="{{ url('/') }}" target="_blank" title="View Website" aria-label="View Website">
+                        <i class="ti ti-world"></i>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                         <div class="d-flex align-items-center">

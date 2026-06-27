@@ -119,35 +119,42 @@
                 </div>
 
                 <div class="contact-message-form-wrap">
-                    <form id="contactPageForm" action="#" method="POST" novalidate>
+                    <form id="contactPageForm" action="{{ route('contact.store') }}" method="POST" novalidate>
+                        @csrf
                         <div class="row g-3 g-md-4">
                             <div class="col-md-6">
                                 <label class="form-label" for="contact_name">Your Name <span>*</span></label>
-                                <input type="text" class="form-control" id="contact_name" name="name" required>
+                                <input type="text" class="form-control" id="contact_name" name="name" value="{{ old('name') }}" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label" for="contact_email">Email Address <span>*</span></label>
-                                <input type="email" class="form-control" id="contact_email" name="email" required>
+                                <input type="email" class="form-control" id="contact_email" name="email" value="{{ old('email') }}" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label" for="contact_phone">Phone Number <span>*</span></label>
-                                <input type="tel" class="form-control" id="contact_phone" name="phone" required>
+                                <input type="tel" class="form-control" id="contact_phone" name="phone" value="{{ old('phone') }}" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label" for="contact_subject">Subject</label>
-                                <input type="text" class="form-control" id="contact_subject" name="subject">
+                                <input type="text" class="form-control" id="contact_subject" name="subject" value="{{ old('subject') }}">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label" for="contact_message">Your Message <span>*</span></label>
-                                <textarea class="form-control" id="contact_message" name="message" rows="5" required></textarea>
+                                <textarea class="form-control" id="contact_message" name="message" rows="5" required>{{ old('message') }}</textarea>
                             </div>
 
                             <div class="col-12">
-                                <button type="submit" class="btn-default btn-highlighted contact-message-submit">Send Message</button>
+                                <div class="contact-message-error alert alert-danger d-none" role="alert"></div>
+                                <button type="submit" class="btn-default btn-highlighted contact-message-submit">
+                                    <span class="contact-message-submit-text">Send Message</span>
+                                    <span class="contact-message-submit-loader d-none" aria-hidden="true">
+                                        <i class="fa-solid fa-spinner fa-spin me-1"></i> Sending...
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -155,7 +162,7 @@
                     <div class="contact-message-success d-none" role="status">
                         <i class="fa-solid fa-circle-check"></i>
                         <h3>Message Sent</h3>
-                        <p>Thank you for reaching out. This is a demo form — we will connect the live workflow later.</p>
+                        <p class="contact-message-success-text">Thank you for reaching out. Our team will get in touch with you shortly.</p>
                     </div>
                 </div>
             </div>

@@ -76,7 +76,7 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h4 class="card-title mb-0">Latest Contact</h4>
-                    <span class="badge badge-soft-primary">{{ count($latestContacts) }} Messages</span>
+                    <a href="{{ route('admin.contacts.index') }}" class="badge badge-soft-primary text-decoration-none">{{ $newContactCount }} New</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -91,26 +91,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($latestContacts as $contact)
+                                @forelse ($latestContacts as $contact)
                                     <tr>
                                         <td>
-                                            <span class="fw-semibold d-block">{{ $contact['name'] }}</span>
+                                            <a href="{{ route('admin.contacts.show', $contact) }}" class="text-dark text-decoration-none">
+                                                <span class="fw-semibold d-block">{{ $contact->name }}</span>
+                                            </a>
                                         </td>
                                         <td>
-                                            <span class="d-block font-13">{{ $contact['email'] }}</span>
-                                            <span class="text-muted font-12">{{ $contact['phone'] }}</span>
+                                            <span class="d-block font-13">{{ $contact->email }}</span>
+                                            <span class="text-muted font-12">{{ $contact->phone }}</span>
                                         </td>
-                                        <td>{{ $contact['subject'] }}</td>
-                                        <td class="text-nowrap font-13">{{ $contact['date'] }}</td>
+                                        <td>{{ $contact->subject ?: '—' }}</td>
+                                        <td class="text-nowrap font-13">{{ $contact->created_at?->format('d M Y, h:i A') }}</td>
                                         <td>
-                                            @if ($contact['status'] === 'new')
+                                            @if ($contact->status === 'new')
                                                 <span class="badge badge-soft-success">New</span>
                                             @else
                                                 <span class="badge badge-soft-secondary">Read</span>
                                             @endif
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">No contact messages yet.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

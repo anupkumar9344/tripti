@@ -7767,6 +7767,15 @@ body.mobile-menu-open{
 	margin-top: 8px;
 }
 
+.contact-message-submit:disabled{
+	opacity: 0.85;
+	cursor: wait;
+}
+
+.contact-message-error{
+	margin-bottom: 12px;
+}
+
 .contact-message-success{
 	text-align: center;
 	padding: 40px 20px;

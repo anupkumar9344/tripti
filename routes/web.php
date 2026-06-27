@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\BlogController;
@@ -29,6 +30,7 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
@@ -43,6 +45,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::resource('services', ServiceController::class)->except(['show']);
         Route::resource('experts', ExpertController::class)->except(['show']);
+        Route::get('contacts/data', [AdminContactController::class, 'data'])->name('contacts.data');
+        Route::resource('contacts', AdminContactController::class)->only(['index', 'show', 'destroy']);
         Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });

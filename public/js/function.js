@@ -204,14 +204,60 @@
 		$('#contactPageForm').on('submit', function (event) {
 			event.preventDefault();
 
-			if (!this.checkValidity()) {
+			const form = this;
+			const $form = $(form);
+			const $submit = $form.find('.contact-message-submit');
+			const $submitText = $form.find('.contact-message-submit-text');
+			const $submitLoader = $form.find('.contact-message-submit-loader');
+			const $error = $('.contact-message-error');
+
+			if (!form.checkValidity()) {
 				event.stopPropagation();
-				$(this).addClass('was-validated');
+				$form.addClass('was-validated');
 				return;
 			}
 
-			$(this).addClass('d-none');
-			$('.contact-message-success').removeClass('d-none');
+			$error.addClass('d-none').text('');
+			$submit.prop('disabled', true);
+			$submitText.addClass('d-none');
+			$submitLoader.removeClass('d-none');
+
+			$.ajax({
+				url: $form.attr('action'),
+				method: 'POST',
+				data: $form.serialize(),
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+					'Accept': 'application/json',
+				},
+				success: function (response) {
+					if (response.message) {
+						$('.contact-message-success-text').text(response.message);
+					}
+
+					$form.addClass('d-none');
+					$('.contact-message-success').removeClass('d-none');
+				},
+				error: function (xhr) {
+					let message = 'Something went wrong. Please try again.';
+
+					if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
+						const errors = xhr.responseJSON.errors;
+						message = Object.values(errors).map(function (items) {
+							return items[0];
+						}).join(' ');
+					} else if (xhr.responseJSON && xhr.responseJSON.message) {
+						message = xhr.responseJSON.message;
+					}
+
+					$error.removeClass('d-none').text(message);
+				},
+				complete: function () {
+					$submit.prop('disabled', false);
+					$submitText.removeClass('d-none');
+					$submitLoader.addClass('d-none');
+				}
+			});
 		});
 	}
 
