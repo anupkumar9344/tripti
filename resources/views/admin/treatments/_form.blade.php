@@ -80,17 +80,16 @@
 
     <div class="col-md-12">
         <div class="form-group mb-3">
-            <label class="form-label" for="image">Image @if (! $isEdit)<span class="text-danger">*</span>@endif</label>
-            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*" {{ $isEdit ? '' : 'required' }}>
-            @error('image')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            @if ($isEdit)
-                <span class="form-text text-muted font-12">Leave blank to keep the current image. Shown on the treatment detail page.</span>
-                <div class="mt-2">
-                    <img src="{{ $treatment->imageUrl() }}" alt="{{ $treatment->title }}" class="img-thumbnail" style="max-height: 100px;">
-                </div>
-            @endif
+            @include('admin.media.partials.field', [
+                'name' => 'media_id',
+                'pathName' => 'image',
+                'value' => old('media_id'),
+                'currentPath' => $treatment->image ?? '',
+                'pickerType' => 'image',
+                'label' => 'Image',
+                'required' => ! $isEdit,
+            ])
+            <span class="form-text text-muted font-12">Shown on the treatment detail page. Select from the media library to avoid duplicate uploads.</span>
         </div>
     </div>
 

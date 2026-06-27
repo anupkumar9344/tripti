@@ -5,12 +5,14 @@
     <title>@yield('title', 'Dashboard') - Sahaj Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/css/admin-media.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
@@ -102,6 +104,12 @@
                             <span>Why Choose Us</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.media.*') ? 'active' : '' }}" href="{{ route('admin.media.index') }}">
+                            <i class="ti ti-photo menu-icon"></i>
+                            <span>Media Library</span>
+                        </a>
+                    </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.settings.general') ? 'active' : '' }}" href="{{ route('admin.settings.general') }}">
@@ -178,9 +186,24 @@
         </div>
     </div>
 
+    @include('admin.media.partials.preview-modal')
+    @include('admin.media.partials.rename-modal')
+    @include('admin.media.partials.picker-modal')
+
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/admin-confirm.js') }}"></script>
+    <script>
+        window.SahajMediaConfig = {
+            browseUrl: @json(route('admin.media.browse')),
+            uploadUrl: @json(route('admin.media.store')),
+            updateUrlTemplate: @json(route('admin.media.update', ['mediaFile' => '__MEDIA__'])),
+            deleteUrlTemplate: @json(route('admin.media.destroy', ['mediaFile' => '__MEDIA__'])),
+            downloadUrlTemplate: @json(route('admin.media.download', ['mediaFile' => '__MEDIA__'])),
+            csrfToken: @json(csrf_token()),
+        };
+    </script>
+    <script src="{{ asset('admin/assets/js/media-manager.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

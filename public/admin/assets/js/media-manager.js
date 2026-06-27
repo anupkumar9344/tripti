@@ -1,0 +1,779 @@
+/**
+ * Sahaj Admin — centralized media library & picker.
+ */
+(function () {
+    const config = window.SahajMediaConfig || {};
+    const csrfToken = config.csrfToken || document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+    const iconMap = {
+        pdf: 'ti-file-type-pdf',
+        document: 'ti-file-text',
+        video: 'ti-video',
+        other: 'ti-file-zip',
+        image: 'ti-photo',
+    };
+
+    function urlFromTemplate(template, id) {
+        return template.replace('__MEDIA__', id);
+    }
+
+    function toast(message, icon = 'success') {
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: icon,
+                title: message,
+                showConfirmButton: false,
+                timer: 2200,
+                timerProgressBar: true,
+            });
+            return;
+        }
+
+        alert(message);
+    }
+
+    function copyText(text) {
+        if (navigator.clipboard?.writeText) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        const input = document.createElement('textarea');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        return Promise.resolve();
+    }
+
+    function debounce(fn, delay) {
+        let timer;
+        return function (...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn.apply(this, args), delay);
+        };
+    }
+
+    function fileIcon(item) {
+        return iconMap[item.file_category] || iconMap.other;
+    }
+
+    function renderThumb(item) {
+        if (item.is_image) {
+            return `<img src="${item.url}" alt="${item.display_name}">`;
+        }
+
+        return `<i class="ti ${fileIcon(item)}"></i>`;
+    }
+
+    function renderActions(item, mode) {
+        const downloadUrl = urlFromTemplate(config.downloadUrlTemplate, item.id);
+
+        if (mode === 'picker') {
+            return `
+                <button type="button" class="btn btn-sm btn-primary js-media-select-item" data-media='${JSON.stringify(item).replace(/'/g, '&#39;')}'>Select</button>
+                <button type="button" class="btn btn-sm btn-light js-media-preview" data-media='${JSON.stringify(item).replace(/'/g, '&#39;')}'>Preview</button>
+            `;
+        }
+
+        return `
+            <div class="dropdown">
+                <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="ti ti-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><button type="button" class="dropdown-item js-media-preview" data-media='${JSON.stringify(item).replace(/'/g, '&#39;')}'>Preview</button></li>
+                    <li><button type="button" class="dropdown-item js-media-copy-url" data-url="${item.url}">Copy URL</button></li>
+                    <li><a class="dropdown-item" href="${downloadUrl}">Download</a></li>
+                    <li><button type="button" class="dropdown-item js-media-rename" data-media='${JSON.stringify(item).replace(/'/g, '&#39;')}'>Rename Display Name</button></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button type="button" class="dropdown-item text-danger js-media-delete" data-media-id="${item.id}" data-media-name="${item.display_name}">Delete</button></li>
+                </ul>
+            </div>
+        `;
+    }
+
+    function renderCard(item, mode, view, selectedId) {
+        const selectedClass = selectedId === item.id ? ' is-selected' : '';
+        const itemJson = JSON.stringify(item).replace(/'/g, '&#39;');
+        const pickerSelect = mode === 'picker'
+            ? `<button type="button" class="media-card-select js-media-pick-card${selectedClass}" data-media='${itemJson}' aria-label="Select ${item.display_name}"></button>`
+            : '';
+
+        if (view === 'list') {
+            return `
+                <div class="media-list-item${selectedClass}" data-media-id="${item.id}" title="${item.original_name} · ${item.category_label} · ${item.formatted_size}">
+                    ${pickerSelect}
+                    <div class="media-list-thumb">${renderThumb(item)}</div>
+                    <div class="media-list-body">
+                        <strong class="text-truncate d-block">${item.display_name}</strong>
+                        <span class="text-muted font-12">${item.formatted_size}</span>
+                    </div>
+                    <div class="media-list-actions">${renderActions(item, mode)}</div>
+                </div>
+            `;
+        }
+
+        return `
+            <div class="media-card${selectedClass}" data-media-id="${item.id}">
+                ${pickerSelect}
+                <div class="media-card-inner">
+                    <div class="media-card-thumb">${renderThumb(item)}</div>
+                    <div class="media-card-caption" title="${item.display_name}">${item.display_name}</div>
+                    <div class="media-card-hover">
+                        <div class="media-card-hover-meta">
+                            <strong class="d-block text-truncate mb-1">${item.display_name}</strong>
+                            <span class="d-block text-truncate">${item.original_name}</span>
+                            <span class="d-block">${item.category_label} · ${item.formatted_size}</span>
+                            <span class="d-block">${item.created_at}</span>
+                        </div>
+                        <div class="media-card-hover-actions">${renderActions(item, mode)}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function buildPageNumbers(current, last) {
+        if (last <= 1) {
+            return [];
+        }
+
+        if (last <= 7) {
+            return Array.from({ length: last }, (_, index) => index + 1);
+        }
+
+        const pages = new Set([1, last, current, current - 1, current + 1, current - 2, current + 2]);
+        const sorted = [...pages].filter((page) => page >= 1 && page <= last).sort((a, b) => a - b);
+        const result = [];
+        let previous = 0;
+
+        sorted.forEach((page) => {
+            if (previous && page - previous > 1) {
+                result.push('…');
+            }
+            result.push(page);
+            previous = page;
+        });
+
+        return result;
+    }
+
+    function renderPaginationSummary(meta, container) {
+        if (!container) {
+            return;
+        }
+
+        if (!meta || !meta.total) {
+            container.textContent = '';
+            return;
+        }
+
+        container.textContent = `Showing ${meta.from}–${meta.to} of ${meta.total} file${meta.total === 1 ? '' : 's'}`;
+    }
+
+    function renderPagination(meta, container, summaryContainer, onPage, scrollTarget) {
+        renderPaginationSummary(meta, summaryContainer);
+
+        if (!container || !meta || meta.last_page <= 1) {
+            if (container) {
+                container.innerHTML = '';
+            }
+            return;
+        }
+
+        const pages = buildPageNumbers(meta.current_page, meta.last_page);
+        let html = '<nav aria-label="Media pagination"><ul class="pagination pagination-sm mb-0 justify-content-center flex-wrap">';
+
+        html += `<li class="page-item ${meta.current_page === 1 ? 'disabled' : ''}">
+            <button type="button" class="page-link" data-page="${meta.current_page - 1}" ${meta.current_page === 1 ? 'disabled' : ''} aria-label="Previous page">&lsaquo;</button>
+        </li>`;
+
+        pages.forEach((page) => {
+            if (page === '…') {
+                html += '<li class="page-item disabled"><span class="page-link">…</span></li>';
+                return;
+            }
+
+            html += `<li class="page-item ${page === meta.current_page ? 'active' : ''}">
+                <button type="button" class="page-link" data-page="${page}">${page}</button>
+            </li>`;
+        });
+
+        html += `<li class="page-item ${meta.current_page === meta.last_page ? 'disabled' : ''}">
+            <button type="button" class="page-link" data-page="${meta.current_page + 1}" ${meta.current_page === meta.last_page ? 'disabled' : ''} aria-label="Next page">&rsaquo;</button>
+        </li>`;
+
+        html += '</ul></nav>';
+        container.innerHTML = html;
+
+        container.querySelectorAll('[data-page]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const page = Number(button.dataset.page);
+                if (!page || page < 1 || page > meta.last_page || page === meta.current_page) {
+                    return;
+                }
+
+                onPage(page);
+
+                if (scrollTarget) {
+                    scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    }
+
+    class MediaBrowser {
+        constructor(options) {
+            this.options = options;
+            this.state = {
+                search: '',
+                category: 'all',
+                sort: 'latest',
+                page: 1,
+                perPage: options.perPage || 12,
+                view: 'grid',
+                pickerType: options.pickerType || 'all',
+                selected: null,
+            };
+        }
+
+        async load() {
+            const params = new URLSearchParams({
+                search: this.state.search,
+                category: this.state.category,
+                sort: this.state.sort,
+                page: String(this.state.page),
+                per_page: String(this.state.perPage),
+                picker_type: this.state.pickerType,
+            });
+
+            const response = await fetch(`${config.browseUrl}?${params.toString()}`, {
+                headers: { Accept: 'application/json' },
+            });
+
+            if (!response.ok) {
+                throw new Error('Unable to load media library.');
+            }
+
+            return response.json();
+        }
+
+        render(data) {
+            const { container, emptyState, pagination, paginationSummary, mode } = this.options;
+            const items = data.data || [];
+
+            if (!items.length) {
+                container.innerHTML = '';
+                emptyState?.classList.remove('d-none');
+                renderPaginationSummary({ total: 0 }, paginationSummary);
+            } else {
+                emptyState?.classList.add('d-none');
+                container.classList.toggle('media-view-grid', this.state.view === 'grid');
+                container.classList.toggle('media-view-list', this.state.view === 'list');
+                container.innerHTML = items
+                    .map((item) => renderCard(item, mode, this.state.view, this.state.selected?.id))
+                    .join('');
+            }
+
+            renderPagination(data.meta, pagination, paginationSummary, (page) => {
+                this.state.page = page;
+                this.refresh();
+            }, container);
+
+            this.bindItemEvents(container);
+        }
+
+        bindItemEvents(container) {
+            container.querySelectorAll('.js-media-preview').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const item = JSON.parse(button.dataset.media);
+                    MediaUI.preview(item);
+                });
+            });
+
+            container.querySelectorAll('.js-media-copy-url').forEach((button) => {
+                button.addEventListener('click', () => {
+                    copyText(button.dataset.url).then(() => toast('URL copied to clipboard.'));
+                });
+            });
+
+            container.querySelectorAll('.js-media-rename').forEach((button) => {
+                button.addEventListener('click', () => {
+                    MediaUI.openRename(JSON.parse(button.dataset.media), () => this.refresh());
+                });
+            });
+
+            container.querySelectorAll('.js-media-delete').forEach((button) => {
+                button.addEventListener('click', () => {
+                    MediaUI.confirmDelete(button.dataset.mediaId, button.dataset.mediaName, () => this.refresh());
+                });
+            });
+
+            container.querySelectorAll('.js-media-pick-card, .js-media-select-item').forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const item = JSON.parse(button.dataset.media);
+                    this.selectItem(item);
+                });
+            });
+        }
+
+        selectItem(item) {
+            this.state.selected = item;
+            this.options.onSelect?.(item);
+            this.refresh();
+        }
+
+        async refresh() {
+            const data = await this.load();
+            this.render(data);
+        }
+
+        initControls() {
+            const { searchInput, categoryFilter, sortFilter, viewButtons } = this.options;
+
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce((event) => {
+                    this.state.search = event.target.value.trim();
+                    this.state.page = 1;
+                    this.refresh();
+                }, 300));
+            }
+
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', (event) => {
+                    this.state.category = event.target.value;
+                    this.state.page = 1;
+                    this.refresh();
+                });
+            }
+
+            if (sortFilter) {
+                sortFilter.addEventListener('change', (event) => {
+                    this.state.sort = event.target.value;
+                    this.state.page = 1;
+                    this.refresh();
+                });
+            }
+
+            viewButtons?.forEach((button) => {
+                button.addEventListener('click', () => {
+                    viewButtons.forEach((item) => item.classList.remove('active'));
+                    button.classList.add('active');
+                    this.state.view = button.dataset.mediaView;
+                    this.refresh();
+                });
+            });
+        }
+    }
+
+    const MediaUI = {
+        preview(item) {
+            const modal = document.getElementById('mediaPreviewModal');
+            const body = document.getElementById('mediaPreviewBody');
+            const title = document.getElementById('mediaPreviewModalLabel');
+            const download = document.getElementById('mediaPreviewDownload');
+
+            if (!modal || !body) {
+                return;
+            }
+
+            title.textContent = item.display_name;
+            download.href = urlFromTemplate(config.downloadUrlTemplate, item.id);
+            download.classList.remove('d-none');
+
+            if (item.file_category === 'image') {
+                body.innerHTML = `<img src="${item.url}" alt="${item.display_name}" class="img-fluid rounded">`;
+            } else if (item.file_category === 'video') {
+                body.innerHTML = `<video src="${item.url}" controls class="w-100 rounded"></video>`;
+            } else if (item.file_category === 'pdf') {
+                body.innerHTML = `<iframe src="${item.url}" class="media-preview-frame" title="${item.display_name}"></iframe>`;
+            } else {
+                body.innerHTML = `<div class="media-preview-fallback"><i class="ti ${fileIcon(item)}"></i><p>${item.original_name}</p></div>`;
+            }
+
+            bootstrap.Modal.getOrCreateInstance(modal).show();
+        },
+
+        openRename(item, callback) {
+            const modal = document.getElementById('mediaRenameModal');
+            const form = document.getElementById('mediaRenameForm');
+            const input = document.getElementById('mediaRenameInput');
+            const idInput = document.getElementById('mediaRenameId');
+
+            if (!modal || !form || !input || !idInput) {
+                return;
+            }
+
+            idInput.value = item.id;
+            input.value = item.display_name;
+
+            const handler = async (event) => {
+                event.preventDefault();
+                const response = await fetch(urlFromTemplate(config.updateUrlTemplate, idInput.value), {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    body: JSON.stringify({ display_name: input.value.trim() }),
+                });
+
+                const payload = await response.json();
+                if (!response.ok) {
+                    toast(payload.message || 'Unable to rename file.', 'error');
+                    return;
+                }
+
+                bootstrap.Modal.getInstance(modal)?.hide();
+                toast(payload.message || 'Display name updated.');
+                callback?.();
+            };
+
+            form.onsubmit = handler;
+            bootstrap.Modal.getOrCreateInstance(modal).show();
+        },
+
+        confirmDelete(id, name, callback) {
+            Swal.fire({
+                title: 'Delete media file?',
+                text: `"${name}" will be permanently removed.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    confirmButton: 'btn btn-danger',
+                    cancelButton: 'btn btn-light ms-2',
+                },
+                buttonsStyling: false,
+            }).then(async (result) => {
+                if (!result.isConfirmed) {
+                    return;
+                }
+
+                const response = await fetch(urlFromTemplate(config.deleteUrlTemplate, id), {
+                    method: 'DELETE',
+                    headers: {
+                        Accept: 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                });
+
+                const payload = await response.json();
+                if (!response.ok) {
+                    toast(payload.message || 'Unable to delete file.', 'error');
+                    return;
+                }
+
+                toast(payload.message || 'Media deleted.');
+                callback?.();
+            });
+        },
+
+        uploadFiles(files, progressElements, callback) {
+            if (!files.length) {
+                return;
+            }
+
+            const formData = new FormData();
+            Array.from(files).forEach((file) => formData.append('files[]', file));
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', config.uploadUrl, true);
+            xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+            xhr.setRequestHeader('Accept', 'application/json');
+
+            const { wrap, bar, label, percent } = progressElements;
+
+            xhr.upload.addEventListener('progress', (event) => {
+                if (!event.lengthComputable || !bar) {
+                    return;
+                }
+
+                const value = Math.round((event.loaded / event.total) * 100);
+                bar.style.width = `${value}%`;
+                if (percent) {
+                    percent.textContent = `${value}%`;
+                }
+            });
+
+            xhr.addEventListener('load', () => {
+                wrap?.classList.add('d-none');
+                if (bar) {
+                    bar.style.width = '0%';
+                }
+
+                let payload = {};
+                try {
+                    payload = JSON.parse(xhr.responseText);
+                } catch (error) {
+                    toast('Upload failed.', 'error');
+                    return;
+                }
+
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    toast(payload.message || 'Upload complete.');
+                    callback?.(payload.data || []);
+                    return;
+                }
+
+                toast(payload.message || 'Upload failed.', 'error');
+            });
+
+            xhr.addEventListener('error', () => {
+                wrap?.classList.add('d-none');
+                toast('Upload failed.', 'error');
+            });
+
+            wrap?.classList.remove('d-none');
+            if (label) {
+                label.textContent = `Uploading ${files.length} file(s)...`;
+            }
+
+            xhr.send(formData);
+        },
+
+        bindUploadZone(zone, input, browseButton, progressElements, callback) {
+            if (!zone || !input) {
+                return;
+            }
+
+            const openPicker = () => input.click();
+
+            browseButton?.addEventListener('click', (event) => {
+                event.stopPropagation();
+                openPicker();
+            });
+
+            zone.addEventListener('click', (event) => {
+                if (event.target.closest('button') && event.target !== browseButton) {
+                    return;
+                }
+                if (event.target.closest('.media-upload-progress')) {
+                    return;
+                }
+                if (event.target.closest('.dropdown')) {
+                    return;
+                }
+                openPicker();
+            });
+
+            zone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                zone.classList.add('is-dragover');
+            });
+
+            zone.addEventListener('dragleave', () => zone.classList.remove('is-dragover'));
+
+            zone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                zone.classList.remove('is-dragover');
+                if (event.dataTransfer?.files?.length) {
+                    this.uploadFiles(event.dataTransfer.files, progressElements, callback);
+                }
+            });
+
+            input.addEventListener('change', () => {
+                if (input.files?.length) {
+                    this.uploadFiles(input.files, progressElements, callback);
+                    input.value = '';
+                }
+            });
+        },
+    };
+
+    function initLibraryPage() {
+        const container = document.getElementById('mediaLibraryContainer');
+        if (!container) {
+            return;
+        }
+
+        const browser = new MediaBrowser({
+            mode: 'library',
+            container,
+            emptyState: document.getElementById('mediaLibraryEmpty'),
+            pagination: document.getElementById('mediaLibraryPagination'),
+            paginationSummary: document.getElementById('mediaLibrarySummary'),
+            searchInput: document.getElementById('mediaSearchInput'),
+            categoryFilter: document.getElementById('mediaCategoryFilter'),
+            sortFilter: document.getElementById('mediaSortFilter'),
+            viewButtons: document.querySelectorAll('[data-media-view]'),
+            perPage: 24,
+        });
+
+        browser.initControls();
+        browser.refresh();
+
+        MediaUI.bindUploadZone(
+            document.getElementById('mediaUploadZone'),
+            document.getElementById('mediaUploadInput'),
+            document.getElementById('mediaUploadBrowseBtn'),
+            {
+                wrap: document.getElementById('mediaUploadProgress'),
+                bar: document.getElementById('mediaUploadProgressBar'),
+                label: document.getElementById('mediaUploadProgressLabel'),
+                percent: document.getElementById('mediaUploadProgressPercent'),
+            },
+            () => browser.refresh()
+        );
+    }
+
+    let activePickerField = null;
+    let pickerBrowser = null;
+    let pickerSelected = null;
+
+    function updateFieldPreview(field, item) {
+        const preview = field.querySelector('[data-media-preview]');
+        const idInput = field.querySelector('.media-picker-id-input');
+        const pathInput = field.querySelector('.media-picker-path-input');
+        const clearButton = field.querySelector('[data-media-clear]');
+
+        if (idInput) {
+            idInput.value = item?.id || '';
+        }
+
+        if (pathInput) {
+            pathInput.value = item?.file_path || '';
+        }
+
+        if (field) {
+            if (item) {
+                field.dataset.selectedMedia = JSON.stringify(item);
+            } else {
+                delete field.dataset.selectedMedia;
+            }
+        }
+
+        if (!preview) {
+            return;
+        }
+
+        if (!item) {
+            preview.classList.add('d-none');
+            preview.innerHTML = '';
+            clearButton?.classList.add('d-none');
+            return;
+        }
+
+        preview.classList.remove('d-none');
+        clearButton?.classList.remove('d-none');
+        preview.innerHTML = `
+            <div class="d-flex align-items-center gap-3">
+                <div class="media-picker-preview-thumb">
+                    ${item.is_image ? `<img src="${item.url}" alt="${item.display_name}">` : `<i class="ti ${fileIcon(item)}"></i>`}
+                </div>
+                <div class="flex-grow-1 min-w-0">
+                    <strong class="d-block text-truncate">${item.display_name}</strong>
+                    <span class="text-muted font-12 d-block text-truncate">${item.original_name}</span>
+                    <span class="text-muted font-12">${item.formatted_size} · ${item.category_label}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function initPicker() {
+        const modal = document.getElementById('mediaPickerModal');
+        if (!modal) {
+            return;
+        }
+
+        const selectButton = document.getElementById('mediaPickerSelectBtn');
+
+        pickerBrowser = new MediaBrowser({
+            mode: 'picker',
+            container: document.getElementById('mediaPickerContainer'),
+            emptyState: document.getElementById('mediaPickerEmpty'),
+            pagination: document.getElementById('mediaPickerPagination'),
+            paginationSummary: document.getElementById('mediaPickerSummary'),
+            searchInput: document.getElementById('mediaPickerSearchInput'),
+            categoryFilter: document.getElementById('mediaPickerCategoryFilter'),
+            sortFilter: document.getElementById('mediaPickerSortFilter'),
+            perPage: 24,
+            onSelect: (item) => {
+                pickerSelected = item;
+                selectButton.disabled = !item;
+            },
+        });
+
+        pickerBrowser.initControls();
+
+        modal.addEventListener('show.bs.modal', () => {
+            const pickerType = activePickerField?.dataset.pickerType || 'all';
+            pickerBrowser.state.pickerType = pickerType === 'image' ? 'image' : 'all';
+            pickerBrowser.state.selected = pickerSelected;
+            pickerBrowser.refresh();
+        });
+
+        selectButton?.addEventListener('click', () => {
+            if (!activePickerField || !pickerSelected) {
+                return;
+            }
+
+            updateFieldPreview(activePickerField, pickerSelected);
+            activePickerField.dataset.selectedMedia = JSON.stringify(pickerSelected);
+            bootstrap.Modal.getInstance(modal)?.hide();
+        });
+
+        MediaUI.bindUploadZone(
+            document.getElementById('mediaPickerUploadZone'),
+            document.getElementById('mediaPickerUploadInput'),
+            document.getElementById('mediaPickerUploadBrowseBtn'),
+            {
+                wrap: document.getElementById('mediaPickerUploadProgress'),
+                bar: document.getElementById('mediaPickerUploadProgressBar'),
+            },
+            (uploaded) => {
+                pickerBrowser.refresh();
+                if (uploaded[0]) {
+                    pickerSelected = uploaded[0];
+                    selectButton.disabled = false;
+                    pickerBrowser.state.selected = uploaded[0];
+                    pickerBrowser.refresh();
+                }
+            }
+        );
+
+        document.querySelectorAll('.js-open-media-picker').forEach((button) => {
+            button.addEventListener('click', () => {
+                activePickerField = button.closest('[data-media-field]');
+                const selectedJson = activePickerField?.dataset.selectedMedia;
+
+                if (selectedJson) {
+                    try {
+                        pickerSelected = JSON.parse(selectedJson);
+                    } catch (error) {
+                        pickerSelected = null;
+                    }
+                } else {
+                    pickerSelected = null;
+                }
+
+                selectButton.disabled = !pickerSelected;
+                bootstrap.Modal.getOrCreateInstance(modal).show();
+            });
+        });
+
+        document.querySelectorAll('[data-media-clear]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const field = button.closest('[data-media-field]');
+                delete field.dataset.selectedMedia;
+                updateFieldPreview(field, null);
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!config.browseUrl) {
+            return;
+        }
+
+        initLibraryPage();
+        initPicker();
+    });
+})();
