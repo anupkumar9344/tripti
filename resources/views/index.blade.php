@@ -142,15 +142,12 @@
             <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-6">
                     <div class="home-about-intro-media wow fadeInUp">
-                        <span class="home-about-intro-shape" aria-hidden="true"></span>
-                        <div class="home-about-intro-frame">
-                            <figure>
-                                <img src="{{ asset('images/home-about-team.jpg') }}" alt="Sahaj Aarogyam expert team">
-                            </figure>
-                            <div class="home-about-intro-badge">
-                                <strong>25+</strong>
-                                <span>Years of Trusted Care</span>
-                            </div>
+                        <figure class="home-about-intro-photo">
+                            <img src="{{ asset('images/home-about-team.jpg') }}" alt="Sahaj Aarogyam expert team">
+                        </figure>
+                        <div class="home-about-intro-badge">
+                            <strong>25+</strong>
+                            <span>Years of Trusted Care</span>
                         </div>
                     </div>
                 </div>
@@ -841,33 +838,47 @@
     <div class="home-location-map" id="location">
         <div class="home-location-map-overlay"></div>
         <div class="container position-relative">
-            <div class="row align-items-center g-4 g-lg-5">
-                <div class="col-lg-5">
+            <div class="row align-items-center g-4 g-xl-5">
+                <div class="col-lg-6">
                     <div class="home-location-content wow fadeInUp">
+                        <span class="home-location-eyebrow">Visit Us</span>
                         <h2>Serving Indore &amp; Nearby</h2>
                         <p>Conveniently located in the heart of Indore, we proudly serve patients from across the city and nearby areas.</p>
 
                         <ul class="home-location-details">
                             <li>
                                 <span class="home-location-icon"><i class="fa-solid fa-location-dot"></i></span>
-                                <span>{{ $locationAddress }}</span>
+                                <div class="home-location-item-body">
+                                    <strong>Clinic Address</strong>
+                                    <span>{{ $locationAddress }}</span>
+                                </div>
                             </li>
                             <li>
                                 <span class="home-location-icon"><i class="fa-solid fa-phone"></i></span>
-                                <span><a href="tel:{{ preg_replace('/\s+/', '', $locationPhone) }}">{{ $locationPhone }}</a></span>
+                                <div class="home-location-item-body">
+                                    <strong>Phone</strong>
+                                    <span><a href="tel:{{ preg_replace('/\s+/', '', $locationPhone) }}">{{ $locationPhone }}</a></span>
+                                </div>
                             </li>
                             <li>
                                 <span class="home-location-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <span>
-                                    <a href="mailto:{{ $locationEmailPrimary }}">{{ $locationEmailPrimary }}</a>,
-                                    <a href="mailto:{{ $locationEmailSecondary }}">{{ $locationEmailSecondary }}</a>
-                                </span>
+                                <div class="home-location-item-body">
+                                    <strong>Email</strong>
+                                    <span>
+                                        <a href="mailto:{{ $locationEmailPrimary }}">{{ $locationEmailPrimary }}</a><br>
+                                        <a href="mailto:{{ $locationEmailSecondary }}">{{ $locationEmailSecondary }}</a>
+                                    </span>
+                                </div>
                             </li>
                         </ul>
+
+                        <div class="home-location-action">
+                            <a href="{{ url('/contact-us') }}" class="btn-default">Contact Us</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                     <div class="home-location-map-frame wow fadeInUp" data-wow-delay="0.15s">
                         <iframe
                             src="{{ $mapEmbed }}"

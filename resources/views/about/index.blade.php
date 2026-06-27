@@ -11,15 +11,12 @@
             <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-6">
                     <div class="home-about-intro-media wow fadeInUp">
-                        <span class="home-about-intro-shape" aria-hidden="true"></span>
-                        <div class="home-about-intro-frame">
-                            <figure>
-                                <img src="{{ asset('images/home-about-team.jpg') }}" alt="Sahaj Aarogyam expert team">
-                            </figure>
-                            <div class="home-about-intro-badge">
-                                <strong>25+</strong>
-                                <span>Years of Trusted Care</span>
-                            </div>
+                        <figure class="home-about-intro-photo">
+                            <img src="{{ asset('images/home-about-team.jpg') }}" alt="Sahaj Aarogyam expert team">
+                        </figure>
+                        <div class="home-about-intro-badge">
+                            <strong>25+</strong>
+                            <span>Years of Trusted Care</span>
                         </div>
                     </div>
                 </div>
