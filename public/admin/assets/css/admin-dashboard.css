@@ -1,0 +1,142 @@
+.admin-dashboard-welcome {
+    background: linear-gradient(135deg, #023320 0%, #0a4d35 100%);
+    border: none;
+}
+
+.admin-dashboard-welcome .card-body {
+    color: #fff;
+}
+
+.admin-dashboard-welcome h4,
+.admin-dashboard-welcome p {
+    color: #fff;
+}
+
+.admin-dashboard-welcome .text-muted-light {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.admin-dashboard-stat {
+    border: 1px solid rgba(2, 51, 32, 0.08);
+    height: 100%;
+}
+
+.admin-dashboard-stat .stat-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.admin-dashboard-stat .stat-count {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #023320;
+}
+
+.admin-dashboard-stat-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.admin-dashboard-stat-icon.tone-primary {
+    background: #023320;
+}
+
+.admin-dashboard-stat-icon.tone-accent {
+    background: #74A42A;
+}
+
+.admin-dashboard-stat-icon.tone-info {
+    background: #1d7a8c;
+}
+
+.admin-dashboard-stat-icon.tone-warm {
+    background: #c47b2b;
+}
+
+.admin-dashboard-stat-icon.tone-purple {
+    background: #6b4c9a;
+}
+
+.admin-dashboard-stat-icon.tone-rose {
+    background: #b8436a;
+}
+
+.admin-dashboard-summary {
+    border: 1px solid rgba(116, 164, 42, 0.25);
+    background: #f8fbf4;
+}
+
+.admin-dashboard-summary .summary-count {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #023320;
+    line-height: 1;
+}
+
+.admin-dashboard-links .list-group-item {
+    border-left: 0;
+    border-right: 0;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+.admin-dashboard-links .list-group-item:first-child {
+    border-top: 0;
+}
+
+.admin-dashboard-blogs .list-group-item {
+    border-left: 0;
+    border-right: 0;
+    padding: 0.9rem 1.25rem;
+}
+
+.admin-dashboard-blogs .list-group-item:first-child {
+    border-top: 0;
+}
+
+.admin-dashboard-blog-thumb {
+    width: 4.5rem;
+    height: 3.25rem;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.admin-dashboard-blog-item:hover .admin-dashboard-blog-thumb {
+    opacity: 0.92;
+}
+
+.admin-dashboard-blogs .font-12 {
+    font-size: 0.75rem;
+}
+
+.admin-dashboard-blogs .font-13 {
+    font-size: 0.8125rem;
+}
+
+.badge.badge-count {
+    min-width: 2rem;
+    background: rgba(2, 51, 32, 0.08);
+    color: #023320;
+    font-weight: 600;
+}
+
+.admin-dashboard-contacts td {
+    vertical-align: middle;
+}
+
+.admin-dashboard-contacts .font-12 {
+    font-size: 0.75rem;
+}
+
+.admin-dashboard-contacts .font-13 {
+    font-size: 0.8125rem;
+}

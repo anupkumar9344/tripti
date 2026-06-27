@@ -9,6 +9,7 @@
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
@@ -18,13 +19,7 @@
     <div class="left-sidebar">
         <div class="brand">
             <a href="{{ route('admin.dashboard') }}" class="logo">
-                <span>
-                    <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj logo" class="logo-sm" height="40">
-                </span>
-                <span>
-                    <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj logo" class="logo-lg logo-light" height="45">
-                    <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj logo" class="logo-lg logo-dark" height="45">
-                </span>
+                <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj Aarogyam" class="admin-sidebar-logo">
             </a>
         </div>
 

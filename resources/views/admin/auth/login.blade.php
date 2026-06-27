@@ -9,6 +9,7 @@
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body id="body" class="auth-page" style="background-image: url('{{ asset('admin/assets/images/p-1.png') }}'); background-size: cover; background-position: center center;">
     <div class="container-md">

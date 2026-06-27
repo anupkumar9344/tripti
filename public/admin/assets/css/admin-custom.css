@@ -1,0 +1,158 @@
+/* Sahaj admin — dashboard green sidebar + single logo */
+
+:root {
+    --bs-primary: #023320;
+    --bs-primary-rgb: 2, 51, 32;
+    --bs-secondary: #74A42A;
+    --bs-secondary-rgb: 116, 164, 42;
+}
+
+.btn-primary {
+    background-color: #023320;
+    border-color: #023320;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    background-color: #0a4d35;
+    border-color: #0a4d35;
+}
+
+.btn-secondary {
+    background-color: #74A42A;
+    border-color: #74A42A;
+    color: #fff;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active {
+    background-color: #638f24;
+    border-color: #638f24;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    color: #023320;
+    border-color: #023320;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background-color: #023320;
+    border-color: #023320;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #74A42A;
+    border-color: #74A42A;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active {
+    background-color: #74A42A;
+    border-color: #74A42A;
+    color: #fff;
+}
+
+.badge-soft-primary {
+    color: #023320;
+    background-color: rgba(2, 51, 32, 0.12);
+}
+
+.badge-soft-secondary {
+    color: #74A42A;
+    background-color: rgba(116, 164, 42, 0.12);
+}
+
+body.dark-sidebar .left-sidebar {
+    background: linear-gradient(180deg, #023320 0%, #0a4d35 100%);
+}
+
+body.dark-sidebar .left-sidebar .brand {
+    background: #023320;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.65rem 1rem;
+}
+
+body.dark-sidebar .left-sidebar .brand .logo {
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide Unikit default logo slots — only admin-sidebar-logo should show */
+body.dark-sidebar .left-sidebar .brand .logo .logo-sm,
+body.dark-sidebar .left-sidebar .brand .logo .logo-lg,
+body.dark-sidebar .left-sidebar .brand .logo .logo-light,
+body.dark-sidebar .left-sidebar .brand .logo .logo-dark {
+    display: none !important;
+}
+
+.admin-sidebar-logo {
+    display: block;
+    max-height: 46px;
+    width: auto;
+    max-width: 170px;
+    object-fit: contain;
+}
+
+body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
+    max-height: 34px;
+    max-width: 42px;
+}
+
+body.dark-sidebar .left-sidebar .sidebar-user-pro {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-sidebar .left-sidebar .sidebar-user-pro .user-detail h5,
+body.dark-sidebar .left-sidebar .sidebar-user-pro .user-detail p {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+body.dark-sidebar .left-sidebar .menu-body .nav-item .nav-link {
+    color: rgba(255, 255, 255, 0.72);
+    border-radius: 0.45rem;
+    margin: 0.1rem 0.65rem;
+}
+
+body.dark-sidebar .left-sidebar .menu-body .nav-item .nav-link .menu-icon {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+body.dark-sidebar .left-sidebar .menu-body .nav-item .nav-link:hover,
+body.dark-sidebar .left-sidebar .menu-body .nav-item .nav-link.active {
+    color: #fff;
+    background: rgba(116, 164, 42, 0.18);
+}
+
+body.dark-sidebar .left-sidebar .menu-body .nav-item .nav-link:hover .menu-icon,
+body.dark-sidebar .left-sidebar .menu-body .nav-item .nav-link.active .menu-icon {
+    color: #b8d97a;
+}
+
+body.dark-sidebar .left-sidebar .menu-label {
+    color: #74A42A !important;
+}
+
+body.dark-sidebar .left-sidebar .menu-label span {
+    color: inherit;
+}
+
+body.dark-sidebar .left-sidebar .navbar-vertical .navbar-nav .nav-link[data-bs-toggle="collapse"][aria-expanded="true"] {
+    color: #fff;
+    background-color: rgba(116, 164, 42, 0.14);
+}
+
+body.dark-sidebar .left-sidebar .navbar-vertical .navbar-nav .nav-link[data-bs-toggle="collapse"][aria-expanded="true"] .menu-icon {
+    color: #b8d97a;
+}
