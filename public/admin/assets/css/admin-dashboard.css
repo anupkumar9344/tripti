@@ -16,6 +16,14 @@
     color: rgba(255, 255, 255, 0.78) !important;
 }
 
+.admin-dashboard-hero > [class*="col-"] {
+    display: flex;
+}
+
+.admin-dashboard-hero .card {
+    width: 100%;
+}
+
 .admin-dashboard-stat {
     border: 1px solid rgba(2, 51, 32, 0.08);
     height: 100%;
@@ -75,11 +83,16 @@
     background: #f8fbf4;
 }
 
+.admin-dashboard-summary .card-body {
+    padding: 1rem 1.15rem;
+}
+
 .admin-dashboard-summary .summary-count {
     font-size: 2rem;
     font-weight: 700;
     color: #023320;
     line-height: 1;
+    margin: 0.25rem 0;
 }
 
 .admin-dashboard-links .list-group-item {

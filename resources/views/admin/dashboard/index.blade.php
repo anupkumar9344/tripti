@@ -15,11 +15,11 @@
         </div>
     </div>
 
-    <div class="row g-4 mb-1">
+    <div class="row g-4 mb-1 admin-dashboard-hero">
         <div class="col-lg-8">
-            <div class="card admin-dashboard-welcome overflow-hidden">
-                <div class="card-body p-4">
-                    <div class="row align-items-center">
+            <div class="card admin-dashboard-welcome overflow-hidden h-100">
+                <div class="card-body p-4 d-flex align-items-center h-100">
+                    <div class="row align-items-center w-100">
                         <div class="col-md-8">
                             <span class="badge bg-light text-dark mb-2">Sahaj Admin</span>
                             <h4 class="mb-2">Welcome back, {{ auth()->user()->name }}!</h4>
@@ -43,7 +43,7 @@
         <div class="col-lg-4">
             <div class="card admin-dashboard-summary h-100">
                 <div class="card-body d-flex flex-column justify-content-center">
-                    <p class="text-muted mb-1 fw-semibold">Total Website Content</p>
+                    <p class="text-muted mb-0 fw-semibold">Total Website Content</p>
                     <div class="summary-count">{{ number_format($totalContent) }}</div>
                     <p class="text-muted mb-0 font-13">Services, treatments, blogs, experts, gallery images, and programs combined.</p>
                 </div>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div class="row admin-dashboard-stats g-3 mb-2">
+    <div class="row admin-dashboard-stats g-3 mt-2 mb-0">
         @foreach ($stats as $stat)
             <div class="col-xl-2 col-lg-4 col-md-6">
                 <div class="card admin-dashboard-stat mb-0">
