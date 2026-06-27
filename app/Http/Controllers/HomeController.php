@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Models\Treatment;
 use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
@@ -59,7 +60,8 @@ class HomeController extends Controller
         ));
 
         $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
+        $homeTreatments = Treatment::query()->forHome()->get();
 
-        return view('index', compact('settings', 'whyChooseItems'));
+        return view('index', compact('settings', 'whyChooseItems', 'homeTreatments'));
     }
 }

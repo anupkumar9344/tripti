@@ -3,8 +3,7 @@
 @section('title', 'Contact Messages')
 
 @push('styles')
-    <link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('admin/assets/css/admin-yajra-datatable.css') }}" rel="stylesheet" type="text/css" />
+    @include('admin.partials.yajra-assets')
 @endpush
 
 @section('content')
@@ -43,11 +42,9 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    @include('admin.partials.yajra-scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        $(function () {
             $('#contacts-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -56,7 +53,7 @@
                 pageLength: 10,
                 lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
                 columns: [
-                    { data: 'contact', name: 'name', orderable: true, searchable: true },
+                    { data: 'contact', name: 'contact', orderable: true, searchable: true },
                     { data: 'subject', name: 'subject', orderable: true, searchable: true },
                     { data: 'status', name: 'status', orderable: true, searchable: false },
                     { data: 'created_at', name: 'created_at', orderable: true, searchable: false },

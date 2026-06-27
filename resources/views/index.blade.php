@@ -190,45 +190,10 @@
     <!-- Why Choose Section End -->
 
 <!-- What We Treat Section Start -->
-    @php
-        $whatWeTreatItems = [
-            ['slug' => 'back-pain-spine-disorders', 'icon' => 'fa-award', 'title' => 'Back Pain & Spine disorders', 'text' => 'Advanced non-surgical care for chronic back pain, stiffness, and spinal discomfort.'],
-            ['slug' => 'slip-disc-sciatica', 'icon' => 'fa-hand-holding-heart', 'title' => 'Slip Disc & Sciatica', 'text' => 'Targeted therapies designed to reduce disc-related pain and improve mobility.'],
-            ['slug' => 'liver-metabolic-disorders', 'icon' => 'fa-clipboard-medical', 'title' => 'Liver & Metabolic Disorders', 'text' => 'Natural pain management solutions for sciatica, nerve pain and numbness.'],
-            ['slug' => 'knee-pain-joints', 'icon' => 'fa-bone', 'title' => 'Knee Pain & Joints pain', 'text' => 'Personalized therapies to improve knee strength, flexibility, and movement.'],
-            ['slug' => 'male-female-wellness', 'icon' => 'fa-venus-mars', 'title' => 'Male and Female Wellness', 'text' => 'Specialized rehabilitation care for shoulder pain, stiffness, and restricted motion.'],
-            ['slug' => 'cervical-ankylosing-spondylitis', 'icon' => 'fa-user-doctor', 'title' => 'Cervical & Ankylosing Spondylitis', 'text' => 'Effective care for neck pain, posture correction, and cervical discomfort.'],
-        ];
-    @endphp
-    <div class="home-what-we-treat">
-        <div class="home-what-we-treat-overlay"></div>
-        <div class="container position-relative">
-            <div class="home-what-we-treat-header text-center">
-                <h2 class="wow fadeInUp">What We Treat</h2>
-            </div>
-
-            <div class="row g-4">
-                @foreach ($whatWeTreatItems as $index => $item)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="home-treat-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.08, 2) }}s">
-                            <div class="home-treat-card-icon">
-                                <i class="fa-solid {{ $item['icon'] }}"></i>
-                            </div>
-                            <div class="home-treat-card-body">
-                                <h3>{{ $item['title'] }}</h3>
-                                <p>{{ $item['text'] }}</p>
-                            </div>
-                            <a href="{{ route('treatment.show', $item['slug']) }}" class="home-treat-card-link">Read More</a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="home-what-we-treat-action text-center wow fadeInUp" data-wow-delay="0.3s">
-                <a href="{{ url('/treatment') }}" class="btn-default btn-highlighted">View All</a>
-            </div>
-        </div>
-    </div>
+    @include('partials.treatment-cards', [
+        'treatments' => $homeTreatments,
+        'showViewAll' => true,
+    ])
     <!-- What We Treat Section End -->
 
 <!-- Our Core Services Section Start -->

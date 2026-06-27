@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             AboutSettingsSeeder::class,
             ExpertProfileCategorySeeder::class,
             WhyChooseItemSeeder::class,
+            TreatmentSeeder::class,
         ]);
     }
 }

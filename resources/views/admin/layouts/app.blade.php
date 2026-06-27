@@ -53,6 +53,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.treatments.*') ? 'active' : '' }}" href="{{ route('admin.treatments.index') }}">
+                            <i class="ti ti-medical-cross menu-icon"></i>
+                            <span>Treatments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         @php
                             $teamMenuOpen = request()->routeIs('admin.experts.*') || request()->routeIs('admin.expert-profile-categories.*');
                         @endphp
