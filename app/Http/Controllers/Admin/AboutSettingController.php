@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -76,7 +76,7 @@ class AboutSettingController extends Controller
             'about_home_title' => ['nullable', 'string', 'max:255'],
             'about_home_title_highlight' => ['nullable', 'string', 'max:255'],
             'about_home_description' => ['nullable', 'string', 'max:2000'],
-            'about_home_image' => ['nullable', 'image', 'max:2048'],
+            'about_home_image' => ['nullable', 'string', 'max:500'],
             'about_home_badge_number' => ['nullable', 'string', 'max:20'],
             'about_home_badge_suffix' => ['nullable', 'string', 'max:10'],
             'about_home_badge_text' => ['nullable', 'string', 'max:255'],
@@ -85,7 +85,7 @@ class AboutSettingController extends Controller
             'about_page_title' => ['nullable', 'string', 'max:255'],
             'about_page_title_highlight' => ['nullable', 'string', 'max:255'],
             'about_page_description' => ['nullable', 'string'],
-            'about_page_image' => ['nullable', 'image', 'max:2048'],
+            'about_page_image' => ['nullable', 'string', 'max:500'],
             'about_page_badge_number' => ['nullable', 'string', 'max:20'],
             'about_page_badge_suffix' => ['nullable', 'string', 'max:10'],
             'about_page_badge_text' => ['nullable', 'string', 'max:255'],
@@ -106,36 +106,16 @@ class AboutSettingController extends Controller
 
         foreach (self::SETTING_KEYS as $key) {
             if (in_array($key, ['about_home_image', 'about_page_image'], true)) {
+                Setting::setValue($key, MediaPath::normalize($validated[$key] ?? null));
+
                 continue;
             }
 
             Setting::setValue($key, $validated[$key] ?? null);
         }
 
-        $this->storeUploadedImage($request, 'about_home_image');
-        $this->storeUploadedImage($request, 'about_page_image');
-
         return redirect()
             ->route('admin.about.edit')
             ->with('success', 'About Us settings updated successfully.');
-    }
-
-    /**
-     * Store an uploaded about section image and update its setting key.
-     */
-    private function storeUploadedImage(Request $request, string $key): void
-    {
-        if (! $request->hasFile($key)) {
-            return;
-        }
-
-        $oldImage = Setting::getValue($key);
-
-        if ($oldImage && str_starts_with($oldImage, 'settings/') && Storage::disk('public')->exists($oldImage)) {
-            Storage::disk('public')->delete($oldImage);
-        }
-
-        $path = $request->file($key)->store('settings/about', 'public');
-        Setting::setValue($key, $path);
     }
 }

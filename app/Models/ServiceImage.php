@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -31,6 +32,6 @@ class ServiceImage extends Model
      */
     public function imageUrl(): string
     {
-        return asset('storage/'.$this->image);
+        return MediaPath::url($this->image);
     }
 }

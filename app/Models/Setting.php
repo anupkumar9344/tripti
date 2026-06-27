@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
@@ -68,10 +69,6 @@ class Setting extends Model
             return asset('images/'.$defaultFile);
         }
 
-        if (str_starts_with($value, 'settings/')) {
-            return asset('storage/'.$value);
-        }
-
-        return asset('images/'.ltrim($value, '/'));
+        return MediaPath::url($value, $defaultFile);
     }
 }

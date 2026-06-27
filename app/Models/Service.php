@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
@@ -48,7 +49,7 @@ class Service extends Model
      */
     public function thumbnailUrl(): string
     {
-        return asset('storage/'.$this->thumbnail);
+        return MediaPath::url($this->thumbnail);
     }
 
     /**

@@ -119,16 +119,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group mb-0">
-                            <label class="form-label" for="about_home_image">Section Image</label>
-                            <input type="file" class="form-control @error('about_home_image') is-invalid @enderror" id="about_home_image" name="about_home_image" accept="image/*">
-                            @error('about_home_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            @if (! empty($settings['about_home_image']))
-                                <div class="mt-2">
-                                    <img src="{{ \App\Models\Setting::imageUrl($settings['about_home_image']) }}" alt="Home about image" class="img-thumbnail" style="max-height: 120px;">
-                                </div>
-                            @endif
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'about_home_image',
+                                'currentValue' => $settings['about_home_image'] ?? '',
+                                'label' => 'Section Image',
+                            ])
                         </div>
                     </div>
                 </div>
@@ -219,16 +214,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group mb-0">
-                            <label class="form-label" for="about_page_image">Section Image</label>
-                            <input type="file" class="form-control @error('about_page_image') is-invalid @enderror" id="about_page_image" name="about_page_image" accept="image/*">
-                            @error('about_page_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            @if (! empty($settings['about_page_image']))
-                                <div class="mt-2">
-                                    <img src="{{ \App\Models\Setting::imageUrl($settings['about_page_image']) }}" alt="About page image" class="img-thumbnail" style="max-height: 120px;">
-                                </div>
-                            @endif
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'about_page_image',
+                                'currentValue' => $settings['about_page_image'] ?? '',
+                                'label' => 'Section Image',
+                            ])
                         </div>
                     </div>
                 </div>

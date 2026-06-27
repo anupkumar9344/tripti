@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\ServiceImage;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -51,14 +51,21 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
-            'thumbnail' => ['required', 'image', 'max:2048'],
-            'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'max:2048'],
+            'thumbnail' => ['nullable', 'string', 'max:500'],
+            'gallery_images_text' => ['nullable', 'string'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
+
+        $thumbnailPath = MediaPath::normalize($validated['thumbnail'] ?? null);
+
+        if (! $thumbnailPath) {
+            return back()
+                ->withErrors(['thumbnail' => 'Please paste a thumbnail URL from the media library.'])
+                ->withInput();
+        }
 
         $slugSource = $validated['slug'] ?? $validated['title'];
         $slug = Service::generateUniqueSlug($slugSource);
@@ -66,14 +73,14 @@ class ServiceController extends Controller
         $service = Service::create([
             'title' => $validated['title'],
             'slug' => $slug,
-            'thumbnail' => $request->file('thumbnail')->store('services/thumbnails', 'public'),
+            'thumbnail' => $thumbnailPath,
             'short_description' => $validated['short_description'] ?? null,
             'long_description' => $validated['long_description'] ?? null,
             'status' => (bool) $validated['status'],
             'sort_order' => $validated['sort_order'] ?? 0,
         ]);
 
-        $this->storeGalleryImages($service, $request->file('images'));
+        $this->storeGalleryPaths($service, MediaPath::parseUrlLines($validated['gallery_images_text'] ?? null));
 
         return redirect()
             ->route('admin.services.index')
@@ -102,9 +109,8 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
-            'thumbnail' => ['nullable', 'image', 'max:2048'],
-            'images' => ['nullable', 'array'],
-            'images.*' => ['image', 'max:2048'],
+            'thumbnail' => ['nullable', 'string', 'max:500'],
+            'gallery_images_text' => ['nullable', 'string'],
             'remove_images' => ['nullable', 'array'],
             'remove_images.*' => ['integer', 'exists:service_images,id'],
             'short_description' => ['nullable', 'string', 'max:500'],
@@ -115,6 +121,7 @@ class ServiceController extends Controller
 
         $slugSource = $validated['slug'] ?? $validated['title'];
         $slug = Service::generateUniqueSlug($slugSource, $service->id);
+        $thumbnailPath = MediaPath::normalize($validated['thumbnail'] ?? null);
 
         $service->title = $validated['title'];
         $service->slug = $slug;
@@ -123,18 +130,15 @@ class ServiceController extends Controller
         $service->status = (bool) $validated['status'];
         $service->sort_order = $validated['sort_order'] ?? 0;
 
-        if ($request->hasFile('thumbnail')) {
-            if (Storage::disk('public')->exists($service->thumbnail)) {
-                Storage::disk('public')->delete($service->thumbnail);
-            }
-
-            $service->thumbnail = $request->file('thumbnail')->store('services/thumbnails', 'public');
+        if ($thumbnailPath && $thumbnailPath !== $service->thumbnail) {
+            MediaPath::deleteLegacyFile($service->thumbnail);
+            $service->thumbnail = $thumbnailPath;
         }
 
         $service->save();
 
         $this->removeGalleryImages($service, $validated['remove_images'] ?? []);
-        $this->storeGalleryImages($service, $request->file('images'));
+        $this->storeGalleryPaths($service, MediaPath::parseUrlLines($validated['gallery_images_text'] ?? null));
 
         return redirect()
             ->route('admin.services.index')
@@ -142,20 +146,16 @@ class ServiceController extends Controller
     }
 
     /**
-     * Delete a service and its files.
+     * Delete a service and its legacy files.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Service $service): RedirectResponse
     {
-        if (Storage::disk('public')->exists($service->thumbnail)) {
-            Storage::disk('public')->delete($service->thumbnail);
-        }
+        MediaPath::deleteLegacyFile($service->thumbnail);
 
         foreach ($service->images as $image) {
-            if (Storage::disk('public')->exists($image->image)) {
-                Storage::disk('public')->delete($image->image);
-            }
+            MediaPath::deleteLegacyFile($image->image);
         }
 
         $service->delete();
@@ -166,23 +166,23 @@ class ServiceController extends Controller
     }
 
     /**
-     * Store uploaded gallery images for a service.
+     * Store gallery image paths pasted from the media library.
      *
-     * @param  array<int, \Illuminate\Http\UploadedFile>|null  $images
+     * @param  list<string>  $paths
      */
-    private function storeGalleryImages(Service $service, ?array $images): void
+    private function storeGalleryPaths(Service $service, array $paths): void
     {
-        if (empty($images)) {
+        if ($paths === []) {
             return;
         }
 
         $nextOrder = (int) $service->images()->max('sort_order');
 
-        foreach ($images as $image) {
+        foreach ($paths as $path) {
             $nextOrder++;
 
             $service->images()->create([
-                'image' => $image->store('services/gallery', 'public'),
+                'image' => $path,
                 'sort_order' => $nextOrder,
             ]);
         }
@@ -205,10 +205,7 @@ class ServiceController extends Controller
             ->get();
 
         foreach ($images as $image) {
-            if (Storage::disk('public')->exists($image->image)) {
-                Storage::disk('public')->delete($image->image);
-            }
-
+            MediaPath::deleteLegacyFile($image->image);
             $image->delete();
         }
     }

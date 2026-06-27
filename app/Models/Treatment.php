@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -72,15 +73,7 @@ class Treatment extends Model
      */
     public function imageUrl(): string
     {
-        if (! $this->image) {
-            return '';
-        }
-
-        if (str_starts_with($this->image, 'media-management/')) {
-            return asset($this->image);
-        }
-
-        return asset('storage/'.$this->image);
+        return MediaPath::url($this->image);
     }
 
     /**

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MediaFile;
 use App\Models\Treatment;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -50,7 +49,6 @@ class TreatmentController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
-            'media_id' => ['nullable', 'exists:media_files,id'],
             'image' => ['nullable', 'string', 'max:500'],
             'icon' => ['nullable', 'string', 'max:100'],
             'short_description' => ['nullable', 'string', 'max:500'],
@@ -60,11 +58,11 @@ class TreatmentController extends Controller
             'display_on_home' => ['required', 'boolean'],
         ]);
 
-        $imagePath = $this->resolveImagePath($request);
+        $imagePath = MediaPath::normalize($validated['image'] ?? null);
 
         if (! $imagePath) {
             return back()
-                ->withErrors(['image' => 'Please choose an image from the media library.'])
+                ->withErrors(['image' => 'Please paste an image URL from the media library.'])
                 ->withInput();
         }
 
@@ -108,7 +106,6 @@ class TreatmentController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
-            'media_id' => ['nullable', 'exists:media_files,id'],
             'image' => ['nullable', 'string', 'max:500'],
             'icon' => ['nullable', 'string', 'max:100'],
             'short_description' => ['nullable', 'string', 'max:500'],
@@ -120,7 +117,7 @@ class TreatmentController extends Controller
 
         $slugSource = $validated['slug'] ?? $validated['title'];
         $slug = Treatment::generateUniqueSlug($slugSource, $treatment->id);
-        $imagePath = $this->resolveImagePath($request);
+        $imagePath = MediaPath::normalize($validated['image'] ?? null);
 
         $treatment->title = $validated['title'];
         $treatment->slug = $slug;
@@ -132,7 +129,7 @@ class TreatmentController extends Controller
         $treatment->display_on_home = (bool) $validated['display_on_home'];
 
         if ($imagePath && $imagePath !== $treatment->image) {
-            $this->deleteLegacyImage($treatment->image);
+            MediaPath::deleteLegacyFile($treatment->image);
             $treatment->image = $imagePath;
         }
 
@@ -144,52 +141,18 @@ class TreatmentController extends Controller
     }
 
     /**
-     * Delete a treatment and its image.
+     * Delete a treatment and its legacy image file.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Treatment $treatment): RedirectResponse
     {
-        $this->deleteLegacyImage($treatment->image);
+        MediaPath::deleteLegacyFile($treatment->image);
 
         $treatment->delete();
 
         return redirect()
             ->route('admin.treatments.index')
             ->with('success', 'Treatment deleted successfully.');
-    }
-
-    /**
-     * Resolve the stored image path from media picker inputs.
-     */
-    private function resolveImagePath(Request $request): ?string
-    {
-        $mediaId = $request->input('media_id');
-
-        if ($mediaId) {
-            $media = MediaFile::find($mediaId);
-
-            if ($media) {
-                return $media->file_path;
-            }
-        }
-
-        $path = $request->input('image');
-
-        return filled($path) ? $path : null;
-    }
-
-    /**
-     * Delete legacy storage-based images without touching media library files.
-     */
-    private function deleteLegacyImage(?string $path): void
-    {
-        if (! $path || str_starts_with($path, 'media-management/')) {
-            return;
-        }
-
-        if (Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
     }
 }

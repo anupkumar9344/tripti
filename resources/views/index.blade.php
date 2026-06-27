@@ -789,13 +789,13 @@
         $visitEyebrow = ($settings['visit_us_eyebrow'] ?? '') ?: 'Visit Us';
         $visitTitle = ($settings['visit_us_title'] ?? '') ?: 'Serving Indore & Nearby';
         $visitDescription = ($settings['visit_us_description'] ?? '') ?: 'Conveniently located in the heart of Indore, we proudly serve patients from across the city and nearby areas.';
-        $visitBgImage = ($settings['visit_us_bg_image'] ?? '') ?: 'home-about-team.jpg';
+        $visitBgImage = \App\Models\Setting::imageUrl($settings['visit_us_bg_image'] ?? null, 'home-about-team.jpg');
         $locationAddress = ($settings['address'] ?? '') ?: '560 Sector B Greater Brajeshwari, Near Agrawal Public School, Indore, India, 452001';
         $locationPhone = ($settings['phone_1'] ?? '') ?: '+91 94259 63336';
         $locationEmailPrimary = ($settings['email_1'] ?? '') ?: 'info@sahajaarogyam.com';
         $locationEmailSecondary = ($settings['email_2'] ?? '') ?: 'sahajaarogyam@gmail.com';
     @endphp
-    <div class="home-location-map" id="location" style="background-image: url('{{ asset('images/' . $visitBgImage) }}');">
+    <div class="home-location-map" id="location" style="background-image: url('{{ $visitBgImage }}');">
         <div class="home-location-map-overlay"></div>
         <div class="container position-relative">
             <div class="row align-items-center g-4 g-xl-5">

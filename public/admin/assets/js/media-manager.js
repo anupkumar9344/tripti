@@ -624,156 +624,38 @@
         );
     }
 
-    let activePickerField = null;
-    let pickerBrowser = null;
-    let pickerSelected = null;
+    function initUrlFields() {
+        document.querySelectorAll('[data-media-url-field]').forEach((field) => {
+            const input = field.querySelector('input[type="url"]');
+            const preview = field.querySelector('[data-url-preview]');
 
-    function updateFieldPreview(field, item) {
-        const preview = field.querySelector('[data-media-preview]');
-        const idInput = field.querySelector('.media-picker-id-input');
-        const pathInput = field.querySelector('.media-picker-path-input');
-        const clearButton = field.querySelector('[data-media-clear]');
-
-        if (idInput) {
-            idInput.value = item?.id || '';
-        }
-
-        if (pathInput) {
-            pathInput.value = item?.file_path || '';
-        }
-
-        if (field) {
-            if (item) {
-                field.dataset.selectedMedia = JSON.stringify(item);
-            } else {
-                delete field.dataset.selectedMedia;
-            }
-        }
-
-        if (!preview) {
-            return;
-        }
-
-        if (!item) {
-            preview.classList.add('d-none');
-            preview.innerHTML = '';
-            clearButton?.classList.add('d-none');
-            return;
-        }
-
-        preview.classList.remove('d-none');
-        clearButton?.classList.remove('d-none');
-        preview.innerHTML = `
-            <div class="d-flex align-items-center gap-3">
-                <div class="media-picker-preview-thumb">
-                    ${item.is_image ? `<img src="${item.url}" alt="${item.display_name}">` : `<i class="ti ${fileIcon(item)}"></i>`}
-                </div>
-                <div class="flex-grow-1 min-w-0">
-                    <strong class="d-block text-truncate">${item.display_name}</strong>
-                    <span class="text-muted font-12 d-block text-truncate">${item.original_name}</span>
-                    <span class="text-muted font-12">${item.formatted_size} · ${item.category_label}</span>
-                </div>
-            </div>
-        `;
-    }
-
-    function initPicker() {
-        const modal = document.getElementById('mediaPickerModal');
-        if (!modal) {
-            return;
-        }
-
-        const selectButton = document.getElementById('mediaPickerSelectBtn');
-
-        pickerBrowser = new MediaBrowser({
-            mode: 'picker',
-            container: document.getElementById('mediaPickerContainer'),
-            emptyState: document.getElementById('mediaPickerEmpty'),
-            pagination: document.getElementById('mediaPickerPagination'),
-            paginationSummary: document.getElementById('mediaPickerSummary'),
-            searchInput: document.getElementById('mediaPickerSearchInput'),
-            categoryFilter: document.getElementById('mediaPickerCategoryFilter'),
-            sortFilter: document.getElementById('mediaPickerSortFilter'),
-            perPage: 24,
-            onSelect: (item) => {
-                pickerSelected = item;
-                selectButton.disabled = !item;
-            },
-        });
-
-        pickerBrowser.initControls();
-
-        modal.addEventListener('show.bs.modal', () => {
-            const pickerType = activePickerField?.dataset.pickerType || 'all';
-            pickerBrowser.state.pickerType = pickerType === 'image' ? 'image' : 'all';
-            pickerBrowser.state.selected = pickerSelected;
-            pickerBrowser.refresh();
-        });
-
-        selectButton?.addEventListener('click', () => {
-            if (!activePickerField || !pickerSelected) {
+            if (!input || !preview) {
                 return;
             }
 
-            updateFieldPreview(activePickerField, pickerSelected);
-            activePickerField.dataset.selectedMedia = JSON.stringify(pickerSelected);
-            bootstrap.Modal.getInstance(modal)?.hide();
-        });
+            const updatePreview = () => {
+                const value = input.value.trim();
 
-        MediaUI.bindUploadZone(
-            document.getElementById('mediaPickerUploadZone'),
-            document.getElementById('mediaPickerUploadInput'),
-            document.getElementById('mediaPickerUploadBrowseBtn'),
-            {
-                wrap: document.getElementById('mediaPickerUploadProgress'),
-                bar: document.getElementById('mediaPickerUploadProgressBar'),
-            },
-            (uploaded) => {
-                pickerBrowser.refresh();
-                if (uploaded[0]) {
-                    pickerSelected = uploaded[0];
-                    selectButton.disabled = false;
-                    pickerBrowser.state.selected = uploaded[0];
-                    pickerBrowser.refresh();
-                }
-            }
-        );
-
-        document.querySelectorAll('.js-open-media-picker').forEach((button) => {
-            button.addEventListener('click', () => {
-                activePickerField = button.closest('[data-media-field]');
-                const selectedJson = activePickerField?.dataset.selectedMedia;
-
-                if (selectedJson) {
-                    try {
-                        pickerSelected = JSON.parse(selectedJson);
-                    } catch (error) {
-                        pickerSelected = null;
-                    }
-                } else {
-                    pickerSelected = null;
+                if (!value) {
+                    preview.classList.add('d-none');
+                    preview.innerHTML = '';
+                    return;
                 }
 
-                selectButton.disabled = !pickerSelected;
-                bootstrap.Modal.getOrCreateInstance(modal).show();
-            });
-        });
+                preview.classList.remove('d-none');
+                preview.innerHTML = `<img src="${value}" alt="Preview" class="img-thumbnail" style="max-height: 100px;">`;
+            };
 
-        document.querySelectorAll('[data-media-clear]').forEach((button) => {
-            button.addEventListener('click', () => {
-                const field = button.closest('[data-media-field]');
-                delete field.dataset.selectedMedia;
-                updateFieldPreview(field, null);
-            });
+            input.addEventListener('input', updatePreview);
+            input.addEventListener('change', updatePreview);
         });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        if (!config.browseUrl) {
-            return;
-        }
+        initUrlFields();
 
-        initLibraryPage();
-        initPicker();
+        if (config.browseUrl) {
+            initLibraryPage();
+        }
     });
 })();

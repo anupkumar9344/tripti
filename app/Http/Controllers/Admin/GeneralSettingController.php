@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -56,6 +56,17 @@ class GeneralSettingController extends Controller
     ];
 
     /**
+     * Media setting keys that store pasted library URLs.
+     *
+     * @var list<string>
+     */
+    private const MEDIA_SETTING_KEYS = [
+        'website_logo',
+        'visit_us_bg_image',
+        'seo_og_image',
+    ];
+
+    /**
      * Show the general settings form.
      *
      * @return \Illuminate\View\View
@@ -76,7 +87,7 @@ class GeneralSettingController extends Controller
     {
         $validated = $request->validate([
             'website_name' => ['required', 'string', 'max:255'],
-            'website_logo' => ['nullable', 'image', 'max:2048'],
+            'website_logo' => ['nullable', 'string', 'max:500'],
             'footer_about' => ['nullable', 'string', 'max:1000'],
             'email_1' => ['nullable', 'email', 'max:255'],
             'email_2' => ['nullable', 'email', 'max:255'],
@@ -92,7 +103,7 @@ class GeneralSettingController extends Controller
             'visit_us_eyebrow' => ['nullable', 'string', 'max:255'],
             'visit_us_title' => ['nullable', 'string', 'max:255'],
             'visit_us_description' => ['nullable', 'string', 'max:1000'],
-            'visit_us_bg_image' => ['nullable', 'string', 'max:255'],
+            'visit_us_bg_image' => ['nullable', 'string', 'max:500'],
             'contact_locations_title' => ['nullable', 'string', 'max:255'],
             'contact_locations_description' => ['nullable', 'string', 'max:1000'],
             'contact_form_title' => ['nullable', 'string', 'max:255'],
@@ -110,52 +121,14 @@ class GeneralSettingController extends Controller
             'seo_google_site_verification' => ['nullable', 'string', 'max:255'],
         ]);
 
-        foreach ([
-            'website_name',
-            'footer_about',
-            'email_1',
-            'email_2',
-            'phone_1',
-            'phone_2',
-            'whatsapp_number',
-            'address',
-            'opening_hours',
-            'facebook_url',
-            'instagram_url',
-            'youtube_url',
-            'google_map_embed',
-            'visit_us_eyebrow',
-            'visit_us_title',
-            'visit_us_description',
-            'visit_us_bg_image',
-            'contact_locations_title',
-            'contact_locations_description',
-            'contact_form_title',
-            'contact_form_description',
-            'seo_meta_title',
-            'seo_meta_description',
-            'seo_meta_keywords',
-            'seo_meta_author',
-            'seo_robots',
-            'seo_og_title',
-            'seo_og_description',
-            'seo_og_image',
-            'seo_twitter_card',
-            'seo_twitter_site',
-            'seo_google_site_verification',
-        ] as $key) {
-            Setting::setValue($key, $validated[$key] ?? null);
-        }
+        foreach (self::SETTING_KEYS as $key) {
+            if (in_array($key, self::MEDIA_SETTING_KEYS, true)) {
+                Setting::setValue($key, MediaPath::normalize($validated[$key] ?? null));
 
-        if ($request->hasFile('website_logo')) {
-            $oldLogo = Setting::getValue('website_logo');
-
-            if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
-                Storage::disk('public')->delete($oldLogo);
+                continue;
             }
 
-            $path = $request->file('website_logo')->store('settings', 'public');
-            Setting::setValue('website_logo', $path);
+            Setting::setValue($key, $validated[$key] ?? null);
         }
 
         return redirect()

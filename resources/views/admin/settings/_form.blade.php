@@ -75,16 +75,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group mb-0">
-                            <label class="form-label" for="website_logo">Website Logo</label>
-                            <input type="file" class="form-control @error('website_logo') is-invalid @enderror" id="website_logo" name="website_logo" accept="image/*">
-                            @error('website_logo')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            @if (! empty($settings['website_logo']))
-                                <div class="mt-2">
-                                    <img src="{{ asset('storage/' . $settings['website_logo']) }}" alt="Website logo" class="img-thumbnail" style="max-height: 80px;">
-                                </div>
-                            @endif
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'website_logo',
+                                'currentValue' => $settings['website_logo'] ?? '',
+                                'label' => 'Website Logo',
+                            ])
                         </div>
                     </div>
                 </div>
@@ -207,12 +202,11 @@
 
                     <div class="col-md-12">
                         <div class="form-group mb-0">
-                            <label class="form-label" for="visit_us_bg_image">Visit Us Background Image</label>
-                            <input type="text" class="form-control @error('visit_us_bg_image') is-invalid @enderror" id="visit_us_bg_image" name="visit_us_bg_image" value="{{ old('visit_us_bg_image', $settings['visit_us_bg_image']) }}" placeholder="home-about-team.jpg">
-                            @error('visit_us_bg_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <span class="form-text text-muted font-12">Filename inside <code>public/images/</code>.</span>
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'visit_us_bg_image',
+                                'currentValue' => $settings['visit_us_bg_image'] ?? '',
+                                'label' => 'Visit Us Background Image',
+                            ])
                         </div>
                     </div>
                 </div>
@@ -386,12 +380,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group mb-3">
-                            <label class="form-label" for="seo_og_image">OG Image</label>
-                            <input type="text" class="form-control @error('seo_og_image') is-invalid @enderror" id="seo_og_image" name="seo_og_image" value="{{ old('seo_og_image', $settings['seo_og_image']) }}" placeholder="home-about-team.jpg">
-                            @error('seo_og_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <span class="form-text text-muted font-12">Filename in <code>public/images/</code> or full image URL.</span>
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'seo_og_image',
+                                'currentValue' => $settings['seo_og_image'] ?? '',
+                                'label' => 'OG Image',
+                            ])
                         </div>
                     </div>
 

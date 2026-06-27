@@ -188,7 +188,6 @@
 
     @include('admin.media.partials.preview-modal')
     @include('admin.media.partials.rename-modal')
-    @include('admin.media.partials.picker-modal')
 
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>

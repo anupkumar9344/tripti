@@ -15,9 +15,7 @@
     $ogImage = trim($__env->yieldContent('og_image'));
 
     if (! $ogImage && $ogImageSetting) {
-        $ogImage = str_starts_with($ogImageSetting, 'http://') || str_starts_with($ogImageSetting, 'https://')
-            ? $ogImageSetting
-            : asset('images/' . ltrim($ogImageSetting, '/'));
+        $ogImage = \App\Models\Setting::imageUrl($ogImageSetting, '');
     }
 
     $twitterCard = $seo['seo_twitter_card'] ?? 'summary_large_image';

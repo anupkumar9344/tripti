@@ -53,16 +53,12 @@
 
     <div class="col-md-4">
         <div class="form-group mb-3">
-            <label class="form-label" for="thumbnail">Thumbnail Image @if (! $isEdit)<span class="text-danger">*</span>@endif</label>
-            <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail" accept="image/*" {{ $isEdit ? '' : 'required' }}>
-            @error('thumbnail')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            @if ($isEdit && $service->thumbnail)
-                <div class="mt-2">
-                    <img src="{{ $service->thumbnailUrl() }}" alt="{{ $service->title }}" class="img-thumbnail" style="max-height: 100px;">
-                </div>
-            @endif
+            @include('admin.media.partials.url-field', [
+                'name' => 'thumbnail',
+                'currentValue' => $isEdit ? $service->thumbnail : '',
+                'label' => 'Thumbnail Image URL',
+                'required' => ! $isEdit,
+            ])
         </div>
     </div>
 
@@ -87,35 +83,8 @@
     </div>
 
     <div class="col-md-12">
-        <div class="form-group mb-3">
-            <label class="form-label" for="images">Service Images</label>
-            <input type="file" class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror" id="images" name="images[]" accept="image/*" multiple>
-            @error('images')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            @error('images.*')
-                <div class="invalid-feedback d-block">{{ $message }}</div>
-            @enderror
-            <span class="form-text text-muted font-12">You can select multiple images for the service gallery.</span>
-        </div>
+        @include('admin.media.partials.gallery-url-field', [
+            'existingImages' => $isEdit ? $service->images : collect(),
+        ])
     </div>
-
-    @if ($isEdit && $service->images->isNotEmpty())
-        <div class="col-md-12">
-            <label class="form-label d-block">Existing Gallery Images</label>
-            <div class="row g-2">
-                @foreach ($service->images as $image)
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="border rounded p-2 h-100">
-                            <img src="{{ $image->imageUrl() }}" alt="Gallery image" class="img-fluid rounded mb-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remove_images[]" value="{{ $image->id }}" id="remove_image_{{ $image->id }}">
-                                <label class="form-check-label font-12" for="remove_image_{{ $image->id }}">Remove</label>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @endif
 </div>

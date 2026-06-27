@@ -80,16 +80,13 @@
 
     <div class="col-md-12">
         <div class="form-group mb-3">
-            @include('admin.media.partials.field', [
-                'name' => 'media_id',
-                'pathName' => 'image',
-                'value' => old('media_id'),
-                'currentPath' => $treatment->image ?? '',
-                'pickerType' => 'image',
-                'label' => 'Image',
+            @include('admin.media.partials.url-field', [
+                'name' => 'image',
+                'currentValue' => $isEdit ? $treatment->image : '',
+                'label' => 'Image URL',
                 'required' => ! $isEdit,
             ])
-            <span class="form-text text-muted font-12">Shown on the treatment detail page. Select from the media library to avoid duplicate uploads.</span>
+            <span class="form-text text-muted font-12">Shown on the treatment detail page.</span>
         </div>
     </div>
 
