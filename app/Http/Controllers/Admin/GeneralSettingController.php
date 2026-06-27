@@ -22,6 +22,7 @@ class GeneralSettingController extends Controller
     private const SETTING_KEYS = [
         'website_name',
         'website_logo',
+        'footer_about',
         'email_1',
         'email_2',
         'phone_1',
@@ -57,6 +58,7 @@ class GeneralSettingController extends Controller
         $validated = $request->validate([
             'website_name' => ['required', 'string', 'max:255'],
             'website_logo' => ['nullable', 'image', 'max:2048'],
+            'footer_about' => ['nullable', 'string', 'max:1000'],
             'email_1' => ['nullable', 'email', 'max:255'],
             'email_2' => ['nullable', 'email', 'max:255'],
             'phone_1' => ['nullable', 'string', 'max:50'],
@@ -72,6 +74,7 @@ class GeneralSettingController extends Controller
 
         foreach ([
             'website_name',
+            'footer_about',
             'email_1',
             'email_2',
             'phone_1',

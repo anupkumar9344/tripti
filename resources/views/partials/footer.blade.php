@@ -1,3 +1,13 @@
+@php
+    $siteName = $settings['website_name'] ?: 'Sahaj Aarogyam';
+    $footerAbout = $settings['footer_about'] ?: 'Integrated wellness clinic providing physiotherapy, Ayurveda, pain management, and holistic healing solutions in Indore.';
+    $address = $settings['address'] ?: '560 Sector B Greater Brajeshwari, Near Agrawal Public School, Indore, India, 452001';
+    $phonePrimary = $settings['phone_1'] ?: '+91 94259 63336';
+    $emailPrimary = $settings['email_1'] ?: 'info@sahajaarogyam.com';
+    $emailSecondary = $settings['email_2'] ?: 'sahajaarogyam@gmail.com';
+    $whatsappNumber = preg_replace('/\D+/', '', $settings['whatsapp_number'] ?: '9425963336');
+@endphp
+
 <!-- Footer Main Start -->
 <footer class="footer-main">
     <div class="container">
@@ -5,15 +15,23 @@
             <div class="col-lg-3 col-md-6">
                 <div class="footer-brand">
                     <a href="{{ url('/') }}" class="footer-brand-logo">
-                        <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj Aarogyam">
+                        <img src="{{ asset('images/logo/logo.webp') }}" alt="{{ $siteName }}">
                     </a>
-                    <p class="footer-brand-text">Integrated wellness clinic providing physiotherapy, Ayurveda, pain management, and holistic healing solutions in Indore.</p>
+                    <p class="footer-brand-text">{{ $footerAbout }}</p>
                     <div class="footer-social-links">
                         <ul>
-                            <li><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></li>
-                            <li><a href="https://wa.me/919425963336" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></li>
+                            @if ($settings['facebook_url'])
+                                <li><a href="{{ $settings['facebook_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            @endif
+                            @if ($settings['instagram_url'])
+                                <li><a href="{{ $settings['instagram_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                            @endif
+                            @if ($settings['youtube_url'])
+                                <li><a href="{{ $settings['youtube_url'] }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></li>
+                            @endif
+                            @if ($whatsappNumber)
+                                <li><a href="https://wa.me/{{ $whatsappNumber }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -68,20 +86,28 @@
                     <ul class="footer-contact-list">
                         <li>
                             <span class="footer-contact-icon"><i class="fa-solid fa-location-dot"></i></span>
-                            <span>560 Sector B Greater Brajeshwari, Near Agrawal Public School, Indore, India, 452001</span>
+                            <span>{{ $address }}</span>
                         </li>
                         <li>
                             <span class="footer-contact-icon"><i class="fa-solid fa-phone"></i></span>
-                            <a href="tel:+919425963336">+91 94259 63336</a>
+                            <a href="tel:{{ preg_replace('/\s+/', '', $phonePrimary) }}">{{ $phonePrimary }}</a>
                         </li>
+                        @if ($settings['phone_2'])
+                            <li>
+                                <span class="footer-contact-icon"><i class="fa-solid fa-phone"></i></span>
+                                <a href="tel:{{ preg_replace('/\s+/', '', $settings['phone_2']) }}">{{ $settings['phone_2'] }}</a>
+                            </li>
+                        @endif
                         <li>
                             <span class="footer-contact-icon"><i class="fa-solid fa-envelope"></i></span>
-                            <a href="mailto:info@sahajaarogyam.com">info@sahajaarogyam.com</a>
+                            <a href="mailto:{{ $emailPrimary }}">{{ $emailPrimary }}</a>
                         </li>
-                        <li>
-                            <span class="footer-contact-icon"><i class="fa-solid fa-envelope"></i></span>
-                            <a href="mailto:sahajaarogyam@gmail.com">sahajaarogyam@gmail.com</a>
-                        </li>
+                        @if ($emailSecondary)
+                            <li>
+                                <span class="footer-contact-icon"><i class="fa-solid fa-envelope"></i></span>
+                                <a href="mailto:{{ $emailSecondary }}">{{ $emailSecondary }}</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -92,7 +118,7 @@
         <div class="container">
             <div class="footer-copyright">
                 <div class="footer-copyright-text">
-                    <p>&copy;{{ date('Y') }} Sahaj Aarogyam. All Rights Reserved.</p>
+                    <p>&copy;{{ date('Y') }} {{ $siteName }}. All Rights Reserved.</p>
                 </div>
                 <div class="footer-privacy-policy">
                     <ul>

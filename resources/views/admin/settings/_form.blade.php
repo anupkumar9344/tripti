@@ -15,6 +15,16 @@
             </div>
 
             <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="footer_about">Footer About Text</label>
+                    <textarea class="form-control @error('footer_about') is-invalid @enderror" id="footer_about" name="footer_about" rows="3" placeholder="Short description shown in the website footer">{{ old('footer_about', $settings['footer_about']) }}</textarea>
+                    @error('footer_about')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group mb-0">
                     <label class="form-label" for="website_logo">Website Logo</label>
                     <input type="file" class="form-control @error('website_logo') is-invalid @enderror" id="website_logo" name="website_logo" accept="image/*">
