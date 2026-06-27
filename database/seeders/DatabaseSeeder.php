@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             GalleryItemSeeder::class,
             BlogPostSeeder::class,
             HealthProgramSeeder::class,
+            HeroBannerSeeder::class,
         ]);
     }
 }

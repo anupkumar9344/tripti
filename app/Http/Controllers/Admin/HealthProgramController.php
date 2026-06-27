@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HealthProgram;
 use App\Support\MediaPath;
+use App\Support\PageLink;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -171,7 +172,7 @@ class HealthProgramController extends Controller
             'chief_consultant' => $validated['chief_consultant'] ?? null,
             'key_benefits' => $validated['key_benefits'] ?? null,
             'button_text' => $validated['button_text'] ?? null,
-            'button_url' => $validated['button_url'] ?? null,
+            'button_url' => PageLink::normalize($validated['button_url'] ?? null),
             'sort_order' => $validated['sort_order'] ?? 0,
             'status' => (bool) $validated['status'],
             'active_on_home' => (bool) $validated['status'] && (bool) $validated['active_on_home'],

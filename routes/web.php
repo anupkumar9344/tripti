@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GalleryItemController;
-use App\Http\Controllers\Admin\HealthProgramController as AdminHealthProgramController;
+use App\Http\Controllers\Admin\HeroBannerController;
 use App\Http\Controllers\Admin\IconReferenceController;
 use App\Http\Controllers\Admin\PatientReviewController;
 use App\Http\Controllers\Admin\WhyChooseItemController;
@@ -66,6 +66,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('faqs', FaqController::class)->except(['show']);
         Route::put('gallery-items/settings', [GalleryItemController::class, 'updateSettings'])->name('gallery-items.settings.update');
         Route::resource('gallery-items', GalleryItemController::class)->except(['show']);
+        Route::resource('hero-banners', HeroBannerController::class)->except(['show']);
         Route::resource('health-programs', AdminHealthProgramController::class)->except(['show']);
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);
         Route::resource('expert-profile-categories', ExpertProfileCategoryController::class)->except(['show']);

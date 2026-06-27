@@ -7,6 +7,7 @@ use App\Models\Expert;
 use App\Models\Faq;
 use App\Models\GalleryItem;
 use App\Models\HealthProgram;
+use App\Models\HeroBanner;
 use App\Models\PatientReview;
 use App\Models\Service;
 use App\Models\Setting;
@@ -111,6 +112,7 @@ class HomeController extends Controller
         $galleryHomeSettings = Setting::getMany(self::GALLERY_HOME_SETTING_KEYS);
         $homeBlogPosts = BlogPost::query()->forHome()->limit(3)->get();
         $homeHealthProgram = HealthProgram::query()->forHome()->first();
+        $heroBanners = HeroBanner::query()->activeOrdered()->get();
 
         return view('index', compact(
             'settings',
@@ -125,7 +127,8 @@ class HomeController extends Controller
             'homeGalleryItems',
             'galleryHomeSettings',
             'homeBlogPosts',
-            'homeHealthProgram'
+            'homeHealthProgram',
+            'heroBanners'
         ));
     }
 }

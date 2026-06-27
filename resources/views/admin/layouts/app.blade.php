@@ -50,6 +50,12 @@
                     </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">C<span>ontent</span></li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.hero-banners.*') ? 'active' : '' }}" href="{{ route('admin.hero-banners.index') }}">
+                            <i class="ti ti-photo menu-icon"></i>
+                            <span>Hero Banners</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
                             <i class="ti ti-briefcase menu-icon"></i>
                             <span>Services</span>

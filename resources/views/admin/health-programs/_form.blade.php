@@ -157,12 +157,11 @@
     </div>
 
     <div class="col-md-6">
-        <div class="form-group mb-0">
-            <label class="form-label" for="button_url">Home Button URL</label>
-            <input type="text" class="form-control @error('button_url') is-invalid @enderror" id="button_url" name="button_url" value="{{ old('button_url', $healthProgram->button_url ?? '/contact-us') }}">
-            @error('button_url')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
+        @include('admin.partials.page-link-field', [
+            'name' => 'button_url',
+            'id' => 'button_url',
+            'label' => 'Home Button Link',
+            'currentValue' => $isEdit ? ($healthProgram->button_url ?? '') : url('/contact-us'),
+        ])
     </div>
 </div>
