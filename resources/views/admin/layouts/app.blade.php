@@ -68,6 +68,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.health-programs.*') ? 'active' : '' }}" href="{{ route('admin.health-programs.index') }}">
+                            <i class="ti ti-calendar-event menu-icon"></i>
+                            <span>Health Programs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         @php
                             $teamMenuOpen = request()->routeIs('admin.experts.*') || request()->routeIs('admin.expert-profile-categories.*');
                         @endphp

@@ -3377,6 +3377,22 @@ body.mobile-menu-open{
 	border-color: var(--accent-color);
 }
 
+.home-programs-camps--listing{
+	padding: 80px 0;
+}
+
+.home-programs-camps--listing + .home-programs-camps--listing{
+	padding-top: 0;
+}
+
+.home-programs-camps--listing:nth-of-type(even){
+	background: rgba(116, 164, 42, 0.04);
+}
+
+.home-programs-camps--listing .home-programs-camps-title{
+	margin-bottom: 24px;
+}
+
 @media only screen and (max-width: 991px){
 	.home-programs-camps{
 		padding: 80px 0;

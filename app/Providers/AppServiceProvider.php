@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\HealthProgram;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\View;
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
             ]));
 
             $view->with('footerServices', Service::query()->activeOrdered()->limit(6)->get());
+            $view->with('footerPrograms', HealthProgram::query()->activeOrdered()->limit(6)->get());
         });
 
         View::composer('layouts.app', function ($view): void {

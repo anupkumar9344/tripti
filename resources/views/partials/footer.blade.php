@@ -69,12 +69,13 @@
 
             <div class="col-lg-2 col-md-6">
                 <div class="footer-links">
-                    <h3>Program</h3>
+                    <h3>Programs</h3>
                     <ul>
-                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Weight Management Program</a></li>
-                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Spine &amp; Posture Camp</a></li>
-                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Stress &amp; Sleep Retreat</a></li>
-                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> PCOD &amp; Hormonal Wellness</a></li>
+                        @forelse ($footerPrograms as $footerProgram)
+                            <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> {{ $footerProgram->title }}</a></li>
+                        @empty
+                            <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Health Programs</a></li>
+                        @endforelse
                     </ul>
                 </div>
             </div>

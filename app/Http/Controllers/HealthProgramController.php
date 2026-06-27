@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HealthProgram;
 use Illuminate\View\View;
 
 /**
@@ -16,6 +17,8 @@ class HealthProgramController extends Controller
      */
     public function index(): View
     {
-        return view('health-programs.index');
+        $healthPrograms = HealthProgram::query()->activeOrdered()->get();
+
+        return view('health-programs.index', compact('healthPrograms'));
     }
 }

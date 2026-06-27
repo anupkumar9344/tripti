@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\Contact;
+use App\Models\Expert;
 use App\Models\GalleryItem;
+use App\Models\HealthProgram;
+use App\Models\Service;
+use App\Models\Treatment;
 use Illuminate\View\View;
 
 /**
@@ -23,14 +27,14 @@ class DashboardController extends Controller
         $stats = [
             [
                 'label' => 'Services',
-                'count' => 6,
+                'count' => Service::query()->where('status', true)->count(),
                 'subtitle' => 'Published on website',
                 'icon' => 'ti-briefcase',
                 'tone' => 'primary',
             ],
             [
                 'label' => 'Treatments',
-                'count' => 6,
+                'count' => Treatment::query()->where('status', true)->count(),
                 'subtitle' => 'Published on website',
                 'icon' => 'ti-stethoscope',
                 'tone' => 'accent',
@@ -44,7 +48,7 @@ class DashboardController extends Controller
             ],
             [
                 'label' => 'Expert Team',
-                'count' => 6,
+                'count' => Expert::query()->where('status', true)->count(),
                 'subtitle' => 'Team members listed',
                 'icon' => 'ti-users',
                 'tone' => 'warm',
@@ -58,8 +62,8 @@ class DashboardController extends Controller
             ],
             [
                 'label' => 'Health Programs',
-                'count' => 1,
-                'subtitle' => 'Featured program',
+                'count' => HealthProgram::query()->where('status', true)->count(),
+                'subtitle' => 'Published programs',
                 'icon' => 'ti-calendar-event',
                 'tone' => 'rose',
             ],
