@@ -19,21 +19,23 @@
         <div class="col-lg-8">
             <div class="card admin-dashboard-welcome overflow-hidden h-100">
                 <div class="card-body p-4 d-flex align-items-center h-100">
-                    <div class="row align-items-center w-100">
-                        <div class="col-md-8">
+                    <div class="row align-items-center w-100 g-3">
+                        <div class="col-12 col-lg-7 min-w-0">
                             <span class="badge bg-light text-dark mb-2">Sahaj Admin</span>
                             <h4 class="mb-2">Welcome back, {{ auth()->user()->name }}!</h4>
-                            <p class="text-muted-light mb-3 mb-md-0">
+                            <p class="text-muted-light mb-0">
                                 Overview of content currently live on the Sahaj Aarogyam website. Counts reflect static frontend pages for now.
                             </p>
                         </div>
-                        <div class="col-md-4 text-md-end">
-                            <a href="{{ url('/') }}" class="btn btn-light me-2" target="_blank">
-                                <i class="ti ti-world me-1"></i> View Website
-                            </a>
-                            <a href="{{ route('admin.settings.general') }}" class="btn btn-outline-light">
-                                <i class="ti ti-settings me-1"></i> Settings
-                            </a>
+                        <div class="col-12 col-lg-5">
+                            <div class="admin-dashboard-welcome-actions">
+                                <a href="{{ url('/') }}" class="btn btn-light" target="_blank">
+                                    <i class="ti ti-world me-1"></i> View Website
+                                </a>
+                                <a href="{{ route('admin.settings.general') }}" class="btn btn-outline-light">
+                                    <i class="ti ti-settings me-1"></i> Settings
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,7 +55,7 @@
 
     <div class="row admin-dashboard-stats g-3 mt-2 mb-0">
         @foreach ($stats as $stat)
-            <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="col-xl-3 col-lg-3 col-md-6">
                 <div class="card admin-dashboard-stat mb-0">
                     <div class="card-body py-3">
                         <div class="d-flex align-items-center gap-3">

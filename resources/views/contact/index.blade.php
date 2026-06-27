@@ -80,7 +80,7 @@
                             </div>
                         </div>
 
-                        @if ($settings['facebook_url'] || $settings['instagram_url'] || $settings['youtube_url'] || $settings['whatsapp_number'])
+                        @if ($settings['facebook_url'] || $settings['instagram_url'] || $settings['youtube_url'])
                             <div class="contact-locations-social">
                                 @if ($settings['facebook_url'])
                                     <a href="{{ $settings['facebook_url'] }}" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -90,9 +90,6 @@
                                 @endif
                                 @if ($settings['youtube_url'])
                                     <a href="{{ $settings['youtube_url'] }}" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                                @endif
-                                @if ($settings['whatsapp_number'])
-                                    <a href="https://wa.me/{{ preg_replace('/\D+/', '', $settings['whatsapp_number']) }}" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                                 @endif
                             </div>
                         @endif

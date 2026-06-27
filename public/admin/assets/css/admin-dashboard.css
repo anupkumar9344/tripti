@@ -16,6 +16,30 @@
     color: rgba(255, 255, 255, 0.78) !important;
 }
 
+.admin-dashboard-welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+@media (min-width: 992px) {
+    .admin-dashboard-welcome-actions {
+        justify-content: flex-end;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1499.98px) {
+    .admin-dashboard-welcome-actions {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+.admin-dashboard-welcome-actions .btn {
+    white-space: nowrap;
+}
+
 .admin-dashboard-hero > [class*="col-"] {
     display: flex;
 }

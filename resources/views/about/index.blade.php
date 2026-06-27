@@ -39,60 +39,6 @@
     </div>
     <!-- About Intro Section End -->
 
-    <!-- Our Approach Section Start -->
-    <div class="our-approach">
-        <div class="container">
-            <div class="row align-items-center g-4 g-lg-5">
-                <div class="col-lg-6">
-                    <div class="our-approach-content">
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">Our Approach</h3>
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Healing that treats the <span>whole person</span></h2>
-                        </div>
-
-                        <div class="our-approach-body">
-                            <div class="mission-vision-item wow fadeInUp" data-wow-delay="0.15s">
-                                <h3>Our Mission</h3>
-                                <p>To deliver integrated, non-surgical healthcare that treats root causes and helps patients recover safely, naturally, and with lasting wellness.</p>
-                            </div>
-
-                            <div class="mission-vision-item wow fadeInUp" data-wow-delay="0.25s">
-                                <h3>Our Vision</h3>
-                                <p>To be Indore's trusted centre for holistic healing — where traditional therapies and modern clinical expertise work together under one roof.</p>
-                            </div>
-
-                            <div class="mission-vision-item wow fadeInUp" data-wow-delay="0.35s">
-                                <h3>Our Promise</h3>
-                                <p>Every patient receives a personalised treatment plan built around their condition, lifestyle, and long-term health goals — not a one-size-fits-all protocol.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="our-approach-image wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="our-approach-img-1">
-                            <figure>
-                                <img src="{{ asset('images/our-approach-img-1.jpg') }}" alt="Holistic wellness therapy">
-                            </figure>
-                        </div>
-                        <div class="our-approach-img-2">
-                            <figure>
-                                <img src="{{ asset('images/our-approach-img-2.jpg') }}" alt="Natural healing consultation">
-                            </figure>
-                        </div>
-                        <div class="approach-explore-more-circle">
-                            <a href="{{ url('/contact-us') }}">
-                                <img src="{{ asset('images/explore-more-circle.svg') }}" alt="Contact us">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Our Approach Section End -->
-
     <!-- Stats Section Start -->
     <div class="about-stats-section">
         <div class="container">
@@ -177,56 +123,4 @@
         </div>
     </div>
     <!-- Why Choose Section End -->
-
-    <!-- Who We Are Section Start -->
-    <div class="who-we-are">
-        <div class="container">
-            <div class="row align-items-center g-4 g-lg-5">
-                <div class="col-lg-6">
-                    <div class="who-we-are-image wow fadeInUp">
-                        <figure>
-                            <img src="{{ asset('images/who-we-are-image.png') }}" alt="Sahaj Aarogyam holistic care">
-                        </figure>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="who-we-are-content">
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">Who We Are</h3>
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Serving Indore with <span>trusted natural care</span></h2>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Sahaj Aarogyam is a multidisciplinary wellness centre in Indore, dedicated to helping patients recover from pain, metabolic disorders, and chronic conditions through natural, integrated therapies.</p>
-                        </div>
-
-                        <div class="who-we-are-body">
-                            <div class="we-are-item wow fadeInUp" data-wow-delay="0.3s">
-                                <div class="icon-box">
-                                    <img src="{{ asset('images/icon-who-we-are-1.svg') }}" alt="">
-                                </div>
-                                <div class="we-are-item-content">
-                                    <h3>Experienced Expert Team</h3>
-                                    <p>Our founders and specialists bring 25+ years of clinical experience across Ayurveda, physiotherapy, nutrition, and alternative medicine.</p>
-                                </div>
-                            </div>
-
-                            <div class="we-are-item wow fadeInUp" data-wow-delay="0.4s">
-                                <div class="icon-box">
-                                    <img src="{{ asset('images/icon-who-we-are-2.svg') }}" alt="">
-                                </div>
-                                <div class="we-are-item-content">
-                                    <h3>Patient-First Care</h3>
-                                    <p>From your first consultation to long-term follow-up, we guide you with compassion, clarity, and a plan built around your needs.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="who-we-are-btn wow fadeInUp" data-wow-delay="0.5s">
-                            <a href="{{ url('/contact-us') }}" class="btn-default">Book an Appointment</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Who We Are Section End -->
 @endsection
