@@ -1,121 +1,107 @@
 <!-- Footer Main Start -->
-    <footer class="footer-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Footer Header Start -->
-                    <div class="footer-header">
-                        <!-- Footer About Start -->
-                        <div class="footer-about">
-                            <div class="footer-logo">
-                                <img src="{{ asset('images/footer-logo.svg') }}" alt="">
-                            </div>
-                            <div class="about-footer-content">
-                                <p>Holistic practices for inner peace, focus, and overall well-being.</p>
-                            </div>
-                        </div>
-                        <!-- Footer About End -->
-                        
-                        <!-- Footer Social Links Start -->
-                        <div class="footer-social-links">
-                            <ul>
-                                <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- Footer Social Links End -->
-                    </div>
-                    <!-- Footer Header End -->
-                </div>
-
-                <div class="col-lg-2 col-md-3">
-                    <!-- Footer Links Start -->
-                    <div class="footer-links">
-                        <h3>Quick link</h3>
+<footer class="footer-main">
+    <div class="container">
+        <div class="row g-4 g-lg-5 footer-top">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-brand">
+                    <a href="{{ url('/') }}" class="footer-brand-logo">
+                        <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj Aarogyam">
+                    </a>
+                    <p class="footer-brand-text">Integrated wellness clinic providing physiotherapy, Ayurveda, pain management, and holistic healing solutions in Indore.</p>
+                    <div class="footer-social-links">
                         <ul>
-                            <li><a href="{{ url('/') }}">Home</a></li>
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="blog.html">Blogs</a></li>
+                            <li><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a href="https://wa.me/919425963336" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></li>
                         </ul>
                     </div>
-                    <!-- Footer Links End -->
                 </div>
+            </div>
 
-                <div class="col-lg-2 col-md-4">
-                    <!-- Footer Links Start -->
-                    <div class="footer-links">
-                        <h3>services</h3>
-                        <ul>
-                            <li><a href="service-single.html">Beginner yoga classes</a></li>
-                            <li><a href="service-single.html">Stress relief sessions</a></li>
-                            <li><a href="service-single.html">Mindful meditation</a></li>
-                            <li><a href="service-single.html"> Restorative Yoga</a></li>
-                        </ul>
-                    </div>
-                    <!-- Footer Links End -->
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url('/') }}"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+                        <li><a href="{{ url('/about-us') }}"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+                        <li><a href="{{ url('/our-expert-team') }}"><i class="fa-solid fa-angle-right"></i> Our Expert Team</a></li>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Services</a></li>
+                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Health Programs &amp; Camps</a></li>
+                        <li><a href="{{ url('/treatment') }}"><i class="fa-solid fa-angle-right"></i> Treatment</a></li>
+                        <li><a href="{{ url('/blog') }}"><i class="fa-solid fa-angle-right"></i> Blogs</a></li>
+                        <li><a href="{{ url('/gallery') }}"><i class="fa-solid fa-angle-right"></i> Gallery</a></li>
+                        <li><a href="{{ url('/contact-us') }}"><i class="fa-solid fa-angle-right"></i> Contact us</a></li>
+                    </ul>
                 </div>
+            </div>
 
-                <div class="col-lg-3 col-md-5">
-                    <!-- Footer Contact Links Start -->
-                    <div class="footer-links footer-contact-links">
-                        <h3>Contact</h3>
-                        <ul>
-                            <li><a href="tel:761852398">(0) - 0761-852-398</a></li>
-                            <li><a href="https://html.awaikenthemes.com/restraint/info@domainname.com">info@domainname.com</a></li>
-                            <li>123 High Street LN1 1AB United Kingdom</li>
-                        </ul>
-                    </div>
-                    <!-- Footer Contact Links End -->
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-links">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Alternative Therapies</a></li>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Mental Wellness</a></li>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Aesthetic Wellness</a></li>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Metabolic Care</a></li>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Ayurveda &amp; Detox</a></li>
+                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Pain &amp; Rehabilitation</a></li>
+                    </ul>
                 </div>
-                
-                <div class="col-lg-5">
-                    <!-- Footer Newsletter Box Start -->
-                    <div class="footer-newsletter-box">
-                        <!-- Footer Newsletter Title Start -->
-                        <div class="section-title">
-                            <h2 class="text-anime-style-2" data-cursor="-opaque">Subscribe for Yoga Tips and Inspiration</h2>
-                        </div>
-                        <!-- Footer Newsletter Title End -->
+            </div>
 
-                        <!-- Newsletter Form start -->
-                        <div class="newsletter-form">
-                            <form id="newsletterForm" action="#" method="POST">
-                                <div class="form-group">
-                                    <input type="email" name="email" class="form-control" id="mail" placeholder="Enter Your Email" required>
-                                    <button type="submit" class="newsletter-btn"><i class="fa-solid fa-paper-plane"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Newsletter Form end -->
-                    </div>
-                    <!-- Footer Newsletter Box End -->
+            <div class="col-lg-2 col-md-6">
+                <div class="footer-links">
+                    <h3>Program</h3>
+                    <ul>
+                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Weight Management Program</a></li>
+                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Spine &amp; Posture Camp</a></li>
+                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Stress &amp; Sleep Retreat</a></li>
+                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> PCOD &amp; Hormonal Wellness</a></li>
+                    </ul>
                 </div>
-                
-                <div class="col-lg-12">
-                    <!-- Footer Copyright Section Start -->
-                    <div class="footer-copyright">
-                        <!-- Footer Copyright Text Start -->
-                        <div class="footer-copyright-text">
-                            <p>Copyright © 2025 All Rights Reserved.</p>
-                        </div>
-                        <!-- Footer Copyright Text End -->
-                            
-                        <!-- Footer Privacy Policy Start -->
-                        <div class="footer-privacy-policy">
-                            <ul>
-                                <li><a href="#">Privacy policy</a></li>
-                                <li><a href="#">Term's & condition</a></li>
-                                <li><a href="#">help</a></li>
-                            </ul>
-                        </div>
-                        <!-- Footer Privacy Policy End -->
-                    </div>
-                    <!-- Footer Copyright Section End -->
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-links footer-contact-links">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <span class="footer-contact-icon"><i class="fa-solid fa-location-dot"></i></span>
+                            <span>560 Sector B Greater Brajeshwari, Near Agrawal Public School, Indore, India, 452001</span>
+                        </li>
+                        <li>
+                            <span class="footer-contact-icon"><i class="fa-solid fa-phone"></i></span>
+                            <a href="tel:+919425963336">+91 94259 63336</a>
+                        </li>
+                        <li>
+                            <span class="footer-contact-icon"><i class="fa-solid fa-envelope"></i></span>
+                            <a href="mailto:info@sahajaarogyam.com">info@sahajaarogyam.com</a>
+                        </li>
+                        <li>
+                            <span class="footer-contact-icon"><i class="fa-solid fa-envelope"></i></span>
+                            <a href="mailto:sahajaarogyam@gmail.com">sahajaarogyam@gmail.com</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- Footer Main End -->
+    </div>
+
+    <div class="footer-bottom-bar">
+        <div class="container">
+            <div class="footer-copyright">
+                <div class="footer-copyright-text">
+                    <p>&copy;{{ date('Y') }} Sahaj Aarogyam. All Rights Reserved.</p>
+                </div>
+                <div class="footer-privacy-policy">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Main End -->

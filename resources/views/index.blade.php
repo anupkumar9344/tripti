@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Restraint - Yoga & Meditation HTML Template')
+@section('title', 'Sahaj Aarogyam')
 
 @section('content')
 <!-- Hero Section Start -->
@@ -12,7 +12,7 @@
                     <div class="hero-content">
                         <!-- Section Title Start -->
                         <div class="section-title">
-                            <h3 class="wow fadeInUp">Welcome Restraint</h3>
+                            <h3 class="wow fadeInUp">Welcome to Sahaj Aarogyam</h3>
                             <h1 class="text-anime-style-2" data-cursor="-opaque">Transform Your Life Through Yoga and Meditation</h1>
                             <p class="wow fadeInUp" data-wow-delay="0.2s">Discover the path to holistic well-being through yoga meditation  practices are designed to enhance your physical strength, mental clarity.</p>
                         </div>

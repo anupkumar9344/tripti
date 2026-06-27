@@ -9,7 +9,7 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Awaiken">
 	<!-- Page Title -->
-    <title>@yield('title', 'Restraint - Yoga & Meditation')</title>
+    <title>@yield('title', 'Sahaj Aarogyam')</title>
 	<!-- Favicon Icon -->
 	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
 	<!-- Google Fonts Css-->

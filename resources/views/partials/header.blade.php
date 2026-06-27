@@ -31,7 +31,7 @@
                         
                         <!-- Header Contact Btn Start -->
                         <div class="header-contact-btn">
-                            <a href="#" class="btn-default js-book-appointment" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">Book Appointment</a>
+                            <a href="{{ url('/contact-us') }}" class="btn-default">Book Appointment</a>
                         </div>
                         <!-- Header Contact Btn End -->
 					</div>
