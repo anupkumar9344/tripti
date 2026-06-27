@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="{{ asset('css/mousecursor.css') }}">
 	<!-- Main Custom Css -->
 	<link href="{{ asset('css/custom.css') }}" rel="stylesheet" media="screen">
+	@stack('styles')
 </head>
 <body>
 
@@ -80,5 +81,6 @@
     <script src="{{ asset('js/wow.min.js') }}"></script>
     <!-- Main Custom js file -->
     <script src="{{ asset('js/function.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

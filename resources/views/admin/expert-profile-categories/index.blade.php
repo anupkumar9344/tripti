@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Team Members')
+@section('title', 'Team Categories')
 
 @push('styles')
     <link href="{{ asset('admin/assets/plugins/datatables/datatable.css') }}" rel="stylesheet" type="text/css" />
@@ -12,11 +12,11 @@
         <div class="col-sm-12">
             <div class="page-title-box">
                 <div class="float-end">
-                    <a href="{{ route('admin.experts.create') }}" class="btn btn-primary">
-                        <i class="ti ti-plus me-1"></i> Add Team Member
+                    <a href="{{ route('admin.expert-profile-categories.create') }}" class="btn btn-primary">
+                        <i class="ti ti-plus me-1"></i> Add Category
                     </a>
                 </div>
-                <h4 class="page-title">Team Members</h4>
+                <h4 class="page-title">Team Categories</h4>
             </div>
         </div>
     </div>
@@ -25,51 +25,46 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">All Experts</h4>
+                    <h4 class="card-title mb-0">All Team Categories</h4>
                 </div>
                 <div class="card-body">
+                    <p class="text-muted font-13">Create categories here, then add content for each expert on the expert edit page. Only categories with content appear on the public profile.</p>
                     <div class="table-responsive admin-datatable">
-                        <table class="table table-striped table-bordered mb-0" id="datatable_experts">
+                        <table class="table table-striped table-bordered mb-0" id="datatable_profile_categories">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Order</th>
-                                    <th>Expert</th>
-                                    <th>Designation</th>
+                                    <th>Category</th>
+                                    <th>Icon</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($experts as $expert)
+                                @foreach ($categories as $category)
                                     <tr>
-                                        <td>{{ $expert->sort_order }}</td>
+                                        <td>{{ $category->sort_order }}</td>
+                                        <td>{{ $category->title }}</td>
                                         <td>
-                                            <img src="{{ $expert->photoUrl() }}" alt="{{ $expert->name }}" height="40" class="rounded me-2">
-                                            <span class="d-inline-block align-middle">
-                                                <span class="fw-semibold d-block">{{ $expert->name }}</span>
-                                                @if ($expert->specialty)
-                                                    <span class="text-muted font-13">{{ Str::limit($expert->specialty, 60) }}</span>
-                                                @endif
-                                            </span>
+                                            @if ($category->icon)
+                                                <i class="fa-solid {{ $category->icon }} me-1"></i>
+                                                <span class="font-13 text-muted">{{ $category->icon }}</span>
+                                            @else
+                                                —
+                                            @endif
                                         </td>
-                                        <td>{{ $expert->designation ?? '—' }}</td>
                                         <td>
-                                            @if ($expert->status)
+                                            @if ($category->status)
                                                 <span class="badge badge-soft-success">Active</span>
                                             @else
                                                 <span class="badge badge-soft-danger">Inactive</span>
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($expert->status)
-                                                <a href="{{ route('experts.show', $expert->slug) }}" class="me-2" title="View Profile" target="_blank">
-                                                    <i class="las la-eye text-secondary font-16"></i>
-                                                </a>
-                                            @endif
-                                            <a href="{{ route('admin.experts.edit', $expert) }}" class="me-2" title="Edit">
+                                            <a href="{{ route('admin.expert-profile-categories.edit', $category) }}" class="me-2" title="Edit">
                                                 <i class="las la-pen text-secondary font-16"></i>
                                             </a>
-                                            <form action="{{ route('admin.experts.destroy', $expert) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete expert?" data-text="This expert and their photo will be permanently removed.">
+                                            <form action="{{ route('admin.expert-profile-categories.destroy', $category) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete category?" data-text="This category and all expert content linked to it will be removed.">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
@@ -92,7 +87,7 @@
     <script src="{{ asset('admin/assets/plugins/datatables/simple-datatables.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const table = document.querySelector('#datatable_experts');
+            const table = document.querySelector('#datatable_profile_categories');
 
             if (table) {
                 new simpleDatatables.DataTable(table, {
@@ -101,13 +96,11 @@
                     perPage: 10,
                     perPageSelect: [10, 25, 50, 100],
                     labels: {
-                        placeholder: 'Search experts...',
-                        noRows: 'No experts found. Add your first expert.',
-                        noResults: 'No matching experts found.',
+                        placeholder: 'Search categories...',
+                        noRows: 'No categories found. Add your first category.',
+                        noResults: 'No matching categories found.',
                     },
                 });
-
-                table.classList.add('table', 'table-striped', 'table-bordered', 'mb-0');
             }
         });
     </script>

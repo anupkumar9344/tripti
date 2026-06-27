@@ -128,6 +128,7 @@
     </div>
 </div>
 
+@if ($isEdit)
 <div class="card mb-3">
     <div class="card-header">
         <h4 class="card-title mb-0">Profile Page</h4>
@@ -186,3 +187,6 @@
         </div>
     </div>
 </div>
+
+@include('admin.experts._profile_sections')
+@endif

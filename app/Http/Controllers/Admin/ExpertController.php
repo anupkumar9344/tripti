@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expert;
+use App\Models\ExpertProfileCategory;
+use App\Models\ExpertProfileSection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -54,11 +56,6 @@ class ExpertController extends Controller
             'specialty' => ['nullable', 'string', 'max:255'],
             'qualifications' => ['nullable', 'string', 'max:500'],
             'short_description' => ['nullable', 'string', 'max:500'],
-            'specialty_location' => ['nullable', 'string', 'max:255'],
-            'experience_label' => ['nullable', 'string', 'max:255'],
-            'patients_treated' => ['nullable', 'string', 'max:255'],
-            'highlight_quote' => ['nullable', 'string', 'max:500'],
-            'long_description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
@@ -74,18 +71,13 @@ class ExpertController extends Controller
             'specialty' => $validated['specialty'] ?? null,
             'qualifications' => $validated['qualifications'] ?? null,
             'short_description' => $validated['short_description'] ?? null,
-            'specialty_location' => $validated['specialty_location'] ?? null,
-            'experience_label' => $validated['experience_label'] ?? null,
-            'patients_treated' => $validated['patients_treated'] ?? null,
-            'highlight_quote' => $validated['highlight_quote'] ?? null,
-            'long_description' => $validated['long_description'] ?? null,
             'status' => (bool) $validated['status'],
             'sort_order' => $validated['sort_order'] ?? 0,
         ]);
 
         return redirect()
             ->route('admin.experts.index')
-            ->with('success', 'Expert created successfully.');
+            ->with('success', 'Team member created successfully. Edit to add profile categories and details.');
     }
 
     /**
@@ -95,7 +87,29 @@ class ExpertController extends Controller
      */
     public function edit(Expert $expert): View
     {
-        return view('admin.experts.edit', compact('expert'));
+        $expert->load('profileSections');
+
+        $profileCategories = ExpertProfileCategory::query()
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('title')
+            ->get();
+
+        $profileSectionContents = $expert->profileSections
+            ->pluck('content', 'expert_profile_category_id')
+            ->all();
+
+        $selectedCategoryIds = old(
+            'profile_category_ids',
+            $expert->profileSections->pluck('expert_profile_category_id')->all()
+        );
+
+        return view('admin.experts.edit', compact(
+            'expert',
+            'profileCategories',
+            'profileSectionContents',
+            'selectedCategoryIds'
+        ));
     }
 
     /**
@@ -118,6 +132,10 @@ class ExpertController extends Controller
             'patients_treated' => ['nullable', 'string', 'max:255'],
             'highlight_quote' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
+            'profile_category_ids' => ['nullable', 'array'],
+            'profile_category_ids.*' => ['integer', 'exists:expert_profile_categories,id'],
+            'profile_sections' => ['nullable', 'array'],
+            'profile_sections.*' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
@@ -149,6 +167,12 @@ class ExpertController extends Controller
 
         $expert->save();
 
+        $this->syncProfileSections(
+            $expert,
+            $validated['profile_category_ids'] ?? [],
+            $validated['profile_sections'] ?? []
+        );
+
         return redirect()
             ->route('admin.experts.index')
             ->with('success', 'Expert updated successfully.');
@@ -170,5 +194,45 @@ class ExpertController extends Controller
         return redirect()
             ->route('admin.experts.index')
             ->with('success', 'Expert deleted successfully.');
+    }
+
+    /**
+     * Save selected categories and their content for an expert.
+     *
+     * @param  list<int|string>  $selectedCategoryIds
+     * @param  array<int|string, string|null>  $sections
+     */
+    private function syncProfileSections(Expert $expert, array $selectedCategoryIds, array $sections): void
+    {
+        $selectedCategoryIds = array_map('intval', $selectedCategoryIds);
+
+        if ($selectedCategoryIds === []) {
+            ExpertProfileSection::query()
+                ->where('expert_id', $expert->id)
+                ->delete();
+
+            return;
+        }
+
+        ExpertProfileSection::query()
+            ->where('expert_id', $expert->id)
+            ->whereNotIn('expert_profile_category_id', $selectedCategoryIds)
+            ->delete();
+
+        foreach ($selectedCategoryIds as $categoryId) {
+            $content = isset($sections[$categoryId]) && is_string($sections[$categoryId])
+                ? trim($sections[$categoryId])
+                : '';
+
+            ExpertProfileSection::query()->updateOrCreate(
+                [
+                    'expert_id' => $expert->id,
+                    'expert_profile_category_id' => $categoryId,
+                ],
+                [
+                    'content' => $content !== '' ? $content : null,
+                ]
+            );
+        }
     }
 }

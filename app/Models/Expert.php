@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Expert extends Model
@@ -39,6 +40,16 @@ class Expert extends Model
         return [
             'status' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the profile sections for this expert.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function profileSections(): HasMany
+    {
+        return $this->hasMany(ExpertProfileSection::class);
     }
 
     /**

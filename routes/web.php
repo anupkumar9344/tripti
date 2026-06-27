@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\ExpertController;
+use App\Http\Controllers\Admin\ExpertProfileCategoryController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
@@ -26,6 +27,7 @@ Route::get('/services/{slug}', [ServicePageController::class, 'show'])->name('se
 Route::get('/treatment', [TreatmentController::class, 'index'])->name('treatment');
 Route::get('/treatment/{slug}', [TreatmentController::class, 'show'])->name('treatment.show');
 Route::get('/our-expert-team', [ExpertTeamController::class, 'index'])->name('experts');
+Route::get('/our-expert-team/{slug}', [ExpertTeamController::class, 'show'])->name('experts.show');
 Route::get('/health-programs', [HealthProgramController::class, 'index'])->name('health-programs');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
@@ -47,6 +49,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::resource('services', ServiceController::class)->except(['show']);
+        Route::resource('expert-profile-categories', ExpertProfileCategoryController::class)->except(['show']);
         Route::resource('experts', ExpertController::class)->except(['show']);
         Route::get('contacts/data', [AdminContactController::class, 'data'])->name('contacts.data');
         Route::resource('contacts', AdminContactController::class)->only(['index', 'show', 'destroy']);

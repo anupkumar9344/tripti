@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             GeneralSettingsSeeder::class,
             AboutSettingsSeeder::class,
+            ExpertProfileCategorySeeder::class,
         ]);
     }
 }

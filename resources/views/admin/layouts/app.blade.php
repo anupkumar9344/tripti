@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -52,10 +53,30 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">
+                        @php
+                            $teamMenuOpen = request()->routeIs('admin.experts.*') || request()->routeIs('admin.expert-profile-categories.*');
+                        @endphp
+                        <a
+                            class="nav-link"
+                            href="#sidebarTeam"
+                            data-bs-toggle="collapse"
+                            role="button"
+                            aria-expanded="{{ $teamMenuOpen ? 'true' : 'false' }}"
+                            aria-controls="sidebarTeam"
+                        >
                             <i class="ti ti-users menu-icon"></i>
-                            <span>Expert Team</span>
+                            <span>Team</span>
                         </a>
+                        <div class="collapse {{ $teamMenuOpen ? 'show' : '' }}" id="sidebarTeam">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">Team Members</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.expert-profile-categories.*') ? 'active' : '' }}" href="{{ route('admin.expert-profile-categories.index') }}">Categories</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">

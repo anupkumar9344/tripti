@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Admin Login - Sahaj</title>
+    <title>Admin Login - Sahaj Aarogyam</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
@@ -11,68 +11,133 @@
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
 </head>
-<body id="body" class="auth-page" style="background-image: url('{{ asset('admin/assets/images/p-1.png') }}'); background-size: cover; background-position: center center;">
-    <div class="container-md">
-        <div class="row vh-100 d-flex justify-content-center">
-            <div class="col-12 align-self-center">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-4 mx-auto">
-                            <div class="card">
-                                <div class="card-body p-0 auth-header-box">
-                                    <div class="text-center p-3">
-                                        <a href="{{ route('admin.login') }}" class="logo logo-admin">
-                                            <img src="{{ asset('images/logo/logo.webp') }}" height="50" alt="Sahaj logo" class="auth-logo">
-                                        </a>
-                                        <h4 class="mt-3 mb-1 fw-semibold text-white font-18">Welcome to Sahaj Admin</h4>
-                                        <p class="text-muted mb-0">Sign in to continue to your dashboard.</p>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-0">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger mt-3 mb-0">
-                                            {{ $errors->first() }}
-                                        </div>
-                                    @endif
+<body id="body" class="admin-auth-page">
+    <div class="admin-auth-wrapper">
+        <div class="admin-auth-brand">
+            <img
+                src="{{ asset('images/gallery-4.jpg') }}"
+                alt="Sahaj Aarogyam"
+                class="admin-auth-brand-image"
+            >
+        </div>
 
-                                    <form class="my-4" action="{{ route('admin.login.submit') }}" method="POST">
-                                        @csrf
-                                        <div class="form-group mb-2">
-                                            <label class="form-label" for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter email" required>
-                                        </div>
+        <div class="admin-auth-form-panel">
+            <div class="admin-auth-card">
+                <div class="admin-auth-card-header">
+                    <a href="{{ url('/') }}" class="admin-auth-card-logo" target="_blank" rel="noopener">
+                        <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj Aarogyam">
+                    </a>
+                    <h2>Welcome back</h2>
+                    <p>Enter your credentials to access the admin dashboard.</p>
+                </div>
 
-                                        <div class="form-group">
-                                            <label class="form-label" for="password">Password</label>
-                                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
-                                        </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger admin-auth-alert" role="alert">
+                        <i class="ti ti-alert-circle"></i>
+                        <span>{{ $errors->first() }}</span>
+                    </div>
+                @endif
 
-                                        <div class="form-group row mt-3">
-                                            <div class="col-sm-6">
-                                                <div class="form-check form-switch form-switch-success">
-                                                    <input class="form-check-input" type="checkbox" id="remember" name="remember" value="1" {{ old('remember') ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="remember">Remember me</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                <form class="admin-auth-form" action="{{ route('admin.login.submit') }}" method="POST" id="adminLoginForm">
+                    @csrf
 
-                                        <div class="form-group mb-0 row">
-                                            <div class="col-12">
-                                                <div class="d-grid mt-3">
-                                                    <button class="btn btn-primary" type="submit">Log In <i class="fas fa-sign-in-alt ms-1"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="email">Email address</label>
+                        <div class="admin-auth-input-group @error('email') is-invalid @enderror">
+                            <span class="admin-auth-input-icon"><i class="ti ti-mail"></i></span>
+                            <input
+                                type="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                id="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                                autofocus
+                            >
+                        </div>
+                        @error('email')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="admin-auth-input-group @error('password') is-invalid @enderror">
+                            <span class="admin-auth-input-icon"><i class="ti ti-lock"></i></span>
+                            <input
+                                type="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                name="password"
+                                id="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+                            <button type="button" class="admin-auth-toggle-password" id="togglePassword" aria-label="Show password">
+                                <i class="ti ti-eye"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="form-check form-switch form-switch-success mb-0">
+                            <input class="form-check-input" type="checkbox" id="remember" name="remember" value="1" {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="remember">Remember me</label>
                         </div>
                     </div>
-                </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary admin-auth-submit" type="submit" id="loginSubmitBtn">
+                            <span class="admin-auth-submit-text">Sign In</span>
+                            <span class="admin-auth-submit-loader d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Signing in...
+                            </span>
+                            <i class="ti ti-arrow-right ms-1 admin-auth-submit-icon"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <p class="admin-auth-footer-note mb-0">
+                    Secure access for authorized administrators only.
+                </p>
             </div>
         </div>
     </div>
 
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePassword');
+            const loginForm = document.getElementById('adminLoginForm');
+            const submitBtn = document.getElementById('loginSubmitBtn');
+
+            if (toggleButton && passwordInput) {
+                toggleButton.addEventListener('click', function () {
+                    const isPassword = passwordInput.type === 'password';
+                    passwordInput.type = isPassword ? 'text' : 'password';
+                    toggleButton.innerHTML = isPassword
+                        ? '<i class="ti ti-eye-off"></i>'
+                        : '<i class="ti ti-eye"></i>';
+                    toggleButton.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+                });
+            }
+
+            if (loginForm && submitBtn) {
+                loginForm.addEventListener('submit', function () {
+                    submitBtn.disabled = true;
+                    submitBtn.querySelector('.admin-auth-submit-text')?.classList.add('d-none');
+                    submitBtn.querySelector('.admin-auth-submit-loader')?.classList.remove('d-none');
+                    submitBtn.querySelector('.admin-auth-submit-icon')?.classList.add('d-none');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
