@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
                 'instagram_url',
                 'youtube_url',
             ]));
+
+            $view->with('footerServices', Service::query()->activeOrdered()->limit(6)->get());
         });
 
         View::composer('layouts.app', function ($view): void {

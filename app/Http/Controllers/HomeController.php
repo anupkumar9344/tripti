@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Treatment;
 use App\Models\WhyChooseItem;
@@ -61,7 +62,8 @@ class HomeController extends Controller
 
         $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
         $homeTreatments = Treatment::query()->forHome()->get();
+        $homeServices = Service::query()->forHome()->get();
 
-        return view('index', compact('settings', 'whyChooseItems', 'homeTreatments'));
+        return view('index', compact('settings', 'whyChooseItems', 'homeTreatments', 'homeServices'));
     }
 }

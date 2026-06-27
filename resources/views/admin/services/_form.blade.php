@@ -53,12 +53,40 @@
 
     <div class="col-md-4">
         <div class="form-group mb-3">
+            <label class="form-label" for="display_on_home">Display on Home <span class="text-danger">*</span></label>
+            @php
+                $homeValue = (string) old('display_on_home', $isEdit ? (int) $service->display_on_home : 0);
+            @endphp
+            <select class="form-select @error('display_on_home') is-invalid @enderror" id="display_on_home" name="display_on_home" required>
+                <option value="1" @selected($homeValue === '1')>Yes</option>
+                <option value="0" @selected($homeValue === '0')>No</option>
+            </select>
+            @error('display_on_home')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            <span class="form-text text-muted font-12">Show in the home page &ldquo;Our Core Services&rdquo; section.</span>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-3">
             @include('admin.media.partials.url-field', [
                 'name' => 'thumbnail',
                 'currentValue' => $isEdit ? $service->thumbnail : '',
                 'label' => 'Thumbnail Image URL',
                 'required' => ! $isEdit,
             ])
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label class="form-label" for="icon">Icon Class</label>
+            <input type="text" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon" value="{{ old('icon', $service->icon ?? '') }}" placeholder="fa-leaf">
+            @error('icon')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            <span class="form-text text-muted font-12">Font Awesome class without the <code>fa-solid</code> prefix. Shown on service cards.</span>
         </div>
     </div>
 
@@ -74,11 +102,23 @@
 
     <div class="col-md-12">
         <div class="form-group mb-3">
+            <label class="form-label" for="tags">Tags</label>
+            <input type="text" class="form-control @error('tags') is-invalid @enderror" id="tags" name="tags" value="{{ old('tags', $service->tags ?? '') }}" placeholder="Physiotherapy, Neuro Rehab">
+            @error('tags')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            <span class="form-text text-muted font-12">Comma-separated tags shown on service cards.</span>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group mb-3">
             <label class="form-label" for="long_description">Long Description</label>
-            <textarea class="form-control @error('long_description') is-invalid @enderror" id="long_description" name="long_description" rows="8">{{ old('long_description', $service->long_description ?? '') }}</textarea>
+            <textarea class="form-control @error('long_description') is-invalid @enderror" id="long_description" name="long_description" rows="10">{{ old('long_description', $service->long_description ?? '') }}</textarea>
             @error('long_description')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+            <span class="form-text text-muted font-12">Shown on the service detail page.</span>
         </div>
     </div>
 

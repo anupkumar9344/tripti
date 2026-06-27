@@ -54,8 +54,11 @@ class ServiceController extends Controller
             'thumbnail' => ['nullable', 'string', 'max:500'],
             'gallery_images_text' => ['nullable', 'string'],
             'short_description' => ['nullable', 'string', 'max:500'],
+            'icon' => ['nullable', 'string', 'max:100'],
+            'tags' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
+            'display_on_home' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
 
@@ -74,9 +77,12 @@ class ServiceController extends Controller
             'title' => $validated['title'],
             'slug' => $slug,
             'thumbnail' => $thumbnailPath,
+            'icon' => $validated['icon'] ?? null,
             'short_description' => $validated['short_description'] ?? null,
+            'tags' => $validated['tags'] ?? null,
             'long_description' => $validated['long_description'] ?? null,
             'status' => (bool) $validated['status'],
+            'display_on_home' => (bool) $validated['display_on_home'],
             'sort_order' => $validated['sort_order'] ?? 0,
         ]);
 
@@ -114,8 +120,11 @@ class ServiceController extends Controller
             'remove_images' => ['nullable', 'array'],
             'remove_images.*' => ['integer', 'exists:service_images,id'],
             'short_description' => ['nullable', 'string', 'max:500'],
+            'icon' => ['nullable', 'string', 'max:100'],
+            'tags' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
+            'display_on_home' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
 
@@ -125,9 +134,12 @@ class ServiceController extends Controller
 
         $service->title = $validated['title'];
         $service->slug = $slug;
+        $service->icon = $validated['icon'] ?? null;
         $service->short_description = $validated['short_description'] ?? null;
+        $service->tags = $validated['tags'] ?? null;
         $service->long_description = $validated['long_description'] ?? null;
         $service->status = (bool) $validated['status'];
+        $service->display_on_home = (bool) $validated['display_on_home'];
         $service->sort_order = $validated['sort_order'] ?? 0;
 
         if ($thumbnailPath && $thumbnailPath !== $service->thumbnail) {

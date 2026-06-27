@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\MediaPath;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
@@ -18,9 +19,12 @@ class Service extends Model
         'title',
         'slug',
         'thumbnail',
+        'icon',
         'short_description',
+        'tags',
         'long_description',
         'status',
+        'display_on_home',
         'sort_order',
     ];
 
@@ -33,6 +37,7 @@ class Service extends Model
     {
         return [
             'status' => 'boolean',
+            'display_on_home' => 'boolean',
         ];
     }
 
@@ -50,6 +55,49 @@ class Service extends Model
     public function thumbnailUrl(): string
     {
         return MediaPath::url($this->thumbnail);
+    }
+
+    /**
+     * Get tag labels as an array for listing cards.
+     *
+     * @return list<string>
+     */
+    public function tagList(): array
+    {
+        if (! filled($this->tags)) {
+            return [];
+        }
+
+        return array_values(array_filter(array_map('trim', explode(',', $this->tags))));
+    }
+
+    /**
+     * Scope active services ordered for listing pages.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActiveOrdered(Builder $query): Builder
+    {
+        return $query
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('title');
+    }
+
+    /**
+     * Scope active services marked for the home page section.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForHome(Builder $query): Builder
+    {
+        return $query
+            ->where('status', true)
+            ->where('display_on_home', true)
+            ->orderBy('sort_order')
+            ->orderBy('title');
     }
 
     /**

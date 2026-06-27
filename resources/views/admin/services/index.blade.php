@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>Order</th>
                                     <th>Service</th>
+                                    <th>Home</th>
                                     <th>Gallery</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -51,6 +52,13 @@
                                                     <span class="text-muted font-13">{{ Str::limit($service->short_description, 60) }}</span>
                                                 @endif
                                             </span>
+                                        </td>
+                                        <td>
+                                            @if ($service->display_on_home)
+                                                <span class="badge badge-soft-success">Yes</span>
+                                            @else
+                                                <span class="badge badge-soft-secondary">No</span>
+                                            @endif
                                         </td>
                                         <td>{{ $service->images_count }} image(s)</td>
                                         <td>

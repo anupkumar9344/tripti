@@ -58,12 +58,11 @@
                 <div class="footer-links">
                     <h3>Our Services</h3>
                     <ul>
-                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Alternative Therapies</a></li>
-                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Mental Wellness</a></li>
-                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Aesthetic Wellness</a></li>
-                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Metabolic Care</a></li>
-                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Ayurveda &amp; Detox</a></li>
-                        <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Pain &amp; Rehabilitation</a></li>
+                        @forelse ($footerServices as $footerService)
+                            <li><a href="{{ route('services.show', $footerService->slug) }}"><i class="fa-solid fa-angle-right"></i> {{ $footerService->title }}</a></li>
+                        @empty
+                            <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Services</a></li>
+                        @endforelse
                     </ul>
                 </div>
             </div>
