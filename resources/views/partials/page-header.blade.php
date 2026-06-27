@@ -1,5 +1,10 @@
+@php
+    $headerBg = $bgImage ?? 'images/home-about-team.jpg';
+@endphp
+
 <!-- Page Header Start -->
 <div class="page-header parallaxie">
+    <div class="page-header-bg" style="background-image: url('{{ asset($headerBg) }}');"></div>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12">
