@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogPost;
 use App\Models\Contact;
 use App\Models\GalleryItem;
 use Illuminate\View\View;
@@ -36,8 +37,8 @@ class DashboardController extends Controller
             ],
             [
                 'label' => 'Blog Posts',
-                'count' => 6,
-                'subtitle' => 'Articles on blog page',
+                'count' => BlogPost::query()->where('status', true)->count(),
+                'subtitle' => 'Published articles',
                 'icon' => 'ti-news',
                 'tone' => 'info',
             ],
@@ -71,43 +72,11 @@ class DashboardController extends Controller
 
         $newContactCount = Contact::query()->where('status', 'new')->count();
 
-        $latestBlogs = [
-            [
-                'title' => '5 Natural Ways to Improve Your Gut Health',
-                'slug' => '5-natural-ways-to-improve-your-gut-health',
-                'image' => 'post-1.jpg',
-                'date' => 'May 29, 2026',
-                'author' => 'Sahaj Aarogyam',
-            ],
-            [
-                'title' => 'Ayurveda vs Modern Lifestyle Disorders',
-                'slug' => 'ayurveda-vs-modern-lifestyle-disorders',
-                'image' => 'post-2.jpg',
-                'date' => 'May 29, 2026',
-                'author' => 'Sahaj Aarogyam',
-            ],
-            [
-                'title' => 'How Physiotherapy Helps in Chronic Pain Recovery',
-                'slug' => 'how-physiotherapy-helps-in-chronic-pain-recovery',
-                'image' => 'post-3.jpg',
-                'date' => 'May 29, 2026',
-                'author' => 'Sahaj Aarogyam',
-            ],
-            [
-                'title' => 'Understanding Panchakarma Detox Benefits',
-                'slug' => 'understanding-panchakarma-detox-benefits',
-                'image' => 'post-4.jpg',
-                'date' => 'May 15, 2026',
-                'author' => 'Sahaj Aarogyam',
-            ],
-            [
-                'title' => 'Weight Loss Without Crash Diets',
-                'slug' => 'weight-loss-without-crash-diets',
-                'image' => 'post-5.jpg',
-                'date' => 'May 10, 2026',
-                'author' => 'Sahaj Aarogyam',
-            ],
-        ];
+        $latestBlogs = BlogPost::query()
+            ->where('status', true)
+            ->orderByDesc('published_at')
+            ->limit(5)
+            ->get();
 
         $totalContent = collect($stats)->sum('count');
 

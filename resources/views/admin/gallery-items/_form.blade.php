@@ -82,7 +82,7 @@
 </div>
 
 <div class="form-group mb-3">
-    <label class="form-label" for="icon_tags">Home Panel Icons</label>
+    <label class="form-label" for="icon_tags">Home Panel Icons @include('admin.partials.icon-reference-link')</label>
     <input type="text" class="form-control @error('icon_tags') is-invalid @enderror" id="icon_tags" name="icon_tags" value="{{ old('icon_tags', $galleryItem->icon_tags ?? '') }}" placeholder="fa-leaf, fa-spa, fa-heart-pulse">
     @error('icon_tags')
         <div class="invalid-feedback">{{ $message }}</div>

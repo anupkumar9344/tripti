@@ -7,12 +7,11 @@
 </div>
 
 <div class="form-group mb-3">
-    <label class="form-label" for="icon">Icon Class</label>
+    <label class="form-label" for="icon">Icon Class @include('admin.partials.icon-reference-link')</label>
     <input type="text" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon" value="{{ old('icon', $whyChooseItem->icon ?? '') }}" placeholder="fa-shield-halved">
     @error('icon')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
-    <span class="form-text text-muted font-12">Font Awesome class without the <code>fa-solid</code> prefix, e.g. <code>fa-shield-halved</code>.</span>
 </div>
 
 <div class="form-group mb-3">

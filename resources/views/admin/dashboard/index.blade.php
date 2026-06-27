@@ -135,15 +135,15 @@
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush">
                         @foreach ($latestBlogs as $blog)
-                            <a href="{{ route('blog.show', $blog['slug']) }}" class="list-group-item list-group-item-action admin-dashboard-blog-item" target="_blank">
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="list-group-item list-group-item-action admin-dashboard-blog-item" target="_blank">
                                 <div class="d-flex align-items-center gap-3">
-                                    <img src="{{ asset('images/' . $blog['image']) }}" alt="{{ $blog['title'] }}" class="admin-dashboard-blog-thumb rounded">
+                                    <img src="{{ $blog->featuredImageUrl() }}" alt="{{ $blog->title }}" class="admin-dashboard-blog-thumb rounded">
                                     <div class="flex-grow-1 min-w-0">
-                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $blog['title'] }}</h6>
+                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $blog->title }}</h6>
                                         <p class="mb-0 text-muted font-12">
-                                            <i class="ti ti-calendar me-1"></i>{{ $blog['date'] }}
+                                            <i class="ti ti-calendar me-1"></i>{{ $blog->formattedDate() }}
                                             <span class="mx-1">·</span>
-                                            {{ $blog['author'] }}
+                                            {{ $blog->author }}
                                         </p>
                                     </div>
                                 </div>

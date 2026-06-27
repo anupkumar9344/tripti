@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PatientReviewSeeder::class,
             FaqSeeder::class,
             GalleryItemSeeder::class,
+            BlogPostSeeder::class,
         ]);
     }
 }

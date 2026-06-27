@@ -62,6 +62,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}" href="{{ route('admin.blog-posts.index') }}">
+                            <i class="ti ti-news menu-icon"></i>
+                            <span>Blog Posts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         @php
                             $teamMenuOpen = request()->routeIs('admin.experts.*') || request()->routeIs('admin.expert-profile-categories.*');
                         @endphp
@@ -127,6 +133,12 @@
                         <a class="nav-link {{ request()->routeIs('admin.media.*') ? 'active' : '' }}" href="{{ route('admin.media.index') }}">
                             <i class="ti ti-files menu-icon"></i>
                             <span>Media Library</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.icons.*') ? 'active' : '' }}" href="{{ route('admin.icons.index') }}">
+                            <i class="ti ti-palette menu-icon"></i>
+                            <span>Icon Reference</span>
                         </a>
                     </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>

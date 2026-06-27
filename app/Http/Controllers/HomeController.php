@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use App\Models\Expert;
 use App\Models\Faq;
 use App\Models\GalleryItem;
@@ -107,6 +108,7 @@ class HomeController extends Controller
         $faqHomeSettings = Setting::getMany(self::FAQ_HOME_SETTING_KEYS);
         $homeGalleryItems = GalleryItem::query()->forHome()->get();
         $galleryHomeSettings = Setting::getMany(self::GALLERY_HOME_SETTING_KEYS);
+        $homeBlogPosts = BlogPost::query()->forHome()->limit(3)->get();
 
         return view('index', compact(
             'settings',
@@ -119,7 +121,8 @@ class HomeController extends Controller
             'homeFaqs',
             'faqHomeSettings',
             'homeGalleryItems',
-            'galleryHomeSettings'
+            'galleryHomeSettings',
+            'homeBlogPosts'
         ));
     }
 }

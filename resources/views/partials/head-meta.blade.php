@@ -5,9 +5,13 @@
     $pageDescription = trim($__env->yieldContent('meta_description'));
     $metaDescription = $pageDescription ?: ($seo['seo_meta_description'] ?? '');
 
-    $metaKeywords = $seo['seo_meta_keywords'] ?? '';
+    $pageKeywords = trim($__env->yieldContent('meta_keywords'));
+    $metaKeywords = $pageKeywords ?: ($seo['seo_meta_keywords'] ?? '');
+
+    $pageRobots = trim($__env->yieldContent('meta_robots'));
+    $metaRobots = $pageRobots ?: ($seo['seo_robots'] ?? 'index, follow');
+
     $metaAuthor = $seo['seo_meta_author'] ?? ($seo['website_name'] ?? 'Sahaj Aarogyam');
-    $metaRobots = $seo['seo_robots'] ?? 'index, follow';
 
     $ogTitle = trim($__env->yieldContent('og_title')) ?: ($seo['seo_og_title'] ?? $metaTitle);
     $ogDescription = trim($__env->yieldContent('og_description')) ?: ($seo['seo_og_description'] ?? $metaDescription);

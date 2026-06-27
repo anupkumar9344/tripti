@@ -7,7 +7,7 @@
 </div>
 
 <div class="form-group mb-3">
-    <label class="form-label" for="icon">Icon Class</label>
+    <label class="form-label" for="icon">Icon Class @include('admin.partials.icon-reference-link')</label>
     <input type="text" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon" value="{{ old('icon', $expertProfileCategory->icon ?? '') }}" placeholder="fa-hospital">
     @error('icon')
         <div class="invalid-feedback">{{ $message }}</div>
