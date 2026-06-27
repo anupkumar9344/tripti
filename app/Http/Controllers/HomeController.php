@@ -29,13 +29,33 @@ class HomeController extends Controller
     ];
 
     /**
+     * Setting keys used for the home about section.
+     *
+     * @var list<string>
+     */
+    private const HOME_ABOUT_SETTING_KEYS = [
+        'about_home_eyebrow',
+        'about_home_title',
+        'about_home_title_highlight',
+        'about_home_description',
+        'about_home_image',
+        'about_home_badge_number',
+        'about_home_badge_suffix',
+        'about_home_badge_text',
+        'about_home_button_text',
+    ];
+
+    /**
      * Display the home page.
      *
      * @return \Illuminate\View\View
      */
     public function index(): View
     {
-        $settings = Setting::getMany(self::LOCATION_SETTING_KEYS);
+        $settings = Setting::getMany(array_merge(
+            self::LOCATION_SETTING_KEYS,
+            self::HOME_ABOUT_SETTING_KEYS
+        ));
 
         return view('index', compact('settings'));
     }

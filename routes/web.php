@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\AboutSettingController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GeneralSettingController;
@@ -38,6 +39,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('admin.auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('about', [AboutSettingController::class, 'edit'])->name('about.edit');
+        Route::put('about', [AboutSettingController::class, 'update'])->name('about.update');
         Route::get('settings/general', [GeneralSettingController::class, 'edit'])->name('settings.general');
         Route::put('settings/general', [GeneralSettingController::class, 'update'])->name('settings.general.update');
         Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');

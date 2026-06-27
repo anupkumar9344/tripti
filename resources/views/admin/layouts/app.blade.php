@@ -63,6 +63,12 @@
                             <span>Contact Messages</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.about.*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
+                            <i class="ti ti-info-circle menu-icon"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.settings.general') ? 'active' : '' }}" href="{{ route('admin.settings.general') }}">

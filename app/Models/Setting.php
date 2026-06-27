@@ -58,4 +58,20 @@ class Setting extends Model
 
         return $result;
     }
+
+    /**
+     * Resolve a stored image path for public display.
+     */
+    public static function imageUrl(?string $value, string $defaultFile = 'home-about-team.jpg'): string
+    {
+        if (empty($value)) {
+            return asset('images/'.$defaultFile);
+        }
+
+        if (str_starts_with($value, 'settings/')) {
+            return asset('storage/'.$value);
+        }
+
+        return asset('images/'.ltrim($value, '/'));
+    }
 }
