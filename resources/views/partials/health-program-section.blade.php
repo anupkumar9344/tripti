@@ -67,7 +67,7 @@
 
                     @if (!empty($showButton))
                         <div class="home-programs-camps-action wow fadeInUp" data-wow-delay="0.45s">
-                            <a href="{{ $buttonUrl }}" class="btn-default">{{ $buttonText }} <i class="fa-solid fa-arrow-right-long"></i></a>
+                            <a href="{{ $buttonUrl }}" class="btn-default">{{ $buttonText }}</a>
                         </div>
                     @endif
                 </div>

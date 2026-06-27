@@ -76,6 +76,60 @@
                     </form>
                 </div>
             </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">FAQ Page</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.faqs.page-settings.update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="faq_page_eyebrow">Eyebrow Text</label>
+                            <input type="text" class="form-control @error('faq_page_eyebrow') is-invalid @enderror" id="faq_page_eyebrow" name="faq_page_eyebrow" value="{{ old('faq_page_eyebrow', $pageSectionSettings['faq_page_eyebrow'] ?? 'FAQs') }}">
+                            @error('faq_page_eyebrow')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="faq_page_title">Section Title</label>
+                            <input type="text" class="form-control @error('faq_page_title') is-invalid @enderror" id="faq_page_title" name="faq_page_title" value="{{ old('faq_page_title', $pageSectionSettings['faq_page_title'] ?? 'Frequently Asked Questions') }}">
+                            @error('faq_page_title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="faq_page_description">Section Description</label>
+                            <textarea class="form-control @error('faq_page_description') is-invalid @enderror" id="faq_page_description" name="faq_page_description" rows="3">{{ old('faq_page_description', $pageSectionSettings['faq_page_description'] ?? '') }}</textarea>
+                            @error('faq_page_description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'faq_page_image',
+                                'currentValue' => $pageSectionSettings['faq_page_image'] ?? '',
+                                'label' => 'Side Image URL',
+                            ])
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="faq_page_contact_label">Contact Box Label</label>
+                            <input type="text" class="form-control @error('faq_page_contact_label') is-invalid @enderror" id="faq_page_contact_label" name="faq_page_contact_label" value="{{ old('faq_page_contact_label', $pageSectionSettings['faq_page_contact_label'] ?? 'Still Have Questions?') }}">
+                            @error('faq_page_contact_label')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save FAQ Page</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-7">
@@ -104,6 +158,9 @@
                                             @if ($faq->display_on_home)
                                                 <span class="badge badge-soft-primary me-1">Home</span>
                                             @endif
+                                            @if ($faq->display_on_faq_page)
+                                                <span class="badge badge-soft-success me-1">FAQ Page</span>
+                                            @endif
                                             @if ($faq->display_on_service_detail)
                                                 <span class="badge badge-soft-info me-1">Services</span>
                                             @endif
@@ -116,7 +173,7 @@
                                             @if ($faq->expert)
                                                 <span class="badge badge-soft-secondary me-1">{{ $faq->expert->name }}</span>
                                             @endif
-                                            @if (! $faq->display_on_home && ! $faq->display_on_service_detail && ! $faq->display_on_expert_detail && ! $faq->service && ! $faq->expert)
+                                            @if (! $faq->display_on_home && ! $faq->display_on_faq_page && ! $faq->display_on_service_detail && ! $faq->display_on_expert_detail && ! $faq->service && ! $faq->expert)
                                                 —
                                             @endif
                                         </td>

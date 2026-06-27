@@ -49,6 +49,7 @@
                         <li><a href="{{ url('/treatment') }}"><i class="fa-solid fa-angle-right"></i> Treatment</a></li>
                         <li><a href="{{ url('/blog') }}"><i class="fa-solid fa-angle-right"></i> Blogs</a></li>
                         <li><a href="{{ url('/gallery') }}"><i class="fa-solid fa-angle-right"></i> Gallery</a></li>
+                        <li><a href="{{ url('/faq') }}"><i class="fa-solid fa-angle-right"></i> FAQs</a></li>
                         <li><a href="{{ url('/contact-us') }}"><i class="fa-solid fa-angle-right"></i> Contact us</a></li>
                     </ul>
                 </div>

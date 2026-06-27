@@ -52,7 +52,7 @@
 
         @if ($showViewAll)
             <div class="home-meet-experts-action text-center wow fadeInUp" data-wow-delay="0.3s">
-                <a href="{{ url('/our-expert-team') }}" class="btn-default">Know More <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a href="{{ url('/our-expert-team') }}" class="btn-default">Know More</a>
             </div>
         @endif
     </div>

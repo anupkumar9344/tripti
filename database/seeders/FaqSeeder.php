@@ -22,6 +22,11 @@ class FaqSeeder extends Seeder
             'faq_home_description' => 'Quick answers about our treatments, appointments, and holistic care approach.',
             'faq_home_image' => 'faqs-image.jpg',
             'faq_home_contact_label' => 'Still Have Questions?',
+            'faq_page_eyebrow' => 'FAQs',
+            'faq_page_title' => 'Frequently Asked Questions',
+            'faq_page_description' => 'Find answers to common questions about our treatments, appointments, and holistic wellness approach.',
+            'faq_page_image' => 'faqs-image.jpg',
+            'faq_page_contact_label' => 'Still Have Questions?',
         ];
 
         foreach ($sectionSettings as $key => $value) {
@@ -75,6 +80,7 @@ class FaqSeeder extends Seeder
                     'sort_order' => $faq['sort_order'],
                     'status' => true,
                     'display_on_home' => $faq['display_on_home'],
+                    'display_on_faq_page' => true,
                     'display_on_service_detail' => false,
                     'display_on_expert_detail' => false,
                     'service_id' => null,

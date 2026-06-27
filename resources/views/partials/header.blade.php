@@ -23,6 +23,7 @@
                                         <li class="nav-item"><a class="nav-link" href="{{ url('/our-expert-team') }}">Our expert team</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ url('/health-programs') }}">Health programs</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ url('/gallery') }}">Gallery</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ url('/faq') }}">FAQs</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a></li>

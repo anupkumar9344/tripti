@@ -23,6 +23,7 @@ class SitePages
             ['label' => 'Health Programs', 'path' => '/health-programs'],
             ['label' => 'Gallery', 'path' => '/gallery'],
             ['label' => 'Blog', 'path' => '/blog'],
+            ['label' => 'FAQs', 'path' => '/faq'],
             ['label' => 'Contact Us', 'path' => '/contact-us'],
         ];
     }

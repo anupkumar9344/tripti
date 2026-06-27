@@ -53,7 +53,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group mb-3">
             <label class="form-label" for="display_on_home">Show on Home <span class="text-danger">*</span></label>
             @php
@@ -69,7 +69,23 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <div class="form-group mb-3">
+            <label class="form-label" for="display_on_faq_page">Show on FAQ Page <span class="text-danger">*</span></label>
+            @php
+                $faqPageValue = (string) old('display_on_faq_page', isset($faq) ? (int) ($faq->display_on_faq_page ?? 1) : 1);
+            @endphp
+            <select class="form-select @error('display_on_faq_page') is-invalid @enderror" id="display_on_faq_page" name="display_on_faq_page" required>
+                <option value="1" @selected($faqPageValue === '1')>Yes</option>
+                <option value="0" @selected($faqPageValue === '0')>No</option>
+            </select>
+            @error('display_on_faq_page')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-md-3">
         <div class="form-group mb-3">
             <label class="form-label" for="display_on_service_detail">All Service Details <span class="text-danger">*</span></label>
             @php
@@ -85,7 +101,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group mb-3">
             <label class="form-label" for="display_on_expert_detail">All Team Profiles <span class="text-danger">*</span></label>
             @php

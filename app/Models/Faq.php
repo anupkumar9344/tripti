@@ -21,6 +21,7 @@ class Faq extends Model
         'display_on_home',
         'display_on_service_detail',
         'display_on_expert_detail',
+        'display_on_faq_page',
         'service_id',
         'expert_id',
     ];
@@ -37,6 +38,7 @@ class Faq extends Model
             'display_on_home' => 'boolean',
             'display_on_service_detail' => 'boolean',
             'display_on_expert_detail' => 'boolean',
+            'display_on_faq_page' => 'boolean',
         ];
     }
 
@@ -80,6 +82,21 @@ class Faq extends Model
     {
         return $query
             ->where('display_on_home', true)
+            ->whereNull('service_id')
+            ->whereNull('expert_id')
+            ->activeOrdered();
+    }
+
+    /**
+     * Scope FAQs shown on the dedicated FAQ page.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForFaqPage(Builder $query): Builder
+    {
+        return $query
+            ->where('display_on_faq_page', true)
             ->whereNull('service_id')
             ->whereNull('expert_id')
             ->activeOrdered();

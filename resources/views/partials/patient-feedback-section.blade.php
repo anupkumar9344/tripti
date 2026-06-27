@@ -73,7 +73,7 @@
 
             @if ($readMoreUrl)
                 <div class="home-patient-feedback-action text-center wow fadeInUp" data-wow-delay="0.25s">
-                    <a href="{{ $readMoreUrl }}" class="btn-default" target="_blank" rel="noopener noreferrer">Read More Reviews <i class="fa-solid fa-arrow-right-long"></i></a>
+                    <a href="{{ $readMoreUrl }}" class="btn-default" target="_blank" rel="noopener noreferrer">Read More Reviews</a>
                 </div>
             @endif
         </div>

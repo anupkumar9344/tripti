@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\ExpertProfileCategoryController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\TreatmentController as AdminTreatmentController;
+use App\Http\Controllers\Admin\TrustStripItemController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\FaqController;
@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExpertTeamController;
+use App\Http\Controllers\FaqPageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HealthProgramController;
 use App\Http\Controllers\HomeController;
@@ -41,6 +42,7 @@ Route::get('/health-programs', [HealthProgramController::class, 'index'])->name(
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/faq', [FaqPageController::class, 'index'])->name('faq');
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
@@ -63,9 +65,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('patient-reviews/settings', [PatientReviewController::class, 'updateSettings'])->name('patient-reviews.settings.update');
         Route::resource('patient-reviews', PatientReviewController::class)->except(['show']);
         Route::put('faqs/settings', [FaqController::class, 'updateSettings'])->name('faqs.settings.update');
+        Route::put('faqs/page-settings', [FaqController::class, 'updatePageSettings'])->name('faqs.page-settings.update');
         Route::resource('faqs', FaqController::class)->except(['show']);
         Route::put('gallery-items/settings', [GalleryItemController::class, 'updateSettings'])->name('gallery-items.settings.update');
         Route::resource('gallery-items', GalleryItemController::class)->except(['show']);
+        Route::resource('trust-strip-items', TrustStripItemController::class)->except(['show']);
         Route::resource('hero-banners', HeroBannerController::class)->except(['show']);
         Route::resource('health-programs', AdminHealthProgramController::class)->except(['show']);
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);

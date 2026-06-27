@@ -56,6 +56,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.trust-strip-items.*') ? 'active' : '' }}" href="{{ route('admin.trust-strip-items.index') }}">
+                            <i class="ti ti-shield-check menu-icon"></i>
+                            <span>Trust Strip</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
                             <i class="ti ti-briefcase menu-icon"></i>
                             <span>Services</span>

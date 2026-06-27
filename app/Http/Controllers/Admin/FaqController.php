@@ -32,12 +32,26 @@ class FaqController extends Controller
     ];
 
     /**
-     * Media setting keys for the home FAQ section.
+     * Setting keys for the FAQ page.
      *
      * @var list<string>
      */
-    private const HOME_SECTION_MEDIA_KEYS = [
+    private const PAGE_SECTION_SETTING_KEYS = [
+        'faq_page_eyebrow',
+        'faq_page_title',
+        'faq_page_description',
+        'faq_page_image',
+        'faq_page_contact_label',
+    ];
+
+    /**
+     * Media setting keys for FAQ sections.
+     *
+     * @var list<string>
+     */
+    private const FAQ_SECTION_MEDIA_KEYS = [
         'faq_home_image',
+        'faq_page_image',
     ];
 
     /**
@@ -54,8 +68,9 @@ class FaqController extends Controller
             ->get();
 
         $homeSectionSettings = Setting::getMany(self::HOME_SECTION_SETTING_KEYS);
+        $pageSectionSettings = Setting::getMany(self::PAGE_SECTION_SETTING_KEYS);
 
-        return view('admin.faqs.index', compact('faqs', 'homeSectionSettings'));
+        return view('admin.faqs.index', compact('faqs', 'homeSectionSettings', 'pageSectionSettings'));
     }
 
     /**
@@ -74,7 +89,7 @@ class FaqController extends Controller
         ]);
 
         foreach ($validated as $key => $value) {
-            if (in_array($key, self::HOME_SECTION_MEDIA_KEYS, true)) {
+            if (in_array($key, self::FAQ_SECTION_MEDIA_KEYS, true)) {
                 Setting::setValue($key, MediaPath::normalize($value));
 
                 continue;
@@ -86,6 +101,36 @@ class FaqController extends Controller
         return redirect()
             ->route('admin.faqs.index')
             ->with('success', 'Home FAQ section settings updated successfully.');
+    }
+
+    /**
+     * Update the FAQ page section settings.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePageSettings(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'faq_page_eyebrow' => ['nullable', 'string', 'max:100'],
+            'faq_page_title' => ['nullable', 'string', 'max:255'],
+            'faq_page_description' => ['nullable', 'string', 'max:1000'],
+            'faq_page_image' => ['nullable', 'string', 'max:500'],
+            'faq_page_contact_label' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        foreach ($validated as $key => $value) {
+            if (in_array($key, self::FAQ_SECTION_MEDIA_KEYS, true)) {
+                Setting::setValue($key, MediaPath::normalize($value));
+
+                continue;
+            }
+
+            Setting::setValue($key, $value);
+        }
+
+        return redirect()
+            ->route('admin.faqs.index')
+            ->with('success', 'FAQ page settings updated successfully.');
     }
 
     /**
@@ -181,6 +226,7 @@ class FaqController extends Controller
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
+            'display_on_faq_page' => ['required', 'boolean'],
             'display_on_service_detail' => ['required', 'boolean'],
             'display_on_expert_detail' => ['required', 'boolean'],
             'service_id' => ['nullable', 'integer', 'exists:services,id'],
@@ -213,6 +259,7 @@ class FaqController extends Controller
             'sort_order' => $validated['sort_order'] ?? 0,
             'status' => (bool) $validated['status'],
             'display_on_home' => (bool) $validated['display_on_home'],
+            'display_on_faq_page' => $serviceId || $expertId ? false : (bool) $validated['display_on_faq_page'],
             'display_on_service_detail' => $serviceId ? false : (bool) $validated['display_on_service_detail'],
             'display_on_expert_detail' => $expertId ? false : (bool) $validated['display_on_expert_detail'],
             'service_id' => $serviceId,

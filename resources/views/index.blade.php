@@ -8,38 +8,7 @@
     <!-- Hero Section End -->
 
 <!-- Trust Strip Section Start -->
-    @php
-        $trustItems = [
-            ['image' => 'experience.webp', 'text' => '25+ Years Clinical Experience'],
-            ['image' => 'successfull.webp', 'text' => '3500+ Patients Successfully Treated'],
-            ['image' => 'expert.webp', 'text' => 'Multidisciplinary Expert Team'],
-            ['image' => 'natural.webp', 'text' => 'Natural, Safe & Evidence-Based Treatments'],
-            ['image' => 'extracted_icon.webp', 'text' => 'Multidimensional Treatment Approach'],
-            ['image' => 'social-media-banner-3-1.webp', 'text' => 'Personalized Treatment protocols & Plans'],
-        ];
-    @endphp
-    <div class="home-trust-strip" id="home-trust">
-        <div class="trust-strip-inner">
-            <div class="container-fluid">
-                <div class="swiper trust-strip-swiper">
-                    <div class="swiper-wrapper">
-                        @foreach (array_merge($trustItems, $trustItems) as $item)
-                            <div class="swiper-slide">
-                                <div class="trust-strip-item">
-                                    <div class="trust-strip-icon">
-                                        <img src="{{ asset('images/trusts/' . $item['image']) }}" alt="">
-                                    </div>
-                                    <p>{{ $item['text'] }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <span class="trust-strip-edge trust-strip-edge-left" aria-hidden="true"></span>
-            <span class="trust-strip-edge trust-strip-edge-right" aria-hidden="true"></span>
-        </div>
-    </div>
+    @include('partials.home-trust-strip-section')
     <!-- Trust Strip Section End -->
 
 <!-- Home About Intro Section Start -->
