@@ -210,12 +210,12 @@
 <!-- What We Treat Section Start -->
     @php
         $whatWeTreatItems = [
-            ['icon' => 'fa-award', 'title' => 'Back Pain & Spine disorders', 'text' => 'Advanced non-surgical care for chronic back pain, stiffness, and spinal discomfort.'],
-            ['icon' => 'fa-hand-holding-heart', 'title' => 'Slip Disc & Sciatica', 'text' => 'Targeted therapies designed to reduce disc-related pain and improve mobility.'],
-            ['icon' => 'fa-clipboard-medical', 'title' => 'Liver & Metabolic Disorders', 'text' => 'Natural pain management solutions for sciatica, nerve pain and numbness.'],
-            ['icon' => 'fa-bone', 'title' => 'Knee Pain & Joints pain', 'text' => 'Personalized therapies to improve knee strength, flexibility, and movement.'],
-            ['icon' => 'fa-venus-mars', 'title' => 'Male and Female Wellness', 'text' => 'Specialized rehabilitation care for shoulder pain, stiffness, and restricted motion.'],
-            ['icon' => 'fa-user-doctor', 'title' => 'Cervical & Ankylosing Spondylitis', 'text' => 'Effective care for neck pain, posture correction, and cervical discomfort.'],
+            ['slug' => 'back-pain-spine-disorders', 'icon' => 'fa-award', 'title' => 'Back Pain & Spine disorders', 'text' => 'Advanced non-surgical care for chronic back pain, stiffness, and spinal discomfort.'],
+            ['slug' => 'slip-disc-sciatica', 'icon' => 'fa-hand-holding-heart', 'title' => 'Slip Disc & Sciatica', 'text' => 'Targeted therapies designed to reduce disc-related pain and improve mobility.'],
+            ['slug' => 'liver-metabolic-disorders', 'icon' => 'fa-clipboard-medical', 'title' => 'Liver & Metabolic Disorders', 'text' => 'Natural pain management solutions for sciatica, nerve pain and numbness.'],
+            ['slug' => 'knee-pain-joints', 'icon' => 'fa-bone', 'title' => 'Knee Pain & Joints pain', 'text' => 'Personalized therapies to improve knee strength, flexibility, and movement.'],
+            ['slug' => 'male-female-wellness', 'icon' => 'fa-venus-mars', 'title' => 'Male and Female Wellness', 'text' => 'Specialized rehabilitation care for shoulder pain, stiffness, and restricted motion.'],
+            ['slug' => 'cervical-ankylosing-spondylitis', 'icon' => 'fa-user-doctor', 'title' => 'Cervical & Ankylosing Spondylitis', 'text' => 'Effective care for neck pain, posture correction, and cervical discomfort.'],
         ];
     @endphp
     <div class="home-what-we-treat">
@@ -236,7 +236,7 @@
                                 <h3>{{ $item['title'] }}</h3>
                                 <p>{{ $item['text'] }}</p>
                             </div>
-                            <a href="{{ url('/treatment') }}" class="home-treat-card-link">Read More</a>
+                            <a href="{{ route('treatment.show', $item['slug']) }}" class="home-treat-card-link">Read More</a>
                         </div>
                     </div>
                 @endforeach
@@ -253,36 +253,42 @@
     @php
         $coreServices = [
             [
+                'slug' => 'pain-rehabilitation',
                 'image' => 'service-featured-image.jpg',
                 'title' => 'Pain & Rehabilitation',
                 'text' => 'Personalized rehabilitation therapies focused on pain relief, mobility, recovery, and physical strength.',
                 'tags' => ['Physiotherapy', 'Neuro Rehab'],
             ],
             [
+                'slug' => 'ayurveda-detox',
                 'image' => 'gallery-2.jpg',
                 'title' => 'Ayurveda & Detox',
                 'text' => 'Traditional Ayurvedic detox therapies designed to restore balance, cleanse the body, and wellness.',
                 'tags' => ['Panchakarma', 'Naturopathy'],
             ],
             [
+                'slug' => 'metabolic-care',
                 'image' => 'gallery-3.jpg',
                 'title' => 'Metabolic Care',
                 'text' => 'Customized wellness programs for weight management, metabolism support, and nutritional balance.',
                 'tags' => ['Weight Loss', 'Nutrition'],
             ],
             [
+                'slug' => 'hijama-cupping',
                 'image' => 'service-benefits-img.jpg',
                 'title' => 'Hijama & Cupping',
                 'text' => 'Therapeutic cupping treatments to improve circulation, relieve pain, and support natural healing.',
                 'tags' => ['Hijama Therapy', 'Pain Relief'],
             ],
             [
+                'slug' => 'acupuncture-acupressure',
                 'image' => 'gallery-5.jpg',
                 'title' => 'Acupuncture & Acupressure',
                 'text' => 'Evidence-based needle and pressure-point therapies to restore energy flow and reduce chronic discomfort.',
                 'tags' => ['Acupuncture', 'Acupressure'],
             ],
             [
+                'slug' => 'holistic-wellness-programs',
                 'image' => 'what-we-benefit-image.jpg',
                 'title' => 'Holistic Wellness Programs',
                 'text' => 'Integrated care plans combining multiple therapies for long-term health, vitality, and lifestyle balance.',
@@ -300,21 +306,21 @@
                 @foreach ($coreServices as $index => $service)
                     <div class="col-lg-4 col-md-6">
                         <article class="home-core-service-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.08, 2) }}s">
-                            <div class="home-core-service-media">
+                            <a href="{{ route('services.show', $service['slug']) }}" class="home-core-service-media">
                                 <img src="{{ asset('images/' . $service['image']) }}" alt="{{ $service['title'] }}">
                                 <span class="home-core-service-badge" aria-hidden="true">
                                     <i class="fa-solid fa-mortar-pestle"></i>
                                 </span>
-                            </div>
+                            </a>
                             <div class="home-core-service-content">
-                                <h3>{{ $service['title'] }}</h3>
+                                <h3><a href="{{ route('services.show', $service['slug']) }}">{{ $service['title'] }}</a></h3>
                                 <p>{{ $service['text'] }}</p>
                                 <ul class="home-core-service-tags">
                                     @foreach ($service['tags'] as $tag)
                                         <li><i class="fa-solid fa-circle-check"></i> {{ $tag }}</li>
                                     @endforeach
                                 </ul>
-                                <a href="{{ url('/services') }}" class="home-core-service-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                                <a href="{{ route('services.show', $service['slug']) }}" class="home-core-service-link">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
                             </div>
                         </article>
                     </div>
@@ -686,18 +692,21 @@
     @php
         $homeBlogPosts = [
             [
+                'slug' => '5-natural-ways-to-improve-your-gut-health',
                 'image' => 'post-1.jpg',
                 'title' => '5 Natural Ways to Improve Your Gut Health',
                 'excerpt' => 'Good gut health is the foundation of overall well-being. A healthy gut improves digestion, boosts immunity, enhances mood, and helps maintain a healthy weight.',
                 'date' => 'May 29, 2026',
             ],
             [
+                'slug' => 'ayurveda-vs-modern-lifestyle-disorders',
                 'image' => 'post-2.jpg',
                 'title' => 'Ayurveda vs Modern Lifestyle Disorders',
                 'excerpt' => 'Modern lifestyle has led to an increase in disorders like obesity, diabetes, hypertension, PCOS, thyroid issues, and stress-related conditions. While modern medicine manages symptoms, Ayurveda treats the root cause.',
                 'date' => 'May 29, 2026',
             ],
             [
+                'slug' => 'how-physiotherapy-helps-in-chronic-pain-recovery',
                 'image' => 'post-3.jpg',
                 'title' => 'How Physiotherapy Helps in Chronic Pain Recovery',
                 'excerpt' => 'Chronic pain can affect your daily life and limit your ability to move, work, and enjoy the things you love. Physiotherapy focuses on reducing pain, improving mobility, and restoring function naturally.',
@@ -715,7 +724,7 @@
                 @foreach ($homeBlogPosts as $index => $post)
                     <div class="col-lg-4 col-md-6">
                         <article class="home-blog-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.1, 1) }}s">
-                            <a href="{{ url('/blog') }}" class="home-blog-card-image" data-cursor-text="View">
+                            <a href="{{ route('blog.show', $post['slug']) }}" class="home-blog-card-image" data-cursor-text="View">
                                 <img src="{{ asset('images/' . $post['image']) }}" alt="{{ $post['title'] }}">
                             </a>
                             <div class="home-blog-card-body">
@@ -724,9 +733,9 @@
                                     <li><i class="fa-solid fa-calendar-days"></i> {{ $post['date'] }}</li>
                                     <li><i class="fa-solid fa-folder"></i> Blog</li>
                                 </ul>
-                                <h3><a href="{{ url('/blog') }}">{{ $post['title'] }}</a></h3>
+                                <h3><a href="{{ route('blog.show', $post['slug']) }}">{{ $post['title'] }}</a></h3>
                                 <p>{{ $post['excerpt'] }}</p>
-                                <a href="{{ url('/blog') }}" class="home-blog-readmore">Read more</a>
+                                <a href="{{ route('blog.show', $post['slug']) }}" class="home-blog-readmore">Read more</a>
                             </div>
                         </article>
                     </div>

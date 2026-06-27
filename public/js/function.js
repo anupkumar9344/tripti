@@ -31,7 +31,13 @@
 	/* Slick Menu JS */
 	$('#menu').slicknav({
 		label : '',
-		prependTo : '.responsive-menu'
+		prependTo : '.responsive-menu',
+		beforeOpen: function(){
+			$('body').addClass('mobile-menu-open');
+		},
+		beforeClose: function(){
+			$('body').removeClass('mobile-menu-open');
+		}
 	});
 
 	if($("a[href='#top']").length){

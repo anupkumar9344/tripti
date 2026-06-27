@@ -19,12 +19,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about-us', [AboutController::class, 'index'])->name('about');
-Route::get('/treatment', [TreatmentController::class, 'index'])->name('treatment');
 Route::get('/services', [ServicePageController::class, 'index'])->name('services');
+Route::get('/services/{slug}', [ServicePageController::class, 'show'])->name('services.show');
+Route::get('/treatment', [TreatmentController::class, 'index'])->name('treatment');
+Route::get('/treatment/{slug}', [TreatmentController::class, 'show'])->name('treatment.show');
 Route::get('/our-expert-team', [ExpertTeamController::class, 'index'])->name('experts');
 Route::get('/health-programs', [HealthProgramController::class, 'index'])->name('health-programs');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 
 Route::prefix('admin')->name('admin.')->group(function () {

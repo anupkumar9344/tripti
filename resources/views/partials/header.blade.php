@@ -26,6 +26,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a></li>
+                                <li class="nav-item highlighted-menu"><a class="nav-link" href="{{ url('/contact-us') }}">Book Appointment</a></li>
                             </ul>
                         </div>
                         
