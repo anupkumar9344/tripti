@@ -28,6 +28,10 @@ class ContactController extends Controller
         'instagram_url',
         'youtube_url',
         'google_map_embed',
+        'contact_locations_title',
+        'contact_locations_description',
+        'contact_form_title',
+        'contact_form_description',
     ];
 
     /**

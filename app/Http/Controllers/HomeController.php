@@ -16,9 +16,14 @@ class HomeController extends Controller
      * @var list<string>
      */
     private const LOCATION_SETTING_KEYS = [
+        'visit_us_eyebrow',
+        'visit_us_title',
+        'visit_us_description',
+        'visit_us_bg_image',
         'email_1',
         'email_2',
         'phone_1',
+        'phone_2',
         'address',
         'google_map_embed',
     ];

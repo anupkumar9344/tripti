@@ -4748,7 +4748,10 @@ body.mobile-menu-open{
 .home-location-map{
 	position: relative;
 	padding: 90px 0;
-	background: url('../images/home-about-team.jpg') center center / cover no-repeat fixed;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	overflow: hidden;
 }
 

@@ -10,14 +10,21 @@
         $defaultMap = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.0!2d75.857!3d22.7196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSahaj%20Aarogyam!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
         $mapEmbed = $settings['google_map_embed'] ?: $defaultMap;
         $openingHours = $settings['opening_hours'] ?: "Mon - Sat: 9:00 AM - 8:00 PM\nSunday: Closed";
+        $locationsTitle = $settings['contact_locations_title'] ?: 'Our Locations';
+        $locationsDescription = $settings['contact_locations_description'] ?: 'Visit us at our clinic in Indore for personalized care and holistic healing.';
+        $formTitle = $settings['contact_form_title'] ?: 'Send Us a Message';
+        $formDescription = $settings['contact_form_description'] ?: 'Fill out the form below and our team will get in touch with you.';
+        $phonePrimary = $settings['phone_1'] ?: '+91 94259 63336';
+        $emailPrimary = $settings['email_1'] ?: 'info@sahajaarogyam.com';
+        $emailSecondary = $settings['email_2'] ?: 'sahajaarogyam@gmail.com';
     @endphp
 
     <!-- Our Locations Section Start -->
     <div class="contact-locations-section">
         <div class="container">
             <div class="contact-locations-header text-center">
-                <h2 class="wow fadeInUp">Our Locations</h2>
-                <p class="wow fadeInUp" data-wow-delay="0.1s">Visit us at our clinic in Indore for personalized care and holistic healing.</p>
+                <h2 class="wow fadeInUp">{{ $locationsTitle }}</h2>
+                <p class="wow fadeInUp" data-wow-delay="0.1s">{{ $locationsDescription }}</p>
             </div>
 
             <div class="row align-items-start g-4 g-lg-5">
@@ -46,12 +53,6 @@
                                 @endforeach
                             </div>
                         </div>
-
-                        @php
-                            $phonePrimary = $settings['phone_1'] ?: '+91 94259 63336';
-                            $emailPrimary = $settings['email_1'] ?: 'info@sahajaarogyam.com';
-                            $emailSecondary = $settings['email_2'] ?: 'sahajaarogyam@gmail.com';
-                        @endphp
 
                         <div class="contact-locations-item">
                             <div class="contact-locations-icon">
@@ -113,8 +114,8 @@
         <div class="container">
             <div class="contact-message-box wow fadeInUp">
                 <div class="contact-message-header">
-                    <h2>Send Us a Message</h2>
-                    <p>Fill out the form below and our team will get in touch with you.</p>
+                    <h2>{{ $formTitle }}</h2>
+                    <p>{{ $formDescription }}</p>
                 </div>
 
                 <div class="contact-message-form-wrap">

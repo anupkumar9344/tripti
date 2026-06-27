@@ -839,20 +839,24 @@
     @php
         $defaultMap = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.0!2d75.857!3d22.7196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSahaj%20Aarogyam!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
         $mapEmbed = ($settings['google_map_embed'] ?? '') ?: $defaultMap;
+        $visitEyebrow = ($settings['visit_us_eyebrow'] ?? '') ?: 'Visit Us';
+        $visitTitle = ($settings['visit_us_title'] ?? '') ?: 'Serving Indore & Nearby';
+        $visitDescription = ($settings['visit_us_description'] ?? '') ?: 'Conveniently located in the heart of Indore, we proudly serve patients from across the city and nearby areas.';
+        $visitBgImage = ($settings['visit_us_bg_image'] ?? '') ?: 'home-about-team.jpg';
         $locationAddress = ($settings['address'] ?? '') ?: '560 Sector B Greater Brajeshwari, Near Agrawal Public School, Indore, India, 452001';
         $locationPhone = ($settings['phone_1'] ?? '') ?: '+91 94259 63336';
         $locationEmailPrimary = ($settings['email_1'] ?? '') ?: 'info@sahajaarogyam.com';
         $locationEmailSecondary = ($settings['email_2'] ?? '') ?: 'sahajaarogyam@gmail.com';
     @endphp
-    <div class="home-location-map" id="location">
+    <div class="home-location-map" id="location" style="background-image: url('{{ asset('images/' . $visitBgImage) }}');">
         <div class="home-location-map-overlay"></div>
         <div class="container position-relative">
             <div class="row align-items-center g-4 g-xl-5">
                 <div class="col-lg-6">
                     <div class="home-location-content wow fadeInUp">
-                        <span class="home-location-eyebrow">Visit Us</span>
-                        <h2>Serving Indore &amp; Nearby</h2>
-                        <p>Conveniently located in the heart of Indore, we proudly serve patients from across the city and nearby areas.</p>
+                        <span class="home-location-eyebrow">{{ $visitEyebrow }}</span>
+                        <h2>{{ $visitTitle }}</h2>
+                        <p>{{ $visitDescription }}</p>
 
                         <ul class="home-location-details">
                             <li>
