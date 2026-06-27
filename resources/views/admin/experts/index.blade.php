@@ -35,6 +35,7 @@
                                     <th>Order</th>
                                     <th>Expert</th>
                                     <th>Designation</th>
+                                    <th>Home</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -53,6 +54,13 @@
                                             </span>
                                         </td>
                                         <td>{{ $expert->designation ?? '—' }}</td>
+                                        <td>
+                                            @if ($expert->display_on_home)
+                                                <span class="badge badge-soft-success">Yes</span>
+                                            @else
+                                                <span class="badge badge-soft-secondary">No</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($expert->status)
                                                 <span class="badge badge-soft-success">Active</span>

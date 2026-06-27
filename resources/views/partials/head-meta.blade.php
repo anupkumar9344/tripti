@@ -18,6 +18,12 @@
         $ogImage = \App\Models\Setting::imageUrl($ogImageSetting, '');
     }
 
+    if (! $ogImage) {
+        $ogImage = \App\Models\Setting::faviconUrl($seo['website_favicon'] ?? null);
+    }
+
+    $faviconUrl = \App\Models\Setting::faviconUrl($seo['website_favicon'] ?? null);
+
     $twitterCard = $seo['seo_twitter_card'] ?? 'summary_large_image';
     $twitterSite = $seo['seo_twitter_site'] ?? '';
     $googleVerification = $seo['seo_google_site_verification'] ?? '';
@@ -25,6 +31,8 @@
 @endphp
 
 <title>{{ $metaTitle }}</title>
+<link rel="shortcut icon" type="image/x-icon" href="{{ $faviconUrl }}">
+<link rel="icon" href="{{ $faviconUrl }}">
 <meta name="description" content="{{ $metaDescription }}">
 @if ($metaKeywords)
     <meta name="keywords" content="{{ $metaKeywords }}">

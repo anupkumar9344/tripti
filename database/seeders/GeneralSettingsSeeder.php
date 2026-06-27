@@ -17,7 +17,8 @@ class GeneralSettingsSeeder extends Seeder
     {
         $settings = [
             'website_name' => 'Sahaj Aarogyam',
-            'website_logo' => null,
+            'website_logo' => 'logo/logo.webp',
+            'website_favicon' => 'logo/logo.webp',
             'footer_about' => 'Integrated wellness clinic providing physiotherapy, Ayurveda, pain management, and holistic healing solutions in Indore.',
             'email_1' => 'info@sahajaarogyam.com',
             'email_2' => 'sahajaarogyam@gmail.com',

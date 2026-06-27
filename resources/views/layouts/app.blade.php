@@ -7,8 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	@include('partials.head-meta')
-	<!-- Favicon Icon -->
-	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
 	<!-- Google Fonts Css-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

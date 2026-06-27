@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ $siteFaviconUrl }}">
+    <link rel="icon" href="{{ $siteFaviconUrl }}">
     <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css" />
@@ -105,8 +106,26 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.patient-reviews.*') ? 'active' : '' }}" href="{{ route('admin.patient-reviews.index') }}">
+                            <i class="ti ti-stars menu-icon"></i>
+                            <span>Patient Feedback</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}">
+                            <i class="ti ti-zoom-question menu-icon"></i>
+                            <span>FAQs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.gallery-items.*') ? 'active' : '' }}" href="{{ route('admin.gallery-items.index') }}">
+                            <i class="ti ti-camera menu-icon"></i>
+                            <span>Gallery</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.media.*') ? 'active' : '' }}" href="{{ route('admin.media.index') }}">
-                            <i class="ti ti-photo menu-icon"></i>
+                            <i class="ti ti-files menu-icon"></i>
                             <span>Media Library</span>
                         </a>
                     </li>

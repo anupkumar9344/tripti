@@ -55,6 +55,12 @@
                             <p class="expert-profile-designation">{{ $expert->designation }}</p>
                         @endif
 
+                        @if ($expert->patients_treated)
+                            <p class="expert-profile-patients wow fadeInUp" data-wow-delay="0.12s">
+                                <i class="fa-solid fa-users me-2"></i>{{ $expert->patients_treated }}
+                            </p>
+                        @endif
+
                         @if ($expert->highlight_quote || $expert->long_description)
                             <div class="expert-profile-quote-box">
                                 <i class="fa-solid fa-quote-left"></i>
@@ -104,6 +110,20 @@
                                 </div>
                             @endforeach
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if ($detailFaqs->isNotEmpty())
+        <section class="expert-profile-faq-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        @include('partials.detail-faq-section', [
+                            'accordionId' => 'expertFaqAccordion',
+                        ])
                     </div>
                 </div>
             </div>

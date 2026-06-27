@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GalleryItem;
 use Illuminate\View\View;
 
 /**
@@ -16,6 +17,8 @@ class GalleryController extends Controller
      */
     public function index(): View
     {
-        return view('gallery.index');
+        $galleryItems = GalleryItem::query()->activeOrdered()->get();
+
+        return view('gallery.index', compact('galleryItems'));
     }
 }

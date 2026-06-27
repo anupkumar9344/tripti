@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\GalleryItem;
 use Illuminate\View\View;
 
 /**
@@ -48,10 +49,10 @@ class DashboardController extends Controller
                 'tone' => 'warm',
             ],
             [
-                'label' => 'Gallery Images',
-                'count' => 9,
-                'subtitle' => 'Photos in gallery',
-                'icon' => 'ti-photo',
+                'label' => 'Gallery Items',
+                'count' => GalleryItem::query()->where('status', true)->count(),
+                'subtitle' => 'Photos and videos in gallery',
+                'icon' => 'ti-camera',
                 'tone' => 'purple',
             ],
             [

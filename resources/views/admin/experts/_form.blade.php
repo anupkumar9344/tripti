@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group mb-3">
                     <label class="form-label" for="status">Status <span class="text-danger">*</span></label>
                     @php
@@ -45,32 +45,57 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="display_on_home">Display on Home <span class="text-danger">*</span></label>
+                    @php
+                        $homeValue = (string) old('display_on_home', $isEdit ? (int) $expert->display_on_home : 0);
+                    @endphp
+                    <select class="form-select @error('display_on_home') is-invalid @enderror" id="display_on_home" name="display_on_home" required>
+                        <option value="1" @selected($homeValue === '1')>Yes</option>
+                        <option value="0" @selected($homeValue === '0')>No</option>
+                    </select>
+                    @error('display_on_home')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <span class="form-text text-muted font-12">Show in the home page experts section.</span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="show_faq_section">Show FAQ Section <span class="text-danger">*</span></label>
+                    @php
+                        $faqValue = (string) old('show_faq_section', $isEdit ? (int) $expert->show_faq_section : 0);
+                    @endphp
+                    <select class="form-select @error('show_faq_section') is-invalid @enderror" id="show_faq_section" name="show_faq_section" required>
+                        <option value="1" @selected($faqValue === '1')>Yes</option>
+                        <option value="0" @selected($faqValue === '0')>No</option>
+                    </select>
+                    @error('show_faq_section')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-3">
                 <div class="form-group mb-3">
                     <label class="form-label" for="sort_order">Display Order</label>
                     <input type="number" min="0" class="form-control @error('sort_order') is-invalid @enderror" id="sort_order" name="sort_order" value="{{ old('sort_order', $expert->sort_order ?? 0) }}">
                     @error('sort_order')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <span class="form-text text-muted font-12">Lower numbers appear first on the website.</span>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="form-group mb-3">
-                    <label class="form-label" for="photo">Photo @if (! $isEdit)<span class="text-danger">*</span>@endif</label>
-                    <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" accept="image/*" {{ $isEdit ? '' : 'required' }}>
-                    @error('photo')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    @if ($isEdit)
-                        <span class="form-text text-muted font-12">Leave blank to keep the current photo.</span>
-                    @endif
-                    @if ($isEdit && $expert->photo)
-                        <div class="mt-2">
-                            <img src="{{ $expert->photoUrl() }}" alt="{{ $expert->name }}" class="img-thumbnail" style="max-height: 100px;">
-                        </div>
-                    @endif
+            <div class="col-md-12">
+                <div class="form-group mb-0">
+                    @include('admin.media.partials.url-field', [
+                        'name' => 'photo',
+                        'currentValue' => $isEdit ? $expert->photo : '',
+                        'label' => 'Photo URL',
+                        'required' => ! $isEdit,
+                    ])
                 </div>
             </div>
         </div>
@@ -86,7 +111,7 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label class="form-label" for="designation">Designation</label>
-                    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $expert->designation ?? '') }}">
+                    <input type="text" class="form-control @error('designation') is-invalid @enderror" id="designation" name="designation" value="{{ old('designation', $expert->designation ?? '') }}" placeholder="Founder & Chairman">
                     @error('designation')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -96,21 +121,32 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label class="form-label" for="specialty">Specialty</label>
-                    <input type="text" class="form-control @error('specialty') is-invalid @enderror" id="specialty" name="specialty" value="{{ old('specialty', $expert->specialty ?? '') }}">
+                    <input type="text" class="form-control @error('specialty') is-invalid @enderror" id="specialty" name="specialty" value="{{ old('specialty', $expert->specialty ?? '') }}" placeholder="Ayurveda & Panchakarma Specialist">
                     @error('specialty')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label class="form-label" for="qualifications">Qualifications & Experience</label>
-                    <input type="text" class="form-control @error('qualifications') is-invalid @enderror" id="qualifications" name="qualifications" value="{{ old('qualifications', $expert->qualifications ?? '') }}">
+                    <label class="form-label" for="experience_label">Experience Label</label>
+                    <input type="text" class="form-control @error('experience_label') is-invalid @enderror" id="experience_label" name="experience_label" value="{{ old('experience_label', $expert->experience_label ?? '') }}" placeholder="25+ Years Experience">
+                    @error('experience_label')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <span class="form-text text-muted font-12">Shown on cards and the profile badge.</span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="qualifications">Qualifications</label>
+                    <input type="text" class="form-control @error('qualifications') is-invalid @enderror" id="qualifications" name="qualifications" value="{{ old('qualifications', $expert->qualifications ?? '') }}" placeholder="MPT Orthopedics | Neuro Rehab Expert">
                     @error('qualifications')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <span class="form-text text-muted font-12">Shown on the expert card below the specialty.</span>
+                    <span class="form-text text-muted font-12">Combined with experience on listing cards.</span>
                 </div>
             </div>
 
@@ -121,14 +157,13 @@
                     @error('short_description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <span class="form-text text-muted font-12">Brief summary shown on the expert card.</span>
+                    <span class="form-text text-muted font-12">Brief summary shown on expert cards.</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@if ($isEdit)
 <div class="card mb-3">
     <div class="card-header">
         <h4 class="card-title mb-0">Profile Page</h4>
@@ -138,27 +173,18 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label class="form-label" for="specialty_location">Specialty & Location</label>
-                    <input type="text" class="form-control @error('specialty_location') is-invalid @enderror" id="specialty_location" name="specialty_location" value="{{ old('specialty_location', $expert->specialty_location ?? '') }}">
+                    <input type="text" class="form-control @error('specialty_location') is-invalid @enderror" id="specialty_location" name="specialty_location" value="{{ old('specialty_location', $expert->specialty_location ?? '') }}" placeholder="Ayurveda Specialist – Indore">
                     @error('specialty_location')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <span class="form-text text-muted font-12">Appended to the name on the profile page heading.</span>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label class="form-label" for="experience_label">Experience Label</label>
-                    <input type="text" class="form-control @error('experience_label') is-invalid @enderror" id="experience_label" name="experience_label" value="{{ old('experience_label', $expert->experience_label ?? '') }}">
-                    @error('experience_label')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-group mb-3">
                     <label class="form-label" for="patients_treated">Patients Treated</label>
-                    <input type="text" class="form-control @error('patients_treated') is-invalid @enderror" id="patients_treated" name="patients_treated" value="{{ old('patients_treated', $expert->patients_treated ?? '') }}">
+                    <input type="text" class="form-control @error('patients_treated') is-invalid @enderror" id="patients_treated" name="patients_treated" value="{{ old('patients_treated', $expert->patients_treated ?? '') }}" placeholder="10,000+ Patients Treated">
                     @error('patients_treated')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -189,4 +215,3 @@
 </div>
 
 @include('admin.experts._profile_sections')
-@endif

@@ -401,7 +401,7 @@
 
 	/* Zoom Gallery screenshot */
 	$('.gallery-items').magnificPopup({
-		delegate: 'a',
+		delegate: 'a.gallery-popup-image',
 		type: 'image',
 		closeOnContentClick: false,
 		closeBtnInside: false,

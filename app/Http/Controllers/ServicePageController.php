@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Service;
 use Illuminate\View\View;
 
@@ -36,7 +37,10 @@ class ServicePageController extends Controller
             ->firstOrFail();
 
         $allServices = Service::query()->activeOrdered()->get();
+        $detailFaqs = $service->show_faq_section
+            ? Faq::query()->forServiceDetail($service)->get()
+            : collect();
 
-        return view('services.show', compact('service', 'allServices'));
+        return view('services.show', compact('service', 'allServices', 'detailFaqs'));
     }
 }

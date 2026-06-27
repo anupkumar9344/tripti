@@ -68,6 +68,22 @@
         </div>
     </div>
 
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label class="form-label" for="show_faq_section">Show FAQ Section <span class="text-danger">*</span></label>
+            @php
+                $faqValue = (string) old('show_faq_section', $isEdit ? (int) $service->show_faq_section : 0);
+            @endphp
+            <select class="form-select @error('show_faq_section') is-invalid @enderror" id="show_faq_section" name="show_faq_section" required>
+                <option value="1" @selected($faqValue === '1')>Yes</option>
+                <option value="0" @selected($faqValue === '0')>No</option>
+            </select>
+            @error('show_faq_section')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
     <div class="col-md-6">
         <div class="form-group mb-3">
             @include('admin.media.partials.url-field', [

@@ -59,6 +59,7 @@ class ServiceController extends Controller
             'long_description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
+            'show_faq_section' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
 
@@ -83,6 +84,7 @@ class ServiceController extends Controller
             'long_description' => $validated['long_description'] ?? null,
             'status' => (bool) $validated['status'],
             'display_on_home' => (bool) $validated['display_on_home'],
+            'show_faq_section' => (bool) $validated['show_faq_section'],
             'sort_order' => $validated['sort_order'] ?? 0,
         ]);
 
@@ -125,6 +127,7 @@ class ServiceController extends Controller
             'long_description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
+            'show_faq_section' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
 
@@ -140,6 +143,7 @@ class ServiceController extends Controller
         $service->long_description = $validated['long_description'] ?? null;
         $service->status = (bool) $validated['status'];
         $service->display_on_home = (bool) $validated['display_on_home'];
+        $service->show_faq_section = (bool) $validated['show_faq_section'];
         $service->sort_order = $validated['sort_order'] ?? 0;
 
         if ($thumbnailPath && $thumbnailPath !== $service->thumbnail) {

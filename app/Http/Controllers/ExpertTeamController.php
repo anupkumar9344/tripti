@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expert;
+use App\Models\Faq;
 use Illuminate\View\View;
 
 /**
@@ -17,11 +18,7 @@ class ExpertTeamController extends Controller
      */
     public function index(): View
     {
-        $experts = Expert::query()
-            ->where('status', true)
-            ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+        $experts = Expert::query()->activeOrdered()->get();
 
         return view('experts.index', compact('experts'));
     }
@@ -56,6 +53,10 @@ class ExpertTeamController extends Controller
                 ];
             });
 
-        return view('experts.show', compact('expert', 'profileTabs'));
+        $detailFaqs = $expert->show_faq_section
+            ? Faq::query()->forExpertDetail($expert)->get()
+            : collect();
+
+        return view('experts.show', compact('expert', 'profileTabs', 'detailFaqs'));
     }
 }

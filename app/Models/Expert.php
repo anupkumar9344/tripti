@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
@@ -27,6 +29,8 @@ class Expert extends Model
         'highlight_quote',
         'long_description',
         'status',
+        'display_on_home',
+        'show_faq_section',
         'sort_order',
     ];
 
@@ -39,13 +43,13 @@ class Expert extends Model
     {
         return [
             'status' => 'boolean',
+            'display_on_home' => 'boolean',
+            'show_faq_section' => 'boolean',
         ];
     }
 
     /**
      * Get the profile sections for this expert.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function profileSections(): HasMany
     {
@@ -57,7 +61,48 @@ class Expert extends Model
      */
     public function photoUrl(): string
     {
-        return asset('storage/'.$this->photo);
+        return MediaPath::url($this->photo);
+    }
+
+    /**
+     * Build the combined stats line shown on expert cards.
+     */
+    public function statsLabel(): string
+    {
+        if ($this->experience_label && $this->qualifications) {
+            return $this->experience_label.' | '.$this->qualifications;
+        }
+
+        return $this->experience_label ?: ($this->qualifications ?? '');
+    }
+
+    /**
+     * Scope active experts ordered for listing pages.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActiveOrdered(Builder $query): Builder
+    {
+        return $query
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name');
+    }
+
+    /**
+     * Scope active experts marked for the home page section.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForHome(Builder $query): Builder
+    {
+        return $query
+            ->where('status', true)
+            ->where('display_on_home', true)
+            ->orderBy('sort_order')
+            ->orderBy('name');
     }
 
     /**

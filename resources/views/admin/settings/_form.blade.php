@@ -22,7 +22,7 @@
         $activeTab = 'social';
     } elseif ($errors->hasAny($seoKeys)) {
         $activeTab = 'seo';
-    } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo'])) {
+    } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo', 'website_favicon'])) {
         $activeTab = 'general';
     }
 @endphp
@@ -74,11 +74,21 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="form-group mb-0">
+                        <div class="form-group mb-3">
                             @include('admin.media.partials.url-field', [
                                 'name' => 'website_logo',
                                 'currentValue' => $settings['website_logo'] ?? '',
                                 'label' => 'Website Logo',
+                            ])
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'website_favicon',
+                                'currentValue' => $settings['website_favicon'] ?? '',
+                                'label' => 'Site Icon (Favicon)',
                             ])
                         </div>
                     </div>

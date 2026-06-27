@@ -25,6 +25,7 @@ class Service extends Model
         'long_description',
         'status',
         'display_on_home',
+        'show_faq_section',
         'sort_order',
     ];
 
@@ -38,6 +39,7 @@ class Service extends Model
         return [
             'status' => 'boolean',
             'display_on_home' => 'boolean',
+            'show_faq_section' => 'boolean',
         ];
     }
 

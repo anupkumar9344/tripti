@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Expert;
 use App\Models\ExpertProfileCategory;
 use App\Models\ExpertProfileSection;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 /**
@@ -38,7 +38,7 @@ class ExpertController extends Controller
      */
     public function create(): View
     {
-        return view('admin.experts.create');
+        return view('admin.experts.create', $this->profileFormData());
     }
 
     /**
@@ -48,36 +48,46 @@ class ExpertController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
-            'photo' => ['required', 'image', 'max:2048'],
-            'designation' => ['nullable', 'string', 'max:255'],
-            'specialty' => ['nullable', 'string', 'max:255'],
-            'qualifications' => ['nullable', 'string', 'max:500'],
-            'short_description' => ['nullable', 'string', 'max:500'],
-            'status' => ['required', 'boolean'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        $validated = $this->validatedExpertData($request, true);
+        $photoPath = MediaPath::normalize($validated['photo'] ?? null);
+
+        if (! $photoPath) {
+            return back()
+                ->withErrors(['photo' => 'Please paste a photo URL from the media library.'])
+                ->withInput();
+        }
 
         $slugSource = $validated['slug'] ?? $validated['name'];
         $slug = Expert::generateUniqueSlug($slugSource);
 
-        Expert::create([
+        $expert = Expert::create([
             'name' => $validated['name'],
             'slug' => $slug,
-            'photo' => $request->file('photo')->store('experts/photos', 'public'),
+            'photo' => $photoPath,
             'designation' => $validated['designation'] ?? null,
             'specialty' => $validated['specialty'] ?? null,
             'qualifications' => $validated['qualifications'] ?? null,
             'short_description' => $validated['short_description'] ?? null,
+            'specialty_location' => $validated['specialty_location'] ?? null,
+            'experience_label' => $validated['experience_label'] ?? null,
+            'patients_treated' => $validated['patients_treated'] ?? null,
+            'highlight_quote' => $validated['highlight_quote'] ?? null,
+            'long_description' => $validated['long_description'] ?? null,
             'status' => (bool) $validated['status'],
+            'display_on_home' => (bool) $validated['display_on_home'],
+            'show_faq_section' => (bool) $validated['show_faq_section'],
             'sort_order' => $validated['sort_order'] ?? 0,
         ]);
 
+        $this->syncProfileSections(
+            $expert,
+            $validated['profile_category_ids'] ?? [],
+            $validated['profile_sections'] ?? []
+        );
+
         return redirect()
             ->route('admin.experts.index')
-            ->with('success', 'Team member created successfully. Edit to add profile categories and details.');
+            ->with('success', 'Team member created successfully.');
     }
 
     /**
@@ -89,26 +99,9 @@ class ExpertController extends Controller
     {
         $expert->load('profileSections');
 
-        $profileCategories = ExpertProfileCategory::query()
-            ->where('status', true)
-            ->orderBy('sort_order')
-            ->orderBy('title')
-            ->get();
-
-        $profileSectionContents = $expert->profileSections
-            ->pluck('content', 'expert_profile_category_id')
-            ->all();
-
-        $selectedCategoryIds = old(
-            'profile_category_ids',
-            $expert->profileSections->pluck('expert_profile_category_id')->all()
-        );
-
-        return view('admin.experts.edit', compact(
-            'expert',
-            'profileCategories',
-            'profileSectionContents',
-            'selectedCategoryIds'
+        return view('admin.experts.edit', array_merge(
+            ['expert' => $expert],
+            $this->profileFormData($expert)
         ));
     }
 
@@ -119,26 +112,8 @@ class ExpertController extends Controller
      */
     public function update(Request $request, Expert $expert): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
-            'photo' => ['nullable', 'image', 'max:2048'],
-            'designation' => ['nullable', 'string', 'max:255'],
-            'specialty' => ['nullable', 'string', 'max:255'],
-            'qualifications' => ['nullable', 'string', 'max:500'],
-            'short_description' => ['nullable', 'string', 'max:500'],
-            'specialty_location' => ['nullable', 'string', 'max:255'],
-            'experience_label' => ['nullable', 'string', 'max:255'],
-            'patients_treated' => ['nullable', 'string', 'max:255'],
-            'highlight_quote' => ['nullable', 'string', 'max:500'],
-            'long_description' => ['nullable', 'string'],
-            'profile_category_ids' => ['nullable', 'array'],
-            'profile_category_ids.*' => ['integer', 'exists:expert_profile_categories,id'],
-            'profile_sections' => ['nullable', 'array'],
-            'profile_sections.*' => ['nullable', 'string'],
-            'status' => ['required', 'boolean'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        $validated = $this->validatedExpertData($request, false);
+        $photoPath = MediaPath::normalize($validated['photo'] ?? null);
 
         $slugSource = $validated['slug'] ?? $validated['name'];
         $slug = Expert::generateUniqueSlug($slugSource, $expert->id);
@@ -155,14 +130,13 @@ class ExpertController extends Controller
         $expert->highlight_quote = $validated['highlight_quote'] ?? null;
         $expert->long_description = $validated['long_description'] ?? null;
         $expert->status = (bool) $validated['status'];
+        $expert->display_on_home = (bool) $validated['display_on_home'];
+        $expert->show_faq_section = (bool) $validated['show_faq_section'];
         $expert->sort_order = $validated['sort_order'] ?? 0;
 
-        if ($request->hasFile('photo')) {
-            if (Storage::disk('public')->exists($expert->photo)) {
-                Storage::disk('public')->delete($expert->photo);
-            }
-
-            $expert->photo = $request->file('photo')->store('experts/photos', 'public');
+        if ($photoPath && $photoPath !== $expert->photo) {
+            MediaPath::deleteLegacyFile($expert->photo);
+            $expert->photo = $photoPath;
         }
 
         $expert->save();
@@ -179,21 +153,75 @@ class ExpertController extends Controller
     }
 
     /**
-     * Delete an expert and its photo.
+     * Delete an expert and its legacy photo file.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Expert $expert): RedirectResponse
     {
-        if (Storage::disk('public')->exists($expert->photo)) {
-            Storage::disk('public')->delete($expert->photo);
-        }
+        MediaPath::deleteLegacyFile($expert->photo);
 
         $expert->delete();
 
         return redirect()
             ->route('admin.experts.index')
             ->with('success', 'Expert deleted successfully.');
+    }
+
+    /**
+     * Validate expert form input.
+     *
+     * @return array<string, mixed>
+     */
+    private function validatedExpertData(Request $request, bool $isCreate): array
+    {
+        return $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
+            'photo' => [$isCreate ? 'required' : 'nullable', 'string', 'max:500'],
+            'designation' => ['nullable', 'string', 'max:255'],
+            'specialty' => ['nullable', 'string', 'max:255'],
+            'qualifications' => ['nullable', 'string', 'max:500'],
+            'short_description' => ['nullable', 'string', 'max:500'],
+            'specialty_location' => ['nullable', 'string', 'max:255'],
+            'experience_label' => ['nullable', 'string', 'max:255'],
+            'patients_treated' => ['nullable', 'string', 'max:255'],
+            'highlight_quote' => ['nullable', 'string', 'max:500'],
+            'long_description' => ['nullable', 'string'],
+            'profile_category_ids' => ['nullable', 'array'],
+            'profile_category_ids.*' => ['integer', 'exists:expert_profile_categories,id'],
+            'profile_sections' => ['nullable', 'array'],
+            'profile_sections.*' => ['nullable', 'string'],
+            'status' => ['required', 'boolean'],
+            'display_on_home' => ['required', 'boolean'],
+            'show_faq_section' => ['required', 'boolean'],
+            'sort_order' => ['nullable', 'integer', 'min:0'],
+        ]);
+    }
+
+    /**
+     * Build shared profile category form data.
+     *
+     * @return array<string, mixed>
+     */
+    private function profileFormData(?Expert $expert = null): array
+    {
+        $profileCategories = ExpertProfileCategory::query()
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('title')
+            ->get();
+
+        $profileSectionContents = $expert
+            ? $expert->profileSections->pluck('content', 'expert_profile_category_id')->all()
+            : [];
+
+        $selectedCategoryIds = old(
+            'profile_category_ids',
+            $expert ? $expert->profileSections->pluck('expert_profile_category_id')->all() : []
+        );
+
+        return compact('profileCategories', 'profileSectionContents', 'selectedCategoryIds');
     }
 
     /**

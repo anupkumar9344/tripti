@@ -81,6 +81,13 @@
     margin-bottom: 24px;
 }
 
+.expert-profile-patients{
+    color: #023320;
+    font-size: 0.98rem;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
 .expert-profile-quote-box{
     border: 1px solid rgba(116, 164, 42, 0.35);
     border-radius: 16px;
@@ -189,6 +196,10 @@
 
 .home-expert-card-link:hover{
     color: inherit;
+}
+
+.expert-profile-faq-section{
+    padding: 60px 0 80px;
 }
 
 @media (max-width: 991.98px){

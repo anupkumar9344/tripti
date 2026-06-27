@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.app', function ($view): void {
             $view->with('seo', Setting::getMany([
                 'website_name',
+                'website_favicon',
                 'seo_meta_title',
                 'seo_meta_description',
                 'seo_meta_keywords',
@@ -55,6 +56,10 @@ class AppServiceProvider extends ServiceProvider
                 'seo_twitter_site',
                 'seo_google_site_verification',
             ]));
+        });
+
+        View::composer(['admin.layouts.app', 'admin.auth.login'], function ($view): void {
+            $view->with('siteFaviconUrl', Setting::faviconUrl());
         });
     }
 }

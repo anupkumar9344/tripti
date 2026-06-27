@@ -16,9 +16,13 @@ class DatabaseSeeder extends Seeder
             GeneralSettingsSeeder::class,
             AboutSettingsSeeder::class,
             ExpertProfileCategorySeeder::class,
+            ExpertSeeder::class,
             WhyChooseItemSeeder::class,
             TreatmentSeeder::class,
             ServiceSeeder::class,
+            PatientReviewSeeder::class,
+            FaqSeeder::class,
+            GalleryItemSeeder::class,
         ]);
     }
 }

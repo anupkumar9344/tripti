@@ -71,4 +71,22 @@ class Setting extends Model
 
         return MediaPath::url($value, $defaultFile);
     }
+
+    /**
+     * Resolve the site favicon URL for the website and admin panel.
+     */
+    public static function faviconUrl(?string $value = null, string $defaultFile = 'logo/logo.webp'): string
+    {
+        $stored = $value ?? static::getValue('website_favicon');
+
+        if (empty($stored)) {
+            $stored = static::getValue('website_logo');
+        }
+
+        if (empty($stored)) {
+            return asset('images/'.$defaultFile);
+        }
+
+        return MediaPath::url($stored, $defaultFile);
+    }
 }

@@ -88,6 +88,10 @@
                                 </div>
                             </div>
                         @endif
+
+                        @include('partials.detail-faq-section', [
+                            'accordionId' => 'serviceFaqAccordion',
+                        ])
                     </div>
                 </div>
             </div>
