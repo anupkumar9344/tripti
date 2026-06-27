@@ -90,6 +90,12 @@
                             <span>About Us</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : '' }}" href="{{ route('admin.why-choose-items.index') }}">
+                            <i class="ti ti-star menu-icon"></i>
+                            <span>Why Choose Us</span>
+                        </a>
+                    </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.settings.general') ? 'active' : '' }}" href="{{ route('admin.settings.general') }}">

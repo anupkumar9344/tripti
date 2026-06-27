@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\ExpertProfileCategoryController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExpertTeamController;
@@ -49,6 +50,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::resource('services', ServiceController::class)->except(['show']);
+        Route::resource('why-choose-items', WhyChooseItemController::class)->except(['show']);
         Route::resource('expert-profile-categories', ExpertProfileCategoryController::class)->except(['show']);
         Route::resource('experts', ExpertController::class)->except(['show']);
         Route::get('contacts/data', [AdminContactController::class, 'data'])->name('contacts.data');

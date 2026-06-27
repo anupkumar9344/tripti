@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
 /**
@@ -57,6 +58,8 @@ class HomeController extends Controller
             self::HOME_ABOUT_SETTING_KEYS
         ));
 
-        return view('index', compact('settings'));
+        $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
+
+        return view('index', compact('settings', 'whyChooseItems'));
     }
 }

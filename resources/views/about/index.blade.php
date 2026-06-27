@@ -74,39 +74,10 @@
     <!-- Stats Section End -->
 
     <!-- Why Choose Section Start -->
-    @php
-        $aboutValues = [
-            ['icon' => 'fa-shield-halved', 'title' => 'Root-Cause Diagnosis', 'text' => 'We identify what is actually causing the issue — not just suppress symptoms.'],
-            ['icon' => 'fa-user-doctor', 'title' => 'Integrated Specialists', 'text' => 'Physiotherapists, Ayurveda doctors, nutritionists and therapists under one roof.'],
-            ['icon' => 'fa-hand-holding-heart', 'title' => 'Personalised Protocols', 'text' => 'Every patient receives a treatment plan designed for their unique condition.'],
-            ['icon' => 'fa-leaf', 'title' => 'Non-Surgical & Natural', 'text' => 'Avoid risky surgery wherever possible with safe, evidence-based therapies.'],
-            ['icon' => 'fa-award', 'title' => '25+ Years Experience', 'text' => 'Decades of clinical work treating complex pain and lifestyle disorders.'],
-            ['icon' => 'fa-heart-pulse', 'title' => 'Long-Term Wellness', 'text' => 'Lasting results — we treat the body, mind, metabolism and lifestyle together.'],
-        ];
-    @endphp
-    <div class="home-why-choose about-page-values">
-        <div class="container">
-            <div class="home-why-choose-header text-center">
-                <span class="home-why-choose-eyebrow wow fadeInUp">Why Sahaj Aarogyam</span>
-                <h2 class="wow fadeInUp" data-wow-delay="0.1s">Why Patients Trust Us</h2>
-                <p class="wow fadeInUp" data-wow-delay="0.2s">A structured integrated healthcare brand — not just another clinic.</p>
-            </div>
-
-            <div class="row g-4">
-                @foreach ($aboutValues as $index => $item)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="home-why-choose-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.1, 1) }}s">
-                            <span class="home-why-choose-card-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
-                            <div class="home-why-choose-card-icon">
-                                <i class="fa-solid {{ $item['icon'] }}"></i>
-                            </div>
-                            <h3>{{ $item['title'] }}</h3>
-                            <p>{{ $item['text'] }}</p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
+    @include('partials.why-choose-section', [
+        'whyChooseItems' => $whyChooseItems,
+        'sectionClass' => 'about-page-values',
+        'title' => 'Why Patients Trust Us',
+    ])
     <!-- Why Choose Section End -->
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
 /**
@@ -79,6 +80,8 @@ class AboutController extends Controller
             ],
         ];
 
-        return view('about.index', compact('settings', 'aboutStats'));
+        $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
+
+        return view('about.index', compact('settings', 'aboutStats', 'whyChooseItems'));
     }
 }
