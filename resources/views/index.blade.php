@@ -3,50 +3,101 @@
 @section('title', 'Sahaj Aarogyam')
 
 @section('content')
-<!-- Hero Section Start -->
-    <div class="hero parallaxie">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <!-- Hero Content Start -->
-                    <div class="hero-content">
-                        <!-- Section Title Start -->
-                        <div class="section-title">
-                            <h3 class="wow fadeInUp">Welcome to Sahaj Aarogyam</h3>
-                            <h1 class="text-anime-style-2" data-cursor="-opaque">Transform Your Life Through Yoga and Meditation</h1>
-                            <p class="wow fadeInUp" data-wow-delay="0.2s">Discover the path to holistic well-being through yoga meditation  practices are designed to enhance your physical strength, mental clarity.</p>
-                        </div>
-                        <!-- Section Title End -->
+    @php
+        $heroSlides = [
+            [
+                'image' => 'home-about-team.jpg',
+                'eyebrow' => 'Welcome to Sahaj Aarogyam',
+                'title' => 'Non-Surgical Healing for Pain & Chronic Conditions',
+                'text' => 'Integrated physiotherapy, Ayurveda, and holistic therapies to help you recover safely, naturally, and with lasting results.',
+                'primary_label' => 'Book Appointment',
+                'primary_url' => url('/contact-us'),
+                'secondary_label' => 'Watch Video',
+                'secondary_url' => 'https://www.youtube.com/watch?v=Y-x0efG1seA',
+                'secondary_type' => 'video',
+            ],
+            [
+                'image' => 'gallery-4.jpg',
+                'eyebrow' => 'Multidisciplinary Care',
+                'title' => 'Ayurveda, Physiotherapy & Wellness Under One Roof',
+                'text' => 'Expert-led treatments for back pain, metabolic disorders, detox, rehabilitation, and complete lifestyle wellness.',
+                'primary_label' => 'Explore Services',
+                'primary_url' => url('/services'),
+                'secondary_label' => 'Meet Our Experts',
+                'secondary_url' => url('/our-expert-team'),
+                'secondary_type' => 'link',
+            ],
+            [
+                'image' => 'faqs-image.jpg',
+                'eyebrow' => 'Health Programs & Camps',
+                'title' => 'Structured Programs for Long-Term Wellness',
+                'text' => 'Join weight management, spine care, detox, and community wellness camps designed for sustainable healing.',
+                'primary_label' => 'View Programs',
+                'primary_url' => url('/health-programs'),
+                'secondary_label' => 'Contact Us',
+                'secondary_url' => url('/contact-us'),
+                'secondary_type' => 'link',
+            ],
+        ];
+    @endphp
 
-                        <!-- Hero Content Body Start -->
-                        <div class="hero-body wow fadeInUp" data-wow-delay="0.4s">
-                            <!-- Hero Button Start -->
-                            <div class="hero-btn">
-                                <a href="{{ url('/contact-us') }}" class="btn-default">join us today</a>                                
+    <!-- Hero Section Start -->
+    <div class="hero hero-slider-layout">
+        <div class="swiper hero-main-swiper">
+            <div class="swiper-wrapper">
+                @foreach ($heroSlides as $slide)
+                    <div class="swiper-slide">
+                        <div class="hero-slide">
+                            <div class="hero-slider-image">
+                                <img src="{{ asset('images/' . $slide['image']) }}" alt="{{ $slide['title'] }}">
                             </div>
-                            <!-- Hero Button End -->
 
-                            <!-- Video Play Button Start -->
-                            <div class="video-play-button">
-                                <p>Watch Video</p>
-                                <a href="https://www.youtube.com/watch?v=Y-x0efG1seA" class="popup-video" data-cursor-text="Play">
-                                    <i class="fa-solid fa-play"></i>
-                                </a>
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-7 col-md-10">
+                                        <div class="hero-content">
+                                            <div class="section-title">
+                                                <span class="hero-eyebrow">{{ $slide['eyebrow'] }}</span>
+                                                <h1>{{ $slide['title'] }}</h1>
+                                                <p>{{ $slide['text'] }}</p>
+                                            </div>
+
+                                            <div class="hero-body">
+                                                <div class="hero-btn">
+                                                    <a href="{{ $slide['primary_url'] }}" class="btn-default">{{ $slide['primary_label'] }}</a>
+                                                </div>
+
+                                                @if ($slide['secondary_type'] === 'video')
+                                                    <div class="video-play-button">
+                                                        <p>{{ $slide['secondary_label'] }}</p>
+                                                        <a href="{{ $slide['secondary_url'] }}" class="popup-video" data-cursor-text="Play">
+                                                            <i class="fa-solid fa-play"></i>
+                                                        </a>
+                                                    </div>
+                                                @else
+                                                    <div class="hero-btn hero-btn-secondary">
+                                                        <a href="{{ $slide['secondary_url'] }}" class="btn-default btn-highlighted">{{ $slide['secondary_label'] }}</a>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Video Play Button End -->
                         </div>
-                        <!-- Hero Content Body End -->
                     </div>
-                    <!-- Hero Content End -->
-                </div>
+                @endforeach
             </div>
+
+            <div class="hero-pagination"></div>
         </div>
 
-        <!-- Down Arrow Circle Start -->
-        <div class="down-arrow-circle">
-            <a href="{{ url('/') }}#home-trust"><img src="{{ asset('images/down-circle.svg') }}" alt=""><i class="fa-solid fa-arrow-down"></i></a>
-        </div>
-        <!-- Down Arrow Circle End -->
+        <button type="button" class="hero-slider-nav hero-slider-prev" aria-label="Previous slide">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button type="button" class="hero-slider-nav hero-slider-next" aria-label="Next slide">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
     </div>
     <!-- Hero Section End -->
 

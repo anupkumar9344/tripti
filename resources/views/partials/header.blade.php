@@ -17,12 +17,12 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/about-us') }}">About us</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/treatment') }}">Treatment</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/services') }}">Services</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('/blog') }}">Blogs</a></li>
                                 <li class="nav-item submenu"><a class="nav-link" href="#">More</a>
                                     <ul>
                                         <li class="nav-item"><a class="nav-link" href="{{ url('/our-expert-team') }}">Our expert team</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ url('/health-programs') }}">Health programs</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ url('/gallery') }}">Gallery</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('/blog') }}">Blogs</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a></li>
