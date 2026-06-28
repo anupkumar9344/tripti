@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\Contact;
 use App\Models\Expert;
+use App\Models\Faq;
 use App\Models\GalleryItem;
 use App\Models\HealthProgram;
+use App\Models\PatientReview;
 use App\Models\Service;
 use App\Models\Treatment;
 use Illuminate\View\View;
@@ -66,6 +68,20 @@ class DashboardController extends Controller
                 'subtitle' => 'Published programs',
                 'icon' => 'ti-calendar-event',
                 'tone' => 'rose',
+            ],
+            [
+                'label' => 'FAQs',
+                'count' => Faq::query()->where('status', true)->count(),
+                'subtitle' => 'Active questions',
+                'icon' => 'ti-help',
+                'tone' => 'teal',
+            ],
+            [
+                'label' => 'Patient Reviews',
+                'count' => PatientReview::query()->where('status', true)->count(),
+                'subtitle' => 'Published testimonials',
+                'icon' => 'ti-star',
+                'tone' => 'gold',
             ],
         ];
 

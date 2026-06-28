@@ -102,6 +102,14 @@
     background: #b8436a;
 }
 
+.admin-dashboard-stat-icon.tone-teal {
+    background: #0f766e;
+}
+
+.admin-dashboard-stat-icon.tone-gold {
+    background: #b8860b;
+}
+
 .admin-dashboard-summary {
     border: 1px solid rgba(116, 164, 42, 0.25);
     background: #f8fbf4;

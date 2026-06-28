@@ -24,7 +24,7 @@
                             <span class="badge bg-light text-dark mb-2">Sahaj Admin</span>
                             <h4 class="mb-2">Welcome back, {{ auth()->user()->name }}!</h4>
                             <p class="text-muted-light mb-0">
-                                Overview of content currently live on the Sahaj Aarogyam website. Counts reflect static frontend pages for now.
+                                Live overview of published website content, contact messages, and recent blog activity.
                             </p>
                         </div>
                         <div class="col-12 col-lg-5">
@@ -47,7 +47,7 @@
                 <div class="card-body d-flex flex-column justify-content-center">
                     <p class="text-muted mb-0 fw-semibold">Total Website Content</p>
                     <div class="summary-count">{{ number_format($totalContent) }}</div>
-                    <p class="text-muted mb-0 font-13">Services, treatments, blogs, experts, gallery images, and programs combined.</p>
+                    <p class="text-muted mb-0 font-13">Services, treatments, blogs, experts, gallery, programs, FAQs, and reviews combined.</p>
                 </div>
             </div>
         </div>
