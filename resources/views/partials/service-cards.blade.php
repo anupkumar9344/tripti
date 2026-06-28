@@ -1,5 +1,6 @@
 @php
     $showViewAll = $showViewAll ?? true;
+    $showPagination = $showPagination ?? false;
 @endphp
 
 <div class="home-core-services">
@@ -40,7 +41,13 @@
                         </article>
                     </div>
                 @endforeach
+
+                @if ($showPagination)
+                    {{ $services->links('partials.pagination') }}
+                @endif
             </div>
+        @elseif ($showPagination)
+            <p class="text-center mb-0">No services available yet.</p>
         @endif
 
         @if ($showViewAll)

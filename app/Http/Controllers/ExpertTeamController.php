@@ -57,6 +57,13 @@ class ExpertTeamController extends Controller
             ? Faq::query()->forExpertDetail($expert)->get()
             : collect();
 
-        return view('experts.show', compact('expert', 'profileTabs', 'detailFaqs'));
+        $relatedExperts = Expert::query()
+            ->where('status', true)
+            ->where('id', '!=', $expert->id)
+            ->activeOrdered()
+            ->limit(3)
+            ->get();
+
+        return view('experts.show', compact('expert', 'profileTabs', 'detailFaqs', 'relatedExperts'));
     }
 }

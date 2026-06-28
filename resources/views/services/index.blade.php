@@ -8,6 +8,7 @@
     @include('partials.service-cards', [
         'services' => $services,
         'showViewAll' => false,
+        'showPagination' => true,
     ])
 
     @include('partials.video-feedback-section', ['videoFeedbacks' => $servicesVideoFeedbacks])

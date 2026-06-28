@@ -129,6 +129,18 @@
             </div>
         </section>
     @endif
+
+    @if ($relatedExperts->isNotEmpty())
+        @include('partials.expert-cards', [
+            'experts' => $relatedExperts,
+            'sectionClass' => 'page-section-green expert-related-team-section',
+            'headerEyebrow' => 'Our Expert Team',
+            'headerTitle' => 'Related Team Members',
+            'showViewAll' => true,
+            'viewAllLabel' => 'View All Team',
+            'viewAllUrl' => route('experts'),
+        ])
+    @endif
 @endsection
 
 @push('scripts')

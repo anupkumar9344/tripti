@@ -17,7 +17,7 @@ class BlogController extends Controller
      */
     public function index(): View
     {
-        $posts = BlogPost::query()->activeOrdered()->get();
+        $posts = BlogPost::query()->activeOrdered()->paginate(9);
 
         return view('blog.index', compact('posts'));
     }

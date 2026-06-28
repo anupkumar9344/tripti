@@ -2,14 +2,18 @@
     $sectionClass = $sectionClass ?? '';
     $showViewAll = $showViewAll ?? false;
     $linkCards = $linkCards ?? true;
+    $headerEyebrow = $headerEyebrow ?? 'Meet Our Experts';
+    $headerTitle = $headerTitle ?? 'A Multidisciplinary Team';
+    $viewAllLabel = $viewAllLabel ?? 'Know More';
+    $viewAllUrl = $viewAllUrl ?? url('/our-expert-team');
 @endphp
 
 <div class="home-meet-experts {{ $sectionClass }}">
     <div class="home-meet-experts-overlay"></div>
     <div class="container position-relative">
         <div class="home-meet-experts-header text-center">
-            <span class="home-meet-experts-eyebrow wow fadeInUp">Meet Our Experts</span>
-            <h2 class="wow fadeInUp" data-wow-delay="0.1s">A Multidisciplinary Team</h2>
+            <span class="home-meet-experts-eyebrow wow fadeInUp">{{ $headerEyebrow }}</span>
+            <h2 class="wow fadeInUp" data-wow-delay="0.1s">{{ $headerTitle }}</h2>
         </div>
 
         <div class="row g-4">
@@ -52,7 +56,7 @@
 
         @if ($showViewAll)
             <div class="home-meet-experts-action text-center wow fadeInUp" data-wow-delay="0.3s">
-                <a href="{{ url('/our-expert-team') }}" class="btn-default">Know More</a>
+                <a href="{{ $viewAllUrl }}" class="btn-default">{{ $viewAllLabel }}</a>
             </div>
         @endif
     </div>

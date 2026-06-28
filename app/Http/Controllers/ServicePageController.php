@@ -19,7 +19,7 @@ class ServicePageController extends Controller
      */
     public function index(): View
     {
-        $services = Service::query()->activeOrdered()->get();
+        $services = Service::query()->activeOrdered()->paginate(9);
         $servicesVideoFeedbacks = VideoFeedback::query()->forServices()->get();
 
         return view('services.index', compact('services', 'servicesVideoFeedbacks'));
