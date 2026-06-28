@@ -154,6 +154,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.legal-pages.*') ? 'active' : '' }}" href="{{ route('admin.legal-pages.edit') }}">
+                            <i class="ti ti-file-text menu-icon"></i>
+                            <span>Privacy &amp; Terms</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.media.*') ? 'active' : '' }}" href="{{ route('admin.media.index') }}">
                             <i class="ti ti-files menu-icon"></i>
                             <span>Media Library</span>
@@ -236,7 +242,7 @@
             </div>
 
             <footer class="footer text-center text-sm-start">
-                &copy; {{ date('Y') }} Sahaj Admin
+                &copy; {{ date('Y') }} Sahaj Aarogyam developed by <a href="#!">Cyber Digital Infotech</a>
             </footer>
         </div>
     </div>

@@ -118,13 +118,14 @@
     <div class="footer-bottom-bar">
         <div class="container">
             <div class="footer-copyright">
-                <div class="footer-copyright-text">
+                <div class="footer-copyright-text d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start gap-2">
                     <p>&copy;{{ date('Y') }} {{ $siteName }}. All Rights Reserved.</p>
+                    <p>Developed by <a href="#!" class="text-white">Cyber Digital Infotech</a></p>
                 </div>
                 <div class="footer-privacy-policy">
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ route('terms-and-conditions') }}">Terms &amp; Conditions</a></li>
                     </ul>
                 </div>
             </div>

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminUserSeeder::class,
             GeneralSettingsSeeder::class,
+            LegalPagesSeeder::class,
             AboutSettingsSeeder::class,
             ExpertProfileCategorySeeder::class,
             ExpertSeeder::class,

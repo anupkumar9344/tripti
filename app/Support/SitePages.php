@@ -24,6 +24,8 @@ class SitePages
             ['label' => 'Gallery', 'path' => '/gallery'],
             ['label' => 'Blog', 'path' => '/blog'],
             ['label' => 'FAQs', 'path' => '/faq'],
+            ['label' => 'Privacy Policy', 'path' => '/privacy-policy'],
+            ['label' => 'Terms & Conditions', 'path' => '/terms-and-conditions'],
             ['label' => 'Contact Us', 'path' => '/contact-us'],
         ];
     }
