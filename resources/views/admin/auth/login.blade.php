@@ -16,7 +16,7 @@
     <div class="admin-auth-wrapper">
         <div class="admin-auth-brand">
             <img
-                src="{{ asset('images/gallery-4.jpg') }}"
+                src="{{ $adminLoginImageUrl }}"
                 alt="Sahaj Aarogyam"
                 class="admin-auth-brand-image"
             >

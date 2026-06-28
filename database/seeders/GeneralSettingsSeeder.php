@@ -19,6 +19,7 @@ class GeneralSettingsSeeder extends Seeder
             'website_name' => 'Sahaj Aarogyam',
             'website_logo' => 'logo/logo.webp',
             'website_favicon' => 'logo/logo.webp',
+            'admin_login_image' => 'gallery-4.jpg',
             'footer_about' => 'Integrated wellness clinic providing physiotherapy, Ayurveda, pain management, and holistic healing solutions in Indore.',
             'email_1' => 'info@sahajaarogyam.com',
             'email_2' => 'sahajaarogyam@gmail.com',

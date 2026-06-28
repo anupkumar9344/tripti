@@ -27,7 +27,7 @@
             </a>
         </div>
 
-        <div class="sidebar-user-pro media border-end">
+        <div class="sidebar-user-pro media border-end border-bottom">
             <div class="position-relative mx-auto">
                 <img src="{{ auth()->user()->avatarUrl() }}" alt="user" class="rounded-circle thumb-md">
                 <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
@@ -41,14 +41,20 @@
         <div class="menu-content h-100" data-simplebar>
             <div class="menu-body navbar-vertical">
                 <ul class="navbar-nav">
-                    <li class="menu-label mt-0 text-primary font-12 fw-semibold">M<span>enu</span></li>
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Menu</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                             <i class="ti ti-smart-home menu-icon"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="menu-label mt-0 text-primary font-12 fw-semibold">C<span>ontent</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+                            <i class="ti ti-mail menu-icon"></i>
+                            <span>Contact Messages</span>
+                        </a>
+                    </li>
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Content</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.hero-banners.*') ? 'active' : '' }}" href="{{ route('admin.hero-banners.index') }}">
                             <i class="ti ti-photo menu-icon"></i>
@@ -62,9 +68,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
-                            <i class="ti ti-briefcase menu-icon"></i>
-                            <span>Services</span>
+                        <a class="nav-link {{ request()->routeIs('admin.about.*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
+                            <i class="ti ti-info-circle menu-icon"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : '' }}" href="{{ route('admin.why-choose-items.index') }}">
+                            <i class="ti ti-star menu-icon"></i>
+                            <span>Why Choose Us</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -74,9 +86,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}" href="{{ route('admin.blog-posts.index') }}">
-                            <i class="ti ti-news menu-icon"></i>
-                            <span>Blog Posts</span>
+                        <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
+                            <i class="ti ti-briefcase menu-icon"></i>
+                            <span>Services</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -112,24 +124,6 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
-                            <i class="ti ti-mail menu-icon"></i>
-                            <span>Contact Messages</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.about.*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
-                            <i class="ti ti-info-circle menu-icon"></i>
-                            <span>About Us</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : '' }}" href="{{ route('admin.why-choose-items.index') }}">
-                            <i class="ti ti-star menu-icon"></i>
-                            <span>Why Choose Us</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.patient-reviews.*') ? 'active' : '' }}" href="{{ route('admin.patient-reviews.index') }}">
                             <i class="ti ti-stars menu-icon"></i>
                             <span>Patient Feedback</span>
@@ -142,15 +136,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}">
-                            <i class="ti ti-zoom-question menu-icon"></i>
-                            <span>FAQs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.gallery-items.*') ? 'active' : '' }}" href="{{ route('admin.gallery-items.index') }}">
                             <i class="ti ti-camera menu-icon"></i>
                             <span>Gallery</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}" href="{{ route('admin.blog-posts.index') }}">
+                            <i class="ti ti-news menu-icon"></i>
+                            <span>Blog Posts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}">
+                            <i class="ti ti-zoom-question menu-icon"></i>
+                            <span>FAQs</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -206,7 +206,7 @@
                         <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
                             <i class="ti ti-user font-16 me-1 align-text-bottom"></i> Profile
                         </a>
-                        <form action="{{ route('admin.logout') }}" method="POST">
+                        <form action="{{ route('admin.logout') }}" method="POST" class="js-confirm-logout">
                             @csrf
                             <button type="submit" class="dropdown-item">
                                 <i class="ti ti-power font-16 me-1 align-text-bottom"></i> Logout

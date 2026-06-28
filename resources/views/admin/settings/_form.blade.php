@@ -22,7 +22,7 @@
         $activeTab = 'social';
     } elseif ($errors->hasAny($seoKeys)) {
         $activeTab = 'seo';
-    } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo', 'website_favicon'])) {
+    } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo', 'website_favicon', 'admin_login_image'])) {
         $activeTab = 'general';
     }
 @endphp
@@ -90,6 +90,22 @@
                                 'currentValue' => $settings['website_favicon'] ?? '',
                                 'label' => 'Site Icon (Favicon)',
                             ])
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <h5 class="mb-3">Admin Panel</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            @include('admin.media.partials.url-field', [
+                                'name' => 'admin_login_image',
+                                'currentValue' => $settings['admin_login_image'] ?? '',
+                                'label' => 'Admin Login Image',
+                            ])
+                            <span class="form-text text-muted font-12">Background image shown on the admin login page. Use a wide landscape photo for best results.</span>
                         </div>
                     </div>
                 </div>

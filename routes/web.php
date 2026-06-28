@@ -79,7 +79,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);
         Route::resource('expert-profile-categories', ExpertProfileCategoryController::class)->except(['show']);
         Route::resource('experts', ExpertController::class)->except(['show']);
-        Route::get('contacts/data', [AdminContactController::class, 'data'])->name('contacts.data');
         Route::resource('contacts', AdminContactController::class)->only(['index', 'show', 'destroy']);
         Route::get('icons/data', [IconReferenceController::class, 'icons'])->name('icons.data');
         Route::get('icons', [IconReferenceController::class, 'index'])->name('icons.index');

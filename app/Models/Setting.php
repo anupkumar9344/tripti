@@ -73,6 +73,16 @@ class Setting extends Model
     }
 
     /**
+     * Resolve the admin login page background image URL.
+     */
+    public static function adminLoginImageUrl(?string $value = null, string $defaultFile = 'gallery-4.jpg'): string
+    {
+        $stored = $value ?? static::getValue('admin_login_image');
+
+        return static::imageUrl($stored, $defaultFile);
+    }
+
+    /**
      * Resolve the site favicon URL for the website and admin panel.
      */
     public static function faviconUrl(?string $value = null, string $defaultFile = 'logo/logo.webp'): string

@@ -62,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['admin.layouts.app', 'admin.auth.login'], function ($view): void {
             $view->with('siteFaviconUrl', Setting::faviconUrl());
+            $view->with('adminLoginImageUrl', Setting::adminLoginImageUrl());
         });
     }
 }

@@ -23,6 +23,7 @@ class GeneralSettingController extends Controller
         'website_name',
         'website_logo',
         'website_favicon',
+        'admin_login_image',
         'footer_about',
         'email_1',
         'email_2',
@@ -64,6 +65,7 @@ class GeneralSettingController extends Controller
     private const MEDIA_SETTING_KEYS = [
         'website_logo',
         'website_favicon',
+        'admin_login_image',
         'visit_us_bg_image',
         'seo_og_image',
     ];
@@ -91,6 +93,7 @@ class GeneralSettingController extends Controller
             'website_name' => ['required', 'string', 'max:255'],
             'website_logo' => ['nullable', 'string', 'max:500'],
             'website_favicon' => ['nullable', 'string', 'max:500'],
+            'admin_login_image' => ['nullable', 'string', 'max:500'],
             'footer_about' => ['nullable', 'string', 'max:1000'],
             'email_1' => ['nullable', 'email', 'max:255'],
             'email_2' => ['nullable', 'email', 'max:255'],
