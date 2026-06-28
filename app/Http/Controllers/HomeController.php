@@ -46,15 +46,11 @@ class HomeController extends Controller
      * @var list<string>
      */
     private const HOME_ABOUT_SETTING_KEYS = [
-        'about_home_eyebrow',
         'about_home_title',
         'about_home_title_highlight',
         'about_home_description',
         'about_home_image',
         'about_home_badge_number',
-        'about_home_badge_suffix',
-        'about_home_badge_text',
-        'about_home_button_text',
     ];
 
     /**

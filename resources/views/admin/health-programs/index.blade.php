@@ -67,21 +67,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($program->status)
-                                                <a href="{{ route('health-programs') }}" class="me-2" title="View" target="_blank">
-                                                    <i class="las la-eye text-secondary font-16"></i>
-                                                </a>
-                                            @endif
-                                            <a href="{{ route('admin.health-programs.edit', $program) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.health-programs.destroy', $program) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete program?" data-text="This health program will be removed from the website.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'viewUrl' => $program->status ? route('health-programs') : null,
+                                                'viewTitle' => 'View',
+                                                'viewTarget' => '_blank',
+                                                'editUrl' => route('admin.health-programs.edit', $program),
+                                                'deleteUrl' => route('admin.health-programs.destroy', $program),
+                                                'deleteTitle' => 'Delete program?',
+                                                'deleteText' => 'This health program will be removed from the website.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

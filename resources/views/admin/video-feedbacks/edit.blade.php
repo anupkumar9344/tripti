@@ -23,7 +23,7 @@
                         @method('PUT')
                         @include('admin.video-feedbacks._form')
 
-                        <div class="mt-3">
+                        <div class="mt-3 admin-form-actions">
                             <button type="submit" class="btn btn-primary">Update Video</button>
                             <a href="{{ route('admin.video-feedbacks.index') }}" class="btn btn-light ms-1">Cancel</a>
                         </div>

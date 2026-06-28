@@ -23,7 +23,7 @@
                         @method('PUT')
                         @include('admin.why-choose-items._form', ['whyChooseItem' => $whyChooseItem])
 
-                        <div class="mt-3">
+                        <div class="mt-3 admin-form-actions">
                             <button type="submit" class="btn btn-primary">Update Item</button>
                             <a href="{{ route('admin.why-choose-items.index') }}" class="btn btn-light ms-1">Cancel</a>
                         </div>

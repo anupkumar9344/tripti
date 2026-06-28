@@ -15,15 +15,11 @@
     @php
         use App\Models\Setting;
 
-        $homeAboutEyebrow = $settings['about_home_eyebrow'] ?: 'About us';
         $homeAboutTitle = $settings['about_home_title'] ?: 'A holistic path to';
         $homeAboutTitleHighlight = $settings['about_home_title_highlight'] ?: 'natural healing';
         $homeAboutDescription = $settings['about_home_description'] ?: 'At Sahaj Aarogyam, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.';
         $homeAboutImage = Setting::imageUrl($settings['about_home_image'] ?? null);
         $homeAboutBadgeNumber = $settings['about_home_badge_number'] ?: '25';
-        $homeAboutBadgeSuffix = $settings['about_home_badge_suffix'] ?? '+';
-        $homeAboutBadgeText = $settings['about_home_badge_text'] ?: 'Years of Trusted Care';
-        $homeAboutButtonText = $settings['about_home_button_text'] ?: 'Learn More About Us';
     @endphp
     <div class="home-about-intro">
         <div class="container">
@@ -34,8 +30,8 @@
                             <img src="{{ $homeAboutImage }}" alt="Sahaj Aarogyam expert team">
                         </figure>
                         <div class="home-about-intro-badge">
-                            <strong>{{ $homeAboutBadgeNumber }}{{ $homeAboutBadgeSuffix }}</strong>
-                            <span>{{ $homeAboutBadgeText }}</span>
+                            <strong>{{ $homeAboutBadgeNumber }}+</strong>
+                            <span>Years of Trusted Care</span>
                         </div>
                     </div>
                 </div>
@@ -43,13 +39,13 @@
                 <div class="col-lg-6">
                     <div class="home-about-intro-content">
                         <div class="section-title">
-                            <h3 class="wow fadeInUp">{{ $homeAboutEyebrow }}</h3>
+                            <h3 class="wow fadeInUp">About us</h3>
                             <h2 class="text-anime-style-2" data-cursor="-opaque">{{ $homeAboutTitle }} <span>{{ $homeAboutTitleHighlight }}</span></h2>
                             <p class="wow fadeInUp" data-wow-delay="0.2s">{{ $homeAboutDescription }}</p>
                         </div>
 
                         <div class="home-about-intro-btn wow fadeInUp" data-wow-delay="0.3s">
-                            <a href="{{ url('/about-us') }}" class="btn-default">{{ $homeAboutButtonText }}</a>
+                            <a href="{{ url('/about-us') }}" class="btn-default">Learn More About Us</a>
                         </div>
                     </div>
                 </div>

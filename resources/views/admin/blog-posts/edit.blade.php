@@ -16,7 +16,7 @@
         @method('PUT')
         @include('admin.blog-posts._form', ['blogPost' => $blogPost])
 
-        <div class="mt-3">
+        <div class="mt-3 admin-form-actions">
             <button type="submit" class="btn btn-primary">Update Post</button>
             <a href="{{ route('admin.blog-posts.index') }}" class="btn btn-light ms-1">Cancel</a>
         </div>

@@ -146,7 +146,7 @@
                         </div>
 
                         <div class="form-group mb-0 row">
-                            <div class="col-lg-8 col-xl-9 offset-lg-4 offset-xl-3">
+                            <div class="col-lg-8 col-xl-9 offset-lg-4 offset-xl-3 admin-form-actions">
                                 <button type="submit" class="btn btn-primary">Update Profile</button>
                                 <a href="{{ route('admin.dashboard') }}" class="btn btn-light ms-1">Cancel</a>
                             </div>
@@ -209,7 +209,7 @@
                         </div>
 
                         <div class="form-group mb-0 row">
-                            <div class="col-lg-8 col-xl-9 offset-lg-4 offset-xl-3">
+                            <div class="col-lg-8 col-xl-9 offset-lg-4 offset-xl-3 admin-form-actions">
                                 <button type="submit" class="btn btn-primary">Change Password</button>
                                 <button type="reset" class="btn btn-light ms-1">Cancel</button>
                             </div>

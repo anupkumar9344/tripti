@@ -65,19 +65,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('blog.show', $post->slug) }}" class="me-2" title="View" target="_blank">
-                                                <i class="las la-eye text-secondary font-16"></i>
-                                            </a>
-                                            <a href="{{ route('admin.blog-posts.edit', $post) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.blog-posts.destroy', $post) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete post?" data-text="This blog post will be removed from the website.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'viewUrl' => route('blog.show', $post->slug),
+                                                'viewTitle' => 'View',
+                                                'viewTarget' => '_blank',
+                                                'editUrl' => route('admin.blog-posts.edit', $post),
+                                                'deleteUrl' => route('admin.blog-posts.destroy', $post),
+                                                'deleteTitle' => 'Delete post?',
+                                                'deleteText' => 'This blog post will be removed from the website.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

@@ -69,16 +69,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.services.edit', $service) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.services.destroy', $service) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete service?" data-text="This service and all its images will be permanently removed.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'editUrl' => route('admin.services.edit', $service),
+                                                'deleteUrl' => route('admin.services.destroy', $service),
+                                                'deleteTitle' => 'Delete service?',
+                                                'deleteText' => 'This service and all its images will be permanently removed.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

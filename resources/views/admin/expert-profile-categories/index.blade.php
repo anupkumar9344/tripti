@@ -61,16 +61,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.expert-profile-categories.edit', $category) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.expert-profile-categories.destroy', $category) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete category?" data-text="This category and all expert content linked to it will be removed.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'editUrl' => route('admin.expert-profile-categories.edit', $category),
+                                                'deleteUrl' => route('admin.expert-profile-categories.destroy', $category),
+                                                'deleteTitle' => 'Delete category?',
+                                                'deleteText' => 'This category and all expert content linked to it will be removed.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

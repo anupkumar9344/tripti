@@ -23,7 +23,7 @@
                         @method('PUT')
                         @include('admin.patient-reviews._form', ['patientReview' => $patientReview])
 
-                        <div class="mt-3">
+                        <div class="mt-3 admin-form-actions">
                             <button type="submit" class="btn btn-primary">Update Review</button>
                             <a href="{{ route('admin.patient-reviews.index') }}" class="btn btn-light ms-1">Cancel</a>
                         </div>

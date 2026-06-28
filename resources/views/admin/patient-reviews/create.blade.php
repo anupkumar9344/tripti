@@ -22,7 +22,7 @@
                         @csrf
                         @include('admin.patient-reviews._form')
 
-                        <div class="mt-3">
+                        <div class="mt-3 admin-form-actions">
                             <button type="submit" class="btn btn-primary">Save Review</button>
                             <a href="{{ route('admin.patient-reviews.index') }}" class="btn btn-light ms-1">Cancel</a>
                         </div>

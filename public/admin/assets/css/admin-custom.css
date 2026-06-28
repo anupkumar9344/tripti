@@ -346,3 +346,77 @@ body.dark-sidebar .left-sidebar .navbar-vertical .navbar-nav .nav-link[data-bs-t
         box-shadow: 0 10px 30px rgba(2, 51, 32, 0.07);
     }
 }
+
+/* Admin content tabs — use Sahaj primary instead of default blue */
+.page-content-tab .nav-tabs {
+    border-bottom-color: rgba(2, 51, 32, 0.12);
+}
+
+.page-content-tab .nav-tabs .nav-link {
+    color: #6c757d;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.page-content-tab .nav-tabs .nav-link:hover,
+.page-content-tab .nav-tabs .nav-link:focus {
+    color: #023320;
+    border-color: transparent transparent rgba(2, 51, 32, 0.2);
+    isolation: isolate;
+}
+
+.page-content-tab .nav-tabs .nav-link.active {
+    color: #023320;
+    background: transparent;
+    border-color: transparent transparent #023320;
+    font-weight: 600;
+}
+
+.page-content-tab .card-header-tabs {
+    border-bottom-color: rgba(2, 51, 32, 0.12);
+}
+
+.page-content-tab .card-header-tabs .nav-link.active {
+    color: #023320;
+    background: transparent;
+    border-bottom: 2px solid #023320;
+    font-weight: 600;
+}
+
+/* Right-align primary form action rows */
+.admin-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Admin listing table action buttons */
+.admin-table-actions {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.admin-table-actions form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.admin-table-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    line-height: 1;
+}
+
+.admin-table-actions .btn i {
+    font-size: 15px;
+    line-height: 1;
+}

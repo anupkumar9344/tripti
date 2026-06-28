@@ -17,7 +17,7 @@
                 @csrf
                 @include('admin.experts._form')
 
-                <div class="mb-3">
+                <div class="mb-3 admin-form-actions">
                     <button type="submit" class="btn btn-primary">Save Team Member</button>
                     <a href="{{ route('admin.experts.index') }}" class="btn btn-light ms-1">Cancel</a>
                 </div>

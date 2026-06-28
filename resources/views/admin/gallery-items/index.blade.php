@@ -40,7 +40,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save Section Settings</button>
+                        <div class="admin-form-actions mt-3">
+                            <button type="submit" class="btn btn-primary">Save Section Settings</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -94,16 +96,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.gallery-items.edit', $item) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.gallery-items.destroy', $item) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete item?" data-text="This gallery item will be removed from the website.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'editUrl' => route('admin.gallery-items.edit', $item),
+                                                'deleteUrl' => route('admin.gallery-items.destroy', $item),
+                                                'deleteTitle' => 'Delete item?',
+                                                'deleteText' => 'This gallery item will be removed from the website.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

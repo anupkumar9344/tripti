@@ -71,19 +71,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ $videoFeedback->embedUrl() }}" class="me-2" title="Preview" target="_blank">
-                                                <i class="las la-eye text-secondary font-16"></i>
-                                            </a>
-                                            <a href="{{ route('admin.video-feedbacks.edit', $videoFeedback) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.video-feedbacks.destroy', $videoFeedback) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete video?" data-text="This video will be removed from all pages.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'viewUrl' => $videoFeedback->embedUrl(),
+                                                'viewTitle' => 'Preview',
+                                                'viewTarget' => '_blank',
+                                                'editUrl' => route('admin.video-feedbacks.edit', $videoFeedback),
+                                                'deleteUrl' => route('admin.video-feedbacks.destroy', $videoFeedback),
+                                                'deleteTitle' => 'Delete video?',
+                                                'deleteText' => 'This video will be removed from all pages.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

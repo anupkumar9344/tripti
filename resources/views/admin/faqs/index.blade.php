@@ -72,7 +72,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save Home Section</button>
+                        <div class="admin-form-actions mt-3">
+                            <button type="submit" class="btn btn-primary">Save Home Section</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -126,7 +128,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save FAQ Page</button>
+                        <div class="admin-form-actions mt-3">
+                            <button type="submit" class="btn btn-primary">Save FAQ Page</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -185,16 +189,12 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.faqs.edit', $faq) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.faqs.destroy', $faq) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete FAQ?" data-text="This question will be removed from all pages.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'editUrl' => route('admin.faqs.edit', $faq),
+                                                'deleteUrl' => route('admin.faqs.destroy', $faq),
+                                                'deleteTitle' => 'Delete FAQ?',
+                                                'deleteText' => 'This question will be removed from all pages.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

@@ -23,7 +23,7 @@
                         @method('PUT')
                         @include('admin.gallery-items._form', ['galleryItem' => $galleryItem])
 
-                        <div class="mt-3">
+                        <div class="mt-3 admin-form-actions">
                             <button type="submit" class="btn btn-primary">Update Item</button>
                             <a href="{{ route('admin.gallery-items.index') }}" class="btn btn-light ms-1">Cancel</a>
                         </div>

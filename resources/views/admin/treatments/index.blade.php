@@ -77,21 +77,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($treatment->status)
-                                                <a href="{{ route('treatment.show', $treatment->slug) }}" class="me-2" title="View" target="_blank">
-                                                    <i class="las la-eye text-secondary font-16"></i>
-                                                </a>
-                                            @endif
-                                            <a href="{{ route('admin.treatments.edit', $treatment) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.treatments.destroy', $treatment) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete treatment?" data-text="This treatment will be removed from the website.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'viewUrl' => $treatment->status ? route('treatment.show', $treatment->slug) : null,
+                                                'viewTitle' => 'View',
+                                                'viewTarget' => '_blank',
+                                                'editUrl' => route('admin.treatments.edit', $treatment),
+                                                'deleteUrl' => route('admin.treatments.destroy', $treatment),
+                                                'deleteTitle' => 'Delete treatment?',
+                                                'deleteText' => 'This treatment will be removed from the website.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

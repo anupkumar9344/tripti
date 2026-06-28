@@ -18,7 +18,7 @@
                 @method('PUT')
                 @include('admin.settings._form')
 
-                <div class="mb-3">
+                <div class="mb-3 admin-form-actions">
                     <button type="submit" class="btn btn-primary">Save Settings</button>
                 </div>
             </form>

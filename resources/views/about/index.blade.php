@@ -8,15 +8,11 @@
     @php
         use App\Models\Setting;
 
-        $aboutEyebrow = $settings['about_page_eyebrow'] ?: 'About us';
         $aboutTitle = $settings['about_page_title'] ?: 'A holistic path to';
         $aboutTitleHighlight = $settings['about_page_title_highlight'] ?: 'natural healing';
         $aboutDescription = $settings['about_page_description'] ?: '<p>At Sahaj Aarogyam, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.</p>';
         $aboutImage = Setting::imageUrl($settings['about_page_image'] ?? null);
         $aboutBadgeNumber = $settings['about_page_badge_number'] ?: '25';
-        $aboutBadgeSuffix = $settings['about_page_badge_suffix'] ?? '+';
-        $aboutBadgeText = $settings['about_page_badge_text'] ?: 'Years of Trusted Care';
-        $aboutButtonText = $settings['about_page_button_text'] ?: 'Meet Our Experts';
     @endphp
 
     <!-- About Intro Section Start -->
@@ -29,8 +25,8 @@
                             <img src="{{ $aboutImage }}" alt="Sahaj Aarogyam expert team">
                         </figure>
                         <div class="home-about-intro-badge">
-                            <strong>{{ $aboutBadgeNumber }}{{ $aboutBadgeSuffix }}</strong>
-                            <span>{{ $aboutBadgeText }}</span>
+                            <strong>{{ $aboutBadgeNumber }}+</strong>
+                            <span>Years of Trusted Care</span>
                         </div>
                     </div>
                 </div>
@@ -38,13 +34,13 @@
                 <div class="col-lg-6">
                     <div class="home-about-intro-content">
                         <div class="section-title">
-                            <h3 class="wow fadeInUp">{{ $aboutEyebrow }}</h3>
+                            <h3 class="wow fadeInUp">About us</h3>
                             <h2 class="text-anime-style-2" data-cursor="-opaque">{{ $aboutTitle }} <span>{{ $aboutTitleHighlight }}</span></h2>
                             <div class="wow fadeInUp about-page-description" data-wow-delay="0.2s">{!! $aboutDescription !!}</div>
                         </div>
 
                         <div class="home-about-intro-btn wow fadeInUp" data-wow-delay="0.3s">
-                            <a href="{{ url('/our-expert-team') }}" class="btn-default">{{ $aboutButtonText }}</a>
+                            <a href="{{ url('/our-expert-team') }}" class="btn-default">Meet Our Experts</a>
                         </div>
                     </div>
                 </div>

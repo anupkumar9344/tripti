@@ -69,21 +69,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($expert->status)
-                                                <a href="{{ route('experts.show', $expert->slug) }}" class="me-2" title="View Profile" target="_blank">
-                                                    <i class="las la-eye text-secondary font-16"></i>
-                                                </a>
-                                            @endif
-                                            <a href="{{ route('admin.experts.edit', $expert) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.experts.destroy', $expert) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete expert?" data-text="This expert and their photo will be permanently removed.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'viewUrl' => $expert->status ? route('experts.show', $expert->slug) : null,
+                                                'viewTitle' => 'View Profile',
+                                                'viewTarget' => '_blank',
+                                                'editUrl' => route('admin.experts.edit', $expert),
+                                                'deleteUrl' => route('admin.experts.destroy', $expert),
+                                                'deleteTitle' => 'Delete expert?',
+                                                'deleteText' => 'This expert and their photo will be permanently removed.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

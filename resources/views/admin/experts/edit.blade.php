@@ -18,7 +18,7 @@
                 @method('PUT')
                 @include('admin.experts._form')
 
-                <div class="mb-3">
+                <div class="mb-3 admin-form-actions">
                     <button type="submit" class="btn btn-primary">Update Team Member</button>
                     <a href="{{ route('experts.show', $expert->slug) }}" class="btn btn-outline-primary ms-1" target="_blank">View Profile</a>
                     <a href="{{ route('admin.experts.index') }}" class="btn btn-light ms-1">Cancel</a>

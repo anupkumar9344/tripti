@@ -32,10 +32,11 @@
                         <table class="table table-striped table-bordered mb-0" id="datatable_hero_banners">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Order</th>
+                                    <th class="text-center" style="width: 60px;">#</th>
                                     <th>Banner</th>
                                     <th>Primary Action</th>
                                     <th>Secondary Action</th>
+                                    <th class="text-center" style="width: 90px;">Order</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -43,7 +44,7 @@
                             <tbody>
                                 @foreach ($heroBanners as $banner)
                                     <tr>
-                                        <td>{{ $banner->sort_order }}</td>
+                                        <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                         <td>
                                             <img src="{{ $banner->imageUrl() }}" alt="{{ $banner->title }}" height="40" class="rounded me-2">
                                             <span class="d-inline-block align-middle">
@@ -68,6 +69,7 @@
                                                 —
                                             @endif
                                         </td>
+                                        <td class="text-center fw-semibold">{{ $banner->sort_order }}</td>
                                         <td>
                                             @if ($banner->status)
                                                 <span class="badge badge-soft-success">Active</span>
@@ -76,19 +78,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('/') }}" class="me-2" title="View Home" target="_blank">
-                                                <i class="las la-eye text-secondary font-16"></i>
-                                            </a>
-                                            <a href="{{ route('admin.hero-banners.edit', $banner) }}" class="me-2" title="Edit">
-                                                <i class="las la-pen text-secondary font-16"></i>
-                                            </a>
-                                            <form action="{{ route('admin.hero-banners.destroy', $banner) }}" method="POST" class="d-inline js-confirm-delete" data-title="Delete banner?" data-text="This banner will be removed from the home page slider.">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0 border-0" title="Delete">
-                                                    <i class="las la-trash-alt text-secondary font-16"></i>
-                                                </button>
-                                            </form>
+                                            @include('admin.partials.table-actions', [
+                                                'viewUrl' => url('/'),
+                                                'viewTitle' => 'View Home',
+                                                'viewTarget' => '_blank',
+                                                'editUrl' => route('admin.hero-banners.edit', $banner),
+                                                'deleteUrl' => route('admin.hero-banners.destroy', $banner),
+                                                'deleteTitle' => 'Delete banner?',
+                                                'deleteText' => 'This banner will be removed from the home page slider.',
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

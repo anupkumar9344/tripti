@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div class="mt-3">
+        <div class="mt-3 admin-form-actions">
             <button type="submit" class="btn btn-primary">Save Content</button>
         </div>
     </form>
