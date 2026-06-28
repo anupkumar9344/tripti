@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             HealthProgramSeeder::class,
             HeroBannerSeeder::class,
             TrustStripItemSeeder::class,
+            VideoFeedbackSeeder::class,
         ]);
     }
 }

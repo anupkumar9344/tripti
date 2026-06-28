@@ -13,6 +13,7 @@ use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Treatment;
 use App\Models\TrustStripItem;
+use App\Models\VideoFeedback;
 use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
@@ -115,6 +116,7 @@ class HomeController extends Controller
         $homeHealthProgram = HealthProgram::query()->forHome()->first();
         $heroBanners = HeroBanner::query()->activeOrdered()->get();
         $trustStripItems = TrustStripItem::query()->activeOrdered()->get();
+        $homeVideoFeedbacks = VideoFeedback::query()->forHome()->get();
 
         return view('index', compact(
             'settings',
@@ -131,7 +133,8 @@ class HomeController extends Controller
             'homeBlogPosts',
             'homeHealthProgram',
             'heroBanners',
-            'trustStripItems'
+            'trustStripItems',
+            'homeVideoFeedbacks'
         ));
     }
 }

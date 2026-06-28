@@ -1,0 +1,74 @@
+@php
+    $isEdit = isset($videoFeedback);
+@endphp
+
+<div class="form-group mb-3">
+    <label class="form-label" for="video_url">Video URL <span class="text-danger">*</span></label>
+    <input type="url" class="form-control @error('video_url') is-invalid @enderror" id="video_url" name="video_url" value="{{ old('video_url', isset($videoFeedback) ? $videoFeedback->playableUrl() : '') }}" required placeholder="https://www.youtube.com/shorts/... or paste MP4 URL from Media Library">
+    <small class="text-muted">YouTube Shorts, Vimeo, or direct MP4/WebM links from the media library. Thumbnails are generated automatically from the video.</small>
+    @error('video_url')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label class="form-label" for="display_on_home">Show on Home <span class="text-danger">*</span></label>
+            @php
+                $homeValue = (string) old('display_on_home', $isEdit ? (int) $videoFeedback->display_on_home : 0);
+            @endphp
+            <select class="form-select @error('display_on_home') is-invalid @enderror" id="display_on_home" name="display_on_home" required>
+                <option value="1" @selected($homeValue === '1')>Yes</option>
+                <option value="0" @selected($homeValue === '0')>No</option>
+            </select>
+            @error('display_on_home')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-3">
+            <label class="form-label" for="display_on_services">Show on Services Page <span class="text-danger">*</span></label>
+            @php
+                $servicesValue = (string) old('display_on_services', $isEdit ? (int) $videoFeedback->display_on_services : 0);
+            @endphp
+            <select class="form-select @error('display_on_services') is-invalid @enderror" id="display_on_services" name="display_on_services" required>
+                <option value="1" @selected($servicesValue === '1')>Yes</option>
+                <option value="0" @selected($servicesValue === '0')>No</option>
+            </select>
+            @error('display_on_services')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label class="form-label" for="sort_order">Display Order</label>
+            <input type="number" min="0" class="form-control @error('sort_order') is-invalid @enderror" id="sort_order" name="sort_order" value="{{ old('sort_order', $videoFeedback->sort_order ?? 0) }}">
+            @error('sort_order')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group mb-0">
+            <label class="form-label" for="status">Status <span class="text-danger">*</span></label>
+            @php
+                $statusValue = (string) old('status', $isEdit ? (int) $videoFeedback->status : 1);
+            @endphp
+            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+                <option value="1" @selected($statusValue === '1')>Active</option>
+                <option value="0" @selected($statusValue === '0')>Inactive</option>
+            </select>
+            @error('status')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>

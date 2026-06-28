@@ -136,6 +136,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.video-feedbacks.*') ? 'active' : '' }}" href="{{ route('admin.video-feedbacks.index') }}">
+                            <i class="ti ti-video menu-icon"></i>
+                            <span>Video Feedbacks</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}">
                             <i class="ti ti-zoom-question menu-icon"></i>
                             <span>FAQs</span>

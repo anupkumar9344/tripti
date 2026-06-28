@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\GalleryItemController;
 use App\Http\Controllers\Admin\HeroBannerController;
 use App\Http\Controllers\Admin\IconReferenceController;
 use App\Http\Controllers\Admin\PatientReviewController;
-use App\Http\Controllers\Admin\WhyChooseItemController;
+use App\Http\Controllers\Admin\VideoFeedbackController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExpertTeamController;
@@ -64,6 +64,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('why-choose-items', WhyChooseItemController::class)->except(['show']);
         Route::put('patient-reviews/settings', [PatientReviewController::class, 'updateSettings'])->name('patient-reviews.settings.update');
         Route::resource('patient-reviews', PatientReviewController::class)->except(['show']);
+        Route::resource('video-feedbacks', VideoFeedbackController::class)->except(['show']);
         Route::put('faqs/settings', [FaqController::class, 'updateSettings'])->name('faqs.settings.update');
         Route::put('faqs/page-settings', [FaqController::class, 'updatePageSettings'])->name('faqs.page-settings.update');
         Route::resource('faqs', FaqController::class)->except(['show']);

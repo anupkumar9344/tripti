@@ -9,4 +9,6 @@
         'services' => $services,
         'showViewAll' => false,
     ])
+
+    @include('partials.video-feedback-section', ['videoFeedbacks' => $servicesVideoFeedbacks])
 @endsection

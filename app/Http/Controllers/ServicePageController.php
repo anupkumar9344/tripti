@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Faq;
 use App\Models\Service;
+use App\Models\VideoFeedback;
 use Illuminate\View\View;
 
 /**
@@ -19,8 +20,9 @@ class ServicePageController extends Controller
     public function index(): View
     {
         $services = Service::query()->activeOrdered()->get();
+        $servicesVideoFeedbacks = VideoFeedback::query()->forServices()->get();
 
-        return view('services.index', compact('services'));
+        return view('services.index', compact('services', 'servicesVideoFeedbacks'));
     }
 
     /**

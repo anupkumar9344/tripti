@@ -139,6 +139,124 @@
 		});
 	}
 
+	/* Video Feedback Reels Swiper */
+	function initVideoFeedbackThumbnails(root) {
+		const scope = root || document;
+
+		scope.querySelectorAll('.video-feedback-thumb-media').forEach(function (video) {
+			if (video.dataset.posterReady === '1') {
+				return;
+			}
+
+			video.dataset.posterReady = '1';
+
+			const showFrame = function () {
+				if (!video.duration || Number.isNaN(video.duration)) {
+					return;
+				}
+
+				video.currentTime = Math.min(0.5, Math.max(0.1, video.duration * 0.05));
+			};
+
+			video.addEventListener('loadedmetadata', showFrame, { once: true });
+			video.addEventListener('seeked', function () {
+				video.pause();
+			}, { once: true });
+			video.addEventListener('error', function () {
+				video.classList.add('is-poster-error');
+			}, { once: true });
+		});
+	}
+
+	if ($('.video-feedback-swiper').length) {
+		const videoFeedbackSwiper = new Swiper('.video-feedback-swiper', {
+			slidesPerView: 1.15,
+			spaceBetween: 16,
+			speed: 650,
+			grabCursor: true,
+			watchOverflow: true,
+			navigation: {
+				nextEl: '.video-feedback-next',
+				prevEl: '.video-feedback-prev',
+			},
+			breakpoints: {
+				576: {
+					slidesPerView: 1.6,
+					spaceBetween: 18,
+				},
+				768: {
+					slidesPerView: 2.2,
+					spaceBetween: 20,
+				},
+				992: {
+					slidesPerView: 3,
+					spaceBetween: 22,
+				},
+				1200: {
+					slidesPerView: 4,
+					spaceBetween: 24,
+				},
+			},
+		});
+
+		videoFeedbackSwiper.on('resize', function () {
+			this.update();
+		});
+
+		videoFeedbackSwiper.on('slideChange', function () {
+			resetAllVideoFeedbackReels();
+		});
+
+		initVideoFeedbackThumbnails(document.querySelector('.video-feedback-section'));
+	}
+
+	initVideoFeedbackThumbnails(document);
+
+	function resetVideoFeedbackReel($reel) {
+		$reel.removeClass('is-playing');
+		$reel.find('.video-feedback-reel-player').empty().attr('aria-hidden', 'true');
+	}
+
+	function resetAllVideoFeedbackReels() {
+		$('.video-feedback-reel.is-playing').each(function () {
+			resetVideoFeedbackReel($(this));
+		});
+	}
+
+	$(document).on('click', '.video-feedback-play', function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		const $reel = $(this).closest('.video-feedback-reel');
+
+		if ($reel.hasClass('is-playing')) {
+			return;
+		}
+
+		resetAllVideoFeedbackReels();
+
+		const embedUrl = $reel.data('embed-url');
+		const isDirectVideo = String($reel.data('direct-video')) === '1';
+		const $player = $reel.find('.video-feedback-reel-player');
+
+		if (!embedUrl) {
+			return;
+		}
+
+		if (isDirectVideo) {
+			$player.html(
+				'<video src="' + embedUrl + '" controls autoplay playsinline></video>'
+			);
+		} else {
+			$player.html(
+				'<iframe src="' + embedUrl + '" title="Patient video feedback" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>'
+			);
+		}
+
+		$player.attr('aria-hidden', 'false');
+		$reel.addClass('is-playing');
+	});
+
 	/* Patient Feedback Read More */
 	$(document).on('click', '.home-feedback-read-more', function () {
 		const card = $(this).closest('.home-feedback-card');

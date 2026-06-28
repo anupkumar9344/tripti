@@ -95,6 +95,10 @@
     @include('partials.patient-feedback-section')
     <!-- Patient Feedback Section End -->
 
+<!-- Video Feedback Reels Section Start -->
+    @include('partials.video-feedback-section', ['videoFeedbacks' => $homeVideoFeedbacks])
+    <!-- Video Feedback Reels Section End -->
+
 <!-- Gallery Section Start -->
     @include('partials.home-gallery-section')
     <!-- Gallery Section End -->
