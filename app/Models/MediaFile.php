@@ -217,6 +217,7 @@ class MediaFile extends Model
             'category_label' => $this->categoryLabel(),
             'usage_label' => $this->usageLabel(),
             'is_image' => $this->isImage(),
+            'is_video' => $this->file_category === self::CATEGORY_VIDEO,
             'is_previewable' => $this->isPreviewable(),
             'created_at' => $this->created_at?->format('d M Y, h:i A'),
         ];

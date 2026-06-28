@@ -65,7 +65,35 @@
             return `<img src="${item.url}" alt="${item.display_name}">`;
         }
 
+        if (item.file_category === 'video') {
+            return `
+                <video class="media-thumb-video" src="${item.url}" preload="metadata" muted playsinline></video>
+                <span class="media-thumb-video-badge" aria-hidden="true"><i class="ti ti-player-play"></i></span>
+            `;
+        }
+
         return `<i class="ti ${fileIcon(item)}"></i>`;
+    }
+
+    function initMediaVideoThumbnails(root) {
+        (root || document).querySelectorAll('.media-thumb-video').forEach((video) => {
+            if (video.dataset.posterReady === '1') {
+                return;
+            }
+
+            video.dataset.posterReady = '1';
+
+            const showFrame = () => {
+                if (!video.duration || Number.isNaN(video.duration)) {
+                    return;
+                }
+
+                video.currentTime = Math.min(0.5, Math.max(0.1, video.duration * 0.05));
+            };
+
+            video.addEventListener('loadedmetadata', showFrame, { once: true });
+            video.addEventListener('seeked', () => video.pause(), { once: true });
+        });
     }
 
     function renderActions(item, mode) {
@@ -276,6 +304,7 @@
                 container.innerHTML = items
                     .map((item) => renderCard(item, mode, this.state.view, this.state.selected?.id))
                     .join('');
+                initMediaVideoThumbnails(container);
             }
 
             renderPagination(data.meta, pagination, paginationSummary, (page) => {
@@ -389,9 +418,18 @@
             if (item.file_category === 'image') {
                 body.innerHTML = `<img src="${item.url}" alt="${item.display_name}" class="img-fluid rounded">`;
             } else if (item.file_category === 'video') {
-                body.innerHTML = `<video src="${item.url}" controls class="w-100 rounded"></video>`;
+                body.innerHTML = `<video src="${item.url}" controls autoplay playsinline class="w-100 rounded media-preview-video"></video>`;
             } else if (item.file_category === 'pdf') {
                 body.innerHTML = `<iframe src="${item.url}" class="media-preview-frame" title="${item.display_name}"></iframe>`;
+            } else if (item.file_category === 'document') {
+                body.innerHTML = `
+                    <div class="media-preview-fallback">
+                        <i class="ti ${fileIcon(item)}"></i>
+                        <p class="mb-2">${item.original_name}</p>
+                        <p class="text-muted font-13 mb-3">This document type opens best via download.</p>
+                        <a href="${item.url}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Open File</a>
+                    </div>
+                `;
             } else {
                 body.innerHTML = `<div class="media-preview-fallback"><i class="ti ${fileIcon(item)}"></i><p>${item.original_name}</p></div>`;
             }
