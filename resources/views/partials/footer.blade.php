@@ -41,11 +41,10 @@
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="{{ url('/') }}"><i class="fa-solid fa-angle-right"></i> Home</a></li>
                         <li><a href="{{ url('/about-us') }}"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
                         <li><a href="{{ url('/our-expert-team') }}"><i class="fa-solid fa-angle-right"></i> Our Expert Team</a></li>
                         <li><a href="{{ url('/services') }}"><i class="fa-solid fa-angle-right"></i> Services</a></li>
-                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Health Programs &amp; Camps</a></li>
+                        <li><a href="{{ url('/health-programs') }}"><i class="fa-solid fa-angle-right"></i> Health Programs </a></li>
                         <li><a href="{{ url('/treatment') }}"><i class="fa-solid fa-angle-right"></i> Treatment</a></li>
                         <li><a href="{{ url('/blog') }}"><i class="fa-solid fa-angle-right"></i> Blogs</a></li>
                         <li><a href="{{ url('/gallery') }}"><i class="fa-solid fa-angle-right"></i> Gallery</a></li>
