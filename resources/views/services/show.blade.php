@@ -74,6 +74,20 @@
                             </div>
                         @endif
 
+                        @if ($service->benefits->isNotEmpty())
+                            <div class="service-dynamic-benefits-box wow fadeInUp" data-wow-delay="0.15s">
+                                <h2>{{ $service->benefits_heading ?: 'Benefits of '.$service->title }}</h2>
+                                <ul>
+                                    @foreach ($service->benefits as $benefit)
+                                        <li>
+                                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                                            <span>{{ $benefit->title }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         @if ($service->images->isNotEmpty())
                             <div class="service-benefits-box mt-4">
                                 <h2 class="text-anime-style-2">Service <span>Gallery</span></h2>
@@ -98,4 +112,27 @@
         </div>
     </div>
     <!-- Page Detail Single End -->
+
+    @if ($service->subServices->isNotEmpty())
+        <section class="service-sub-services-section">
+            <div class="container">
+                <div class="service-sub-services-header text-center wow fadeInUp">
+                    <h2>{{ $service->sub_services_heading ?: 'Our '.$service->title.' Services' }}</h2>
+                </div>
+
+                <div class="row g-4">
+                    @foreach ($service->subServices as $index => $subService)
+                        <div class="col-lg-3 col-md-6">
+                            <article class="service-sub-service-card wow fadeInUp" data-wow-delay="{{ number_format($index * 0.08, 2) }}s">
+                                <h3>{{ $subService->title }}</h3>
+                                @if ($subService->description)
+                                    <p>{{ $subService->description }}</p>
+                                @endif
+                            </article>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection

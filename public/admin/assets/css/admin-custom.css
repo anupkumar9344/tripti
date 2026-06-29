@@ -420,3 +420,20 @@ body.dark-sidebar .left-sidebar .navbar-vertical .navbar-nav .nav-link[data-bs-t
     font-size: 15px;
     line-height: 1;
 }
+
+.admin-repeater-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-repeater-item {
+    border: 1px solid rgba(2, 51, 32, 0.12);
+    border-radius: 10px;
+    padding: 1rem;
+    background: #fafcfb;
+}
+
+.admin-repeater-item-compact {
+    padding: 0.75rem;
+}

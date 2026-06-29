@@ -23,6 +23,8 @@ class Service extends Model
         'short_description',
         'tags',
         'long_description',
+        'sub_services_heading',
+        'benefits_heading',
         'status',
         'display_on_home',
         'show_faq_section',
@@ -49,6 +51,22 @@ class Service extends Model
     public function images(): HasMany
     {
         return $this->hasMany(ServiceImage::class)->orderBy('sort_order');
+    }
+
+    /**
+     * Get the sub-services for this service detail page.
+     */
+    public function subServices(): HasMany
+    {
+        return $this->hasMany(ServiceSubService::class)->orderBy('sort_order');
+    }
+
+    /**
+     * Get the benefits for this service detail page.
+     */
+    public function benefits(): HasMany
+    {
+        return $this->hasMany(ServiceBenefit::class)->orderBy('sort_order');
     }
 
     /**

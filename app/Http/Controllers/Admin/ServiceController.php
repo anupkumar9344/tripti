@@ -57,6 +57,13 @@ class ServiceController extends Controller
             'icon' => ['nullable', 'string', 'max:100'],
             'tags' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
+            'sub_services_heading' => ['nullable', 'string', 'max:255'],
+            'benefits_heading' => ['nullable', 'string', 'max:255'],
+            'sub_services' => ['nullable', 'array'],
+            'sub_services.*.title' => ['nullable', 'string', 'max:255'],
+            'sub_services.*.description' => ['nullable', 'string', 'max:1000'],
+            'benefits' => ['nullable', 'array'],
+            'benefits.*.title' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
             'show_faq_section' => ['required', 'boolean'],
@@ -82,6 +89,8 @@ class ServiceController extends Controller
             'short_description' => $validated['short_description'] ?? null,
             'tags' => $validated['tags'] ?? null,
             'long_description' => $validated['long_description'] ?? null,
+            'sub_services_heading' => $validated['sub_services_heading'] ?? null,
+            'benefits_heading' => $validated['benefits_heading'] ?? null,
             'status' => (bool) $validated['status'],
             'display_on_home' => (bool) $validated['display_on_home'],
             'show_faq_section' => (bool) $validated['show_faq_section'],
@@ -89,6 +98,8 @@ class ServiceController extends Controller
         ]);
 
         $this->storeGalleryPaths($service, MediaPath::parseUrlLines($validated['gallery_images_text'] ?? null));
+        $this->syncSubServices($service, $validated['sub_services'] ?? []);
+        $this->syncBenefits($service, $validated['benefits'] ?? []);
 
         return redirect()
             ->route('admin.services.index')
@@ -102,7 +113,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service): View
     {
-        $service->load('images');
+        $service->load(['images', 'subServices', 'benefits']);
 
         return view('admin.services.edit', compact('service'));
     }
@@ -125,6 +136,13 @@ class ServiceController extends Controller
             'icon' => ['nullable', 'string', 'max:100'],
             'tags' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
+            'sub_services_heading' => ['nullable', 'string', 'max:255'],
+            'benefits_heading' => ['nullable', 'string', 'max:255'],
+            'sub_services' => ['nullable', 'array'],
+            'sub_services.*.title' => ['nullable', 'string', 'max:255'],
+            'sub_services.*.description' => ['nullable', 'string', 'max:1000'],
+            'benefits' => ['nullable', 'array'],
+            'benefits.*.title' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
             'show_faq_section' => ['required', 'boolean'],
@@ -141,6 +159,8 @@ class ServiceController extends Controller
         $service->short_description = $validated['short_description'] ?? null;
         $service->tags = $validated['tags'] ?? null;
         $service->long_description = $validated['long_description'] ?? null;
+        $service->sub_services_heading = $validated['sub_services_heading'] ?? null;
+        $service->benefits_heading = $validated['benefits_heading'] ?? null;
         $service->status = (bool) $validated['status'];
         $service->display_on_home = (bool) $validated['display_on_home'];
         $service->show_faq_section = (bool) $validated['show_faq_section'];
@@ -155,6 +175,8 @@ class ServiceController extends Controller
 
         $this->removeGalleryImages($service, $validated['remove_images'] ?? []);
         $this->storeGalleryPaths($service, MediaPath::parseUrlLines($validated['gallery_images_text'] ?? null));
+        $this->syncSubServices($service, $validated['sub_services'] ?? []);
+        $this->syncBenefits($service, $validated['benefits'] ?? []);
 
         return redirect()
             ->route('admin.services.index')
@@ -223,6 +245,61 @@ class ServiceController extends Controller
         foreach ($images as $image) {
             MediaPath::deleteLegacyFile($image->image);
             $image->delete();
+        }
+    }
+
+    /**
+     * Replace sub-services for a service from submitted form rows.
+     *
+     * @param  list<array{title?: string, description?: string}>  $rows
+     */
+    private function syncSubServices(Service $service, array $rows): void
+    {
+        $service->subServices()->delete();
+
+        $sortOrder = 0;
+
+        foreach ($rows as $row) {
+            $title = trim((string) ($row['title'] ?? ''));
+
+            if ($title === '') {
+                continue;
+            }
+
+            $sortOrder++;
+
+            $service->subServices()->create([
+                'title' => $title,
+                'description' => trim((string) ($row['description'] ?? '')) ?: null,
+                'sort_order' => $sortOrder,
+            ]);
+        }
+    }
+
+    /**
+     * Replace benefits for a service from submitted form rows.
+     *
+     * @param  list<array{title?: string}>  $rows
+     */
+    private function syncBenefits(Service $service, array $rows): void
+    {
+        $service->benefits()->delete();
+
+        $sortOrder = 0;
+
+        foreach ($rows as $row) {
+            $title = trim((string) ($row['title'] ?? ''));
+
+            if ($title === '') {
+                continue;
+            }
+
+            $sortOrder++;
+
+            $service->benefits()->create([
+                'title' => $title,
+                'sort_order' => $sortOrder,
+            ]);
         }
     }
 }

@@ -33,7 +33,7 @@ class ServicePageController extends Controller
     public function show(string $slug): View
     {
         $service = Service::query()
-            ->with('images')
+            ->with(['images', 'subServices', 'benefits'])
             ->where('slug', $slug)
             ->where('status', true)
             ->firstOrFail();
