@@ -66,7 +66,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('legal-pages', [LegalPageSettingController::class, 'edit'])->name('legal-pages.edit');
         Route::put('legal-pages', [LegalPageSettingController::class, 'update'])->name('legal-pages.update');
         Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::post('profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
         Route::resource('services', ServiceController::class)->except(['show']);
         Route::resource('treatments', AdminTreatmentController::class)->except(['show']);

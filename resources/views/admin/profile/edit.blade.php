@@ -99,7 +99,6 @@
                 <div class="card-body">
                     <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data" id="profileUpdateForm">
                         @csrf
-                        @method('PUT')
 
                         <input type="file" class="d-none" id="profileImageInput" name="image" accept="image/*">
 

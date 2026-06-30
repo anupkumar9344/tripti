@@ -29,6 +29,27 @@
     <div class="page-service-single">
         <div class="container">
             <div class="row">
+               
+                <div class="col-lg-8">
+                    <div class="service-single-content">
+                        <div class="service-featured-image wow fadeInUp">
+                            <figure>
+                                <img src="{{ $treatment->imageUrl() }}" alt="{{ $treatment->title }}">
+                            </figure>
+                        </div>
+
+                        @if ($treatment->short_description)
+                            <p class="wow fadeInUp">{{ $treatment->short_description }}</p>
+                        @endif
+
+                        @if ($treatment->long_description)
+                            <div class="service-entry wow fadeInUp" data-wow-delay="0.1s">
+                                {!! $treatment->long_description !!}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="col-lg-4">
                     <div class="page-single-sidebar">
                         <div class="page-catagery-list wow fadeInUp">
@@ -53,26 +74,6 @@
                                 <a href="{{ url('/contact-us') }}" class="btn-default">Book Appointment</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="service-single-content">
-                        <div class="service-featured-image wow fadeInUp">
-                            <figure>
-                                <img src="{{ $treatment->imageUrl() }}" alt="{{ $treatment->title }}">
-                            </figure>
-                        </div>
-
-                        @if ($treatment->short_description)
-                            <p class="wow fadeInUp">{{ $treatment->short_description }}</p>
-                        @endif
-
-                        @if ($treatment->long_description)
-                            <div class="service-entry wow fadeInUp" data-wow-delay="0.1s">
-                                {!! $treatment->long_description !!}
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>

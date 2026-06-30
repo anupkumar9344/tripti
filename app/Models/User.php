@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Support\MediaPath;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -70,7 +71,7 @@ class User extends Authenticatable
     public function avatarUrl(): string
     {
         if ($this->image) {
-            return asset('storage/'.$this->image);
+            return MediaPath::url($this->image);
         }
 
         return asset('admin/assets/images/users/user-4.jpg');
