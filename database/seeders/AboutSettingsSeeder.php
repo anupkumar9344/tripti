@@ -18,13 +18,13 @@ class AboutSettingsSeeder extends Seeder
         $settings = [
             'about_home_title' => 'A holistic path to',
             'about_home_title_highlight' => 'natural healing',
-            'about_home_description' => 'At Sahaj Aarogyam, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.',
+            'about_home_description' => 'At Tripti Hotel, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.',
             'about_home_image' => 'home-about-team.jpg',
             'about_home_badge_number' => '25',
 
             'about_page_title' => 'A holistic path to',
             'about_page_title_highlight' => 'natural healing',
-            'about_page_description' => '<p>At Sahaj Aarogyam, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.</p>',
+            'about_page_description' => '<p>At Tripti Hotel, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.</p>',
             'about_page_image' => 'home-about-team.jpg',
             'about_page_badge_number' => '25',
 

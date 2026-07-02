@@ -19,7 +19,7 @@
                     <div class="col-md-8">
                         <div class="form-group mb-3">
                             <label class="form-label" for="visit_us_title">Title</label>
-                            <input type="text" class="form-control @error('visit_us_title') is-invalid @enderror" id="visit_us_title" name="visit_us_title" value="{{ old('visit_us_title', $settings['visit_us_title']) }}" placeholder="Serving Indore &amp; Nearby">
+                            <input type="text" class="form-control @error('visit_us_title') is-invalid @enderror" id="visit_us_title" name="visit_us_title" value="{{ old('visit_us_title', $settings['visit_us_title']) }}" placeholder="Welcome to Tripti Hotel">
                             @error('visit_us_title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

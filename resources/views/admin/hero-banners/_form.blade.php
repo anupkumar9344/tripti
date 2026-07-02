@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="form-group mb-3">
                     <label class="form-label" for="eyebrow">Eyebrow</label>
-                    <input type="text" class="form-control @error('eyebrow') is-invalid @enderror" id="eyebrow" name="eyebrow" value="{{ old('eyebrow', $heroBanner->eyebrow ?? '') }}" placeholder="Welcome to Sahaj Aarogyam">
+                    <input type="text" class="form-control @error('eyebrow') is-invalid @enderror" id="eyebrow" name="eyebrow" value="{{ old('eyebrow', $heroBanner->eyebrow ?? '') }}" placeholder="Welcome to Tripti Hotel">
                     @error('eyebrow')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

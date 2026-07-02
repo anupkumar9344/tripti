@@ -56,7 +56,7 @@
 
 @push('scripts')
     <script>
-        window.SahajIconsConfig = {
+        window.TriptiIconsConfig = {
             iconsUrl: @json(route('admin.icons.data')),
         };
     </script>

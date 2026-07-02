@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Our Expert Team | Sahaj Aarogyam')
+@section('title', 'Our Expert Team | Tripti Hotel')
 
 @section('content')
     @include('partials.page-header', ['title' => 'Our Expert Team', 'breadcrumb' => 'Experts'])

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@yield('title', 'Dashboard') - Sahaj Admin</title>
+    <title>@yield('title', 'Dashboard') - Tripti Hotel Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -13,6 +13,7 @@
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/brand.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-media.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
@@ -23,7 +24,7 @@
     <div class="left-sidebar">
         <div class="brand">
             <a href="{{ route('admin.dashboard') }}" class="logo">
-                <img src="{{ asset('images/logo/logo.webp') }}" alt="Sahaj Aarogyam" class="admin-sidebar-logo">
+                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Tripti Hotel" class="admin-sidebar-logo">
             </a>
         </div>
 
@@ -83,12 +84,6 @@
                         <a class="nav-link {{ request()->routeIs('admin.treatments.*') ? 'active' : '' }}" href="{{ route('admin.treatments.index') }}">
                             <i class="ti ti-medical-cross menu-icon"></i>
                             <span>Treatments</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
-                            <i class="ti ti-briefcase menu-icon"></i>
-                            <span>Services</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -242,7 +237,7 @@
             </div>
 
             <footer class="footer text-center text-sm-start">
-                &copy; {{ date('Y') }} Sahaj Aarogyam developed by <a href="#!">Cyber Digital Infotech</a>
+                &copy; {{ date('Y') }} Tripti Hotel developed by <a href="#!">Cyber Digital Infotech</a>
             </footer>
         </div>
     </div>
@@ -254,7 +249,7 @@
     <script src="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/admin-confirm.js') }}"></script>
     <script>
-        window.SahajMediaConfig = {
+        window.TriptiMediaConfig = {
             browseUrl: @json(route('admin.media.browse')),
             uploadUrl: @json(route('admin.media.store')),
             updateUrlTemplate: @json(route('admin.media.update', ['mediaFile' => '__MEDIA__'])),

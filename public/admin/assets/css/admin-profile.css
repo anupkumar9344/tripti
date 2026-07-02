@@ -11,18 +11,18 @@
     height: 34px;
     margin: 0;
     border-radius: 50%;
-    background: #023320;
+    background: #7356a5;
     color: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     border: 2px solid #fff;
-    box-shadow: 0 2px 8px rgba(2, 51, 32, 0.25);
+    box-shadow: 0 2px 8px rgba(115, 86, 165, 0.25);
 }
 
 .admin-profile-card .met-profile_main-pic-change:hover {
-    background: #0a4d35;
+    background: #5f4689;
 }
 
 .admin-profile-upload-box {
@@ -30,9 +30,9 @@
     align-items: center;
     gap: 1rem;
     padding: 0.85rem 1rem;
-    border: 1px dashed rgba(2, 51, 32, 0.25);
+    border: 1px dashed rgba(115, 86, 165, 0.25);
     border-radius: 0.5rem;
-    background: rgba(2, 51, 32, 0.03);
+    background: rgba(115, 86, 165, 0.03);
 }
 
 .admin-profile-upload-preview {
@@ -63,7 +63,7 @@
 }
 
 .admin-profile-password-toggle:hover {
-    color: #023320;
+    color: #7356a5;
 }
 
 @media (max-width: 991.98px) {

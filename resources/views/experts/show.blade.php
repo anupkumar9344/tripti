@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $expert->name.' | Sahaj Aarogyam')
+@section('title', $expert->name.' | Tripti Hotel')
 
 @push('styles')
     <link href="{{ asset('css/expert-profile.css') }}" rel="stylesheet" type="text/css" />

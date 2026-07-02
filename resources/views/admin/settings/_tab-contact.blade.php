@@ -77,7 +77,7 @@
 
                 <div class="form-group mb-0">
                     <label class="form-label" for="opening_hours">Opening Hours</label>
-                    <textarea class="form-control @error('opening_hours') is-invalid @enderror" id="opening_hours" name="opening_hours" rows="3" placeholder="Mon - Sat: 9:00 AM - 8:00 PM&#10;Sunday: Closed">{{ old('opening_hours', $settings['opening_hours']) }}</textarea>
+                    <textarea class="form-control @error('opening_hours') is-invalid @enderror" id="opening_hours" name="opening_hours" rows="3" placeholder="Check-in: 2:00 PM&#10;Check-out: 11:00 AM&#10;Front Desk: 24 Hours">{{ old('opening_hours', $settings['opening_hours']) }}</textarea>
                     @error('opening_hours')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

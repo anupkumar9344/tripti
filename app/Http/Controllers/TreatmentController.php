@@ -19,7 +19,7 @@ class TreatmentController extends Controller
     {
         $treatments = Treatment::query()->activeOrdered()->get();
 
-        return view('treatment.index', compact('treatments'));
+        return view('rooms.index', compact('treatments'));
     }
 
     /**
@@ -36,6 +36,6 @@ class TreatmentController extends Controller
 
         $allTreatments = Treatment::query()->activeOrdered()->get();
 
-        return view('treatment.show', compact('treatment', 'allTreatments'));
+        return view('rooms.show', compact('treatment', 'allTreatments'));
     }
 }

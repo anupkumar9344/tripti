@@ -35,7 +35,7 @@ class FaqSeeder extends Seeder
 
         $faqs = [
             [
-                'question' => 'What treatments does Sahaj Aarogyam offer?',
+                'question' => 'What treatments does Tripti Hotel offer?',
                 'answer' => 'We offer integrated non-surgical care including physiotherapy, Ayurveda, Panchakarma, Hijama, acupuncture, nutrition counselling, pain rehabilitation, and lifestyle disorder management — all under one roof.',
                 'sort_order' => 1,
                 'display_on_home' => true,

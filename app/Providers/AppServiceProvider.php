@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\HealthProgram;
-use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -23,41 +21,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('partials.footer', function ($view): void {
-            $view->with('settings', Setting::getMany([
-                'website_name',
-                'footer_about',
-                'address',
-                'phone_1',
-                'phone_2',
-                'email_1',
-                'email_2',
-                'whatsapp_number',
-                'facebook_url',
-                'instagram_url',
-                'youtube_url',
-            ]));
-
-            $view->with('footerServices', Service::query()->activeOrdered()->limit(6)->get());
-            $view->with('footerPrograms', HealthProgram::query()->activeOrdered()->limit(6)->get());
-        });
-
         View::composer('layouts.app', function ($view): void {
-            $view->with('seo', Setting::getMany([
-                'website_name',
-                'website_favicon',
-                'seo_meta_title',
-                'seo_meta_description',
-                'seo_meta_keywords',
-                'seo_meta_author',
-                'seo_robots',
-                'seo_og_title',
-                'seo_og_description',
-                'seo_og_image',
-                'seo_twitter_card',
-                'seo_twitter_site',
-                'seo_google_site_verification',
-            ]));
+            $view->with('seo', [
+                'website_name' => 'Tripti Hotel',
+                'website_favicon' => null,
+                'seo_meta_title' => 'Tripti Hotel | Luxury Stay & Hospitality',
+                'seo_meta_description' => 'Tripti Hotel offers luxury rooms, fine dining, spa, and premium hospitality for an unforgettable stay.',
+                'seo_meta_keywords' => 'Tripti Hotel, luxury hotel, rooms, booking, restaurant, spa',
+                'seo_meta_author' => 'Tripti Hotel',
+                'seo_robots' => 'index, follow',
+                'seo_og_title' => 'Tripti Hotel | Luxury Stay & Hospitality',
+                'seo_og_description' => 'Tripti Hotel offers luxury rooms, fine dining, spa, and premium hospitality for an unforgettable stay.',
+                'seo_og_image' => null,
+                'seo_twitter_card' => 'summary_large_image',
+                'seo_twitter_site' => '',
+                'seo_google_site_verification' => '',
+            ]);
         });
 
         View::composer(['admin.layouts.app', 'admin.auth.login'], function ($view): void {

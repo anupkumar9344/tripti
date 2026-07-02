@@ -1,7 +1,7 @@
 @php
     $sectionClass = $sectionClass ?? '';
-    $eyebrow = $eyebrow ?? 'Why Sahaj Aarogyam';
-    $title = $title ?? 'Why Choose Sahaj Aarogyam';
+    $eyebrow = $eyebrow ?? 'Why Tripti Hotel';
+    $title = $title ?? 'Why Choose Us';
     $subtitle = $subtitle ?? 'A structured integrated healthcare brand — not just another clinic.';
 @endphp
 

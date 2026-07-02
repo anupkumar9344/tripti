@@ -6,7 +6,7 @@ use App\Models\WhyChooseItem;
 use Illuminate\Database\Seeder;
 
 /**
- * Seeds default Why Choose Sahaj Aarogyam items for home and about pages.
+ * Seeds default Why Choose Us items for home and about pages.
  */
 class WhyChooseItemSeeder extends Seeder
 {

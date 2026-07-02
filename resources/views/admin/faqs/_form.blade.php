@@ -1,6 +1,6 @@
 <div class="form-group mb-3">
     <label class="form-label" for="question">Question <span class="text-danger">*</span></label>
-    <input type="text" class="form-control @error('question') is-invalid @enderror" id="question" name="question" value="{{ old('question', $faq->question ?? '') }}" required placeholder="What treatments does Sahaj Aarogyam offer?">
+    <input type="text" class="form-control @error('question') is-invalid @enderror" id="question" name="question" value="{{ old('question', $faq->question ?? '') }}" required placeholder="What treatments does Tripti Hotel offer?">
     @error('question')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

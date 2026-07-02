@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $service->title . ' | Services | Sahaj Aarogyam')
+@section('title', $service->title . ' | Services | Tripti Hotel')
 
 @section('content')
     <!-- Page Header Start -->
@@ -100,7 +100,7 @@
                         <div class="sidebar-cta-box wow fadeInUp" data-wow-delay="0.25s">
                             <div class="sidebar-cta-image">
                                 <figure>
-                                    <img src="{{ asset('images/gallery-4.jpg') }}" alt="Book a consultation at Sahaj Aarogyam">
+                                    <img src="{{ asset('images/gallery-4.jpg') }}" alt="Book a consultation at Tripti Hotel">
                                 </figure>
                             </div>
                             <div class="sidebar-cta-content">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Health Programs | Sahaj Aarogyam')
+@section('title', 'Health Programs | Tripti Hotel')
 
 @section('content')
     @include('partials.page-header', ['title' => 'Health Programs', 'breadcrumb' => 'Programs'])

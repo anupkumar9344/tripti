@@ -85,7 +85,7 @@ class Setting extends Model
     /**
      * Resolve the site favicon URL for the website and admin panel.
      */
-    public static function faviconUrl(?string $value = null, string $defaultFile = 'logo/logo.webp'): string
+    public static function faviconUrl(?string $value = null, string $defaultFile = 'logo/logo.png'): string
     {
         $stored = $value ?? static::getValue('website_favicon');
 

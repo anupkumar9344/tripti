@@ -55,7 +55,7 @@
                     <div class="col-md-4">
                         <div class="form-group mb-3">
                             <label class="form-label" for="author">Author</label>
-                            <input type="text" class="form-control @error('author') is-invalid @enderror" id="author" name="author" value="{{ old('author', $blogPost->author ?? 'Sahaj Aarogyam') }}" placeholder="Sahaj Aarogyam">
+                            <input type="text" class="form-control @error('author') is-invalid @enderror" id="author" name="author" value="{{ old('author', $blogPost->author ?? 'Tripti Hotel') }}" placeholder="Tripti Hotel">
                             @error('author')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

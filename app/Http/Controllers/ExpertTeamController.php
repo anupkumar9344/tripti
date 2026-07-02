@@ -20,7 +20,7 @@ class ExpertTeamController extends Controller
     {
         $experts = Expert::query()->activeOrdered()->get();
 
-        return view('experts.index', compact('experts'));
+        return view('team.index', compact('experts'));
     }
 
     /**
@@ -64,6 +64,6 @@ class ExpertTeamController extends Controller
             ->limit(3)
             ->get();
 
-        return view('experts.show', compact('expert', 'profileTabs', 'detailFaqs', 'relatedExperts'));
+        return view('team.show', compact('expert', 'profileTabs', 'detailFaqs', 'relatedExperts'));
     }
 }

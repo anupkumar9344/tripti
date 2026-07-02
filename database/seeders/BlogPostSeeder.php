@@ -84,7 +84,7 @@ class BlogPostSeeder extends Seeder
                 [
                     'title' => $post['title'],
                     'featured_image' => $post['featured_image'],
-                    'author' => 'Sahaj Aarogyam',
+                    'author' => 'Tripti Hotel',
                     'excerpt' => $post['excerpt'],
                     'content' => '<p>'.$post['excerpt'].'</p>',
                     'tags' => $post['tags'],
@@ -92,7 +92,7 @@ class BlogPostSeeder extends Seeder
                     'display_on_home' => $post['display_on_home'],
                     'sort_order' => $post['sort_order'],
                     'status' => true,
-                    'seo_meta_title' => $post['title'].' | Sahaj Aarogyam',
+                    'seo_meta_title' => $post['title'].' | Tripti Hotel',
                     'seo_meta_description' => $post['excerpt'],
                     'seo_meta_keywords' => $post['tags'],
                     'seo_og_title' => $post['title'],

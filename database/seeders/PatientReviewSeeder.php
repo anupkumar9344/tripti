@@ -32,7 +32,7 @@ class PatientReviewSeeder extends Seeder
                 'initial' => 'K',
                 'avatar_tone' => 'accent',
                 'review_time' => '6 months ago',
-                'review_text' => 'I came to Sahaj Aarogyam with chronic back pain and limited mobility. Within weeks of integrated physiotherapy and Ayurveda support, my pain reduced significantly. The team is compassionate, professional, and truly focused on root-cause healing.',
+                'review_text' => 'I came to Tripti Hotel with chronic back pain and limited mobility. Within weeks of integrated physiotherapy and Ayurveda support, my pain reduced significantly. The team is compassionate, professional, and truly focused on root-cause healing.',
                 'sort_order' => 1,
             ],
             [
@@ -56,7 +56,7 @@ class PatientReviewSeeder extends Seeder
                 'initial' => 'R',
                 'avatar_tone' => 'accent',
                 'review_time' => '2 months ago',
-                'review_text' => 'Panchakarma detox at Sahaj Aarogyam was a transformative experience. Clean facility, expert Ayurveda doctors, and personalized therapy plan. I feel lighter, more energetic, and mentally refreshed after the program.',
+                'review_text' => 'Panchakarma detox at Tripti Hotel was a transformative experience. Clean facility, expert Ayurveda doctors, and personalized therapy plan. I feel lighter, more energetic, and mentally refreshed after the program.',
                 'sort_order' => 4,
             ],
             [

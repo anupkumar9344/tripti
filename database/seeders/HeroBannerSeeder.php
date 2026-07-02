@@ -17,7 +17,7 @@ class HeroBannerSeeder extends Seeder
     {
         $banners = [
             [
-                'eyebrow' => 'Welcome to Sahaj Aarogyam',
+                'eyebrow' => 'Welcome to Tripti Hotel',
                 'title' => 'Non-Surgical Healing for Pain & Chronic Conditions',
                 'text' => 'Integrated physiotherapy, Ayurveda, and holistic therapies to help you recover safely, naturally, and with lasting results.',
                 'image' => 'home-about-team.jpg',

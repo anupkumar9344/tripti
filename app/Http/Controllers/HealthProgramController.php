@@ -19,6 +19,6 @@ class HealthProgramController extends Controller
     {
         $healthPrograms = HealthProgram::query()->activeOrdered()->get();
 
-        return view('health-programs.index', compact('healthPrograms'));
+        return view('facilities.index', compact('healthPrograms'));
     }
 }

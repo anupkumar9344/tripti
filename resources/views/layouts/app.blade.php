@@ -1,44 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Meta -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-	@include('partials.head-meta')
-	<!-- Google Fonts Css-->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Sora:wght@100..800&display=swap" rel="stylesheet">
-	<!-- Bootstrap Css -->
-	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
-	<!-- SlickNav Css -->
-	<link href="{{ asset('css/slicknav.min.css') }}" rel="stylesheet">
-	<!-- Swiper Css -->
-	<link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
-	<!-- Font Awesome Icon Css-->
-	<link href="{{ asset('css/all.min.css') }}" rel="stylesheet" media="screen">
-	<!-- Animated Css -->
-	<link href="{{ asset('css/animate.css') }}" rel="stylesheet">
-    <!-- Magnific Popup Core Css File -->
-	<link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
-	<!-- Mouse Cursor Css File -->
-	<link rel="stylesheet" href="{{ asset('css/mousecursor.css') }}">
-	<!-- Main Custom Css -->
-	<link href="{{ asset('css/custom.css') }}" rel="stylesheet" media="screen">
-	@stack('styles')
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('partials.head-meta')
 
-        <!-- Preloader Start -->
-	<div class="preloader">
-		<div class="loading-container">
-			<div class="loading"></div>
-			<div id="loading-icon"><img src="{{ asset('images/loader.svg') }}" alt=""></div>
-		</div>
-	</div>
-	<!-- Preloader End -->
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/remixicon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/brand.css') }}">
+    @stack('styles')
+</head>
+<body id="Top">
+
+    <div class="rx-loader">
+        <span class="loader"></span>
+    </div>
 
     @include('partials.header')
 
@@ -46,39 +32,27 @@
 
     @include('partials.footer')
 
-    @include('partials.book-appointment-modal')
+    @include('partials.booking-modal')
 
-        <!-- Jquery Library File -->
-    <script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
-    <!-- Bootstrap js file -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- Validator js file -->
-    <script src="{{ asset('js/validator.min.js') }}"></script>
-    <!-- SlickNav js file -->
-    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
-    <!-- Swiper js file -->
-    <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
-    <!-- Counter js file -->
-    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
-    <!-- Magnific js file -->
-    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
-    <!-- SmoothScroll -->
-    <script src="{{ asset('js/SmoothScroll.js') }}"></script>
-    <!-- Parallax js -->
-    <script src="{{ asset('js/parallaxie.js') }}"></script>
-    <!-- MagicCursor js file -->
-    <script src="{{ asset('js/gsap.min.js') }}"></script>
-    <script src="{{ asset('js/magiccursor.js') }}"></script>
-    <!-- Text Effect js file -->
-    <script src="{{ asset('js/SplitText.js') }}"></script>
-    <script src="{{ asset('js/ScrollTrigger.min.js') }}"></script>
-    <!-- YTPlayer js File -->
-    <script src="{{ asset('js/jquery.mb.YTPlayer.min.js') }}"></script>
-    <!-- Wow js file -->
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <!-- Main Custom js file -->
-    <script src="{{ asset('js/function.js') }}"></script>
+    <a href="#Top" class="back-to-top result-placeholder">
+        <i class="ri-arrow-up-double-fill"></i>
+        <div class="back-to-top-wrap active-progress">
+            <svg viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+            </svg>
+        </div>
+    </a>
+
+    <script src="{{ asset('assets/js/vendor/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/smoothscroll.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery.fancybox.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

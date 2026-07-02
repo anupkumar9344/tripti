@@ -16,7 +16,7 @@
                         <i class="ti ti-plus me-1"></i> Add Item
                     </a>
                 </div>
-                <h4 class="page-title">Why Choose Sahaj Aarogyam</h4>
+                <h4 class="page-title">Why Choose Us</h4>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
                     <h4 class="card-title mb-0">Home &amp; About Section Items</h4>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted font-13">Manage the cards shown in the &ldquo;Why Choose Sahaj Aarogyam&rdquo; section on the home page and the matching section on the about page.</p>
+                    <p class="text-muted font-13">Manage the cards shown in the &ldquo;Why Choose Us&rdquo; section on the home page and the matching section on the about page.</p>
                     <div class="table-responsive admin-datatable">
                         <table class="table table-striped table-bordered mb-0" id="datatable_why_choose_items">
                             <thead class="thead-light">

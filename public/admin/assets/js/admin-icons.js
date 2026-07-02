@@ -1,5 +1,5 @@
 (function () {
-    const config = window.SahajIconsConfig || {};
+    const config = window.TriptiIconsConfig || {};
     const grid = document.getElementById('iconGrid');
     const searchInput = document.getElementById('iconSearchInput');
     const resultCount = document.getElementById('iconResultCount');

@@ -1,8 +1,8 @@
 /**
- * Sahaj Admin — centralized media library & picker.
+ * Tripti Hotel Admin — centralized media library & picker.
  */
 (function () {
-    const config = window.SahajMediaConfig || {};
+    const config = window.TriptiMediaConfig || {};
     const csrfToken = config.csrfToken || document.querySelector('meta[name="csrf-token"]')?.content || '';
 
     const iconMap = {

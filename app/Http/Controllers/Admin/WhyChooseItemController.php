@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
- * Handles admin CRUD for Why Choose Sahaj Aarogyam section items.
+ * Handles admin CRUD for Why Choose Us section items.
  */
 class WhyChooseItemController extends Controller
 {

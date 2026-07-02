@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $title.' | Sahaj Aarogyam')
+@section('title', $title.' | Tripti Hotel')
 
 @section('content')
     @include('partials.page-header', [

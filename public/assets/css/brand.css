@@ -1,0 +1,26 @@
+/* Tripti Hotel brand logo sizing */
+.rx-inner-menu-desk .rx-header-btn img,
+.rx-social-media .rx-logo img {
+    width: auto;
+    max-width: 150px;
+    max-height: 70px;
+    object-fit: contain;
+}
+
+.admin-sidebar-logo {
+    max-height: 58px;
+    max-width: 150px;
+}
+
+body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
+    max-height: 40px;
+    max-width: 48px;
+}
+
+.admin-auth-page--split .admin-auth-card-logo img,
+.admin-auth-card-logo img {
+    max-height: 70px;
+    max-width: 160px;
+    width: auto;
+    object-fit: contain;
+}

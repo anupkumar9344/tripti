@@ -21,7 +21,7 @@
                 <div class="card-body p-4 d-flex align-items-center h-100">
                     <div class="row align-items-center w-100 g-3">
                         <div class="col-12 col-lg-7 min-w-0">
-                            <span class="badge bg-light text-dark mb-2">Sahaj Admin</span>
+                            <span class="badge bg-light text-dark mb-2">Tripti Admin</span>
                             <h4 class="mb-2">Welcome back, {{ auth()->user()->name }}!</h4>
                             <p class="text-muted-light mb-0">
                                 Live overview of published website content, contact messages, and recent blog activity.

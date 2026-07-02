@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="form-group mb-3">
                     <label class="form-label" for="seo_meta_title">Default Meta Title</label>
-                    <input type="text" class="form-control @error('seo_meta_title') is-invalid @enderror" id="seo_meta_title" name="seo_meta_title" value="{{ old('seo_meta_title', $settings['seo_meta_title']) }}" placeholder="Sahaj Aarogyam | Integrated Wellness Clinic in Indore">
+                    <input type="text" class="form-control @error('seo_meta_title') is-invalid @enderror" id="seo_meta_title" name="seo_meta_title" value="{{ old('seo_meta_title', $settings['seo_meta_title']) }}" placeholder="Tripti Hotel | Luxury Stay & Hospitality">
                     @error('seo_meta_title')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -26,7 +26,7 @@
                     <div class="col-md-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="seo_meta_keywords">Meta Keywords</label>
-                            <input type="text" class="form-control @error('seo_meta_keywords') is-invalid @enderror" id="seo_meta_keywords" name="seo_meta_keywords" value="{{ old('seo_meta_keywords', $settings['seo_meta_keywords']) }}" placeholder="wellness, physiotherapy, Ayurveda">
+                            <input type="text" class="form-control @error('seo_meta_keywords') is-invalid @enderror" id="seo_meta_keywords" name="seo_meta_keywords" value="{{ old('seo_meta_keywords', $settings['seo_meta_keywords']) }}" placeholder="Tripti Hotel, luxury hotel, rooms, booking">
                             @error('seo_meta_keywords')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -36,7 +36,7 @@
                     <div class="col-md-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="seo_meta_author">Meta Author</label>
-                            <input type="text" class="form-control @error('seo_meta_author') is-invalid @enderror" id="seo_meta_author" name="seo_meta_author" value="{{ old('seo_meta_author', $settings['seo_meta_author']) }}" placeholder="Sahaj Aarogyam">
+                            <input type="text" class="form-control @error('seo_meta_author') is-invalid @enderror" id="seo_meta_author" name="seo_meta_author" value="{{ old('seo_meta_author', $settings['seo_meta_author']) }}" placeholder="Tripti Hotel">
                             @error('seo_meta_author')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -117,7 +117,7 @@
 
                 <div class="form-group mb-0">
                     <label class="form-label" for="seo_twitter_site">Twitter Handle</label>
-                    <input type="text" class="form-control @error('seo_twitter_site') is-invalid @enderror" id="seo_twitter_site" name="seo_twitter_site" value="{{ old('seo_twitter_site', $settings['seo_twitter_site']) }}" placeholder="@sahajaarogyam">
+                    <input type="text" class="form-control @error('seo_twitter_site') is-invalid @enderror" id="seo_twitter_site" name="seo_twitter_site" value="{{ old('seo_twitter_site', $settings['seo_twitter_site']) }}" placeholder="@triptihotel">
                     @error('seo_twitter_site')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

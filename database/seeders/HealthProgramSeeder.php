@@ -44,7 +44,7 @@ class HealthProgramSeeder extends Seeder
                 'section_title' => 'Sustainable Weight Wellness.',
                 'section_lead' => 'Structured nutrition, metabolism support, and lifestyle guidance for long-term weight management.',
                 'date_time' => 'Ongoing Program',
-                'location' => 'Sahaj Aarogyam, Indore',
+                'location' => 'Tripti Hotel, Indore',
                 'chief_consultant' => 'Dr Rachana Verma',
                 'key_benefits' => 'Personalized Diet Plan, Metabolism Support, Lifestyle Coaching, Progress Tracking',
                 'button_text' => 'Explore Latest Programs',
