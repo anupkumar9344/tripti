@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BedType;
 use App\Models\BlogPost;
 use App\Models\Contact;
 use App\Models\Expert;
 use App\Models\Faq;
 use App\Models\GalleryItem;
+use App\Models\HotelAmenity;
+use App\Models\HotelFacility;
 use App\Models\PatientReview;
-use App\Models\Service;
+use App\Models\PremiumService;
+use App\Models\Room;
+use App\Models\RoomType;
+use App\Models\HeroBanner;
 use Illuminate\View\View;
 
 /**
@@ -18,19 +24,71 @@ use Illuminate\View\View;
 class DashboardController extends Controller
 {
     /**
-     * Display the admin dashboard home page with website content stats.
+     * Display the admin dashboard home page with hotel and website content stats.
      *
      * @return \Illuminate\View\View
      */
     public function index(): View
     {
-        $stats = [
+        $hotelStats = [
             [
-                'label' => 'Services',
-                'count' => Service::query()->where('status', true)->count(),
-                'subtitle' => 'Published on website',
-                'icon' => 'ti-briefcase',
+                'label' => 'Room Types',
+                'count' => RoomType::query()->where('status', true)->count(),
+                'subtitle' => 'Active categories on website',
+                'icon' => 'ti-bed',
                 'tone' => 'primary',
+                'url' => route('admin.room-types.index'),
+            ],
+            [
+                'label' => 'Rooms',
+                'count' => Room::query()->where('status', true)->count(),
+                'subtitle' => 'Available room inventory',
+                'icon' => 'ti-door',
+                'tone' => 'accent',
+                'url' => route('admin.room-types.index'),
+            ],
+            [
+                'label' => 'Amenities',
+                'count' => HotelAmenity::query()->where('status', true)->count(),
+                'subtitle' => 'In-room amenities listed',
+                'icon' => 'ti-armchair',
+                'tone' => 'teal',
+                'url' => route('admin.hotel-amenities.index'),
+            ],
+            [
+                'label' => 'Facilities',
+                'count' => HotelFacility::query()->where('status', true)->count(),
+                'subtitle' => 'Hotel facilities listed',
+                'icon' => 'ti-building-community',
+                'tone' => 'info',
+                'url' => route('admin.hotel-facilities.index'),
+            ],
+            [
+                'label' => 'Premium Services',
+                'count' => PremiumService::query()->where('status', true)->count(),
+                'subtitle' => 'Add-on services offered',
+                'icon' => 'ti-diamond',
+                'tone' => 'gold',
+                'url' => route('admin.premium-services.index'),
+            ],
+            [
+                'label' => 'Bed Types',
+                'count' => BedType::query()->count(),
+                'subtitle' => 'Bed configurations',
+                'icon' => 'ti-layout-grid',
+                'tone' => 'warm',
+                'url' => route('admin.bed-types.index'),
+            ],
+        ];
+
+        $contentStats = [
+            [
+                'label' => 'Team Members',
+                'count' => Expert::query()->where('status', true)->count(),
+                'subtitle' => 'Active team profiles',
+                'icon' => 'ti-users',
+                'tone' => 'warm',
+                'url' => route('admin.experts.index'),
             ],
             [
                 'label' => 'Blog Posts',
@@ -38,20 +96,15 @@ class DashboardController extends Controller
                 'subtitle' => 'Published articles',
                 'icon' => 'ti-news',
                 'tone' => 'info',
-            ],
-            [
-                'label' => 'Expert Team',
-                'count' => Expert::query()->where('status', true)->count(),
-                'subtitle' => 'Team members listed',
-                'icon' => 'ti-users',
-                'tone' => 'warm',
+                'url' => route('admin.blog-posts.index'),
             ],
             [
                 'label' => 'Gallery Items',
                 'count' => GalleryItem::query()->where('status', true)->count(),
-                'subtitle' => 'Photos and videos in gallery',
+                'subtitle' => 'Photos and videos',
                 'icon' => 'ti-camera',
                 'tone' => 'purple',
+                'url' => route('admin.gallery-items.index'),
             ],
             [
                 'label' => 'FAQs',
@@ -59,6 +112,7 @@ class DashboardController extends Controller
                 'subtitle' => 'Active questions',
                 'icon' => 'ti-help',
                 'tone' => 'teal',
+                'url' => route('admin.faqs.index'),
             ],
             [
                 'label' => 'Feedback',
@@ -66,6 +120,15 @@ class DashboardController extends Controller
                 'subtitle' => 'Published testimonials',
                 'icon' => 'ti-star',
                 'tone' => 'gold',
+                'url' => route('admin.patient-reviews.index'),
+            ],
+            [
+                'label' => 'Hero Banners',
+                'count' => HeroBanner::query()->where('status', true)->count(),
+                'subtitle' => 'Homepage banners',
+                'icon' => 'ti-photo',
+                'tone' => 'primary',
+                'url' => route('admin.hero-banners.index'),
             ],
         ];
 
@@ -82,8 +145,28 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        $totalContent = collect($stats)->sum('count');
+        $latestRoomTypes = RoomType::query()
+            ->withCount(['rooms' => fn ($query) => $query->where('status', true)])
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->limit(5)
+            ->get();
 
-        return view('admin.dashboard.index', compact('stats', 'totalContent', 'latestContacts', 'latestBlogs', 'newContactCount'));
+        $totalHotel = collect($hotelStats)->sum('count');
+        $totalWebsite = collect($contentStats)->sum('count');
+        $totalContent = $totalHotel + $totalWebsite;
+
+        return view('admin.dashboard.index', compact(
+            'hotelStats',
+            'contentStats',
+            'totalContent',
+            'totalHotel',
+            'totalWebsite',
+            'latestContacts',
+            'latestBlogs',
+            'latestRoomTypes',
+            'newContactCount'
+        ));
     }
 }

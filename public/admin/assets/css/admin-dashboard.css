@@ -185,3 +185,53 @@
 .admin-dashboard-contacts .font-13 {
     font-size: 0.8125rem;
 }
+
+.admin-dashboard-section-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.admin-dashboard-stat-link {
+    color: inherit;
+    display: block;
+    height: 100%;
+    text-decoration: none;
+}
+
+.admin-dashboard-stat-link:hover .admin-dashboard-stat {
+    border-color: rgba(115, 86, 165, 0.22);
+    box-shadow: 0 4px 14px rgba(115, 86, 165, 0.08);
+}
+
+.admin-dashboard-rooms .list-group-item,
+.admin-dashboard-blogs .list-group-item {
+    border-left: 0;
+    border-right: 0;
+    padding: 0.9rem 1.25rem;
+}
+
+.admin-dashboard-rooms .list-group-item:first-child {
+    border-top: 0;
+}
+
+.admin-dashboard-room-thumb {
+    width: 4.5rem;
+    height: 3.25rem;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.admin-dashboard-room-item:hover .admin-dashboard-room-thumb {
+    opacity: 0.92;
+}
+
+.admin-dashboard-rooms .font-12 {
+    font-size: 0.75rem;
+}
+
+.admin-dashboard-rooms .font-13 {
+    font-size: 0.8125rem;
+}

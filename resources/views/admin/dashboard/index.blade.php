@@ -24,7 +24,7 @@
                             <span class="badge bg-light text-dark mb-2">Tripti Admin</span>
                             <h4 class="mb-2">Welcome back, {{ auth()->user()->name }}!</h4>
                             <p class="text-muted-light mb-0">
-                                Live overview of published website content, contact messages, and recent blog activity.
+                                Live overview of hotel inventory, amenities, website content, contact messages, and recent activity.
                             </p>
                         </div>
                         <div class="col-12 col-lg-5">
@@ -45,30 +45,61 @@
         <div class="col-lg-4">
             <div class="card admin-dashboard-summary h-100">
                 <div class="card-body d-flex flex-column justify-content-center">
-                    <p class="text-muted mb-0 fw-semibold">Total Website Content</p>
+                    <p class="text-muted mb-0 fw-semibold">Total Managed Items</p>
                     <div class="summary-count">{{ number_format($totalContent) }}</div>
-                    <p class="text-muted mb-0 font-13">Services, blogs, experts, gallery, FAQs, and feedback combined.</p>
+                    <p class="text-muted mb-1 font-13">Rooms, amenities, team, blogs, gallery, FAQs, and more.</p>
+                    <p class="text-muted mb-0 font-13">
+                        <span class="fw-semibold text-dark">{{ number_format($totalHotel) }}</span> hotel
+                        <span class="mx-1">·</span>
+                        <span class="fw-semibold text-dark">{{ number_format($totalWebsite) }}</span> website
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row admin-dashboard-stats g-3 mt-2 mb-0">
-        @foreach ($stats as $stat)
-            <div class="col-xl-3 col-lg-3 col-md-6">
-                <div class="card admin-dashboard-stat mb-0">
-                    <div class="card-body py-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="admin-dashboard-stat-icon tone-{{ $stat['tone'] }}">
-                                <i class="ti {{ $stat['icon'] }}"></i>
-                            </div>
-                            <div class="min-w-0">
-                                <p class="stat-label mb-0">{{ $stat['label'] }}</p>
-                                <div class="stat-count">{{ number_format($stat['count']) }}</div>
+    <p class="admin-dashboard-section-title mt-3 mb-0">Hotel Management</p>
+    <div class="row admin-dashboard-stats g-3 mt-1 mb-0">
+        @foreach ($hotelStats as $stat)
+            <div class="col-xl-2 col-lg-4 col-md-6">
+                <a href="{{ $stat['url'] }}" class="admin-dashboard-stat-link">
+                    <div class="card admin-dashboard-stat mb-0">
+                        <div class="card-body py-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="admin-dashboard-stat-icon tone-{{ $stat['tone'] }}">
+                                    <i class="ti {{ $stat['icon'] }}"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="stat-label mb-0">{{ $stat['label'] }}</p>
+                                    <div class="stat-count">{{ number_format($stat['count']) }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+
+    <p class="admin-dashboard-section-title mt-4 mb-0">Website Content</p>
+    <div class="row admin-dashboard-stats g-3 mt-1 mb-0">
+        @foreach ($contentStats as $stat)
+            <div class="col-xl-2 col-lg-4 col-md-6">
+                <a href="{{ $stat['url'] }}" class="admin-dashboard-stat-link">
+                    <div class="card admin-dashboard-stat mb-0">
+                        <div class="card-body py-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="admin-dashboard-stat-icon tone-{{ $stat['tone'] }}">
+                                    <i class="ti {{ $stat['icon'] }}"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="stat-label mb-0">{{ $stat['label'] }}</p>
+                                    <div class="stat-count">{{ number_format($stat['count']) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         @endforeach
     </div>
@@ -127,7 +158,36 @@
         </div>
 
         <div class="col-lg-5">
-            <div class="card admin-dashboard-blogs h-100">
+            <div class="card admin-dashboard-rooms mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h4 class="card-title mb-0">Room Types</h4>
+                    <a href="{{ route('admin.room-types.index') }}" class="font-13">Manage <i class="ti ti-arrow-up-right"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse ($latestRoomTypes as $roomType)
+                            <a href="{{ route('admin.room-types.edit', $roomType) }}" class="list-group-item list-group-item-action admin-dashboard-room-item">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="{{ $roomType->imageUrl() }}" alt="{{ $roomType->name }}" class="admin-dashboard-room-thumb rounded">
+                                    <div class="flex-grow-1 min-w-0">
+                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $roomType->name }}</h6>
+                                        <p class="mb-0 text-muted font-12">
+                                            <i class="ti ti-bed me-1"></i>{{ $roomType->rooms_count }} room{{ $roomType->rooms_count === 1 ? '' : 's' }}
+                                            <span class="mx-1">·</span>
+                                            ₹{{ number_format((float) $roomType->fare) }}/night
+                                        </p>
+                                    </div>
+                                    <span class="badge badge-soft-primary font-12">{{ $roomType->categoryLabel() }}</span>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="list-group-item text-center text-muted py-4">No room types yet.</div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <div class="card admin-dashboard-blogs">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h4 class="card-title mb-0">Latest Blogs</h4>
                     <a href="{{ route('blog') }}" class="font-13" target="_blank">View All <i class="ti ti-arrow-up-right"></i></a>
