@@ -9,6 +9,7 @@
     } elseif ($errors->hasAny([
         'about_page_title', 'about_page_title_highlight', 'about_page_description',
         'about_page_image', 'about_page_badge_number',
+        'about_mission_title', 'about_mission_text', 'about_vision_title', 'about_vision_text',
     ])) {
         $activeTab = 'page';
     } elseif ($errors->hasAny([
@@ -52,6 +53,40 @@
                     'settings' => $settings,
                     'useEditor' => true,
                 ])
+
+                <div class="card border shadow-none mt-3 mb-0">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Mission &amp; Vision</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label class="form-label" for="about_mission_title">Mission Title</label>
+                                    <input type="text" class="form-control @error('about_mission_title') is-invalid @enderror" id="about_mission_title" name="about_mission_title" value="{{ old('about_mission_title', $settings['about_mission_title'] ?? '') }}" placeholder="Our Mission">
+                                    @error('about_mission_title')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="form-label" for="about_mission_text">Mission Text</label>
+                                    <textarea class="form-control @error('about_mission_text') is-invalid @enderror" id="about_mission_text" name="about_mission_text" rows="4">{{ old('about_mission_text', $settings['about_mission_text'] ?? '') }}</textarea>
+                                    @error('about_mission_text')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label class="form-label" for="about_vision_title">Vision Title</label>
+                                    <input type="text" class="form-control @error('about_vision_title') is-invalid @enderror" id="about_vision_title" name="about_vision_title" value="{{ old('about_vision_title', $settings['about_vision_title'] ?? '') }}" placeholder="Our Vision">
+                                    @error('about_vision_title')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="form-label" for="about_vision_text">Vision Text</label>
+                                    <textarea class="form-control @error('about_vision_text') is-invalid @enderror" id="about_vision_text" name="about_vision_text" rows="4">{{ old('about_vision_text', $settings['about_vision_text'] ?? '') }}</textarea>
+                                    @error('about_vision_text')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="tab-pane fade {{ $activeTab === 'stats' ? 'show active' : '' }}" id="about-stats" role="tabpanel" aria-labelledby="about-stats-tab">

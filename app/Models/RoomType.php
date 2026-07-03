@@ -46,6 +46,20 @@ class RoomType extends Model
     }
 
     /**
+     * Scope active room types ordered for public pages.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActiveOrdered(Builder $query): Builder
+    {
+        return $query
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('name');
+    }
+
+    /**
      * Scope active featured room types for the home page.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -54,10 +68,16 @@ class RoomType extends Model
     public function scopeForHome(Builder $query): Builder
     {
         return $query
-            ->where('status', true)
-            ->where('is_featured', true)
-            ->orderBy('sort_order')
-            ->orderBy('name');
+            ->activeOrdered()
+            ->where('is_featured', true);
+    }
+
+    /**
+     * Get a display label for the room category.
+     */
+    public function categoryLabel(): string
+    {
+        return $this->category === 'suite' ? 'Suite' : 'Room';
     }
 
     /**

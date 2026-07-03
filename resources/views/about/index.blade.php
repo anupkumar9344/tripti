@@ -4,6 +4,5 @@
 
 @section('content')
     @include('partials.breadcrumb', ['breadcrumbTitle' => 'About Us'])
-    @include('partials.home-about')
-    @include('partials.static.home-services')
+    @include('partials.about-page-content', ['settings' => $settings])
 @endsection

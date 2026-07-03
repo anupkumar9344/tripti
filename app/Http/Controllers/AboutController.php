@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
-use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
 /**
@@ -22,6 +21,10 @@ class AboutController extends Controller
         'about_page_description',
         'about_page_image',
         'about_page_badge_number',
+        'about_mission_title',
+        'about_mission_text',
+        'about_vision_title',
+        'about_vision_text',
         'about_stat_1_count',
         'about_stat_1_label',
         'about_stat_2_count',
@@ -41,39 +44,6 @@ class AboutController extends Controller
     {
         $settings = Setting::getMany(self::ABOUT_SETTING_KEYS);
 
-        $aboutStats = [
-            [
-                'count' => $settings['about_stat_1_count'] ?: '25',
-                'suffix' => '+',
-                'label' => $settings['about_stat_1_label'] ?: 'Years of Experience',
-                'icon' => 'icon-why-choose-counter-1.svg',
-                'delay' => '0',
-            ],
-            [
-                'count' => $settings['about_stat_2_count'] ?: '3500',
-                'suffix' => '+',
-                'label' => $settings['about_stat_2_label'] ?: 'Patients Treated',
-                'icon' => 'icon-why-choose-counter-2.svg',
-                'delay' => '0.1s',
-            ],
-            [
-                'count' => $settings['about_stat_3_count'] ?: '15',
-                'suffix' => '+',
-                'label' => $settings['about_stat_3_label'] ?: 'Expert Specialists',
-                'icon' => 'icon-why-choose-counter-3.svg',
-                'delay' => '0.2s',
-            ],
-            [
-                'count' => $settings['about_stat_4_count'] ?: '10',
-                'suffix' => '+',
-                'label' => $settings['about_stat_4_label'] ?: 'Therapy Disciplines',
-                'icon' => 'icon-why-choose-counter-4.svg',
-                'delay' => '0.3s',
-            ],
-        ];
-
-        $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
-
-        return view('about.index', compact('settings', 'aboutStats', 'whyChooseItems'));
+        return view('about.index', compact('settings'));
     }
 }

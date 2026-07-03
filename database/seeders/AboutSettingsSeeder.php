@@ -28,6 +28,11 @@ class AboutSettingsSeeder extends Seeder
             'about_page_image' => 'assets/img/rooms/1.jpg',
             'about_page_badge_number' => '15',
 
+            'about_mission_title' => 'Our Mission',
+            'about_mission_text' => 'To deliver exceptional hospitality through comfortable stays, attentive service, and memorable guest experiences at every visit.',
+            'about_vision_title' => 'Our Vision',
+            'about_vision_text' => 'To be the most trusted hotel in Rajkot for leisure, business, and celebrations — known for warmth, quality, and genuine care.',
+
             'about_stat_1_count' => '15',
             'about_stat_1_label' => 'Years of Hospitality',
             'about_stat_2_count' => '12000',

@@ -12,6 +12,16 @@
     once: true,
   });
 
+  /* Fancybox lightbox */
+  if (typeof $.fancybox !== 'undefined') {
+    $('[data-fancybox]').fancybox({
+      buttons: ['zoom', 'slideShow', 'fullScreen', 'close'],
+      loop: true,
+      protect: true,
+      youtube: { controls: 1, showinfo: 0 },
+    });
+  }
+
   /* Scroll to fixed navigation bar */
   $(window).scroll(function () {
     if ($(this).scrollTop() > 50) {
