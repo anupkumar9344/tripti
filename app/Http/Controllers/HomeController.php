@@ -8,8 +8,8 @@ use App\Models\GalleryItem;
 use App\Models\HealthProgram;
 use App\Models\HeroBanner;
 use App\Models\PatientReview;
+use App\Models\RoomType;
 use App\Models\Setting;
-use App\Models\Treatment;
 use App\Models\TrustStripItem;
 use App\Models\WhyChooseItem;
 use Illuminate\View\View;
@@ -48,7 +48,7 @@ class HomeController extends Controller
     {
         $settings = Setting::getMany(self::HOME_SETTING_KEYS);
         $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
-        $homeRooms = Treatment::query()->forHome()->get();
+        $homeRooms = RoomType::query()->forHome()->limit(6)->get();
         $patientReviews = PatientReview::query()->activeOrdered()->get();
         $homeBlogPosts = BlogPost::query()->forHome()->limit(4)->get();
         $healthPrograms = HealthProgram::query()->activeOrdered()->get();

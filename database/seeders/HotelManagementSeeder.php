@@ -113,10 +113,12 @@ class HotelManagementSeeder extends Seeder
         $roomTypes = [
             [
                 'name' => 'Deluxe Room',
+                'image' => 'assets/img/rooms/1.jpg',
+                'short_description' => 'Comfortable, well-appointed rooms ideal for business stays and short visits.',
                 'fare' => 3500,
                 'max_adults' => 2,
                 'max_children' => 2,
-                'is_featured' => false,
+                'is_featured' => true,
                 'category' => 'room',
                 'sort_order' => 1,
                 'rooms' => [
@@ -127,6 +129,8 @@ class HotelManagementSeeder extends Seeder
             ],
             [
                 'name' => 'Executive Suite',
+                'image' => 'assets/img/rooms/2.jpg',
+                'short_description' => 'Spacious suites with a separate living area for extended and business stays.',
                 'fare' => 5500,
                 'max_adults' => 2,
                 'max_children' => 1,
@@ -140,6 +144,8 @@ class HotelManagementSeeder extends Seeder
             ],
             [
                 'name' => 'Standard Room',
+                'image' => 'assets/img/rooms/3.jpg',
+                'short_description' => 'Smart, comfortable rooms with all essentials for a pleasant overnight stay.',
                 'fare' => 2500,
                 'max_adults' => 2,
                 'max_children' => 1,
@@ -153,6 +159,8 @@ class HotelManagementSeeder extends Seeder
             ],
             [
                 'name' => 'Family Room',
+                'image' => 'assets/img/rooms/4.jpg',
+                'short_description' => 'Spacious family-friendly rooms with flexible bedding and extra comfort.',
                 'fare' => 4500,
                 'max_adults' => 4,
                 'max_children' => 2,
@@ -166,6 +174,8 @@ class HotelManagementSeeder extends Seeder
             ],
             [
                 'name' => 'Premium Suite',
+                'image' => 'assets/img/rooms/5.jpg',
+                'short_description' => 'Luxury suites with panoramic views and premium in-room comforts.',
                 'fare' => 6500,
                 'max_adults' => 2,
                 'max_children' => 2,
@@ -178,6 +188,8 @@ class HotelManagementSeeder extends Seeder
             ],
             [
                 'name' => 'Presidential Suite',
+                'image' => 'assets/img/rooms/6.jpg',
+                'short_description' => 'Our most exclusive suite with premium furnishings and personalised service.',
                 'fare' => 12000,
                 'max_adults' => 4,
                 'max_children' => 4,
@@ -199,6 +211,8 @@ class HotelManagementSeeder extends Seeder
             $roomType = RoomType::query()->updateOrCreate(
                 ['name' => $typeData['name']],
                 [
+                    'image' => $typeData['image'] ?? null,
+                    'short_description' => $typeData['short_description'] ?? null,
                     'fare' => $typeData['fare'],
                     'max_adults' => $typeData['max_adults'],
                     'max_children' => $typeData['max_children'],

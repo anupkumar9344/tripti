@@ -107,12 +107,20 @@
   });
   $(window).on("load resize", function () {
     setTimeout(function () {
-      $(".rx-slider .slick-prev").prepend(
-        '<div class="prev-slick-arrow arrow-icon"><span>&#60;</span></div><div class="prev-slick-img slick-thumb-nav"><img src="/prev.jpg" class="img-responsive"></div>'
-      );
-      $(".rx-slider .slick-next").append(
-        '<div class="next-slick-arrow arrow-icon"><span>&#62;</span></div><div class="next-slick-img slick-thumb-nav"><img src="/next.jpg" class="img-responsive"></div>'
-      );
+      $(".rx-slider .slick-prev").each(function () {
+        if (!$(this).find(".prev-slick-arrow").length) {
+          $(this).prepend(
+            '<div class="prev-slick-arrow arrow-icon"><span>&#8249;</span></div>'
+          );
+        }
+      });
+      $(".rx-slider .slick-next").each(function () {
+        if (!$(this).find(".next-slick-arrow").length) {
+          $(this).prepend(
+            '<div class="next-slick-arrow arrow-icon"><span>&#8250;</span></div>'
+          );
+        }
+      });
       get_prev_slick_img();
       get_next_slick_img();
     }, 100);

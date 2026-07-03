@@ -25,10 +25,11 @@ use App\Http\Controllers\Admin\PatientReviewController;
 use App\Http\Controllers\Admin\VideoFeedbackController;
 use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\ExpertTeamController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [PageController::class, 'home']);
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/about-us', [PageController::class, 'about'])->name('about');
 Route::get('/rooms', [PageController::class, 'rooms'])->name('rooms');
 Route::get('/room-details', [PageController::class, 'roomDetails'])->name('rooms.show');

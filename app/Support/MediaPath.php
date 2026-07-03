@@ -23,6 +23,10 @@ class MediaPath
             return asset($path);
         }
 
+        if (str_starts_with($path, 'assets/')) {
+            return asset($path);
+        }
+
         if (str_starts_with($path, 'settings/')
             || str_starts_with($path, 'services/')
             || str_starts_with($path, 'treatments/')

@@ -21,6 +21,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer(['layouts.app', 'partials.header', 'partials.footer'], function ($view): void {
+            $settings = Setting::getMany([
+                'website_name',
+                'website_logo',
+                'phone_1',
+                'email_1',
+                'address',
+            ]);
+
+            $view->with('siteSettings', $settings);
+            $view->with('siteLogoUrl', filled($settings['website_logo'] ?? null)
+                ? Setting::imageUrl($settings['website_logo'], 'logo/logo.png')
+                : asset('assets/img/logo/logo.png'));
+            $view->with('sitePhone', $settings['phone_1'] ?? '+91 98765 43210');
+            $view->with('siteEmail', $settings['email_1'] ?? 'info@triptihotel.com');
+            $view->with('siteName', $settings['website_name'] ?? 'Tripti Hotel');
+        });
+
         View::composer('layouts.app', function ($view): void {
             $view->with('seo', [
                 'website_name' => 'Tripti Hotel',

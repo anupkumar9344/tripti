@@ -42,7 +42,10 @@
                             <tbody>
                                 @foreach ($roomTypes as $roomType)
                                     <tr>
-                                        <td>{{ $roomType->name }}</td>
+                                        <td>
+                                            <img src="{{ $roomType->imageUrl() }}" alt="{{ $roomType->name }}" height="40" width="56" class="rounded me-2 object-fit-cover">
+                                            <span class="align-middle fw-semibold">{{ $roomType->name }}</span>
+                                        </td>
                                         <td>₹{{ number_format($roomType->fare, 2) }}</td>
                                         <td>{{ $roomType->max_adults }}</td>
                                         <td>{{ $roomType->max_children }}</td>

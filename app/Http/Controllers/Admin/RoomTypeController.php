@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\RoomType;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -46,7 +47,9 @@ class RoomTypeController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        RoomType::create($this->validatedData($request));
+        $validated = $this->validatedData($request);
+
+        RoomType::create($validated);
 
         return redirect()
             ->route('admin.room-types.index')
@@ -70,7 +73,8 @@ class RoomTypeController extends Controller
      */
     public function update(Request $request, RoomType $roomType): RedirectResponse
     {
-        $roomType->update($this->validatedData($request));
+        $validated = $this->validatedData($request, $roomType);
+        $roomType->update($validated);
 
         return redirect()
             ->route('admin.room-types.index')
@@ -109,10 +113,12 @@ class RoomTypeController extends Controller
     /**
      * @return array<string, mixed>
      */
-    private function validatedData(Request $request): array
+    private function validatedData(Request $request, ?RoomType $roomType = null): array
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'image' => [$roomType ? 'nullable' : 'required', 'string', 'max:500'],
+            'short_description' => ['nullable', 'string', 'max:500'],
             'fare' => ['required', 'numeric', 'min:0'],
             'max_adults' => ['required', 'integer', 'min:1', 'max:20'],
             'max_children' => ['required', 'integer', 'min:0', 'max:20'],
@@ -125,6 +131,16 @@ class RoomTypeController extends Controller
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
         $validated['is_featured'] = (bool) $validated['is_featured'];
         $validated['status'] = (bool) $validated['status'];
+
+        $imagePath = MediaPath::normalize($validated['image'] ?? null);
+
+        if ($imagePath) {
+            $validated['image'] = $imagePath;
+        } elseif ($roomType) {
+            $validated['image'] = $roomType->image;
+        } else {
+            $validated['image'] = null;
+        }
 
         return $validated;
     }
