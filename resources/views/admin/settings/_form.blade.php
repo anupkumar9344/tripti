@@ -16,7 +16,7 @@
 
     if ($errors->hasAny(['email_1', 'email_2', 'phone_1', 'phone_2', 'whatsapp_number', 'address', 'opening_hours'])) {
         $activeTab = 'contact';
-    } elseif ($errors->hasAny(['visit_us_eyebrow', 'visit_us_title', 'visit_us_description', 'visit_us_bg_image', 'contact_locations_title', 'contact_locations_description', 'contact_form_title', 'contact_form_description'])) {
+    } elseif ($errors->hasAny(['visit_us_eyebrow', 'visit_us_title', 'visit_us_description', 'visit_us_bg_image', 'team_page_eyebrow', 'team_page_title', 'team_page_intro', 'contact_locations_title', 'contact_locations_description', 'contact_form_title', 'contact_form_description'])) {
         $activeTab = 'pages';
     } elseif ($errors->hasAny(['facebook_url', 'instagram_url', 'youtube_url', 'google_map_embed'])) {
         $activeTab = 'social';

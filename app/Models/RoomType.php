@@ -16,6 +16,8 @@ class RoomType extends Model
         'name',
         'image',
         'short_description',
+        'description',
+        'gallery_images',
         'fare',
         'max_adults',
         'max_children',
@@ -86,5 +88,40 @@ class RoomType extends Model
     public function imageUrl(): string
     {
         return MediaPath::url($this->image, 'assets/img/rooms/1.jpg');
+    }
+
+    /**
+     * Get gallery image URLs for the detail page.
+     *
+     * @return list<string>
+     */
+    public function galleryUrls(): array
+    {
+        $paths = MediaPath::parseUrlLines($this->gallery_images);
+
+        if ($paths !== []) {
+            return array_map(
+                fn (string $path) => MediaPath::url($path, 'assets/img/rooms/1.jpg'),
+                $paths
+            );
+        }
+
+        return [$this->imageUrl()];
+    }
+
+    /**
+     * Count active rooms available for this type.
+     */
+    public function availableRoomsCount(): int
+    {
+        return $this->rooms()->where('status', true)->count();
+    }
+
+    /**
+     * Get the maximum total guests allowed.
+     */
+    public function maxGuests(): int
+    {
+        return (int) $this->max_adults + (int) $this->max_children;
     }
 }

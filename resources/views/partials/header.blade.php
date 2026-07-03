@@ -1,14 +1,14 @@
 @php
     $navItems = [
-        ['label' => 'Home', 'url' => url('/'), 'active' => request()->is('/')],
-        ['label' => 'About', 'url' => route('about'), 'active' => request()->routeIs('about')],
-        ['label' => 'Rooms', 'url' => route('rooms'), 'active' => request()->routeIs('rooms*')],
-        ['label' => 'Facilities', 'url' => route('facilities'), 'active' => request()->routeIs('facilities')],
-        ['label' => 'Gallery', 'url' => route('gallery'), 'active' => request()->routeIs('gallery')],
-        ['label' => 'Team', 'url' => route('experts'), 'active' => request()->routeIs('experts*')],
-        ['label' => 'Blog', 'url' => route('blog'), 'active' => request()->routeIs('blog*')],
-        ['label' => 'FAQ', 'url' => route('faq'), 'active' => request()->routeIs('faq')],
-        ['label' => 'Contact', 'url' => route('contact'), 'active' => request()->routeIs('contact')],
+        ['label' => 'Home', 'url' => url('/'), 'active' => request()->is('/'), 'icon' => 'ri-home-4-line'],
+        ['label' => 'About', 'url' => route('about'), 'active' => request()->routeIs('about'), 'icon' => 'ri-information-line'],
+        ['label' => 'Rooms', 'url' => route('rooms'), 'active' => request()->routeIs('rooms*'), 'icon' => 'ri-hotel-bed-line'],
+        ['label' => 'Facilities', 'url' => route('facilities'), 'active' => request()->routeIs('facilities'), 'icon' => 'ri-building-2-line'],
+        ['label' => 'Gallery', 'url' => route('gallery'), 'active' => request()->routeIs('gallery'), 'icon' => 'ri-gallery-line'],
+        ['label' => 'Team', 'url' => route('experts'), 'active' => request()->routeIs('experts*'), 'icon' => 'ri-team-line'],
+        ['label' => 'Blog', 'url' => route('blog'), 'active' => request()->routeIs('blog*'), 'icon' => 'ri-article-line'],
+        ['label' => 'FAQ', 'url' => route('faq'), 'active' => request()->routeIs('faq'), 'icon' => 'ri-question-answer-line'],
+        ['label' => 'Contact', 'url' => route('contact'), 'active' => request()->routeIs('contact'), 'icon' => 'ri-customer-service-2-line'],
     ];
 @endphp
 
@@ -18,13 +18,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="rx-inner-menu-desk">
-                        <a href="{{ url('/') }}" class="rx-header-btn" aria-label="{{ $siteName }}">
+                        <a href="{{ url('/') }}" class="rx-header-btn rx-header-logo" aria-label="{{ $siteName }}">
                             <img src="{{ $siteLogoUrl }}" alt="{{ $siteName }}">
                         </a>
                         <button class="navbar-toggler shadow-none rx-toggle-menu" type="button"
                             aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="Toggle navigation">
-                            <i class="ri-menu-2-line"></i>
+                            <span class="rx-toggle-icon" aria-hidden="true"><i class="ri-menu-2-line"></i></span>
                         </button>
                         <div class="rx-main-menu" id="navbarSupportedContent">
                             <ul class="site-nav">
@@ -41,15 +41,20 @@
                                             </ul>
                                         </li>
                                     @else
-                                        <li class="nav-item">
+                                        <li class="nav-item {{ $item['active'] ? 'active' : '' }}">
                                             <a class="nav-link {{ $item['active'] ? 'active' : '' }}" href="{{ $item['url'] }}">{{ $item['label'] }}</a>
                                         </li>
                                     @endif
                                 @endforeach
                             </ul>
-                            <div class="header-button">
-                                <a href="javascript:void(0)" class="rx-btn-one" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a>
-                            </div>
+                        </div>
+                        <div class="header-actions d-md-flex d-none">
+                            @if ($sitePhone)
+                                <a href="tel:{{ preg_replace('/\s+/', '', $sitePhone) }}" class="header-phone-link">
+                                    <i class="ri-phone-fill" aria-hidden="true"></i>
+                                    <span>{{ $sitePhone }}</span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -59,38 +64,69 @@
 
     <div class="rx-mobile-menu-overlay"></div>
     <div id="rx-mobile-menu" class="rx-mobile-menu">
-        <div class="rx-menu-title">
-            <span class="menu_title">Menu</span>
-            <button type="button" class="rx-close-menu" aria-label="Close menu">&times;</button>
+        <div class="rx-mobile-menu-head">
+            <a href="{{ url('/') }}" class="rx-mobile-menu-logo" aria-label="{{ $siteName }}">
+                <img src="{{ $siteLogoUrl }}" alt="{{ $siteName }}">
+            </a>
+            <button type="button" class="rx-close-menu" aria-label="Close menu">
+                <i class="ri-close-line" aria-hidden="true"></i>
+            </button>
         </div>
+
         <div class="rx-menu-inner">
             <div class="rx-menu-contact">
-                <div class="rx-mobile-contact-bar">
-                    @if ($sitePhone)
-                        <a href="tel:{{ preg_replace('/\s+/', '', $sitePhone) }}"><i class="ri-phone-line"></i>{{ $sitePhone }}</a>
-                    @endif
-                    @if ($siteEmail)
-                        <a href="mailto:{{ $siteEmail }}"><i class="ri-mail-line"></i>{{ $siteEmail }}</a>
-                    @endif
-                </div>
-                <ul>
-                    @foreach ($navItems as $item)
-                        @if (! empty($item['children']))
-                            <li>
-                                <a href="javascript:void(0)">{{ $item['label'] }}</a>
-                                <ul class="sub-menu">
-                                    @foreach ($item['children'] as $child)
-                                        <li><a href="{{ $child['url'] }}">{{ $child['label'] }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @else
-                            <li><a href="{{ $item['url'] }}">{{ $item['label'] }}</a></li>
+                @if ($sitePhone || $siteEmail)
+                    <div class="rx-mobile-contact-bar">
+                        @if ($sitePhone)
+                            <a href="tel:{{ preg_replace('/\s+/', '', $sitePhone) }}" class="rx-mobile-contact-item">
+                                <span class="rx-mobile-contact-icon"><i class="ri-phone-fill" aria-hidden="true"></i></span>
+                                <span class="rx-mobile-contact-text">{{ $sitePhone }}</span>
+                            </a>
                         @endif
-                    @endforeach
-                </ul>
-                <a href="javascript:void(0)" class="rx-btn-one rx-mobile-book-btn" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a>
+                        @if ($siteEmail)
+                            <a href="mailto:{{ $siteEmail }}" class="rx-mobile-contact-item">
+                                <span class="rx-mobile-contact-icon"><i class="ri-mail-fill" aria-hidden="true"></i></span>
+                                <span class="rx-mobile-contact-text">{{ $siteEmail }}</span>
+                            </a>
+                        @endif
+                    </div>
+                @endif
+
+                <nav class="rx-mobile-nav" aria-label="Mobile navigation">
+                    <ul class="rx-mobile-nav-list">
+                        @foreach ($navItems as $item)
+                            @if (! empty($item['children']))
+                                <li class="rx-mobile-nav-item has-submenu">
+                                    <a href="javascript:void(0)" class="rx-mobile-nav-link">
+                                        <i class="{{ $item['icon'] ?? 'ri-arrow-right-s-line' }}" aria-hidden="true"></i>
+                                        <span>{{ $item['label'] }}</span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        @foreach ($item['children'] as $child)
+                                            <li><a href="{{ $child['url'] }}">{{ $child['label'] }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @else
+                                <li class="rx-mobile-nav-item{{ $item['active'] ? ' active' : '' }}">
+                                    <a href="{{ $item['url'] }}" class="rx-mobile-nav-link{{ $item['active'] ? ' active' : '' }}">
+                                        <i class="{{ $item['icon'] ?? 'ri-arrow-right-s-line' }}" aria-hidden="true"></i>
+                                        <span>{{ $item['label'] }}</span>
+                                        <i class="ri-arrow-right-s-line rx-mobile-nav-arrow" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </nav>
             </div>
+        </div>
+
+        <div class="rx-mobile-menu-foot">
+            <a href="javascript:void(0)" class="rx-mobile-book-btn" data-bs-toggle="modal" data-bs-target="#rx_booking_from">
+                <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                <span>Book Your Stay</span>
+            </a>
         </div>
     </div>
 </header>

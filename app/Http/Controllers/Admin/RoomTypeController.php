@@ -119,6 +119,8 @@ class RoomTypeController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'image' => [$roomType ? 'nullable' : 'required', 'string', 'max:500'],
             'short_description' => ['nullable', 'string', 'max:500'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'gallery_images' => ['nullable', 'string', 'max:5000'],
             'fare' => ['required', 'numeric', 'min:0'],
             'max_adults' => ['required', 'integer', 'min:1', 'max:20'],
             'max_children' => ['required', 'integer', 'min:0', 'max:20'],
@@ -131,6 +133,13 @@ class RoomTypeController extends Controller
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
         $validated['is_featured'] = (bool) $validated['is_featured'];
         $validated['status'] = (bool) $validated['status'];
+
+        if (filled($validated['gallery_images'] ?? null)) {
+            $galleryPaths = MediaPath::parseUrlLines($validated['gallery_images']);
+            $validated['gallery_images'] = $galleryPaths !== [] ? implode("\n", $galleryPaths) : null;
+        } else {
+            $validated['gallery_images'] = null;
+        }
 
         $imagePath = MediaPath::normalize($validated['image'] ?? null);
 

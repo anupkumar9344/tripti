@@ -1,5 +1,38 @@
 <div class="row g-3 align-items-start">
-    <div class="col-lg-7">
+    <div class="col-lg-4">
+        <div class="card border shadow-none mb-0">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Team Page</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="team_page_eyebrow">Eyebrow</label>
+                    <input type="text" class="form-control @error('team_page_eyebrow') is-invalid @enderror" id="team_page_eyebrow" name="team_page_eyebrow" value="{{ old('team_page_eyebrow', $settings['team_page_eyebrow']) }}" placeholder="Our Leadership">
+                    @error('team_page_eyebrow')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label" for="team_page_title">Title</label>
+                    <input type="text" class="form-control @error('team_page_title') is-invalid @enderror" id="team_page_title" name="team_page_title" value="{{ old('team_page_title', $settings['team_page_title']) }}" placeholder="Meet Our Expert Team">
+                    @error('team_page_title')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-0">
+                    <label class="form-label" for="team_page_intro">Introduction</label>
+                    <textarea class="form-control @error('team_page_intro') is-invalid @enderror" id="team_page_intro" name="team_page_intro" rows="3">{{ old('team_page_intro', $settings['team_page_intro']) }}</textarea>
+                    @error('team_page_intro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
         <div class="card border shadow-none mb-0">
             <div class="card-header">
                 <h4 class="card-title mb-0">Homepage Visit Us</h4>
@@ -46,7 +79,7 @@
         </div>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-4">
         <div class="card border shadow-none mb-0">
             <div class="card-header">
                 <h4 class="card-title mb-0">Contact Page</h4>

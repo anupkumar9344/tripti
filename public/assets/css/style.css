@@ -1140,7 +1140,7 @@ header .header-fixed {
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
-          justify-content: flex-end;
+          justify-content: center;
 }
 .rx-inner-menu-desk .rx-main-menu ul {
   display: -webkit-box;

@@ -17,8 +17,21 @@
 
                 <div class="form-group mb-3">
                     <label class="form-label" for="short_description">Short Description</label>
-                    <textarea class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" rows="3" placeholder="Brief description shown on the home page room cards.">{{ old('short_description', $roomType->short_description ?? '') }}</textarea>
+                    <textarea class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" rows="3" placeholder="Brief description shown on room cards.">{{ old('short_description', $roomType->short_description ?? '') }}</textarea>
                     @error('short_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label" for="description">Full Description</label>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" placeholder="Detailed description shown on the room detail page.">{{ old('description', $roomType->description ?? '') }}</textarea>
+                    @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                <div class="form-group mb-0">
+                    <label class="form-label" for="gallery_images">Gallery Image URLs</label>
+                    <textarea class="form-control @error('gallery_images') is-invalid @enderror" id="gallery_images" name="gallery_images" rows="4" placeholder="Paste one image URL per line (copy from Media Library)">{{ old('gallery_images', $roomType->gallery_images ?? '') }}</textarea>
+                    @error('gallery_images')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <span class="form-text text-muted font-12">Optional. Used on the room detail page gallery. Leave empty to use the main room image only.</span>
                 </div>
 
                 <div class="row">
