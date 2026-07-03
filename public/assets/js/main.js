@@ -100,11 +100,11 @@
     dots: false,
     arrows: true,
     infinite: true,
-    speed: 2000,
+    speed: 1200,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 6000,
     responsive: [
       {
         breakpoint: 992,
