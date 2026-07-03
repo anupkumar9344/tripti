@@ -25,9 +25,17 @@ class AppServiceProvider extends ServiceProvider
             $settings = Setting::getMany([
                 'website_name',
                 'website_logo',
+                'footer_about',
                 'phone_1',
+                'phone_2',
                 'email_1',
+                'email_2',
+                'whatsapp_number',
                 'address',
+                'opening_hours',
+                'facebook_url',
+                'instagram_url',
+                'youtube_url',
             ]);
 
             $view->with('siteSettings', $settings);

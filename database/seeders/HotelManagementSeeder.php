@@ -57,19 +57,56 @@ class HotelManagementSeeder extends Seeder
     private function seedFacilities(): void
     {
         $items = [
-            ['title' => 'Buffet', 'icon' => 'fa-utensils', 'sort_order' => 1],
-            ['title' => 'Car Parking', 'icon' => 'fa-square-parking', 'sort_order' => 2],
-            ['title' => 'Coffee Shop', 'icon' => 'fa-mug-hot', 'sort_order' => 3],
-            ['title' => 'Interior Game Room', 'icon' => 'fa-gamepad', 'sort_order' => 4],
-            ['title' => 'Poolside Bar', 'icon' => 'fa-martini-glass', 'sort_order' => 5],
-            ['title' => 'SPA', 'icon' => 'fa-spa', 'sort_order' => 6],
-            ['title' => 'Swimming Pool', 'icon' => 'fa-water-ladder', 'sort_order' => 7],
+            [
+                'title' => 'Restro & Cafe',
+                'icon' => 'fa-utensils',
+                'image' => 'assets/img/amenities/1.jpg',
+                'short_description' => 'Welcome to The Gourmet Haven, where culinary excellence meets a serene and inviting ambiance.',
+                'is_featured' => true,
+                'sort_order' => 1,
+            ],
+            [
+                'title' => 'Spa & Beauty',
+                'icon' => 'fa-spa',
+                'image' => 'assets/img/amenities/2.jpg',
+                'short_description' => 'Rejuvenate your body and mind with our premium spa treatments and wellness services.',
+                'is_featured' => true,
+                'sort_order' => 2,
+            ],
+            [
+                'title' => 'Gym & Fitness',
+                'icon' => 'fa-dumbbell',
+                'image' => 'assets/img/amenities/3.jpg',
+                'short_description' => 'Stay active during your stay with our fully equipped fitness center and personal trainers.',
+                'is_featured' => true,
+                'sort_order' => 3,
+            ],
+            [
+                'title' => 'Swimming Pool',
+                'icon' => 'fa-water-ladder',
+                'image' => 'assets/img/amenities/4.jpg',
+                'short_description' => 'Relax by our outdoor pool with stunning views and poolside service.',
+                'is_featured' => true,
+                'sort_order' => 4,
+            ],
+            ['title' => 'Buffet', 'icon' => 'fa-utensils', 'sort_order' => 5],
+            ['title' => 'Car Parking', 'icon' => 'fa-square-parking', 'sort_order' => 6],
+            ['title' => 'Coffee Shop', 'icon' => 'fa-mug-hot', 'sort_order' => 7],
+            ['title' => 'Interior Game Room', 'icon' => 'fa-gamepad', 'sort_order' => 8],
+            ['title' => 'Poolside Bar', 'icon' => 'fa-martini-glass', 'sort_order' => 9],
         ];
 
         foreach ($items as $item) {
             HotelFacility::query()->updateOrCreate(
                 ['title' => $item['title']],
-                ['icon' => $item['icon'], 'sort_order' => $item['sort_order'], 'status' => true]
+                [
+                    'icon' => $item['icon'],
+                    'image' => $item['image'] ?? null,
+                    'short_description' => $item['short_description'] ?? null,
+                    'is_featured' => $item['is_featured'] ?? false,
+                    'sort_order' => $item['sort_order'],
+                    'status' => true,
+                ]
             );
         }
 

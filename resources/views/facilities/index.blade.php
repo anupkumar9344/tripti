@@ -5,5 +5,5 @@
 @section('content')
     @include('partials.breadcrumb', ['breadcrumbTitle' => 'Facilities'])
     @include('partials.static.home-services')
-    @include('partials.static.home-amenities')
+    @include('partials.home-amenities')
 @endsection

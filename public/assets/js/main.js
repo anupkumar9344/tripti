@@ -558,4 +558,197 @@
     $("body").addClass('body-bg-5');
   });
 
+  /* Home amenities showcase */
+  (function initHomeAmenities() {
+    const $section = $(".home-amenities-section");
+    if (!$section.length) {
+      return;
+    }
+
+    let activeIndex = 0;
+    let autoplayTimer = null;
+    const autoplayDelay = 5000;
+
+    function showAmenity(index) {
+      const $tabs = $section.find("[data-amenity-tab]");
+      const total = $tabs.length;
+
+      if (!total) {
+        return;
+      }
+
+      activeIndex = ((index % total) + total) % total;
+
+      $section.find("[data-amenity-slide], [data-amenity-panel], [data-amenity-tab], .home-amenities-dot").removeClass("is-active");
+      $section.find("[data-amenity-slide], [data-amenity-panel], [data-amenity-tab], .home-amenities-dot").attr("aria-selected", "false");
+
+      $section.find('[data-amenity-slide="' + activeIndex + '"]').addClass("is-active");
+      $section.find('[data-amenity-panel="' + activeIndex + '"]').addClass("is-active");
+      $section.find('[data-amenity-tab="' + activeIndex + '"]').addClass("is-active").attr("aria-selected", "true");
+    }
+
+    function startAutoplay() {
+      clearInterval(autoplayTimer);
+      autoplayTimer = setInterval(function () {
+        showAmenity(activeIndex + 1);
+      }, autoplayDelay);
+    }
+
+    $section.on("click", "[data-amenity-tab]", function () {
+      const index = parseInt($(this).attr("data-amenity-tab"), 10);
+      showAmenity(index);
+      startAutoplay();
+    });
+
+    $section.on("mouseenter", function () {
+      clearInterval(autoplayTimer);
+    });
+
+    $section.on("mouseleave", function () {
+      startAutoplay();
+    });
+
+    startAutoplay();
+  })();
+
+  /* Home testimonials showcase */
+  (function initHomeTestimonials() {
+    const $section = $(".home-testimonials-section");
+    if (!$section.length) {
+      return;
+    }
+
+    let activeIndex = 0;
+    let autoplayTimer = null;
+    const autoplayDelay = 6000;
+
+    function showTestimonial(index) {
+      const $slides = $section.find("[data-testimonial-slide]");
+      const total = $slides.length;
+
+      if (!total) {
+        return;
+      }
+
+      activeIndex = ((index % total) + total) % total;
+
+      $section.find("[data-testimonial-slide], .home-testimonials-dot").removeClass("is-active");
+      $section.find(".home-testimonials-dot").attr("aria-selected", "false");
+
+      $section.find('[data-testimonial-slide="' + activeIndex + '"]').addClass("is-active");
+      $section.find('[data-testimonial-dot="' + activeIndex + '"]').addClass("is-active").attr("aria-selected", "true");
+    }
+
+    function startAutoplay() {
+      clearInterval(autoplayTimer);
+      autoplayTimer = setInterval(function () {
+        showTestimonial(activeIndex + 1);
+      }, autoplayDelay);
+    }
+
+    $section.on("click", "[data-testimonial-prev]", function () {
+      showTestimonial(activeIndex - 1);
+      startAutoplay();
+    });
+
+    $section.on("click", "[data-testimonial-next]", function () {
+      showTestimonial(activeIndex + 1);
+      startAutoplay();
+    });
+
+    $section.on("click", "[data-testimonial-dot]", function () {
+      const index = parseInt($(this).attr("data-testimonial-dot"), 10);
+      showTestimonial(index);
+      startAutoplay();
+    });
+
+    $section.on("mouseenter", function () {
+      clearInterval(autoplayTimer);
+    });
+
+    $section.on("mouseleave", function () {
+      startAutoplay();
+    });
+
+    startAutoplay();
+  })();
+
+  /* Contact page form */
+  (function initContactPageForm() {
+    const $form = $("#contactPageForm");
+    if (!$form.length) {
+      return;
+    }
+
+    $form.on("submit", function (event) {
+      event.preventDefault();
+
+      const form = this;
+
+      if (!form.checkValidity()) {
+        event.stopPropagation();
+        $form.addClass("was-validated");
+        return;
+      }
+
+      const $submit = $form.find(".contact-message-submit");
+      const $submitText = $form.find(".contact-message-submit-text");
+      const $submitLoader = $form.find(".contact-message-submit-loader");
+      const $error = $(".contact-message-error");
+
+      $error.addClass("d-none").text("");
+      $submit.prop("disabled", true);
+      $submitText.addClass("d-none");
+      $submitLoader.removeClass("d-none");
+
+      $.ajax({
+        url: $form.attr("action"),
+        method: "POST",
+        data: $form.serialize(),
+        headers: {
+          "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+          Accept: "application/json",
+        },
+        success: function (response) {
+          if (response.message) {
+            $(".contact-message-success-text").text(response.message);
+          }
+
+          $form.addClass("d-none");
+          $(".contact-message-success").removeClass("d-none");
+        },
+        error: function (xhr) {
+          let message = "Something went wrong. Please try again.";
+
+          if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
+            message = Object.values(xhr.responseJSON.errors).map(function (items) {
+              return items[0];
+            }).join(" ");
+          } else if (xhr.responseJSON && xhr.responseJSON.message) {
+            message = xhr.responseJSON.message;
+          }
+
+          $error.removeClass("d-none").text(message);
+        },
+        complete: function () {
+          $submit.prop("disabled", false);
+          $submitText.removeClass("d-none");
+          $submitLoader.addClass("d-none");
+        },
+      });
+    });
+
+    $(".contact-message-reset").on("click", function () {
+      const form = document.getElementById("contactPageForm");
+
+      if (form) {
+        form.reset();
+        $form.removeClass("was-validated d-none");
+      }
+
+      $(".contact-message-success").addClass("d-none");
+      $(".contact-message-error").addClass("d-none").text("");
+    });
+  })();
+
 })(jQuery);

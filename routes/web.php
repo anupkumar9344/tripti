@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\LegalPageSettingController;
 use App\Http\Controllers\Admin\PatientReviewController;
 use App\Http\Controllers\Admin\VideoFeedbackController;
 use App\Http\Controllers\Admin\WhyChooseItemController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExpertTeamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -38,12 +40,14 @@ Route::get('/experts', [ExpertTeamController::class, 'index'])->name('experts');
 Route::get('/experts/{slug}', [ExpertTeamController::class, 'show'])->name('experts.show');
 Route::get('/facilities', [PageController::class, 'facilities'])->name('facilities');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
-Route::get('/blog', [PageController::class, 'blog'])->name('blog');
-Route::get('/blog-details', [PageController::class, 'blogDetails'])->name('blog.show');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::redirect('/blog-details', '/blog');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy-policy');
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms-and-conditions');
-Route::get('/contact-us', [PageController::class, 'contact'])->name('contact');
+Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');

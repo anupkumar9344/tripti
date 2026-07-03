@@ -6,6 +6,15 @@
     @enderror
 </div>
 
+<div class="form-group mb-3">
+    @include('admin.media.partials.url-field', [
+        'name' => 'photo',
+        'currentValue' => old('photo', isset($patientReview) ? ($patientReview->photo ?? '') : ''),
+        'label' => 'Reviewer Photo',
+    ])
+    <span class="form-text text-muted font-12">Optional. Shown in the home page testimonials slider. Leave empty to use an initial avatar.</span>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <div class="form-group mb-3">

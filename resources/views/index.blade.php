@@ -6,7 +6,7 @@
     @include('partials.home-hero')
     @include('partials.home-about')
     @include('partials.home-rooms')
-    @include('partials.static.home-amenities')
-    @include('partials.static.home-testimonials')
-    @include('partials.static.home-blog')
+    @include('partials.home-amenities')
+    @include('partials.home-testimonials')
+    @include('partials.home-blog')
 @endsection

@@ -7,6 +7,7 @@ use App\Models\Faq;
 use App\Models\GalleryItem;
 use App\Models\HealthProgram;
 use App\Models\HeroBanner;
+use App\Models\HotelFacility;
 use App\Models\PatientReview;
 use App\Models\RoomType;
 use App\Models\Setting;
@@ -37,6 +38,8 @@ class HomeController extends Controller
         'about_stat_2_label',
         'about_stat_3_count',
         'about_stat_3_label',
+        'patient_feedback_rating_label',
+        'patient_feedback_total_reviews',
     ];
 
     /**
@@ -49,7 +52,8 @@ class HomeController extends Controller
         $settings = Setting::getMany(self::HOME_SETTING_KEYS);
         $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
         $homeRooms = RoomType::query()->forHome()->limit(6)->get();
-        $patientReviews = PatientReview::query()->activeOrdered()->get();
+        $homeFacilities = HotelFacility::query()->forHome()->limit(6)->get();
+        $homeTestimonials = PatientReview::query()->activeOrdered()->limit(6)->get();
         $homeBlogPosts = BlogPost::query()->forHome()->limit(4)->get();
         $healthPrograms = HealthProgram::query()->activeOrdered()->get();
         $heroBanners = HeroBanner::query()->activeOrdered()->get();
@@ -60,7 +64,8 @@ class HomeController extends Controller
             'settings',
             'whyChooseItems',
             'homeRooms',
-            'patientReviews',
+            'homeFacilities',
+            'homeTestimonials',
             'homeBlogPosts',
             'healthPrograms',
             'heroBanners',

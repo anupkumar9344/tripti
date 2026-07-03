@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PatientReview;
 use App\Models\Setting;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -110,7 +111,7 @@ class PatientReviewController extends Controller
     {
         $validated = $this->validateReview($request);
 
-        $patientReview->fill($this->reviewAttributes($validated));
+        $patientReview->fill($this->reviewAttributes($validated, $patientReview));
         $patientReview->save();
 
         return redirect()
@@ -143,6 +144,7 @@ class PatientReviewController extends Controller
             'reviewer_name' => ['required', 'string', 'max:255'],
             'initial' => ['nullable', 'string', 'max:1'],
             'avatar_tone' => ['required', 'string', 'in:accent,primary,warm'],
+            'photo' => ['nullable', 'string', 'max:500'],
             'review_time' => ['nullable', 'string', 'max:100'],
             'review_text' => ['required', 'string'],
             'rating' => ['required', 'integer', 'min:1', 'max:5'],
@@ -158,7 +160,7 @@ class PatientReviewController extends Controller
      * @param  array<string, mixed>  $validated
      * @return array<string, mixed>
      */
-    private function reviewAttributes(array $validated): array
+    private function reviewAttributes(array $validated, ?PatientReview $review = null): array
     {
         $initial = trim((string) ($validated['initial'] ?? ''));
 
@@ -166,10 +168,13 @@ class PatientReviewController extends Controller
             $initial = Str::upper(Str::substr($validated['reviewer_name'], 0, 1));
         }
 
+        $photoPath = MediaPath::normalize($validated['photo'] ?? null);
+
         return [
             'reviewer_name' => $validated['reviewer_name'],
             'initial' => $initial,
             'avatar_tone' => $validated['avatar_tone'],
+            'photo' => $photoPath ?: ($review?->photo),
             'review_time' => $validated['review_time'] ?? null,
             'review_text' => $validated['review_text'],
             'rating' => (int) $validated['rating'],

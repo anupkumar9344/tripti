@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -17,6 +18,7 @@ class PatientReview extends Model
         'reviewer_name',
         'initial',
         'avatar_tone',
+        'photo',
         'review_time',
         'review_text',
         'rating',
@@ -63,5 +65,17 @@ class PatientReview extends Model
         }
 
         return Str::upper(Str::substr($this->reviewer_name, 0, 1));
+    }
+
+    /**
+     * Get the public URL for the reviewer photo.
+     */
+    public function photoUrl(): ?string
+    {
+        if (empty($this->photo)) {
+            return null;
+        }
+
+        return MediaPath::url($this->photo);
     }
 }

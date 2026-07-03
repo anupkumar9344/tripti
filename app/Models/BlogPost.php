@@ -82,7 +82,7 @@ class BlogPost extends Model
      */
     public function featuredImageUrl(): string
     {
-        return MediaPath::url($this->featured_image);
+        return MediaPath::url($this->featured_image, 'assets/img/blog/1.jpg');
     }
 
     /**
@@ -105,6 +105,41 @@ class BlogPost extends Model
     public function formattedDate(): string
     {
         return $this->published_at?->format('M j, Y') ?? '';
+    }
+
+    /**
+     * Format the published date for blog cards.
+     */
+    public function formattedDateLong(): string
+    {
+        return $this->published_at?->format('F j, Y') ?? '';
+    }
+
+    /**
+     * Get the primary category label from the first tag.
+     */
+    public function primaryCategory(): string
+    {
+        $tags = $this->tagList();
+
+        if ($tags === []) {
+            return 'News';
+        }
+
+        return ucwords($tags[0]);
+    }
+
+    /**
+     * Build the date and category line for blog cards.
+     */
+    public function metaLine(): string
+    {
+        $parts = array_filter([
+            $this->formattedDateLong(),
+            $this->primaryCategory(),
+        ]);
+
+        return implode(' — ', $parts);
     }
 
     /**

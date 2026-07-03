@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row"><div class="col-sm-12"><div class="page-title-box"><h4 class="page-title">Edit Facility</h4></div></div></div>
-    <div class="row"><div class="col-lg-8"><div class="card"><div class="card-body">
+    <div class="row"><div class="col-12"><div class="card"><div class="card-body">
         <form action="{{ route('admin.hotel-facilities.update', $facility) }}" method="POST">
             @csrf
             @method('PUT')

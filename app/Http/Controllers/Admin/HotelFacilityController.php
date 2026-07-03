@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\HotelFacility;
+use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -69,7 +70,7 @@ class HotelFacilityController extends Controller
      */
     public function update(Request $request, HotelFacility $hotelFacility): RedirectResponse
     {
-        $hotelFacility->update($this->validatedData($request));
+        $hotelFacility->update($this->validatedData($request, $hotelFacility));
 
         return redirect()
             ->route('admin.hotel-facilities.index')
@@ -108,17 +109,31 @@ class HotelFacilityController extends Controller
     /**
      * @return array<string, mixed>
      */
-    private function validatedData(Request $request): array
+    private function validatedData(Request $request, ?HotelFacility $facility = null): array
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'icon' => ['nullable', 'string', 'max:100'],
+            'image' => ['nullable', 'string', 'max:500'],
+            'short_description' => ['nullable', 'string', 'max:500'],
+            'is_featured' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', 'boolean'],
         ]);
 
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
+        $validated['is_featured'] = (bool) $validated['is_featured'];
         $validated['status'] = (bool) $validated['status'];
+
+        $imagePath = MediaPath::normalize($validated['image'] ?? null);
+
+        if ($imagePath) {
+            $validated['image'] = $imagePath;
+        } elseif ($facility) {
+            $validated['image'] = $facility->image;
+        } else {
+            $validated['image'] = null;
+        }
 
         return $validated;
     }
