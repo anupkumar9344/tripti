@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\GalleryItem;
-use App\Models\Setting;
 use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,16 +15,7 @@ use Illuminate\View\View;
 class GalleryItemController extends Controller
 {
     /**
-     * Setting keys for the home gallery section.
-     *
-     * @var list<string>
-     */
-    private const HOME_SECTION_SETTING_KEYS = [
-        'gallery_home_title',
-    ];
-
-    /**
-     * Display gallery items and home section settings.
+     * Display gallery items.
      *
      * @return \Illuminate\View\View
      */
@@ -36,27 +26,7 @@ class GalleryItemController extends Controller
             ->orderBy('title')
             ->get();
 
-        $homeSectionSettings = Setting::getMany(self::HOME_SECTION_SETTING_KEYS);
-
-        return view('admin.gallery-items.index', compact('items', 'homeSectionSettings'));
-    }
-
-    /**
-     * Update the home gallery section settings.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function updateSettings(Request $request): RedirectResponse
-    {
-        $validated = $request->validate([
-            'gallery_home_title' => ['nullable', 'string', 'max:255'],
-        ]);
-
-        Setting::setValue('gallery_home_title', $validated['gallery_home_title'] ?? null);
-
-        return redirect()
-            ->route('admin.gallery-items.index')
-            ->with('success', 'Home gallery section settings updated successfully.');
+        return view('admin.gallery-items.index', compact('items'));
     }
 
     /**

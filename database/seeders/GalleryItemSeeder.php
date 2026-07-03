@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\GalleryItem;
-use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
 /**
@@ -16,39 +15,37 @@ class GalleryItemSeeder extends Seeder
      */
     public function run(): void
     {
-        Setting::setValue('gallery_home_title', 'Gallery');
-
         $homeItems = [
             [
-                'title' => 'Ayurveda & Panchakarma',
-                'description' => 'Traditional detox and rejuvenation therapies for deep healing and balance.',
-                'source' => 'gallery-2.jpg',
+                'title' => 'Luxury Rooms',
+                'description' => 'Elegant rooms and suites designed for comfort, rest, and a premium stay experience.',
+                'source' => asset('assets/img/rooms/1.jpg'),
                 'sort_order' => 1,
             ],
             [
-                'title' => 'Metabolic Wellness',
-                'description' => 'Personalized nutrition and lifestyle guidance for sustainable health outcomes.',
-                'source' => 'gallery-3.jpg',
+                'title' => 'Fine Dining',
+                'description' => 'Enjoy flavourful multi-cuisine dining in a warm and inviting restaurant setting.',
+                'source' => asset('assets/img/menu/2.jpg'),
                 'sort_order' => 2,
             ],
             [
-                'title' => 'Mindfulness & Meditation',
-                'description' => 'Reduce stress, improve focus, and cultivate inner peace through guided meditation practices.',
-                'source' => 'gallery-4.jpg',
-                'icon_tags' => 'fa-leaf, fa-spa, fa-person-praying, fa-heart-pulse, fa-seedling, fa-hand-holding-heart',
+                'title' => 'Spa & Relaxation',
+                'description' => 'Rejuvenating wellness spaces to help you unwind during your stay.',
+                'source' => asset('assets/img/spa/2.jpg'),
+                'icon_tags' => 'fa-spa, fa-leaf, fa-mug-hot, fa-bed, fa-star, fa-heart',
                 'is_featured' => true,
                 'sort_order' => 3,
             ],
             [
-                'title' => 'Hijama & Cupping',
-                'description' => 'Natural detox and pain-relief therapies rooted in time-tested healing traditions.',
-                'source' => 'gallery-5.jpg',
+                'title' => 'Banquet Hall',
+                'description' => 'Beautifully arranged event spaces for weddings, celebrations, and gatherings.',
+                'source' => asset('assets/img/gallery/4.jpg'),
                 'sort_order' => 4,
             ],
             [
-                'title' => 'Therapeutic Massage',
-                'description' => 'Expert manual therapy to relieve tension, restore mobility, and accelerate recovery.',
-                'source' => 'gallery-6.jpg',
+                'title' => 'Hotel Ambience',
+                'description' => 'A welcoming atmosphere with thoughtful details throughout the property.',
+                'source' => asset('assets/img/gallery/5.jpg'),
                 'sort_order' => 5,
             ],
         ];
@@ -70,16 +67,18 @@ class GalleryItemSeeder extends Seeder
             );
         }
 
-        for ($i = 1; $i <= 9; $i++) {
-            if (GalleryItem::query()->where('source', 'gallery-'.$i.'.jpg')->exists()) {
+        for ($i = 1; $i <= 8; $i++) {
+            $source = asset('assets/img/gallery/'.$i.'.jpg');
+
+            if (GalleryItem::query()->where('source', $source)->exists()) {
                 continue;
             }
 
             GalleryItem::query()->create([
-                'title' => 'Gallery Image '.$i,
+                'title' => 'Hotel Gallery '.$i,
                 'description' => null,
                 'type' => 'image',
-                'source' => 'gallery-'.$i.'.jpg',
+                'source' => $source,
                 'thumbnail' => null,
                 'icon_tags' => null,
                 'is_featured' => false,
@@ -88,5 +87,14 @@ class GalleryItemSeeder extends Seeder
                 'status' => true,
             ]);
         }
+
+        $seedTitles = array_merge(
+            array_column($homeItems, 'title'),
+            array_map(fn (int $i) => 'Hotel Gallery '.$i, range(1, 8))
+        );
+
+        GalleryItem::query()
+            ->whereNotIn('title', $seedTitles)
+            ->delete();
     }
 }

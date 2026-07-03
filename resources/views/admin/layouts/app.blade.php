@@ -55,6 +55,46 @@
                             <span>Contact Messages</span>
                         </a>
                     </li>
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Manage Hotels</span></li>
+                    @php
+                        $hotelMenuOpen = request()->routeIs('admin.hotel-amenities.*')
+                            || request()->routeIs('admin.hotel-facilities.*')
+                            || request()->routeIs('admin.bed-types.*')
+                            || request()->routeIs('admin.room-types.*')
+                            || request()->routeIs('admin.premium-services.*');
+                    @endphp
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#sidebarHotels"
+                            data-bs-toggle="collapse"
+                            role="button"
+                            aria-expanded="{{ $hotelMenuOpen ? 'true' : 'false' }}"
+                            aria-controls="sidebarHotels"
+                        >
+                            <i class="ti ti-building-skyscraper menu-icon"></i>
+                            <span>Manage Hotels</span>
+                        </a>
+                        <div class="collapse {{ $hotelMenuOpen ? 'show' : '' }}" id="sidebarHotels">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.hotel-amenities.*') ? 'active' : '' }}" href="{{ route('admin.hotel-amenities.index') }}">Amenities</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.hotel-facilities.*') ? 'active' : '' }}" href="{{ route('admin.hotel-facilities.index') }}">Facilities</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.bed-types.*') ? 'active' : '' }}" href="{{ route('admin.bed-types.index') }}">Bed Types</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.room-types.*') ? 'active' : '' }}" href="{{ route('admin.room-types.index') }}">Room Types</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.premium-services.*') ? 'active' : '' }}" href="{{ route('admin.premium-services.index') }}">Premium Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Content</span></li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.hero-banners.*') ? 'active' : '' }}" href="{{ route('admin.hero-banners.index') }}">
@@ -81,47 +121,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.treatments.*') ? 'active' : '' }}" href="{{ route('admin.treatments.index') }}">
-                            <i class="ti ti-medical-cross menu-icon"></i>
-                            <span>Treatments</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.health-programs.*') ? 'active' : '' }}" href="{{ route('admin.health-programs.index') }}">
-                            <i class="ti ti-calendar-event menu-icon"></i>
-                            <span>Health Programs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        @php
-                            $teamMenuOpen = request()->routeIs('admin.experts.*') || request()->routeIs('admin.expert-profile-categories.*');
-                        @endphp
-                        <a
-                            class="nav-link"
-                            href="#sidebarTeam"
-                            data-bs-toggle="collapse"
-                            role="button"
-                            aria-expanded="{{ $teamMenuOpen ? 'true' : 'false' }}"
-                            aria-controls="sidebarTeam"
-                        >
+                        <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">
                             <i class="ti ti-users menu-icon"></i>
                             <span>Team</span>
                         </a>
-                        <div class="collapse {{ $teamMenuOpen ? 'show' : '' }}" id="sidebarTeam">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">Team Members</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('admin.expert-profile-categories.*') ? 'active' : '' }}" href="{{ route('admin.expert-profile-categories.index') }}">Categories</a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.patient-reviews.*') ? 'active' : '' }}" href="{{ route('admin.patient-reviews.index') }}">
                             <i class="ti ti-stars menu-icon"></i>
-                            <span>Patient Feedback</span>
+                            <span>Feedback</span>
                         </a>
                     </li>
                     <li class="nav-item">

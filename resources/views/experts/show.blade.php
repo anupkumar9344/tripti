@@ -80,42 +80,6 @@
         </div>
     </section>
 
-    @if ($profileTabs->isNotEmpty())
-        <section class="expert-profile-tabs-section">
-            <div class="container">
-                <div class="row g-4 g-lg-5">
-                    <div class="col-lg-4">
-                        <div class="expert-profile-tab-nav wow fadeInUp">
-                            @foreach ($profileTabs as $index => $tab)
-                                <button
-                                    type="button"
-                                    class="expert-profile-tab-btn {{ $index === 0 ? 'active' : '' }}"
-                                    data-tab-target="expert-tab-{{ $tab['id'] }}"
-                                >
-                                    <i class="fa-solid {{ $tab['icon'] }}"></i>
-                                    <span>{{ $tab['label'] }}</span>
-                                </button>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="col-lg-8">
-                        <div class="expert-profile-tab-content wow fadeInUp" data-wow-delay="0.1s">
-                            @foreach ($profileTabs as $index => $tab)
-                                <div
-                                    id="expert-tab-{{ $tab['id'] }}"
-                                    class="expert-profile-tab-pane {{ $index === 0 ? 'active' : '' }}"
-                                >
-                                    {!! $tab['content'] !!}
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
-
     @if ($detailFaqs->isNotEmpty())
         <section class="expert-profile-faq-section">
             <div class="container">
@@ -142,34 +106,3 @@
         ])
     @endif
 @endsection
-
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabButtons = document.querySelectorAll('.expert-profile-tab-btn');
-            const tabPanes = document.querySelectorAll('.expert-profile-tab-pane');
-
-            tabButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const targetId = button.getAttribute('data-tab-target');
-
-                    tabButtons.forEach(function (item) {
-                        item.classList.remove('active');
-                    });
-
-                    tabPanes.forEach(function (pane) {
-                        pane.classList.remove('active');
-                    });
-
-                    button.classList.add('active');
-
-                    const targetPane = document.getElementById(targetId);
-
-                    if (targetPane) {
-                        targetPane.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
-@endpush

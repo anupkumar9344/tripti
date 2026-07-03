@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Patient Review')
+@section('title', 'Edit Feedback')
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <h4 class="page-title">Edit Patient Review</h4>
+                <h4 class="page-title">Edit Feedback</h4>
             </div>
         </div>
     </div>

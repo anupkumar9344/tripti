@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Patient Feedback')
+@section('title', 'Feedback')
 
 @push('styles')
     <link href="{{ asset('admin/assets/plugins/datatables/datatable.css') }}" rel="stylesheet" type="text/css" />
@@ -16,7 +16,7 @@
                         <i class="ti ti-plus me-1"></i> Add Review
                     </a>
                 </div>
-                <h4 class="page-title">Patient Feedback</h4>
+                <h4 class="page-title">Feedback</h4>
             </div>
         </div>
     </div>

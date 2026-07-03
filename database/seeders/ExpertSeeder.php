@@ -6,7 +6,7 @@ use App\Models\Expert;
 use Illuminate\Database\Seeder;
 
 /**
- * Seeds default expert team members for listing and home pages.
+ * Seeds default hotel team members for listing and home pages.
  */
 class ExpertSeeder extends Seeder
 {
@@ -17,68 +17,68 @@ class ExpertSeeder extends Seeder
     {
         $experts = [
             [
-                'name' => 'Dr. Ravindra Verma',
-                'slug' => 'dr-ravindra-verma',
-                'photo' => 'team-1.jpg',
-                'designation' => 'Founder & Chairman',
-                'specialty' => 'Alternative Therapy Specialist',
-                'experience_label' => '25+ Years Experience',
-                'short_description' => 'Leads the overall integrated treatment system and treatment philosophy.',
+                'name' => 'Rajesh Agarwal',
+                'slug' => 'rajesh-agarwal',
+                'photo' => asset('assets/img/team/1.jpg'),
+                'designation' => 'Founder & Managing Director',
+                'specialty' => 'Luxury Hospitality',
+                'experience_label' => '20+ Years Experience',
+                'short_description' => 'Leads the hotel vision with a focus on premium guest experiences and operational excellence.',
                 'sort_order' => 1,
             ],
             [
-                'name' => 'Dr. Rachana Gangrade',
-                'slug' => 'dr-rachana-gangrade',
-                'photo' => 'team-2.jpg',
-                'designation' => 'Co-Founder & Managing Director',
-                'specialty' => 'Dietitian & Nutritionist',
-                'experience_label' => '25+ Years Experience',
-                'qualifications' => 'Ph.D. in Food & Nutrition | Weight Management Specialist',
-                'short_description' => 'Expert in Integrated Nutrition for Metabolic Health, Weight Loss & Lifestyle Disorders.',
+                'name' => 'Priya Sharma',
+                'slug' => 'priya-sharma',
+                'photo' => asset('assets/img/team/2.jpg'),
+                'designation' => 'General Manager',
+                'specialty' => 'Guest Experience',
+                'experience_label' => '15+ Years Experience',
+                'qualifications' => 'Hospitality Management | Luxury Hotel Operations',
+                'short_description' => 'Oversees daily operations and ensures every guest enjoys seamless, five-star service.',
                 'sort_order' => 2,
             ],
             [
-                'name' => 'Dr. Pankaj Jain',
-                'slug' => 'dr-pankaj-jain',
-                'photo' => 'team-3.jpg',
-                'designation' => 'Director & Chief Medical Officer',
-                'specialty' => 'Ayurveda & Panchakarma Specialist',
-                'experience_label' => '25+ Years Experience',
-                'qualifications' => 'Kerala Panchakarma Specialist | Senior Ayurveda Consultant',
-                'short_description' => 'Expert in Integrated Ayurveda & Panchakarma for Chronic Diseases, Pain Management & Metabolic Disorders.',
+                'name' => 'Amit Patel',
+                'slug' => 'amit-patel',
+                'photo' => asset('assets/img/team/3.jpg'),
+                'designation' => 'Executive Chef',
+                'specialty' => 'Fine Dining & Banquets',
+                'experience_label' => '18+ Years Experience',
+                'qualifications' => 'Culinary Arts | Multi-Cuisine Specialist',
+                'short_description' => 'Creates memorable dining experiences with curated menus and exceptional presentation.',
                 'sort_order' => 3,
             ],
             [
-                'name' => 'Dr. Shaziya Gandhi',
-                'slug' => 'dr-shaziya-gandhi',
-                'photo' => 'team-4.jpg',
-                'designation' => 'Co-Founder & Director',
-                'specialty' => 'Unani Medicine & Hijama Specialist',
-                'experience_label' => '16+ Years Experience',
-                'qualifications' => 'BUMS | Specialist in Unani Medicine & Hijama Therapy',
-                'short_description' => 'Expert in Integrated Unani Healing for Detoxification, Pain Management & Lifestyle Disorders.',
+                'name' => 'Neha Mehta',
+                'slug' => 'neha-mehta',
+                'photo' => asset('assets/img/team/4.jpg'),
+                'designation' => 'Front Office Manager',
+                'specialty' => 'Guest Relations',
+                'experience_label' => '12+ Years Experience',
+                'qualifications' => 'Front Office Operations | VIP Guest Handling',
+                'short_description' => 'Ensures smooth check-ins, personalised assistance, and attentive front-desk service.',
                 'sort_order' => 4,
             ],
             [
-                'name' => 'Dr. Sanjay Patel',
-                'slug' => 'dr-sanjay-patel',
-                'photo' => 'team-5.jpg',
-                'designation' => 'Head of Physiotherapy',
-                'specialty' => 'Pain & Rehabilitation Specialist',
-                'experience_label' => '18+ Years Experience',
-                'qualifications' => 'MPT Orthopedics | Neuro Rehab Expert',
-                'short_description' => 'Specialist in non-surgical pain relief, spine disorders, and advanced physiotherapy rehabilitation.',
+                'name' => 'Vikram Singh',
+                'slug' => 'vikram-singh',
+                'photo' => asset('assets/img/team/1.jpg'),
+                'designation' => 'Housekeeping Manager',
+                'specialty' => 'Room Standards & Comfort',
+                'experience_label' => '14+ Years Experience',
+                'qualifications' => 'Housekeeping Management | Quality Assurance',
+                'short_description' => 'Maintains immaculate rooms and suites with consistent attention to detail and comfort.',
                 'sort_order' => 5,
             ],
             [
-                'name' => 'Dr. Neha Singh',
-                'slug' => 'dr-neha-singh',
-                'photo' => 'team-6.jpg',
-                'designation' => 'Senior Wellness Consultant',
-                'specialty' => 'Acupuncture & Acupressure Specialist',
-                'experience_label' => '12+ Years Experience',
-                'qualifications' => 'Certified Acupuncturist | Holistic Pain Management',
-                'short_description' => 'Expert in acupuncture, acupressure, and integrative therapies for chronic pain and wellness recovery.',
+                'name' => 'Kiran Desai',
+                'slug' => 'kiran-desai',
+                'photo' => asset('assets/img/team/2.jpg'),
+                'designation' => 'Guest Relations Manager',
+                'specialty' => 'Concierge & Events',
+                'experience_label' => '10+ Years Experience',
+                'qualifications' => 'Concierge Services | Event Coordination',
+                'short_description' => 'Helps guests with travel plans, local recommendations, and special occasion arrangements.',
                 'sort_order' => 6,
             ],
         ];
@@ -100,5 +100,9 @@ class ExpertSeeder extends Seeder
                 ]
             );
         }
+
+        Expert::query()
+            ->whereNotIn('slug', array_column($experts, 'slug'))
+            ->delete();
     }
 }

@@ -750,6 +750,16 @@ body.dark-sidebar .left-sidebar .navbar-vertical .navbar-nav .nav-link[data-bs-t
     line-height: 1;
 }
 
+.admin-table-actions .btn.btn-with-label {
+    width: auto;
+    min-width: 2rem;
+    height: auto;
+    min-height: 2rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
 .admin-table-actions .btn i {
     font-size: 15px;
     line-height: 1;

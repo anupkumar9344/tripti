@@ -16,26 +16,26 @@ class AboutSettingsSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            'about_home_title' => 'A holistic path to',
-            'about_home_title_highlight' => 'natural healing',
-            'about_home_description' => 'At Tripti Hotel, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.',
+            'about_home_title' => 'Experience luxury',
+            'about_home_title_highlight' => 'hospitality',
+            'about_home_description' => 'At Tripti Hotel, we welcome every guest with warm service, elegant rooms, and thoughtful amenities — creating stays that feel comfortable, refined, and truly memorable.',
             'about_home_image' => 'home-about-team.jpg',
-            'about_home_badge_number' => '25',
+            'about_home_badge_number' => '15',
 
-            'about_page_title' => 'A holistic path to',
-            'about_page_title_highlight' => 'natural healing',
-            'about_page_description' => '<p>At Tripti Hotel, we combine time-tested therapies with modern clinical care to treat pain and chronic conditions without surgery — helping you recover safely, naturally, and with lasting results.</p>',
+            'about_page_title' => 'Experience luxury',
+            'about_page_title_highlight' => 'hospitality',
+            'about_page_description' => '<p>At Tripti Hotel, we welcome every guest with warm service, elegant rooms, and thoughtful amenities — creating stays that feel comfortable, refined, and truly memorable.</p><p>From business travellers to families and weekend getaways, our team is dedicated to making every visit smooth, relaxing, and special.</p>',
             'about_page_image' => 'home-about-team.jpg',
-            'about_page_badge_number' => '25',
+            'about_page_badge_number' => '15',
 
-            'about_stat_1_count' => '25',
-            'about_stat_1_label' => 'Years of Experience',
-            'about_stat_2_count' => '3500',
-            'about_stat_2_label' => 'Patients Treated',
-            'about_stat_3_count' => '15',
-            'about_stat_3_label' => 'Expert Specialists',
-            'about_stat_4_count' => '10',
-            'about_stat_4_label' => 'Therapy Disciplines',
+            'about_stat_1_count' => '15',
+            'about_stat_1_label' => 'Years of Hospitality',
+            'about_stat_2_count' => '12000',
+            'about_stat_2_label' => 'Happy Guests',
+            'about_stat_3_count' => '48',
+            'about_stat_3_label' => 'Luxury Rooms',
+            'about_stat_4_count' => '24',
+            'about_stat_4_label' => 'Hour Concierge',
         ];
 
         foreach ($settings as $key => $value) {

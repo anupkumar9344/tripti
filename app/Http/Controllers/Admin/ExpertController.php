@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expert;
-use App\Models\ExpertProfileCategory;
-use App\Models\ExpertProfileSection;
 use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,7 +36,7 @@ class ExpertController extends Controller
      */
     public function create(): View
     {
-        return view('admin.experts.create', $this->profileFormData());
+        return view('admin.experts.create');
     }
 
     /**
@@ -60,7 +58,7 @@ class ExpertController extends Controller
         $slugSource = $validated['slug'] ?? $validated['name'];
         $slug = Expert::generateUniqueSlug($slugSource);
 
-        $expert = Expert::create([
+        Expert::create([
             'name' => $validated['name'],
             'slug' => $slug,
             'photo' => $photoPath,
@@ -79,12 +77,6 @@ class ExpertController extends Controller
             'sort_order' => $validated['sort_order'] ?? 0,
         ]);
 
-        $this->syncProfileSections(
-            $expert,
-            $validated['profile_category_ids'] ?? [],
-            $validated['profile_sections'] ?? []
-        );
-
         return redirect()
             ->route('admin.experts.index')
             ->with('success', 'Team member created successfully.');
@@ -97,12 +89,7 @@ class ExpertController extends Controller
      */
     public function edit(Expert $expert): View
     {
-        $expert->load('profileSections');
-
-        return view('admin.experts.edit', array_merge(
-            ['expert' => $expert],
-            $this->profileFormData($expert)
-        ));
+        return view('admin.experts.edit', compact('expert'));
     }
 
     /**
@@ -140,12 +127,6 @@ class ExpertController extends Controller
         }
 
         $expert->save();
-
-        $this->syncProfileSections(
-            $expert,
-            $validated['profile_category_ids'] ?? [],
-            $validated['profile_sections'] ?? []
-        );
 
         return redirect()
             ->route('admin.experts.index')
@@ -188,79 +169,10 @@ class ExpertController extends Controller
             'patients_treated' => ['nullable', 'string', 'max:255'],
             'highlight_quote' => ['nullable', 'string', 'max:500'],
             'long_description' => ['nullable', 'string'],
-            'profile_category_ids' => ['nullable', 'array'],
-            'profile_category_ids.*' => ['integer', 'exists:expert_profile_categories,id'],
-            'profile_sections' => ['nullable', 'array'],
-            'profile_sections.*' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
             'show_faq_section' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
-    }
-
-    /**
-     * Build shared profile category form data.
-     *
-     * @return array<string, mixed>
-     */
-    private function profileFormData(?Expert $expert = null): array
-    {
-        $profileCategories = ExpertProfileCategory::query()
-            ->where('status', true)
-            ->orderBy('sort_order')
-            ->orderBy('title')
-            ->get();
-
-        $profileSectionContents = $expert
-            ? $expert->profileSections->pluck('content', 'expert_profile_category_id')->all()
-            : [];
-
-        $selectedCategoryIds = old(
-            'profile_category_ids',
-            $expert ? $expert->profileSections->pluck('expert_profile_category_id')->all() : []
-        );
-
-        return compact('profileCategories', 'profileSectionContents', 'selectedCategoryIds');
-    }
-
-    /**
-     * Save selected categories and their content for an expert.
-     *
-     * @param  list<int|string>  $selectedCategoryIds
-     * @param  array<int|string, string|null>  $sections
-     */
-    private function syncProfileSections(Expert $expert, array $selectedCategoryIds, array $sections): void
-    {
-        $selectedCategoryIds = array_map('intval', $selectedCategoryIds);
-
-        if ($selectedCategoryIds === []) {
-            ExpertProfileSection::query()
-                ->where('expert_id', $expert->id)
-                ->delete();
-
-            return;
-        }
-
-        ExpertProfileSection::query()
-            ->where('expert_id', $expert->id)
-            ->whereNotIn('expert_profile_category_id', $selectedCategoryIds)
-            ->delete();
-
-        foreach ($selectedCategoryIds as $categoryId) {
-            $content = isset($sections[$categoryId]) && is_string($sections[$categoryId])
-                ? trim($sections[$categoryId])
-                : '';
-
-            ExpertProfileSection::query()->updateOrCreate(
-                [
-                    'expert_id' => $expert->id,
-                    'expert_profile_category_id' => $categoryId,
-                ],
-                [
-                    'content' => $content !== '' ? $content : null,
-                ]
-            );
-        }
     }
 }

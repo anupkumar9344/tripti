@@ -17,9 +17,9 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@tripti.com'],
+            ['email' => 'admin@triptihotel.com'],
             [
-                'name' => 'Admin',
+                'name' => 'Hotel Admin',
                 'password' => Hash::make('Tripti@2026'),
                 'is_admin' => true,
                 'status' => true,

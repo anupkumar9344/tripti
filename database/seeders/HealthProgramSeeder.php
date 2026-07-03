@@ -6,7 +6,7 @@ use App\Models\HealthProgram;
 use Illuminate\Database\Seeder;
 
 /**
- * Seeds default health programs for the website.
+ * Seeds default hotel packages and special offers.
  */
 class HealthProgramSeeder extends Seeder
 {
@@ -16,19 +16,19 @@ class HealthProgramSeeder extends Seeder
     public function run(): void
     {
         HealthProgram::query()->updateOrCreate(
-            ['title' => 'Diabetes Reversal & Lifestyle Management Camp'],
+            ['title' => 'Weekend Getaway Package'],
             [
-                'image' => 'gallery-4.jpg',
+                'image' => asset('assets/img/rooms/2.jpg'),
                 'video_url' => 'https://www.youtube.com/watch?v=Y-x0efG1seA',
-                'eyebrow' => 'Health Programs & Camps',
-                'section_title' => 'Group Healing. Lasting Wellness.',
-                'section_lead' => 'Join our weekend wellness camps, weight-management programs, detox retreats and community healing sessions led by our multidisciplinary team.',
-                'date_time' => '15 April 2026 · 10:00 AM – 2:00 PM',
-                'location' => 'Agarwal Public School, Indore',
-                'chief_consultant' => 'Dr Ravindra Verma',
-                'key_benefits' => 'Diabetes Management, Personalized Diet Plan, Stress Reduction Techniques, Lifestyle Counseling, Health Screening',
-                'button_text' => 'Explore Latest Programs',
-                    'button_url' => url('/contact-us'),
+                'eyebrow' => 'Special Offers',
+                'section_title' => 'Relax. Refresh. Recharge.',
+                'section_lead' => 'Enjoy a curated weekend stay with comfortable accommodation, breakfast, and exclusive in-hotel benefits.',
+                'date_time' => 'Every Friday – Sunday',
+                'location' => 'Tripti Hotel, Rajkot',
+                'chief_consultant' => 'Reservations Team',
+                'key_benefits' => 'Complimentary Breakfast, Late Check-Out, Room Upgrade Subject to Availability, Dining Discount',
+                'button_text' => 'View Latest Offers',
+                'button_url' => url('/contact-us'),
                 'sort_order' => 1,
                 'status' => true,
                 'active_on_home' => true,
@@ -36,23 +36,27 @@ class HealthProgramSeeder extends Seeder
         );
 
         HealthProgram::query()->updateOrCreate(
-            ['title' => 'Weight Management Program'],
+            ['title' => 'Corporate Stay Package'],
             [
-                'image' => 'gallery-4.jpg',
+                'image' => asset('assets/img/rooms/3.jpg'),
                 'video_url' => 'https://www.youtube.com/watch?v=Y-x0efG1seA',
-                'eyebrow' => 'Health Programs & Camps',
-                'section_title' => 'Sustainable Weight Wellness.',
-                'section_lead' => 'Structured nutrition, metabolism support, and lifestyle guidance for long-term weight management.',
-                'date_time' => 'Ongoing Program',
-                'location' => 'Tripti Hotel, Indore',
-                'chief_consultant' => 'Dr Rachana Verma',
-                'key_benefits' => 'Personalized Diet Plan, Metabolism Support, Lifestyle Coaching, Progress Tracking',
-                'button_text' => 'Explore Latest Programs',
-                    'button_url' => url('/contact-us'),
+                'eyebrow' => 'Business Travel',
+                'section_title' => 'Smart Stays for Business Guests.',
+                'section_lead' => 'Tailored packages for corporate travellers with meeting support, dining, and priority services.',
+                'date_time' => 'Available Year Round',
+                'location' => 'Tripti Hotel, Rajkot',
+                'chief_consultant' => 'Front Office Manager',
+                'key_benefits' => 'Meeting Room Access, Express Check-In, Wi-Fi, Airport Transfer on Request',
+                'button_text' => 'Enquire Now',
+                'button_url' => url('/contact-us'),
                 'sort_order' => 2,
                 'status' => true,
                 'active_on_home' => false,
             ]
         );
+
+        HealthProgram::query()
+            ->whereNotIn('title', ['Weekend Getaway Package', 'Corporate Stay Package'])
+            ->delete();
     }
 }

@@ -19,13 +19,13 @@ class FaqSeeder extends Seeder
         $sectionSettings = [
             'faq_home_eyebrow' => 'FAQs',
             'faq_home_title' => 'Frequently Asked Questions',
-            'faq_home_description' => 'Quick answers about our treatments, appointments, and holistic care approach.',
-            'faq_home_image' => 'faqs-image.jpg',
+            'faq_home_description' => 'Quick answers about bookings, check-in, rooms, and hotel amenities.',
+            'faq_home_image' => 'home-about-team.jpg',
             'faq_home_contact_label' => 'Still Have Questions?',
             'faq_page_eyebrow' => 'FAQs',
             'faq_page_title' => 'Frequently Asked Questions',
-            'faq_page_description' => 'Find answers to common questions about our treatments, appointments, and holistic wellness approach.',
-            'faq_page_image' => 'faqs-image.jpg',
+            'faq_page_description' => 'Find answers to common questions about reservations, stays, facilities, and guest services at Tripti Hotel.',
+            'faq_page_image' => 'home-about-team.jpg',
             'faq_page_contact_label' => 'Still Have Questions?',
         ];
 
@@ -35,38 +35,38 @@ class FaqSeeder extends Seeder
 
         $faqs = [
             [
-                'question' => 'What treatments does Tripti Hotel offer?',
-                'answer' => 'We offer integrated non-surgical care including physiotherapy, Ayurveda, Panchakarma, Hijama, acupuncture, nutrition counselling, pain rehabilitation, and lifestyle disorder management — all under one roof.',
+                'question' => 'What are the check-in and check-out times?',
+                'answer' => 'Check-in is from 2:00 PM and check-out is by 11:00 AM. Early check-in or late check-out may be available on request, subject to room availability.',
                 'sort_order' => 1,
                 'display_on_home' => true,
             ],
             [
-                'question' => 'Do I need a doctor\'s referral to visit?',
-                'answer' => 'No referral is required. You can book a consultation directly. Our specialists will assess your condition and recommend a personalised treatment plan during your first visit.',
+                'question' => 'How can I book a room at Tripti Hotel?',
+                'answer' => 'You can book directly through our website contact form, call our front desk, or email us with your preferred dates and room type. Our team will confirm availability and assist with your reservation.',
                 'sort_order' => 2,
                 'display_on_home' => true,
             ],
             [
-                'question' => 'Are your treatments non-surgical?',
-                'answer' => 'Yes. Our focus is on natural, evidence-based therapies that help you recover without surgery wherever possible. Treatment plans are tailored to your condition, age, and health goals.',
+                'question' => 'Do you offer airport pickup and drop-off?',
+                'answer' => 'Yes. Airport transfer can be arranged on request at the time of booking or by contacting the front desk before your arrival.',
                 'sort_order' => 3,
                 'display_on_home' => true,
             ],
             [
-                'question' => 'How long does a typical treatment plan take?',
-                'answer' => 'It depends on your condition and severity. Some patients notice relief within a few sessions, while chronic or long-standing issues may need a structured plan over several weeks.',
+                'question' => 'Is Wi-Fi available in the rooms?',
+                'answer' => 'Complimentary high-speed Wi-Fi is available for guests throughout the hotel, including all rooms and common areas.',
                 'sort_order' => 4,
                 'display_on_home' => true,
             ],
             [
-                'question' => 'Do you offer personalised diet and lifestyle plans?',
-                'answer' => 'Absolutely. Our nutritionists and wellness consultants create practical diet, exercise, and lifestyle protocols to support recovery, weight management, and long-term health.',
+                'question' => 'Do you have banquet and event facilities?',
+                'answer' => 'Yes. We offer banquet and meeting spaces for weddings, receptions, corporate events, and private celebrations with catering and coordination support.',
                 'sort_order' => 5,
                 'display_on_home' => true,
             ],
             [
-                'question' => 'How do I book an appointment?',
-                'answer' => 'You can book online through our website, call our clinic directly, or visit us in person. Our team will help you schedule a consultation at your convenience.',
+                'question' => 'What is your cancellation policy?',
+                'answer' => 'Cancellation terms may vary by booking type and season. Please contact our reservations team for the applicable policy at the time of booking.',
                 'sort_order' => 6,
                 'display_on_home' => true,
             ],
@@ -88,5 +88,9 @@ class FaqSeeder extends Seeder
                 ]
             );
         }
+
+        Faq::query()
+            ->whereNotIn('question', array_column($faqs, 'question'))
+            ->delete();
     }
 }

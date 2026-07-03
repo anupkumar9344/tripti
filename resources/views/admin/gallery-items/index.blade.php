@@ -22,33 +22,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title mb-0">Home Section</h4>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('admin.gallery-items.settings.update') }}" method="POST">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="gallery_home_title">Section Title</label>
-                            <input type="text" class="form-control @error('gallery_home_title') is-invalid @enderror" id="gallery_home_title" name="gallery_home_title" value="{{ old('gallery_home_title', $homeSectionSettings['gallery_home_title'] ?? 'Gallery') }}">
-                            @error('gallery_home_title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="admin-form-actions mt-3">
-                            <button type="submit" class="btn btn-primary">Save Section Settings</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-8">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title mb-0">Gallery Items</h4>

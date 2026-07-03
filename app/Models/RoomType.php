@@ -5,39 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ExpertProfileCategory extends Model
+class RoomType extends Model
 {
     /**
-     * The attributes that are mass assignable.
-     *
      * @var list<string>
      */
     protected $fillable = [
-        'title',
-        'icon',
+        'name',
+        'fare',
+        'max_adults',
+        'max_children',
+        'is_featured',
+        'category',
         'sort_order',
         'status',
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
+            'fare' => 'decimal:2',
+            'is_featured' => 'boolean',
             'status' => 'boolean',
         ];
     }
 
     /**
-     * Get the profile sections using this category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get rooms for this room type.
      */
-    public function sections(): HasMany
+    public function rooms(): HasMany
     {
-        return $this->hasMany(ExpertProfileSection::class);
+        return $this->hasMany(Room::class)->orderBy('sort_order')->orderBy('room_number');
     }
 }

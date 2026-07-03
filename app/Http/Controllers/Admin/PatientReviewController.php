@@ -62,7 +62,7 @@ class PatientReviewController extends Controller
 
         return redirect()
             ->route('admin.patient-reviews.index')
-            ->with('success', 'Patient feedback section settings updated successfully.');
+            ->with('success', 'Feedback section settings updated successfully.');
     }
 
     /**
@@ -88,7 +88,7 @@ class PatientReviewController extends Controller
 
         return redirect()
             ->route('admin.patient-reviews.index')
-            ->with('success', 'Patient review created successfully.');
+            ->with('success', 'Feedback created successfully.');
     }
 
     /**
@@ -115,7 +115,7 @@ class PatientReviewController extends Controller
 
         return redirect()
             ->route('admin.patient-reviews.index')
-            ->with('success', 'Patient review updated successfully.');
+            ->with('success', 'Feedback updated successfully.');
     }
 
     /**
@@ -129,7 +129,7 @@ class PatientReviewController extends Controller
 
         return redirect()
             ->route('admin.patient-reviews.index')
-            ->with('success', 'Patient review deleted successfully.');
+            ->with('success', 'Feedback deleted successfully.');
     }
 
     /**

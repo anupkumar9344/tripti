@@ -47,7 +47,7 @@
 
 <div class="form-group mb-3">
     <label class="form-label" for="review_text">Review Text <span class="text-danger">*</span></label>
-    <textarea class="form-control @error('review_text') is-invalid @enderror" id="review_text" name="review_text" rows="5" required placeholder="Patient feedback shown in the slider card.">{{ old('review_text', $patientReview->review_text ?? '') }}</textarea>
+    <textarea class="form-control @error('review_text') is-invalid @enderror" id="review_text" name="review_text" rows="5" required placeholder="Feedback shown in the slider card.">{{ old('review_text', $patientReview->review_text ?? '') }}</textarea>
     @error('review_text')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

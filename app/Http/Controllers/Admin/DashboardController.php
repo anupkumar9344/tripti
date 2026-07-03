@@ -8,10 +8,8 @@ use App\Models\Contact;
 use App\Models\Expert;
 use App\Models\Faq;
 use App\Models\GalleryItem;
-use App\Models\HealthProgram;
 use App\Models\PatientReview;
 use App\Models\Service;
-use App\Models\Treatment;
 use Illuminate\View\View;
 
 /**
@@ -35,13 +33,6 @@ class DashboardController extends Controller
                 'tone' => 'primary',
             ],
             [
-                'label' => 'Treatments',
-                'count' => Treatment::query()->where('status', true)->count(),
-                'subtitle' => 'Published on website',
-                'icon' => 'ti-stethoscope',
-                'tone' => 'accent',
-            ],
-            [
                 'label' => 'Blog Posts',
                 'count' => BlogPost::query()->where('status', true)->count(),
                 'subtitle' => 'Published articles',
@@ -63,13 +54,6 @@ class DashboardController extends Controller
                 'tone' => 'purple',
             ],
             [
-                'label' => 'Health Programs',
-                'count' => HealthProgram::query()->where('status', true)->count(),
-                'subtitle' => 'Published programs',
-                'icon' => 'ti-calendar-event',
-                'tone' => 'rose',
-            ],
-            [
                 'label' => 'FAQs',
                 'count' => Faq::query()->where('status', true)->count(),
                 'subtitle' => 'Active questions',
@@ -77,7 +61,7 @@ class DashboardController extends Controller
                 'tone' => 'teal',
             ],
             [
-                'label' => 'Patient Reviews',
+                'label' => 'Feedback',
                 'count' => PatientReview::query()->where('status', true)->count(),
                 'subtitle' => 'Published testimonials',
                 'icon' => 'ti-star',

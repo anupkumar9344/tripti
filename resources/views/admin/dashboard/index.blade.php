@@ -47,7 +47,7 @@
                 <div class="card-body d-flex flex-column justify-content-center">
                     <p class="text-muted mb-0 fw-semibold">Total Website Content</p>
                     <div class="summary-count">{{ number_format($totalContent) }}</div>
-                    <p class="text-muted mb-0 font-13">Services, treatments, blogs, experts, gallery, programs, FAQs, and reviews combined.</p>
+                    <p class="text-muted mb-0 font-13">Services, blogs, experts, gallery, FAQs, and feedback combined.</p>
                 </div>
             </div>
         </div>

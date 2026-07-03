@@ -18,10 +18,10 @@ class HeroBannerSeeder extends Seeder
         $banners = [
             [
                 'eyebrow' => 'Welcome to Tripti Hotel',
-                'title' => 'Non-Surgical Healing for Pain & Chronic Conditions',
-                'text' => 'Integrated physiotherapy, Ayurveda, and holistic therapies to help you recover safely, naturally, and with lasting results.',
+                'title' => 'Luxury Stays & Premium Hospitality',
+                'text' => 'Experience elegant rooms, fine dining, and attentive service designed to make every visit comfortable and memorable.',
                 'image' => 'home-about-team.jpg',
-                'primary_label' => 'Book Appointment',
+                'primary_label' => 'Book Your Stay',
                 'primary_url' => url('/contact-us'),
                 'secondary_label' => 'Watch Video',
                 'secondary_url' => 'https://www.youtube.com/watch?v=Y-x0efG1seA',
@@ -29,24 +29,24 @@ class HeroBannerSeeder extends Seeder
                 'sort_order' => 1,
             ],
             [
-                'eyebrow' => 'Multidisciplinary Care',
-                'title' => 'Ayurveda, Physiotherapy & Wellness Under One Roof',
-                'text' => 'Expert-led treatments for back pain, metabolic disorders, detox, rehabilitation, and complete lifestyle wellness.',
-                'image' => 'gallery-4.jpg',
-                'primary_label' => 'Explore Services',
-                'primary_url' => url('/services'),
-                'secondary_label' => 'Meet Our Experts',
-                'secondary_url' => url('/our-expert-team'),
+                'eyebrow' => 'Rooms & Suites',
+                'title' => 'Comfortable Rooms for Every Traveller',
+                'text' => 'From deluxe rooms to premium suites, find the perfect space for business trips, family holidays, and weekend escapes.',
+                'image' => asset('assets/img/rooms/1.jpg'),
+                'primary_label' => 'Explore Rooms',
+                'primary_url' => url('/rooms'),
+                'secondary_label' => 'Meet Our Team',
+                'secondary_url' => url('/experts'),
                 'secondary_type' => 'link',
                 'sort_order' => 2,
             ],
             [
-                'eyebrow' => 'Health Programs & Camps',
-                'title' => 'Structured Programs for Long-Term Wellness',
-                'text' => 'Join weight management, spine care, detox, and community wellness camps designed for sustainable healing.',
-                'image' => 'faqs-image.jpg',
-                'primary_label' => 'View Programs',
-                'primary_url' => url('/health-programs'),
+                'eyebrow' => 'Events & Dining',
+                'title' => 'Celebrate, Dine, and Host with Ease',
+                'text' => 'Discover banquet facilities, curated menus, and event support for weddings, meetings, and special occasions.',
+                'image' => asset('assets/img/gallery/4.jpg'),
+                'primary_label' => 'View Facilities',
+                'primary_url' => url('/facilities'),
                 'secondary_label' => 'Contact Us',
                 'secondary_url' => url('/contact-us'),
                 'secondary_type' => 'link',
@@ -71,5 +71,9 @@ class HeroBannerSeeder extends Seeder
                 ]
             );
         }
+
+        HeroBanner::query()
+            ->whereNotIn('title', array_column($banners, 'title'))
+            ->delete();
     }
 }

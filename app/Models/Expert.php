@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Expert extends Model
@@ -46,14 +45,6 @@ class Expert extends Model
             'display_on_home' => 'boolean',
             'show_faq_section' => 'boolean',
         ];
-    }
-
-    /**
-     * Get the profile sections for this expert.
-     */
-    public function profileSections(): HasMany
-    {
-        return $this->hasMany(ExpertProfileSection::class);
     }
 
     /**

@@ -17,39 +17,39 @@ class WhyChooseItemSeeder extends Seeder
     {
         $items = [
             [
-                'title' => 'Root-Cause Diagnosis',
-                'icon' => 'fa-shield-halved',
-                'short_description' => 'We identify what\'s actually causing the issue — not just suppress symptoms.',
+                'title' => 'Prime City Location',
+                'icon' => 'fa-location-dot',
+                'short_description' => 'Conveniently located with easy access to business hubs, dining, and local attractions.',
                 'sort_order' => 1,
             ],
             [
-                'title' => 'Integrated Specialists',
-                'icon' => 'fa-user-doctor',
-                'short_description' => 'Physiotherapists, Ayurveda doctors, nutritionists & therapists under one roof.',
+                'title' => 'Luxury Rooms & Suites',
+                'icon' => 'fa-bed',
+                'short_description' => 'Elegantly designed accommodations with modern amenities and premium comfort.',
                 'sort_order' => 2,
             ],
             [
-                'title' => 'Personalised Protocols',
-                'icon' => 'fa-hand-holding-heart',
-                'short_description' => 'Every patient receives a treatment plan designed for their unique condition.',
+                'title' => '24/7 Guest Support',
+                'icon' => 'fa-headset',
+                'short_description' => 'Our front desk and concierge team are available around the clock for every need.',
                 'sort_order' => 3,
             ],
             [
-                'title' => 'Non-Surgical & Natural',
-                'icon' => 'fa-leaf',
-                'short_description' => 'Avoid risky surgery wherever possible with safe, evidence-based therapies.',
+                'title' => 'Fine Dining Experience',
+                'icon' => 'fa-utensils',
+                'short_description' => 'Enjoy curated menus, room service, and banquet dining crafted by expert chefs.',
                 'sort_order' => 4,
             ],
             [
-                'title' => '25+ Years Experience',
+                'title' => '15+ Years of Trust',
                 'icon' => 'fa-award',
-                'short_description' => 'Decades of clinical work treating complex pain and lifestyle disorders.',
+                'short_description' => 'A hospitality legacy built on consistent service, comfort, and guest satisfaction.',
                 'sort_order' => 5,
             ],
             [
-                'title' => 'Long-Term Wellness',
-                'icon' => 'fa-heart-pulse',
-                'short_description' => 'Lasting results — we treat the body, mind, metabolism and aesthetics together.',
+                'title' => 'Events & Celebrations',
+                'icon' => 'fa-champagne-glasses',
+                'short_description' => 'Spacious banquet and meeting facilities for weddings, conferences, and gatherings.',
                 'sort_order' => 6,
             ],
         ];
@@ -65,5 +65,9 @@ class WhyChooseItemSeeder extends Seeder
                 ]
             );
         }
+
+        WhyChooseItem::query()
+            ->whereNotIn('title', array_column($items, 'title'))
+            ->delete();
     }
 }
