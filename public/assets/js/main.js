@@ -822,4 +822,97 @@
     });
   })();
 
+  /* Shorts video feedbacks */
+  (function () {
+    function initVideoFeedbackThumbnails(scope) {
+      if (!scope) return;
+
+      scope.querySelectorAll(".video-feedback-thumb-media").forEach(function (video) {
+        if (video.dataset.posterReady === "1") return;
+        video.dataset.posterReady = "1";
+
+        var showFrame = function () {
+          if (!video.duration || Number.isNaN(video.duration)) return;
+          video.currentTime = Math.min(0.5, Math.max(0.1, video.duration * 0.05));
+        };
+
+        video.addEventListener("loadedmetadata", showFrame, { once: true });
+        video.addEventListener(
+          "seeked",
+          function () {
+            video.pause();
+          },
+          { once: true }
+        );
+      });
+    }
+
+    function resetVideoFeedbackReel($reel) {
+      $reel.removeClass("is-playing");
+      $reel.find(".video-feedback-reel-player").empty().attr("aria-hidden", "true");
+    }
+
+    function resetAllVideoFeedbackReels() {
+      $(".video-feedback-reel.is-playing").each(function () {
+        resetVideoFeedbackReel($(this));
+      });
+    }
+
+    if ($(".video-feedback-swiper").length && typeof Swiper !== "undefined") {
+      var videoFeedbackSwiper = new Swiper(".video-feedback-swiper", {
+        slidesPerView: 1.35,
+        spaceBetween: 14,
+        speed: 650,
+        grabCursor: true,
+        watchOverflow: true,
+        navigation: {
+          nextEl: ".video-shorts-next",
+          prevEl: ".video-shorts-prev",
+        },
+        breakpoints: {
+          576: { slidesPerView: 2.1, spaceBetween: 16 },
+          768: { slidesPerView: 3.1, spaceBetween: 16 },
+          992: { slidesPerView: 4, spaceBetween: 18 },
+          1200: { slidesPerView: 5, spaceBetween: 18 },
+        },
+      });
+
+      videoFeedbackSwiper.on("slideChange", resetAllVideoFeedbackReels);
+      initVideoFeedbackThumbnails(document.querySelector(".video-shorts-section"));
+    }
+
+    initVideoFeedbackThumbnails(document);
+
+    $(document).on("click", ".video-feedback-play", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var $reel = $(this).closest(".video-feedback-reel");
+      if ($reel.hasClass("is-playing")) return;
+
+      resetAllVideoFeedbackReels();
+
+      var embedUrl = $reel.data("embed-url");
+      var isDirectVideo = String($reel.data("direct-video")) === "1";
+      var $player = $reel.find(".video-feedback-reel-player");
+
+      if (!embedUrl) return;
+
+      if (isDirectVideo) {
+        $player.html(
+          '<video src="' + embedUrl + '" controls autoplay playsinline></video>'
+        );
+      } else {
+        $player.html(
+          '<iframe src="' +
+            embedUrl +
+            '" title="Guest video short" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>'
+        );
+      }
+
+      $player.attr("aria-hidden", "false");
+      $reel.addClass("is-playing");
+    });
+  })();
+
 })(jQuery);

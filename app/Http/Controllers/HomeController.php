@@ -12,6 +12,7 @@ use App\Models\PatientReview;
 use App\Models\RoomType;
 use App\Models\Setting;
 use App\Models\TrustStripItem;
+use App\Models\VideoFeedback;
 use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
@@ -59,6 +60,7 @@ class HomeController extends Controller
         $heroBanners = HeroBanner::query()->activeOrdered()->get();
         $trustStripItems = TrustStripItem::query()->activeOrdered()->get();
         $homeGalleryItems = GalleryItem::query()->forHome()->get();
+        $homeVideoFeedbacks = VideoFeedback::query()->forHome()->limit(10)->get();
 
         return view('index', compact(
             'settings',
@@ -71,6 +73,7 @@ class HomeController extends Controller
             'heroBanners',
             'trustStripItems',
             'homeGalleryItems',
+            'homeVideoFeedbacks',
         ));
     }
 }

@@ -25,6 +25,22 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     object-fit: contain;
 }
 
+/* Inner page breadcrumb — remove extra white gap below banner */
+.section-breadcrumb {
+    padding-bottom: 0 !important;
+    margin-bottom: 0;
+}
+
+.section-breadcrumb .rx-breadcrumb-image,
+.section-breadcrumb .rx-breadcrumb-overlay {
+    height: 320px;
+}
+
+.section-breadcrumb + section,
+.section-breadcrumb + .about-page-section {
+    padding-top: 36px !important;
+}
+
 /* Site header — glass overlay + sticky state */
 .site-header {
     position: relative;
@@ -1841,7 +1857,7 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
 
 .home-testimonials-header {
     max-width: 640px;
-    margin: 0 auto 40px;
+    margin: 0 auto 36px;
 }
 
 .home-testimonials-eyebrow {
@@ -1893,20 +1909,18 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
+    max-width: 820px;
+    margin: 0 auto;
 }
 
 .home-testimonials-track {
     position: relative;
     flex: 1;
-    min-height: 360px;
+    min-width: 0;
 }
 
 .home-testimonials-slide {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 48px;
-    align-items: center;
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -1922,15 +1936,58 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     transform: translateX(0);
 }
 
-.home-testimonials-visual {
-    border-radius: 12px;
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    background: #ececec;
-    box-shadow: 0 16px 40px rgba(17, 17, 17, 0.08);
+.home-testimonials-card {
+    padding: 32px 36px;
+    border: 1px solid #ebe4da;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(28, 21, 16, 0.06);
+    text-align: center;
 }
 
-.home-testimonials-visual img {
+.home-testimonials-stars {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 18px;
+    color: #9d7e54;
+    font-size: 14px;
+}
+
+.home-testimonials-quote {
+    margin: 0 0 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.home-testimonials-quote p {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    line-height: 1.7;
+    font-weight: 400;
+    color: #333;
+}
+
+.home-testimonials-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+}
+
+.home-testimonials-photo {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(157, 126, 84, 0.25);
+    background: #f0ebe3;
+}
+
+.home-testimonials-photo img {
     display: block;
     width: 100%;
     height: 100%;
@@ -1943,19 +2000,16 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     justify-content: center;
     width: 100%;
     height: 100%;
-    min-height: 320px;
 }
 
 .home-testimonials-avatar span {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    height: 100%;
     font-family: "Playfair Display", serif;
-    font-size: 48px;
+    font-size: 22px;
     font-weight: 500;
     color: #fff;
 }
@@ -1972,53 +2026,30 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     background: linear-gradient(145deg, #c47a2c, #9a5f22);
 }
 
-.home-testimonials-content {
-    padding: 8px 0;
-}
-
-.home-testimonials-stars {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 20px;
-    color: #9d7e54;
-    font-size: 15px;
-}
-
-.home-testimonials-quote {
-    margin: 0 0 28px;
-    padding: 24px 28px;
-    border: 1px solid #e8e8e8;
-    border-radius: 12px;
-    background: #fff;
-}
-
-.home-testimonials-quote p {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.8;
-    color: #444;
+.home-testimonials-author-copy {
+    min-width: 0;
 }
 
 .home-testimonials-name {
-    margin-bottom: 4px;
+    margin: 0 0 2px;
     font-family: "Playfair Display", serif;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.3;
     font-weight: 500;
     color: #111;
 }
 
 .home-testimonials-time {
-    margin-bottom: 8px;
-    font-size: 14px;
+    margin: 0 0 4px;
+    font-size: 13px;
     color: #888;
 }
 
 .home-testimonials-verified {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
+    gap: 5px;
+    font-size: 12px;
     font-weight: 500;
     color: #9d7e54;
 }
@@ -2050,7 +2081,7 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 32px;
+    margin-top: 28px;
 }
 
 .home-testimonials-dot {
@@ -2074,35 +2105,16 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
         font-size: 32px;
     }
 
-    .home-testimonials-slide {
-        grid-template-columns: 1fr;
-        gap: 28px;
-    }
-
-    .home-testimonials-track {
-        min-height: 0;
-    }
-
-    .home-testimonials-slide {
-        position: absolute;
-    }
-
-    .home-testimonials-slide.is-active {
-        position: relative;
-    }
-
-    .home-testimonials-visual {
-        max-width: 320px;
-        margin: 0 auto;
-        aspect-ratio: 1 / 1;
-    }
-
     .home-testimonials-nav {
         display: none;
     }
 
+    .home-testimonials-card {
+        padding: 28px 22px;
+    }
+
     .home-testimonials-quote p {
-        font-size: 16px;
+        font-size: 18px;
     }
 }
 
@@ -2112,8 +2124,250 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
         gap: 8px;
     }
 
-    .home-testimonials-quote {
-        padding: 20px;
+    .home-testimonials-author {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-testimonials-quote p {
+        font-size: 16px;
+    }
+}
+
+/* Shorts video feedbacks */
+.video-shorts-section {
+    background: #fff;
+}
+
+.video-shorts-header {
+    max-width: 560px;
+    margin: 0 auto 36px;
+}
+
+.video-shorts-eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9d7e54;
+}
+
+.video-shorts-title {
+    margin-bottom: 10px;
+    font-family: "Playfair Display", serif;
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #111;
+}
+
+.video-shorts-lead {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.video-shorts-slider-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 8px;
+}
+
+.video-shorts-slider-wrap .video-feedback-swiper {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    padding: 4px 2px 12px;
+}
+
+.video-shorts-slider-wrap .swiper-slide {
+    height: auto;
+}
+
+.video-feedback-reel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    min-height: 460px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #1c1510;
+    box-shadow: 0 12px 28px rgba(28, 21, 16, 0.12);
+}
+
+@media (max-width: 575px) {
+    .video-feedback-reel {
+        min-height: 380px;
+    }
+}
+
+.video-feedback-reel-poster,
+.video-feedback-reel-player {
+    position: absolute;
+    inset: 0;
+}
+
+.video-feedback-reel-poster {
+    z-index: 1;
+}
+
+.video-feedback-reel.is-playing .video-feedback-reel-poster {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.video-feedback-reel-player {
+    z-index: 2;
+    display: none;
+    background: #000;
+}
+
+.video-feedback-reel.is-playing .video-feedback-reel-player {
+    display: block;
+}
+
+.video-feedback-reel-player iframe,
+.video-feedback-reel-player video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+}
+
+.video-feedback-reel-poster-media,
+.video-feedback-reel img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-feedback-thumb-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #2a2218, #1c1510);
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 28px;
+}
+
+.video-feedback-reel-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.video-feedback-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #c45c5c;
+    font-size: 24px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-feedback-play:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+}
+
+.video-feedback-play i {
+    margin-left: 2px;
+}
+
+.video-shorts-user {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 14px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.video-shorts-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #9d7e54;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.video-shorts-handle {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-shorts-nav {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    color: #111;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.video-shorts-nav:hover {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+}
+
+@media (max-width: 991px) {
+    .video-shorts-title {
+        font-size: 32px;
+    }
+
+    .video-shorts-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 575px) {
+    .video-feedback-play {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
     }
 }
 

@@ -9,5 +9,12 @@
     @include('partials.home-rooms')
     @include('partials.home-amenities')
     @include('partials.home-testimonials')
+    @include('partials.video-feedback-section', [
+        'videoFeedbacks' => $homeVideoFeedbacks,
+        'eyebrow' => 'Shorts Video',
+        'title' => 'See in practice',
+        'lead' => 'Real stories from our community',
+    ])
     @include('partials.home-blog')
 @endsection
+

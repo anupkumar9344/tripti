@@ -1,4 +1,12 @@
-@if ($video->usesInlineVideoPoster())
+@if (filled($video->thumbnail))
+    <img
+        src="{{ $video->thumbnailUrl() }}"
+        alt="{{ $alt ?? $video->displayTitle() }}"
+        class="{{ $class ?? '' }}"
+        loading="lazy"
+        @isset($attrs){!! $attrs !!}@endisset
+    >
+@elseif ($video->usesInlineVideoPoster())
     <video
         class="video-feedback-thumb-media {{ $class ?? '' }}"
         src="{{ $video->playableUrl() }}"
@@ -10,7 +18,7 @@
 @elseif ($video->thumbnailUrl())
     <img
         src="{{ $video->thumbnailUrl() }}"
-        alt="{{ $alt ?? 'Video preview' }}"
+        alt="{{ $alt ?? $video->displayTitle() }}"
         class="{{ $class ?? '' }}"
         loading="lazy"
         @isset($attrs){!! $attrs !!}@endisset

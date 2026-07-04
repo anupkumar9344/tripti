@@ -23,7 +23,9 @@ class VideoFeedback extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'title',
         'video_url',
+        'thumbnail',
         'display_on_home',
         'display_on_services',
         'sort_order',
@@ -175,6 +177,10 @@ class VideoFeedback extends Model
      */
     public function thumbnailUrl(): string
     {
+        if (filled($this->thumbnail)) {
+            return MediaPath::url($this->thumbnail, 'assets/img/rooms/1.jpg');
+        }
+
         if ($this->isDirectVideo()) {
             return '';
         }
@@ -187,7 +193,27 @@ class VideoFeedback extends Model
             return $this->vimeoThumbnailUrl($matches[1]);
         }
 
-        return '';
+        return asset('assets/img/rooms/1.jpg');
+    }
+
+    /**
+     * Display title for the short.
+     */
+    public function displayTitle(): string
+    {
+        return filled($this->title) ? $this->title : 'Hotel Short';
+    }
+
+    /**
+     * Social-style handle shown on the reel card.
+     */
+    public function guestHandle(): string
+    {
+        $base = filled($this->title)
+            ? strtolower((string) preg_replace('/[^a-zA-Z0-9]+/', '.', $this->title))
+            : 'guest'.$this->id;
+
+        return '@'.trim($base, '.');
     }
 
     /**

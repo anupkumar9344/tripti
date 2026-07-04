@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Video Feedback')
+@section('title', 'Edit Shorts Video')
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <h4 class="page-title">Edit Video Feedback</h4>
+                <h4 class="page-title">Edit Shorts Video</h4>
             </div>
         </div>
     </div>

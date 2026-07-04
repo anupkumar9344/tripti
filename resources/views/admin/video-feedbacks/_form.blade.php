@@ -3,12 +3,30 @@
 @endphp
 
 <div class="form-group mb-3">
+    <label class="form-label" for="title">Title</label>
+    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $videoFeedback->title ?? '') }}" placeholder="Luxury Suite, Fine Dining, Spa...">
+    <small class="text-muted">Shown as the short label on the homepage (e.g. luxury suite).</small>
+    @error('title')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group mb-3">
     <label class="form-label" for="video_url">Video URL <span class="text-danger">*</span></label>
     <input type="url" class="form-control @error('video_url') is-invalid @enderror" id="video_url" name="video_url" value="{{ old('video_url', isset($videoFeedback) ? $videoFeedback->playableUrl() : '') }}" required placeholder="https://www.youtube.com/shorts/... or paste MP4 URL from Media Library">
-    <small class="text-muted">YouTube Shorts, Vimeo, or direct MP4/WebM links from the media library. Thumbnails are generated automatically from the video.</small>
+    <small class="text-muted">YouTube Shorts, Vimeo, or direct MP4/WebM links from the media library.</small>
     @error('video_url')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
+</div>
+
+<div class="form-group mb-3">
+    @include('admin.media.partials.url-field', [
+        'name' => 'thumbnail',
+        'currentValue' => old('thumbnail', $isEdit ? ($videoFeedback->thumbnail ?? '') : ''),
+        'label' => 'Hotel Poster Image',
+    ])
+    <span class="form-text text-muted font-12">Use a hotel room, dining, spa, or gallery image so each short looks unique.</span>
 </div>
 
 <div class="row">

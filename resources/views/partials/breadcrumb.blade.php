@@ -1,4 +1,4 @@
-<section class="section-breadcrumb padding-b-50">
+<section class="section-breadcrumb">
     <div class="rx-breadcrumb-image">
         <div class="rx-breadcrumb-overlay"></div>
         <div class="inner-breadcrumb-contact">

@@ -50,17 +50,7 @@
                             $avatarInitial = $isModel ? $review->avatarInitial() : ($review['initial'] ?? strtoupper(substr($name, 0, 1)));
                         @endphp
                         <article class="home-testimonials-slide{{ $index === 0 ? ' is-active' : '' }}" data-testimonial-slide="{{ $index }}">
-                            <div class="home-testimonials-visual">
-                                @if ($photoUrl)
-                                    <img src="{{ $photoUrl }}" alt="{{ $name }}">
-                                @else
-                                    <div class="home-testimonials-avatar home-testimonials-avatar--{{ $avatarTone }}">
-                                        <span>{{ $avatarInitial }}</span>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="home-testimonials-content">
+                            <div class="home-testimonials-card">
                                 <div class="home-testimonials-stars" aria-label="{{ $rating }} out of 5 stars">
                                     @for ($i = 0; $i < $rating; $i++)
                                         <i class="fa-solid fa-star"></i>
@@ -72,13 +62,24 @@
                                 </blockquote>
 
                                 <div class="home-testimonials-author">
-                                    <h3 class="home-testimonials-name">{{ $name }}</h3>
-                                    @if ($reviewTime)
-                                        <p class="home-testimonials-time">{{ $reviewTime }}</p>
-                                    @endif
-                                    @if ($isVerified)
-                                        <span class="home-testimonials-verified"><i class="fa-solid fa-circle-check"></i> Verified Guest</span>
-                                    @endif
+                                    <div class="home-testimonials-photo">
+                                        @if ($photoUrl)
+                                            <img src="{{ $photoUrl }}" alt="{{ $name }}">
+                                        @else
+                                            <div class="home-testimonials-avatar home-testimonials-avatar--{{ $avatarTone }}">
+                                                <span>{{ $avatarInitial }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="home-testimonials-author-copy">
+                                        <h3 class="home-testimonials-name">{{ $name }}</h3>
+                                        @if ($reviewTime)
+                                            <p class="home-testimonials-time">{{ $reviewTime }}</p>
+                                        @endif
+                                        @if ($isVerified)
+                                            <span class="home-testimonials-verified"><i class="fa-solid fa-circle-check"></i> Verified Guest</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </article>

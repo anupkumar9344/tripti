@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Video Feedbacks')
+@section('title', 'Shorts Video')
 
 @push('styles')
     <link href="{{ asset('admin/assets/plugins/datatables/datatable.css') }}" rel="stylesheet" type="text/css" />
@@ -16,7 +16,7 @@
                         <i class="ti ti-plus me-1"></i> Add Video
                     </a>
                 </div>
-                <h4 class="page-title">Video Feedbacks</h4>
+                <h4 class="page-title">Shorts Video</h4>
             </div>
         </div>
     </div>
@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>Order</th>
                                     <th>Preview</th>
+                                    <th>Title</th>
                                     <th>Video URL</th>
                                     <th>Visibility</th>
                                     <th>Status</th>
@@ -51,7 +52,8 @@
                                                 'attrs' => 'height="72" style="width: 40px; object-fit: cover;"',
                                             ])
                                         </td>
-                                        <td>{{ \Illuminate\Support\Str::limit($videoFeedback->video_url, 60) }}</td>
+                                        <td class="fw-semibold">{{ $videoFeedback->displayTitle() }}</td>
+                                        <td>{{ \Illuminate\Support\Str::limit($videoFeedback->video_url, 50) }}</td>
                                         <td>
                                             @if ($videoFeedback->display_on_home)
                                                 <span class="badge badge-soft-primary me-1">Home</span>

@@ -3,7 +3,7 @@
 @section('title', 'Book Online | Tripti Hotel')
 
 @section('content')
-    <section class="booking-page booking-page-no-breadcrumb">
+    <section class="booking-page booking-page-no-breadcrumb" style="padding-top: 140px;">
         <div class="container">
             @if (session('error'))
                 <div class="alert alert-danger booking-alert">{{ session('error') }}</div>

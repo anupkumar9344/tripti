@@ -104,7 +104,9 @@ class VideoFeedbackController extends Controller
     private function validateVideoFeedback(Request $request): array
     {
         return $request->validate([
+            'title' => ['nullable', 'string', 'max:120'],
             'video_url' => ['required', 'string', 'max:500'],
+            'thumbnail' => ['nullable', 'string', 'max:500'],
             'display_on_home' => ['required', 'boolean'],
             'display_on_services' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
@@ -121,7 +123,9 @@ class VideoFeedbackController extends Controller
     private function videoFeedbackAttributes(array $validated): array
     {
         return [
+            'title' => $validated['title'] ?? null,
             'video_url' => MediaPath::normalize($validated['video_url']) ?? trim($validated['video_url']),
+            'thumbnail' => MediaPath::normalize($validated['thumbnail'] ?? null),
             'display_on_home' => (bool) $validated['display_on_home'],
             'display_on_services' => (bool) $validated['display_on_services'],
             'sort_order' => $validated['sort_order'] ?? 0,
