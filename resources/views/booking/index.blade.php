@@ -3,7 +3,7 @@
 @section('title', 'Book Online | Tripti Hotel')
 
 @section('content')
-    <section class="booking-page booking-page-no-breadcrumb" style="padding-top: 140px;">
+    <section class="booking-page booking-page-no-breadcrumb" style="padding-top: 50px;">
         <div class="container">
             @if (session('error'))
                 <div class="alert alert-danger booking-alert">{{ session('error') }}</div>
@@ -82,8 +82,11 @@
                         <div class="col-lg-6">
                             <article class="booking-room-card">
                                 <div class="booking-room-media">
-                                    <img src="{{ $roomType->imageUrl() }}" alt="{{ $roomType->name }}">
+                                    <div class="booking-room-media-inner">
+                                        <img src="{{ $roomType->imageUrl() }}" alt="{{ $roomType->name }}">
+                                    </div>
                                     <span class="booking-room-badge">{{ $roomType->categoryLabel() }}</span>
+                                    <span class="booking-room-price-badge">From ₹{{ number_format((float) $roomType->fare, 0) }} / night</span>
                                 </div>
                                 <div class="booking-room-body">
                                     <div class="booking-room-copy">
@@ -97,12 +100,7 @@
                                             <li><i class="ri-hotel-bed-line"></i> {{ $roomType->available_units }} available</li>
                                         </ul>
                                     </div>
-                                    <div class="booking-room-price">
-                                        <div class="booking-room-fare">
-                                            <span>From</span>
-                                            <strong>₹{{ number_format((float) $roomType->fare, 0) }}</strong>
-                                            <span>/ night</span>
-                                        </div>
+                                    <div class="booking-room-footer">
                                         <div class="booking-room-total">
                                             Stay total: <strong>₹{{ number_format((float) $roomType->stay_total, 0) }}</strong>
                                         </div>
@@ -115,7 +113,7 @@
                                                 'children' => $filters['children'],
                                                 'promo_code' => $filters['promo_code'] ?? null,
                                             ])) }}"
-                                            class="booking-room-btn"
+                                            class="btn-pill btn-pill--dark booking-room-btn"
                                         >
                                             Select Room
                                         </a>
@@ -129,7 +127,7 @@
                                 <i class="ri-hotel-bed-line"></i>
                                 <h3>No rooms available</h3>
                                 <p>Try different dates or guest counts. You can also contact us for special arrangements.</p>
-                                <a href="{{ route('contact') }}" class="booking-room-btn">Contact Us</a>
+                                <a href="{{ route('contact') }}" class="btn-pill btn-pill--dark booking-room-btn">Contact Us</a>
                             </div>
                         </div>
                     @endforelse

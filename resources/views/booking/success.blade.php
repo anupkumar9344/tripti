@@ -3,7 +3,7 @@
 @section('title', 'Booking Confirmed | Tripti Hotel')
 
 @section('content')
-    <section class="booking-page booking-page-no-breadcrumb">
+    <section class="booking-page booking-page-no-breadcrumb" style="padding-top: 50px;">
         <div class="container">
             <div class="booking-success-card">
                 <div class="booking-success-icon">
