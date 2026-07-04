@@ -1,6 +1,6 @@
 .admin-yajra-datatable .dataTables_wrapper .dataTables_filter input,
 .admin-yajra-datatable .dataTables_wrapper .dataTables_length select {
-    border: .5px solid #7356a5;
+    border: .5px solid var(--admin-primary);
     border-radius: 0.25rem;
     padding: 0.35rem 0.65rem;
 }
@@ -17,7 +17,7 @@
 
 .admin-yajra-datatable .dataTables_processing {
     background: rgba(255, 255, 255, 0.9);
-    border: .5px solid #7356a5;
+    border: .5px solid var(--admin-primary);
     border-radius: 0.35rem;
     padding: 0.75rem 1rem;
 }

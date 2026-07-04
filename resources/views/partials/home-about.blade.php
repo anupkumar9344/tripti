@@ -73,7 +73,7 @@
                         @endforeach
                     </div>
 
-                    <a href="{{ route('about') }}" class="home-about-btn">Discover Our Story</a>
+                    <a href="{{ route('about') }}" class="btn-pill btn-pill--dark home-about-btn">Discover Our Story</a>
                 </div>
             </div>
         </div>

@@ -16,6 +16,7 @@
     <link href="{{ asset('assets/css/brand.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-media.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    @include('admin.partials.theme-vars')
     @stack('styles')
 </head>
 <body id="body" class="dark-sidebar">

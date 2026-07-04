@@ -22,7 +22,7 @@
         $activeTab = 'social';
     } elseif ($errors->hasAny($seoKeys)) {
         $activeTab = 'seo';
-    } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo', 'website_favicon', 'admin_login_image'])) {
+    } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo', 'website_favicon', 'admin_login_image', 'theme_primary_color', 'admin_theme_primary_color'])) {
         $activeTab = 'general';
     }
 @endphp

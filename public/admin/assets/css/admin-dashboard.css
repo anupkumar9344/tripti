@@ -1,5 +1,5 @@
 .admin-dashboard-welcome {
-    background: linear-gradient(135deg, #7356a5 0%, #5f4689 100%);
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-primary-dark) 100%);
     border: none;
 }
 
@@ -63,7 +63,7 @@
     font-size: 1.5rem;
     line-height: 1.2;
     font-weight: 700;
-    color: #7356a5;
+    color: var(--admin-primary);
 }
 
 .admin-dashboard-stat-icon {
@@ -79,11 +79,11 @@
 }
 
 .admin-dashboard-stat-icon.tone-primary {
-    background: #7356a5;
+    background: var(--admin-primary);
 }
 
 .admin-dashboard-stat-icon.tone-accent {
-    background: #9575cd;
+    background: var(--admin-secondary);
 }
 
 .admin-dashboard-stat-icon.tone-info {
@@ -122,7 +122,7 @@
 .admin-dashboard-summary .summary-count {
     font-size: 2rem;
     font-weight: 700;
-    color: #7356a5;
+    color: var(--admin-primary);
     line-height: 1;
     margin: 0.25rem 0;
 }
@@ -170,7 +170,7 @@
 .badge.badge-count {
     min-width: 2rem;
     background: rgba(115, 86, 165, 0.08);
-    color: #7356a5;
+    color: var(--admin-primary);
     font-weight: 600;
 }
 

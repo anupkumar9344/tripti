@@ -20,6 +20,8 @@ class GeneralSettingController extends Controller
      * @var list<string>
      */
     private const SETTING_KEYS = [
+        'admin_theme_primary_color',
+        'theme_primary_color',
         'website_name',
         'website_logo',
         'website_favicon',
@@ -93,6 +95,8 @@ class GeneralSettingController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            'admin_theme_primary_color' => ['nullable', 'regex:/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/'],
+            'theme_primary_color' => ['nullable', 'regex:/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/'],
             'website_name' => ['required', 'string', 'max:255'],
             'website_logo' => ['nullable', 'string', 'max:500'],
             'website_favicon' => ['nullable', 'string', 'max:500'],
@@ -134,6 +138,12 @@ class GeneralSettingController extends Controller
         ]);
 
         foreach (self::SETTING_KEYS as $key) {
+            if (in_array($key, ['theme_primary_color', 'admin_theme_primary_color'], true)) {
+                Setting::setValue($key, \App\Support\ThemeColors::normalizeHex($validated[$key] ?? null));
+
+                continue;
+            }
+
             if (in_array($key, self::MEDIA_SETTING_KEYS, true)) {
                 Setting::setValue($key, MediaPath::normalize($validated[$key] ?? null));
 

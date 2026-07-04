@@ -29,7 +29,7 @@
         </div>
 
         <div class="home-rooms-footer text-center" data-aos="fade-up" data-aos-duration="1000">
-            <a href="{{ route('rooms') }}" class="home-rooms-view-all">View All Rooms</a>
+            <a href="{{ route('rooms') }}" class="btn-pill btn-pill--dark-outline home-rooms-view-all">View All Rooms</a>
         </div>
     </div>
 </section>

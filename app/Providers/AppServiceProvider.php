@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use App\Support\AdminThemeColors;
+use App\Support\ThemeColors;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -48,6 +50,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('layouts.app', function ($view): void {
+            $themeSettings = Setting::getMany([
+                'theme_primary_color',
+            ]);
+
+            $view->with('themeColors', ThemeColors::fromSettings($themeSettings));
             $view->with('seo', [
                 'website_name' => 'Tripti Hotel',
                 'website_favicon' => null,
@@ -66,6 +73,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer(['admin.layouts.app', 'admin.auth.login'], function ($view): void {
+            $adminThemeSettings = Setting::getMany([
+                'admin_theme_primary_color',
+            ]);
+
+            $view->with('adminThemeColors', AdminThemeColors::fromSettings($adminThemeSettings));
             $view->with('siteFaviconUrl', Setting::faviconUrl());
             $view->with('adminLoginImageUrl', Setting::adminLoginImageUrl());
         });

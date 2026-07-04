@@ -59,7 +59,7 @@
                 </label>
             </div>
 
-            <button type="submit" class="home-booking-strip-btn">Find Room</button>
+            <button type="submit" class="btn-pill btn-pill--dark home-booking-strip-btn">Find Room</button>
         </form>
     </div>
 </section>

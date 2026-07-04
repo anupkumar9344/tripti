@@ -24,7 +24,7 @@
             @else
                 <div class="rooms-page-empty text-center" data-aos="fade-up" data-aos-duration="1000">
                     <p>Room listings are being updated. Please contact us for availability.</p>
-                    <a href="{{ route('contact') }}" class="home-rooms-view-all">Contact Us</a>
+                    <a href="{{ route('contact') }}" class="btn-pill btn-pill--dark-outline home-rooms-view-all">Contact Us</a>
                 </div>
             @endif
         </div>

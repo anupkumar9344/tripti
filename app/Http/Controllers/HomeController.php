@@ -41,6 +41,8 @@ class HomeController extends Controller
         'about_stat_3_label',
         'patient_feedback_rating_label',
         'patient_feedback_total_reviews',
+        'address',
+        'opening_hours',
     ];
 
     /**

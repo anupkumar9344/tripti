@@ -9,9 +9,14 @@
 
 <article class="home-room-card">
     <div class="home-room-card-media">
-        <img src="{{ $imageUrl }}" alt="{{ $title }}">
+        <div class="home-room-card-media-inner">
+            <img src="{{ $imageUrl }}" alt="{{ $title }}">
+        </div>
         @if ($isModel && $room->is_featured)
             <span class="home-room-card-badge">Featured</span>
+        @endif
+        @if ($fare)
+            <span class="home-room-card-price">From ₹{{ number_format((float) $fare, 0) }} / night</span>
         @endif
     </div>
     <div class="home-room-card-body">
@@ -19,9 +24,6 @@
             <span class="home-room-card-category">{{ $room->categoryLabel() }}</span>
         @endif
         <h3 class="home-room-card-title">{{ $title }}</h3>
-        @if ($fare)
-            <p class="home-room-card-price">From ₹{{ number_format((float) $fare, 0) }} / night</p>
-        @endif
         @if ($description)
             <p class="home-room-card-text">{{ $description }}</p>
         @endif
@@ -34,7 +36,7 @@
             </ul>
         @endif
         <div class="home-room-card-actions">
-            <a href="{{ route('booking') }}" class="home-room-btn">Book Now</a>
+            <a href="{{ route('booking') }}" class="btn-pill btn-pill--dark home-room-btn">Book Now</a>
             <a href="{{ $detailsUrl }}" class="home-room-link">View Details <i class="ri-arrow-right-line"></i></a>
         </div>
     </div>

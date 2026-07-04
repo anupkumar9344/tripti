@@ -26,6 +26,7 @@
     @endphp
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ $styleVer }}">
     <link rel="stylesheet" href="{{ asset('assets/css/brand.css') }}?v={{ $brandVer }}">
+    @include('partials.theme-vars')
     @stack('styles')
 </head>
 <body id="Top">

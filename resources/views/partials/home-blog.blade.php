@@ -29,7 +29,7 @@
             </div>
 
             <div class="home-blog-footer text-center" data-aos="fade-up" data-aos-duration="1000">
-                <a href="{{ route('blog') }}" class="home-blog-view-all">View All Posts</a>
+                <a href="{{ route('blog') }}" class="btn-pill btn-pill--dark home-blog-view-all">View All Posts</a>
             </div>
         </div>
     </section>

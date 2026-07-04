@@ -1,4 +1,7 @@
 @php
+    use App\Models\PatientReview;
+    use App\Support\IconMap;
+
     $fallbackSlides = [
         [
             'image' => asset('assets/img/hero/hero-1.png'),
@@ -36,14 +39,39 @@
     ];
 
     $slides = isset($heroBanners) && $heroBanners->isNotEmpty() ? $heroBanners : collect($fallbackSlides);
+
+    $firstSlide = $slides->first();
+    $isFirstModel = is_object($firstSlide) && method_exists($firstSlide, 'imageUrl');
+    $heroTitle = $isFirstModel
+        ? $firstSlide->title
+        : ($firstSlide['title'] ?? (($settings ?? [])['about_home_title'] ?? 'Enjoy a relaxing retreat at Tripti Hotel'));
+
     $phoneHref = preg_replace('/\s+/', '', $sitePhone ?? '+919876543210');
     $phoneDisplay = $sitePhone ?? '+91 98765 43210';
+    $emailDisplay = $siteEmail ?? 'info@triptihotel.com';
+    $addressDisplay = ($settings ?? [])['address'] ?? '987-A, Dudhivadar, Rajkot, Gujarat, Bharat - 360410';
+    $addressShort = \Illuminate\Support\Str::limit($addressDisplay, 42);
+
+    $featureTags = isset($whyChooseItems) ? $whyChooseItems->take(3) : collect();
+    $averageRating = round((float) (PatientReview::query()->activeOrdered()->avg('rating') ?: 4.5), 1);
+    $totalReviews = ($settings ?? [])['patient_feedback_total_reviews'] ?? '428';
+    $lowestFare = isset($homeRooms) && $homeRooms->isNotEmpty()
+        ? $homeRooms->min('fare')
+        : null;
+
+    $openingHours = collect(preg_split('/\R/', (string) (($settings ?? [])['opening_hours'] ?? '')))
+        ->map(fn ($line) => trim($line))
+        ->filter();
+
+    $checkInText = $openingHours->first(fn ($line) => stripos($line, 'check-in') !== false) ?? 'Check-in: 2:00 PM';
+    $checkOutText = $openingHours->first(fn ($line) => stripos($line, 'check-out') !== false) ?? 'Check-out: 11:00 AM';
+    $checkInText = preg_replace('/^check-in:\s*/i', 'Check-in: ', $checkInText);
+    $checkOutText = preg_replace('/^check-out:\s*/i', 'Check-out: ', $checkOutText);
 @endphp
 
-<section class="section-hero margin-b-50">
-    <div class="container-fulid">
-        <div class="row">
-            <div class="col-12">
+<section class="section-hero section-hero-split margin-b-50">
+    <div class="hero-split-layout">
+        <div class="hero-split-banner">
                 <div class="rx-slider">
                     @foreach ($slides as $index => $slide)
                         @php
@@ -63,46 +91,31 @@
                             <img src="{{ $imageUrl }}" alt="" class="banner-arrow-img" aria-hidden="true">
                             <div class="rx-slide-overlay"></div>
                             <div class="rx-hero-contact">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-8 col-md-10">
-                                            <div class="inner-contact slider-animation">
-                                                @if ($eyebrow)
-                                                    <p class="hero-eyebrow">{{ $eyebrow }}</p>
-                                                @endif
-                                                <h2>{{ $title }}</h2>
-                                                @if ($text)
-                                                    <p class="hero-lead">{{ $text }}</p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="hero-footer slider-animation">
-                                                <div class="hero-actions">
-                                                    @if ($primaryLabel)
-                                                        <a href="{{ $primaryUrl }}" class="rx-btn-one hero-cta-btn">{{ $primaryLabel }}</a>
-                                                    @endif
+                                <div class="hero-slide-inner">
+                                    <div class="inner-contact slider-animation">
+                                        @if ($eyebrow)
+                                            <span class="hero-eyebrow">{{ $eyebrow }}</span>
+                                        @endif
+                                        <h2>{{ $title }}</h2>
+                                        @if ($text)
+                                            <p class="hero-lead">{{ $text }}</p>
+                                        @endif
+                                    </div>
 
-                                                    @if ($hasSecondary)
-                                                        <a href="{{ $secondaryUrl }}" class="rx-btn-one hero-cta-btn" @if ($isVideo) data-fancybox @endif>
-                                                            @if ($isVideo)
-                                                                <i class="ri-play-fill"></i>
-                                                            @endif
-                                                            {{ $secondaryLabel }}
-                                                        </a>
-                                                    @endif
-                                                </div>
+                                    <div class="hero-footer slider-animation">
+                                        <div class="hero-actions">
+                                            @if ($primaryLabel)
+                                                <a href="{{ $primaryUrl }}" class="btn-pill btn-pill--primary hero-cta-btn">{{ $primaryLabel }}</a>
+                                            @endif
 
-                                                <a href="tel:{{ $phoneHref }}" class="hero-reservation-card booking-now">
-                                                    <span class="hero-reservation-icon">
-                                                        <i class="ri-phone-line"></i>
-                                                    </span>
-                                                    <span class="hero-reservation-text">
-                                                        <span class="hero-reservation-label">Reservations</span>
-                                                        <span class="hero-reservation-phone">{{ $phoneDisplay }}</span>
-                                                    </span>
+                                            @if ($hasSecondary)
+                                                <a href="{{ $secondaryUrl }}" class="btn-pill btn-pill--outline hero-cta-btn" @if ($isVideo) data-fancybox @endif>
+                                                    @if ($isVideo)
+                                                        <i class="ri-play-fill"></i>
+                                                    @endif
+                                                    {{ $secondaryLabel }}
                                                 </a>
-                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +124,67 @@
                     @endforeach
                 </div>
             </div>
-        </div>
+
+            <aside class="hero-split-info d-none d-lg-flex">
+                <div class="hero-info-card">
+                    <h1 class="hero-info-title">{{ $heroTitle }}</h1>
+
+                    <div class="hero-info-contacts">
+                        <a href="mailto:{{ $emailDisplay }}" class="hero-info-contact hero-info-contact--tooltip" data-tooltip="{{ $emailDisplay }}" aria-label="Email {{ $emailDisplay }}">
+                            <i class="ri-mail-line" aria-hidden="true"></i>
+                        </a>
+                        <a href="tel:{{ $phoneHref }}" class="hero-info-contact hero-info-contact--tooltip" data-tooltip="{{ $phoneDisplay }}" aria-label="Call {{ $phoneDisplay }}">
+                            <i class="ri-phone-line" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ route('contact') }}" class="hero-info-contact hero-info-contact--address" title="{{ $addressDisplay }}">
+                            <i class="ri-map-pin-line" aria-hidden="true"></i>
+                            <span>{{ $addressShort }}</span>
+                        </a>
+                    </div>
+
+                    @if ($featureTags->isNotEmpty())
+                        <ul class="hero-info-tags">
+                            @foreach ($featureTags as $tag)
+                                <li>
+                                    <span class="hero-info-tag-icon" aria-hidden="true">
+                                        <i class="{{ IconMap::remix($tag->icon) }}"></i>
+                                    </span>
+                                    <span>{{ $tag->title }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+
+                    <div class="hero-info-rating">
+                        <span class="hero-info-rating-badge">{{ number_format($averageRating, 1) }}</span>
+                        <span class="hero-info-rating-stars" aria-hidden="true">
+                            @for ($i = 0; $i < 5; $i++)
+                                <i class="ri-star-fill"></i>
+                            @endfor
+                        </span>
+                        <span class="hero-info-rating-count">({{ $totalReviews }} reviews)</span>
+                    </div>
+
+                    <p class="hero-info-times">{{ $checkInText }} | {{ $checkOutText }}</p>
+
+                    <a href="{{ route('booking') }}" class="hero-info-booking">
+                        <span class="hero-info-booking-icon">
+                            <i class="ri-calendar-check-line" aria-hidden="true"></i>
+                        </span>
+                        <span class="hero-info-booking-copy">
+                            @if ($lowestFare)
+                                <strong>From ₹{{ number_format((float) $lowestFare, 2) }} /night</strong>
+                            @else
+                                <strong>Book your stay</strong>
+                            @endif
+                            <small>*lowest rate for the next 60 days</small>
+                        </span>
+                        <span class="hero-info-booking-arrow" aria-hidden="true">
+                            <i class="ri-arrow-right-line"></i>
+                        </span>
+                    </a>
+                </div>
+            </aside>
     </div>
 </section>
 

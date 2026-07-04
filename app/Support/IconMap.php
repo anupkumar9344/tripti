@@ -10,6 +10,11 @@ class IconMap
      * @var array<string, string>
      */
     private const FA_TO_REMIX = [
+        'fa-location-dot' => 'ri-map-pin-line',
+        'fa-bed' => 'ri-hotel-bed-line',
+        'fa-headset' => 'ri-customer-service-2-line',
+        'fa-award' => 'ri-award-line',
+        'fa-champagne-glasses' => 'ri-goblet-line',
         'fa-snowflake' => 'ri-snowy-line',
         'fa-temperature-low' => 'ri-temp-cold-line',
         'fa-person-swimming' => 'ri-swimming-pool-line',

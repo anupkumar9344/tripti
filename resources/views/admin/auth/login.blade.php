@@ -12,6 +12,7 @@
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('admin/assets/css/admin-custom.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/brand.css') }}" rel="stylesheet" type="text/css" />
+    @include('admin.partials.theme-vars')
 </head>
 <body id="body" class="admin-auth-page admin-auth-page--hotel admin-auth-page--split">
     <div class="admin-auth-wrapper">

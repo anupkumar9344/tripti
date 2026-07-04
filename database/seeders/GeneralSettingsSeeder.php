@@ -16,6 +16,8 @@ class GeneralSettingsSeeder extends Seeder
     public function run(): void
     {
         $settings = [
+            'admin_theme_primary_color' => '#7356a5',
+            'theme_primary_color' => '#9d7e54',
             'website_name' => 'Tripti Hotel',
             'website_logo' => 'logo/logo.png',
             'website_favicon' => 'logo/logo.png',

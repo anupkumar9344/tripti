@@ -6,11 +6,11 @@
     width: 100%;
     margin-bottom: 0;
     border-collapse: collapse !important;
-    border: .5px solid #7356a5 !important;
+    border: .5px solid var(--admin-primary) !important;
 }
 
 .admin-datatable .dataTable-wrapper .dataTable-table > :not(caption) > * > * {
-    border: .5px solid #7356a5 !important;
+    border: .5px solid var(--admin-primary) !important;
     padding: 0.75rem;
     vertical-align: middle;
 }
@@ -22,7 +22,7 @@
 .admin-datatable .dataTable-wrapper .dataTable-table > thead > tr > th {
     background-color: #f8f9fa;
     font-weight: 600;
-    border-bottom: 1px solid #7356a5 !important;
+    border-bottom: 1px solid var(--admin-primary) !important;
 }
 
 .admin-datatable .dataTable-wrapper .dataTable-table > tbody > tr:nth-of-type(odd) > * {
@@ -35,11 +35,11 @@
 }
 
 .admin-datatable .dataTable-input {
-    border: .5px solid #7356a5;
+    border: .5px solid var(--admin-primary);
     border-radius: 0.25rem;
 }
 
 .admin-datatable .dataTable-selector {
-    border: .5px solid #7356a5;
+    border: .5px solid var(--admin-primary);
     border-radius: 0.25rem;
 }
