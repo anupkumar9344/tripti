@@ -6258,7 +6258,11 @@ textarea.contact-page-input {
     }
 
     .booking-checkout-aside {
-        order: -1;
+        order: 2;
+    }
+
+    .booking-checkout-main {
+        order: 1;
     }
 
     .booking-summary {
