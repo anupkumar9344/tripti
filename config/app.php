@@ -99,6 +99,18 @@ return [
 
     'key' => env('APP_KEY'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Clear Token
+    |--------------------------------------------------------------------------
+    |
+    | Optional secret used by GET /clear-cache/{token}. When empty, a hash of
+    | APP_KEY is used instead.
+    |
+    */
+
+    'cache_clear_token' => env('CACHE_CLEAR_TOKEN'),
+
     'previous_keys' => [
         ...array_filter(
             explode(',', (string) env('APP_PREVIOUS_KEYS', ''))

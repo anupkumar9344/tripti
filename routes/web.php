@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutSettingController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\CacheController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -34,7 +35,29 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RoomController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/clear-cache/{token}', function (string $token) {
+    $expected = (string) config('app.cache_clear_token', '');
+
+    if ($expected === '') {
+        $expected = substr(hash('sha256', (string) config('app.key')), 0, 32);
+    }
+
+    if (! hash_equals($expected, $token)) {
+        abort(403, 'Invalid cache clear token.');
+    }
+
+    Artisan::call('optimize:clear');
+    Artisan::call('view:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+
+    return response('Cache cleared successfully.', 200)
+        ->header('Content-Type', 'text/plain');
+})->name('cache.clear');
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about-us', [AboutController::class, 'index'])->name('about');
@@ -64,6 +87,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('admin.auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('clear-cache', [CacheController::class, 'clear'])->name('cache.clear');
         Route::get('about', [AboutSettingController::class, 'edit'])->name('about.edit');
         Route::put('about', [AboutSettingController::class, 'update'])->name('about.update');
         Route::get('settings/general', [GeneralSettingController::class, 'edit'])->name('settings.general');

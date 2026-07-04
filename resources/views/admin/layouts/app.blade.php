@@ -215,6 +215,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.cache.clear') }}">
+                            <i class="ti ti-refresh menu-icon"></i>
+                            <span>Clear Cache</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}" href="{{ route('admin.profile.edit') }}">
                             <i class="ti ti-user menu-icon"></i>
                             <span>My Profile</span>

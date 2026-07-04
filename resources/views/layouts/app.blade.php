@@ -16,8 +16,16 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/swiper-bundle.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/brand.css') }}">
+    @php
+        $styleCss = public_path('assets/css/style.css');
+        $brandCss = public_path('assets/css/brand.css');
+        $mainJs = public_path('assets/js/main.js');
+        $styleVer = is_file($styleCss) ? filemtime($styleCss) : time();
+        $brandVer = is_file($brandCss) ? filemtime($brandCss) : time();
+        $mainVer = is_file($mainJs) ? filemtime($mainJs) : time();
+    @endphp
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ $styleVer }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/brand.css') }}?v={{ $brandVer }}">
     @stack('styles')
 </head>
 <body id="Top">
@@ -52,7 +60,7 @@
     <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}?v={{ $mainVer }}"></script>
     @stack('scripts')
 </body>
 </html>
