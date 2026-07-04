@@ -3,7 +3,7 @@
 @section('title', 'Checkout | Tripti Hotel')
 
 @section('content')
-    <section class="booking-page booking-checkout-page booking-page-no-breadcrumb">
+    <section class="booking-page booking-checkout-page booking-page-no-breadcrumb" style="padding-top: 50px;">
         <div class="container">
             @if (session('error'))
                 <div class="alert alert-danger booking-alert">{{ session('error') }}</div>
@@ -220,7 +220,7 @@
                             @error('payment_method')<div class="text-danger font-13 mt-2">{{ $message }}</div>@enderror
                         </div>
 
-                        <div class="booking-checkout-actions">
+                        <div class="booking-checkout-actions text-center d-flex justify-content-center gap-3">
                             <a href="{{ route('booking', array_filter([
                                 'check_in' => $filters['check_in'],
                                 'check_out' => $filters['check_out'],
