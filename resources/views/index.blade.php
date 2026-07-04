@@ -4,6 +4,7 @@
 
 @section('content')
     @include('partials.home-hero')
+    @include('partials.home-booking-strip')
     @include('partials.home-about')
     @include('partials.home-rooms')
     @include('partials.home-amenities')

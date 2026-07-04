@@ -34,7 +34,7 @@
             </ul>
         @endif
         <div class="home-room-card-actions">
-            <a href="javascript:void(0)" class="home-room-btn" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a>
+            <a href="{{ route('booking') }}" class="home-room-btn">Book Now</a>
             <a href="{{ $detailsUrl }}" class="home-room-link">View Details <i class="ri-arrow-right-line"></i></a>
         </div>
     </div>

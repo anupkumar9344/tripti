@@ -25,7 +25,9 @@ use App\Http\Controllers\Admin\PatientReviewController;
 use App\Http\Controllers\Admin\VideoFeedbackController;
 use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExpertTeamController;
 use App\Http\Controllers\GalleryController;
@@ -51,6 +53,10 @@ Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy
 Route::get('/terms-and-conditions', [PageController::class, 'terms'])->name('terms-and-conditions');
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/booking', [BookingController::class, 'index'])->name('booking');
+Route::get('/booking/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
+Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/booking/success/{bookingNumber}', [BookingController::class, 'success'])->name('booking.success');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
@@ -91,6 +97,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);
         Route::resource('experts', ExpertController::class)->except(['show']);
         Route::resource('contacts', AdminContactController::class)->only(['index', 'show', 'destroy']);
+        Route::get('bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
+        Route::get('bookings/{booking}', [AdminBookingController::class, 'show'])->name('bookings.show');
+        Route::patch('bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.update-status');
+        Route::delete('bookings/{booking}', [AdminBookingController::class, 'destroy'])->name('bookings.destroy');
         Route::get('icons/data', [IconReferenceController::class, 'icons'])->name('icons.data');
         Route::get('icons', [IconReferenceController::class, 'index'])->name('icons.index');
         Route::get('media/browse', [MediaController::class, 'browse'])->name('media.browse');

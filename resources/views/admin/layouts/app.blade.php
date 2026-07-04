@@ -55,14 +55,47 @@
                             <span>Contact Messages</span>
                         </a>
                     </li>
-                    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Manage Hotels</span></li>
                     @php
+                        $bookingMenuOpen = request()->routeIs('admin.bookings.*');
+                        $bookingStatus = request()->routeIs('admin.bookings.index')
+                            ? (string) request('status', '')
+                            : null;
                         $hotelMenuOpen = request()->routeIs('admin.hotel-amenities.*')
                             || request()->routeIs('admin.hotel-facilities.*')
                             || request()->routeIs('admin.bed-types.*')
                             || request()->routeIs('admin.room-types.*')
                             || request()->routeIs('admin.premium-services.*');
                     @endphp
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Manage Hotels</span></li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#sidebarBookings"
+                            data-bs-toggle="collapse"
+                            role="button"
+                            aria-expanded="{{ $bookingMenuOpen ? 'true' : 'false' }}"
+                            aria-controls="sidebarBookings"
+                        >
+                            <i class="ti ti-briefcase menu-icon"></i>
+                            <span>Bookings</span>
+                        </a>
+                        <div class="collapse {{ $bookingMenuOpen ? 'show' : '' }}" id="sidebarBookings">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $bookingStatus === '' ? 'active' : '' }}" href="{{ route('admin.bookings.index') }}">All Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $bookingStatus === 'pending' ? 'active' : '' }}" href="{{ route('admin.bookings.index', ['status' => 'pending']) }}">Pending</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $bookingStatus === 'confirmed' ? 'active' : '' }}" href="{{ route('admin.bookings.index', ['status' => 'confirmed']) }}">Confirmed</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $bookingStatus === 'completed' ? 'active' : '' }}" href="{{ route('admin.bookings.index', ['status' => 'completed']) }}">Completed</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a
                             class="nav-link"

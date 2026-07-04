@@ -7,48 +7,33 @@
             </button>
             <div class="modal-body">
                 <div class="rx-booking-from">
-                    <form action="#">
+                    <form action="{{ route('booking') }}" method="GET">
                         <div class="rx-inner-input">
                             <label for="checkin">Check in*</label>
-                            <input type="text" id="checkin" class="rx-from-control datepicker">
+                            <input type="date" id="checkin" name="check_in" class="rx-from-control" min="{{ date('Y-m-d') }}" required>
                         </div>
                         <div class="rx-inner-input">
                             <label for="checkout">Check Out*</label>
-                            <input type="text" id="checkout" class="rx-from-control datepicker">
-                        </div>
-                        <div class="rx-inner-input">
-                            <label for="room-type">Room Type*</label>
-                            <select class="rx-from-control form-select" id="room-type">
-                                <option selected>Select</option>
-                                <option value="1">Junior Suite</option>
-                                <option value="2">Twin Room</option>
-                                <option value="3">Quad Room</option>
-                                <option value="4">Deluxe Room</option>
-                                <option value="5">Executive Room</option>
-                                <option value="6">Presidential Room</option>
-                            </select>
+                            <input type="date" id="checkout" name="check_out" class="rx-from-control" min="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
                         </div>
                         <div class="rx-inner-input">
                             <label for="adults">Adults*</label>
-                            <select class="rx-from-control form-select" id="adults">
-                                <option selected>Select</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select class="rx-from-control form-select" id="adults" name="adults" required>
+                                @for ($i = 1; $i <= 6; $i++)
+                                    <option value="{{ $i }}" @selected($i === 2)>{{ $i }}</option>
+                                @endfor
                             </select>
                         </div>
                         <div class="rx-inner-input">
-                            <label for="children">Children*</label>
-                            <select class="rx-from-control form-select" id="children">
-                                <option selected>Select</option>
-                                <option value="0">None</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <label for="children">Children</label>
+                            <select class="rx-from-control form-select" id="children" name="children">
+                                @for ($i = 0; $i <= 4; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
                             </select>
                         </div>
                         <div class="rx-inner-button">
-                            <a href="{{ route('contact') }}" class="rx-btn-two">Book Room</a>
+                            <button type="submit" class="rx-btn-two">Find Rooms</button>
                         </div>
                     </form>
                 </div>

@@ -155,7 +155,7 @@
                             </ul>
 
                             <div class="expert-detail-contact-actions">
-                                <a href="javascript:void(0)" class="home-room-btn" data-bs-toggle="modal" data-bs-target="#rx_booking_from">
+                                <a href="{{ route('booking') }}" class="home-room-btn">
                                     <i class="ri-calendar-check-line"></i> Book Your Stay
                                 </a>
                                 @if ($phoneHref)

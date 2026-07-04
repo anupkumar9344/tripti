@@ -20,7 +20,7 @@
                         </ul>
                     </div>
                     <div class="last-contact">
-                        <a href="javascript:void(0)" class="inner-button" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a>
+                        <a href="{{ route('booking') }}" class="inner-button">Book Now</a>
                         <a href="{{ route('rooms.show') }}" class="inner-button"><i class="ri-arrow-right-up-line"></i></a>
                     </div>
                 </div>

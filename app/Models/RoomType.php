@@ -48,6 +48,14 @@ class RoomType extends Model
     }
 
     /**
+     * Get bookings for this room type.
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    /**
      * Scope active room types ordered for public pages.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query

@@ -51,7 +51,7 @@
                             <li><a href="{{ route('rooms') }}">Rooms &amp; Suites</a></li>
                             <li><a href="{{ route('gallery') }}">Gallery</a></li>
                             <li><a href="{{ route('blog') }}">Blog</a></li>
-                            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a></li>
+                            <li><a href="{{ route('booking') }}">Book Now</a></li>
                         </ul>
                     </div>
                 </div>

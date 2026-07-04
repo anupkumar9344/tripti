@@ -58,7 +58,7 @@
                     <p>Need help planning your stay or a special event?</p>
                     <div class="team-page-cta-actions">
                         <a href="{{ route('contact') }}" class="team-page-cta-btn team-page-cta-btn--outline">Contact Us</a>
-                        <a href="javascript:void(0)" class="team-page-cta-btn" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a>
+                        <a href="{{ route('booking') }}" class="team-page-cta-btn">Book Now</a>
                     </div>
                 </div>
             @else

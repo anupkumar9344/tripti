@@ -3,8 +3,69 @@
   "use strict";
 
   /* Loader */
-  $(window).on("load", function () {
+  function hidePageLoader() {
     $(".rx-loader").fadeOut("slow");
+  }
+
+  $(window).on("load", hidePageLoader);
+  $(function () {
+    setTimeout(hidePageLoader, 1200);
+  });
+
+  /* Booking date fields — open picker on full field click */
+  function bindBookingDateFields(root) {
+    var scope = root || document;
+    var dateInputs = scope.querySelectorAll(
+      ".booking-search-bar input[type='date'], .home-booking-strip input[type='date']"
+    );
+
+    dateInputs.forEach(function (input) {
+      if (input.dataset.dateBound === "1") return;
+      input.dataset.dateBound = "1";
+
+      var openPicker = function () {
+        try {
+          if (typeof input.showPicker === "function") {
+            input.showPicker();
+          }
+        } catch (error) {
+          // Browser may block showPicker if not from a direct gesture.
+        }
+      };
+
+      input.addEventListener("click", openPicker);
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openPicker();
+        }
+      });
+    });
+
+    var checkIn = scope.querySelector(
+      ".booking-search-bar input[name='check_in'], .home-booking-strip input[name='check_in']"
+    );
+    var checkOut = scope.querySelector(
+      ".booking-search-bar input[name='check_out'], .home-booking-strip input[name='check_out']"
+    );
+
+    if (checkIn && checkOut && checkIn.dataset.rangeBound !== "1") {
+      checkIn.dataset.rangeBound = "1";
+      checkIn.addEventListener("change", function () {
+        if (!checkIn.value) return;
+        var nextDay = new Date(checkIn.value);
+        nextDay.setDate(nextDay.getDate() + 1);
+        var minOut = nextDay.toISOString().slice(0, 10);
+        checkOut.min = minOut;
+        if (!checkOut.value || checkOut.value <= checkIn.value) {
+          checkOut.value = minOut;
+        }
+      });
+    }
+  }
+
+  $(function () {
+    bindBookingDateFields(document);
   });
 
   /* Aos animation on scroll */

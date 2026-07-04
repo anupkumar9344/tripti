@@ -122,7 +122,7 @@
         </div>
 
         <div class="rx-mobile-menu-foot">
-            <a href="javascript:void(0)" class="rx-mobile-book-btn" data-bs-toggle="modal" data-bs-target="#rx_booking_from">
+            <a href="{{ route('booking') }}" class="rx-mobile-book-btn">
                 <i class="ri-calendar-check-line" aria-hidden="true"></i>
                 <span>Book Your Stay</span>
             </a>
