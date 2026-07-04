@@ -42,7 +42,6 @@ Route::get('/rooms/{roomType}', [RoomController::class, 'show'])->name('rooms.sh
 Route::get('/team', [PageController::class, 'team'])->name('team');
 Route::get('/experts', [ExpertTeamController::class, 'index'])->name('experts');
 Route::get('/experts/{slug}', [ExpertTeamController::class, 'show'])->name('experts.show');
-Route::get('/facilities', [PageController::class, 'facilities'])->name('facilities');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::redirect('/blog-details', '/blog');

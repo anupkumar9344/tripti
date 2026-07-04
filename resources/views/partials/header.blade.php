@@ -3,7 +3,6 @@
         ['label' => 'Home', 'url' => url('/'), 'active' => request()->is('/'), 'icon' => 'ri-home-4-line'],
         ['label' => 'About', 'url' => route('about'), 'active' => request()->routeIs('about'), 'icon' => 'ri-information-line'],
         ['label' => 'Rooms', 'url' => route('rooms'), 'active' => request()->routeIs('rooms*'), 'icon' => 'ri-hotel-bed-line'],
-        ['label' => 'Facilities', 'url' => route('facilities'), 'active' => request()->routeIs('facilities'), 'icon' => 'ri-building-2-line'],
         ['label' => 'Gallery', 'url' => route('gallery'), 'active' => request()->routeIs('gallery'), 'icon' => 'ri-gallery-line'],
         ['label' => 'Team', 'url' => route('experts'), 'active' => request()->routeIs('experts*'), 'icon' => 'ri-team-line'],
         ['label' => 'Blog', 'url' => route('blog'), 'active' => request()->routeIs('blog*'), 'icon' => 'ri-article-line'],

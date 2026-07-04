@@ -105,8 +105,69 @@
     </div>
 
     <div class="row g-4 mt-2">
-        <div class="col-lg-7">
-            <div class="card">
+        
+
+        <div class="col-lg-6">
+            <div class="card admin-dashboard-rooms mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h4 class="card-title mb-0">Room Types</h4>
+                    <a href="{{ route('admin.room-types.index') }}" class="font-13">Manage <i class="ti ti-arrow-up-right"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse ($latestRoomTypes as $roomType)
+                            <a href="{{ route('admin.room-types.edit', $roomType) }}" class="list-group-item list-group-item-action admin-dashboard-room-item">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="{{ $roomType->imageUrl() }}" alt="{{ $roomType->name }}" class="admin-dashboard-room-thumb rounded">
+                                    <div class="flex-grow-1 min-w-0">
+                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $roomType->name }}</h6>
+                                        <p class="mb-0 text-muted font-12">
+                                            <i class="ti ti-bed me-1"></i>{{ $roomType->rooms_count }} room{{ $roomType->rooms_count === 1 ? '' : 's' }}
+                                            <span class="mx-1">·</span>
+                                            ₹{{ number_format((float) $roomType->fare) }}/night
+                                        </p>
+                                    </div>
+                                    <span class="badge badge-soft-primary font-12">{{ $roomType->categoryLabel() }}</span>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="list-group-item text-center text-muted py-4">No room types yet.</div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div class="card admin-dashboard-blogs">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h4 class="card-title mb-0">Latest Blogs</h4>
+                    <a href="{{ route('blog') }}" class="font-13" target="_blank">View All <i class="ti ti-arrow-up-right"></i></a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @foreach ($latestBlogs as $blog)
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="list-group-item list-group-item-action admin-dashboard-blog-item" target="_blank">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="{{ $blog->featuredImageUrl() }}" alt="{{ $blog->title }}" class="admin-dashboard-blog-thumb rounded">
+                                    <div class="flex-grow-1 min-w-0">
+                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $blog->title }}</h6>
+                                        <p class="mb-0 text-muted font-12">
+                                            <i class="ti ti-calendar me-1"></i>{{ $blog->formattedDate() }}
+                                            <span class="mx-1">·</span>
+                                            {{ $blog->author }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-0">
+            <div class="card mt-0">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h4 class="card-title mb-0">Latest Contact</h4>
                     <a href="{{ route('admin.contacts.index') }}" class="badge badge-soft-primary text-decoration-none">{{ $newContactCount }} New</a>
@@ -152,63 +213,6 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-5">
-            <div class="card admin-dashboard-rooms mb-4">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h4 class="card-title mb-0">Room Types</h4>
-                    <a href="{{ route('admin.room-types.index') }}" class="font-13">Manage <i class="ti ti-arrow-up-right"></i></a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        @forelse ($latestRoomTypes as $roomType)
-                            <a href="{{ route('admin.room-types.edit', $roomType) }}" class="list-group-item list-group-item-action admin-dashboard-room-item">
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="{{ $roomType->imageUrl() }}" alt="{{ $roomType->name }}" class="admin-dashboard-room-thumb rounded">
-                                    <div class="flex-grow-1 min-w-0">
-                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $roomType->name }}</h6>
-                                        <p class="mb-0 text-muted font-12">
-                                            <i class="ti ti-bed me-1"></i>{{ $roomType->rooms_count }} room{{ $roomType->rooms_count === 1 ? '' : 's' }}
-                                            <span class="mx-1">·</span>
-                                            ₹{{ number_format((float) $roomType->fare) }}/night
-                                        </p>
-                                    </div>
-                                    <span class="badge badge-soft-primary font-12">{{ $roomType->categoryLabel() }}</span>
-                                </div>
-                            </a>
-                        @empty
-                            <div class="list-group-item text-center text-muted py-4">No room types yet.</div>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-
-            <div class="card admin-dashboard-blogs">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h4 class="card-title mb-0">Latest Blogs</h4>
-                    <a href="{{ route('blog') }}" class="font-13" target="_blank">View All <i class="ti ti-arrow-up-right"></i></a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        @foreach ($latestBlogs as $blog)
-                            <a href="{{ route('blog.show', $blog->slug) }}" class="list-group-item list-group-item-action admin-dashboard-blog-item" target="_blank">
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="{{ $blog->featuredImageUrl() }}" alt="{{ $blog->title }}" class="admin-dashboard-blog-thumb rounded">
-                                    <div class="flex-grow-1 min-w-0">
-                                        <h6 class="mb-1 text-dark fw-semibold text-truncate">{{ $blog->title }}</h6>
-                                        <p class="mb-0 text-muted font-12">
-                                            <i class="ti ti-calendar me-1"></i>{{ $blog->formattedDate() }}
-                                            <span class="mx-1">·</span>
-                                            {{ $blog->author }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        @endforeach
                     </div>
                 </div>
             </div>

@@ -60,16 +60,6 @@ class PageController extends Controller
     }
 
     /**
-     * Display the facilities page.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function facilities(): View
-    {
-        return view('facilities.index');
-    }
-
-    /**
      * Display the gallery page.
      *
      * @return \Illuminate\View\View

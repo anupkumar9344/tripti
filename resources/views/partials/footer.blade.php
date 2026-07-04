@@ -49,7 +49,6 @@
                         <h3 class="site-footer-title">Explore</h3>
                         <ul class="site-footer-links">
                             <li><a href="{{ route('rooms') }}">Rooms &amp; Suites</a></li>
-                            <li><a href="{{ route('facilities') }}">Facilities</a></li>
                             <li><a href="{{ route('gallery') }}">Gallery</a></li>
                             <li><a href="{{ route('blog') }}">Blog</a></li>
                             <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#rx_booking_from">Book Now</a></li>

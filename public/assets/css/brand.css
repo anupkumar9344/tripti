@@ -84,56 +84,62 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     gap: 20px;
 }
 
-.site-header .site-nav {
+.site-header .rx-main-menu .site-nav {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    gap: 10px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
+.site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li,
 .site-header .site-nav .nav-item {
-    margin-right: 22px;
+    margin-right: 0;
 }
 
 .site-header .site-nav .nav-item:last-child {
     margin-right: 0;
 }
 
+.site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li a.nav-link,
 .site-header .site-nav .nav-link {
-    padding: 6px 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 18px;
     font-size: 14px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
     position: relative;
-    letter-spacing: 0.02em;
-    transition: color 0.2s ease;
+    letter-spacing: 0.03em;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li a.nav-link::before,
 .site-header .site-nav .nav-link::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    width: 0;
-    background: #9d7e54;
-    border-radius: 2px;
-    transition: width 0.25s ease;
+    display: none;
+    content: none;
 }
 
-.site-header .site-nav .nav-item:hover .nav-link,
+.site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li:hover a.nav-link:not(.active),
+.site-header .site-nav .nav-item:hover .nav-link:not(.active) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li a.nav-link.active,
 .site-header .site-nav .nav-link.active {
-    color: #d4b88a;
-}
-
-.site-header .site-nav .nav-item:hover .nav-link::before,
-.site-header .site-nav .nav-link.active::before {
-    width: 100%;
+    color: #1c1510;
+    background: linear-gradient(135deg, #e8d4b0 0%, #c4a574 100%);
+    border-color: rgba(228, 208, 168, 0.9);
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(157, 126, 84, 0.32);
 }
 
 .site-header .header-actions {
@@ -214,8 +220,9 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
 }
 
 .site-header .rx-main-menu .navbar-nav .nav-link.active,
-.site-header .rx-main-menu .nav-item.active > .nav-link {
-    color: var(--rx-primary, #c19d5c);
+.site-header .rx-main-menu .nav-item.active > .nav-link,
+.site-header .site-nav .nav-link.active {
+    color: #1c1510;
 }
 
 .site-header .header-button .rx-btn-one,
@@ -251,6 +258,7 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
 .rx-mobile-menu-overlay {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    z-index: 1100;
 }
 
 .site-header .rx-mobile-menu {
@@ -258,6 +266,7 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     padding: 0;
     background: #fff;
     box-shadow: 12px 0 40px rgba(17, 17, 17, 0.18);
+    z-index: 1101;
 }
 
 .site-header .rx-mobile-menu-head {
@@ -752,11 +761,13 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
 }
 
 @media (max-width: 1399px) {
-    .site-header .site-nav .nav-item {
-        margin-right: 16px;
+    .site-header .rx-main-menu .site-nav {
+        gap: 8px;
     }
 
+    .site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li a.nav-link,
     .site-header .site-nav .nav-link {
+        padding: 8px 14px;
         font-size: 13px;
     }
 
@@ -766,11 +777,13 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
 }
 
 @media (max-width: 1199px) {
-    .site-header .site-nav .nav-item {
-        margin-right: 12px;
+    .site-header .rx-main-menu .site-nav {
+        gap: 6px;
     }
 
+    .site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li a.nav-link,
     .site-header .site-nav .nav-link {
+        padding: 7px 12px;
         font-size: 12px;
     }
 
@@ -875,7 +888,8 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 5 / 4;
+    max-height: 460px;
     object-fit: cover;
 }
 
@@ -989,35 +1003,75 @@ body.dark-sidebar.enlarge-menu .left-sidebar .admin-sidebar-logo {
         max-width: none;
         padding-top: 8px;
     }
-}
 
-@media (max-width: 575px) {
-    .home-about-image img {
+    .home-about-professional .home-about-image img {
+        max-height: 380px;
         aspect-ratio: 16 / 11;
     }
 
-    .home-about-metrics {
+    .home-about-professional .home-about-metrics {
         grid-template-columns: 1fr;
-        gap: 20px;
-        border-top: 0;
-        padding-top: 8px;
+        gap: 0;
+        margin-top: 28px;
+        padding-top: 24px;
     }
 
-    .home-about-metric {
-        padding: 0;
+    .home-about-professional .home-about-metric {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 16px 0;
+        text-align: left;
         border-right: 0;
         border-bottom: 1px solid #ececec;
-        padding-bottom: 16px;
-        text-align: left;
     }
 
-    .home-about-metric:last-child {
-        border-bottom: 0;
+    .home-about-professional .home-about-metric:first-child {
+        padding-left: 0;
+        padding-top: 0;
+    }
+
+    .home-about-professional .home-about-metric:last-child {
+        padding-right: 0;
         padding-bottom: 0;
+        border-bottom: 0;
     }
 
-    .home-about-btn {
+    .home-about-professional .home-about-metric strong {
+        flex: 0 0 auto;
+        min-width: 76px;
+        margin-bottom: 0;
+        font-size: 28px;
+    }
+
+    .home-about-professional .home-about-metric span {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .home-about-professional .home-about-btn {
         width: 100%;
+        margin-top: 28px;
+    }
+}
+
+@media (max-width: 575px) {
+    .home-about-professional .home-about-image img {
+        max-height: 300px;
+        aspect-ratio: 16 / 10;
+    }
+
+    .home-about-title {
+        font-size: 30px;
+    }
+
+    .home-about-professional .home-about-metric strong {
+        min-width: 68px;
+        font-size: 24px;
+    }
+
+    .home-about-professional .home-about-metric span {
+        font-size: 11px;
     }
 }
 

@@ -97,7 +97,7 @@
                             @if ($description)
                                 <p class="home-amenities-panel-text">{{ $description }}</p>
                             @endif
-                            <a href="{{ route('facilities') }}" class="home-amenities-btn">Learn More</a>
+                            <a href="{{ route('contact') }}" class="home-amenities-btn">Learn More</a>
                         </div>
                     @endforeach
                 </div>

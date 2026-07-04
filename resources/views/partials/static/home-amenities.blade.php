@@ -23,7 +23,7 @@
                                 <div class="rx-amenities-contact amenities-animation">
                                     <div class="inner-banner"><h4>{{ $amenity['title'] }}</h4></div>
                                     <p>{{ $amenity['text'] }}</p>
-                                    <div class="amenities-btn"><a href="{{ route('facilities') }}" class="rx-btn-two">Learn More</a></div>
+                                    <div class="amenities-btn"><a href="{{ route('contact') }}" class="rx-btn-two">Learn More</a></div>
                                 </div>
                             </div>
                         </div>
