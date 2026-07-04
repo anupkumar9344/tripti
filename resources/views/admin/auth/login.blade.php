@@ -17,10 +17,6 @@
     <div class="admin-auth-wrapper">
         <div class="admin-auth-form-panel">
             <div class="admin-auth-form-shell">
-                <a href="{{ url('/') }}" class="admin-auth-card-logo" target="_blank" rel="noopener">
-                    <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Tripti Hotel">
-                </a>
-
                 <div class="admin-auth-main">
                     <div class="admin-auth-card-header">
                         <span class="admin-auth-badge">Hotel Admin Panel</span>
