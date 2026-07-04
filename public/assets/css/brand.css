@@ -3248,11 +3248,12 @@ button.btn-pill,
 }
 
 .site-footer-logo img {
+    display: block;
     width: auto;
-    max-width: 160px;
-    max-height: 72px;
+    max-width: 180px;
+    max-height: 80px;
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    filter: none;
 }
 
 .site-footer-about {
