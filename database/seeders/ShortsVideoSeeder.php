@@ -26,7 +26,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/shorts/Y-x0efG1seA',
                 'thumbnail' => 'assets/img/rooms/1.jpg',
                 'display_on_home' => true,
-                'display_on_services' => true,
                 'sort_order' => 1,
             ],
             [
@@ -34,7 +33,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=Scxs7L0vhZ4',
                 'thumbnail' => 'assets/img/amenities/1.jpg',
                 'display_on_home' => true,
-                'display_on_services' => true,
                 'sort_order' => 2,
             ],
             [
@@ -42,7 +40,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=5qap5aO4i9A',
                 'thumbnail' => 'assets/img/spa/1.jpg',
                 'display_on_home' => true,
-                'display_on_services' => false,
                 'sort_order' => 3,
             ],
             [
@@ -50,7 +47,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=DWcJFNfaw9c',
                 'thumbnail' => 'assets/img/amenities/4.jpg',
                 'display_on_home' => true,
-                'display_on_services' => true,
                 'sort_order' => 4,
             ],
             [
@@ -58,7 +54,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
                 'thumbnail' => 'assets/img/gallery/1.jpg',
                 'display_on_home' => true,
-                'display_on_services' => false,
                 'sort_order' => 5,
             ],
             [
@@ -66,7 +61,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',
                 'thumbnail' => 'assets/img/rooms/2.jpg',
                 'display_on_home' => true,
-                'display_on_services' => true,
                 'sort_order' => 6,
             ],
             [
@@ -74,7 +68,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=LXb3EKWsInQ',
                 'thumbnail' => 'assets/img/gallery/3.jpg',
                 'display_on_home' => true,
-                'display_on_services' => true,
                 'sort_order' => 7,
             ],
             [
@@ -82,7 +75,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => 'https://www.youtube.com/watch?v=hY7m5jjJ9mM',
                 'thumbnail' => 'assets/img/rooms/3.jpg',
                 'display_on_home' => true,
-                'display_on_services' => false,
                 'sort_order' => 8,
             ],
         ];
@@ -93,7 +85,6 @@ class ShortsVideoSeeder extends Seeder
                 'video_url' => $video['video_url'],
                 'thumbnail' => $video['thumbnail'],
                 'display_on_home' => $video['display_on_home'],
-                'display_on_services' => $video['display_on_services'],
                 'sort_order' => $video['sort_order'],
                 'status' => true,
             ]);

@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Expert;
 use App\Models\Faq;
-use App\Models\Service;
 use App\Models\Setting;
 use App\Support\MediaPath;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 /**
@@ -62,7 +60,7 @@ class FaqController extends Controller
     public function index(): View
     {
         $faqs = Faq::query()
-            ->with(['service:id,title', 'expert:id,name'])
+            ->with(['expert:id,name'])
             ->orderBy('sort_order')
             ->orderBy('question')
             ->get();
@@ -208,7 +206,6 @@ class FaqController extends Controller
     private function formOptions(): array
     {
         return [
-            'services' => Service::query()->orderBy('title')->get(['id', 'title']),
             'experts' => Expert::query()->orderBy('name')->get(['id', 'name']),
         ];
     }
@@ -220,26 +217,16 @@ class FaqController extends Controller
      */
     private function validateFaq(Request $request): array
     {
-        $validated = $request->validate([
+        return $request->validate([
             'question' => ['required', 'string', 'max:500'],
             'answer' => ['required', 'string'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
             'display_on_faq_page' => ['required', 'boolean'],
-            'display_on_service_detail' => ['required', 'boolean'],
             'display_on_expert_detail' => ['required', 'boolean'],
-            'service_id' => ['nullable', 'integer', 'exists:services,id'],
             'expert_id' => ['nullable', 'integer', 'exists:experts,id'],
         ]);
-
-        if (! empty($validated['service_id']) && ! empty($validated['expert_id'])) {
-            throw ValidationException::withMessages([
-                'service_id' => 'Choose either a service or an expert, not both.',
-            ]);
-        }
-
-        return $validated;
     }
 
     /**
@@ -250,7 +237,6 @@ class FaqController extends Controller
      */
     private function faqAttributes(array $validated): array
     {
-        $serviceId = $validated['service_id'] ?? null;
         $expertId = $validated['expert_id'] ?? null;
 
         return [
@@ -259,10 +245,8 @@ class FaqController extends Controller
             'sort_order' => $validated['sort_order'] ?? 0,
             'status' => (bool) $validated['status'],
             'display_on_home' => (bool) $validated['display_on_home'],
-            'display_on_faq_page' => $serviceId || $expertId ? false : (bool) $validated['display_on_faq_page'],
-            'display_on_service_detail' => $serviceId ? false : (bool) $validated['display_on_service_detail'],
+            'display_on_faq_page' => $expertId ? false : (bool) $validated['display_on_faq_page'],
             'display_on_expert_detail' => $expertId ? false : (bool) $validated['display_on_expert_detail'],
-            'service_id' => $serviceId,
             'expert_id' => $expertId,
         ];
     }

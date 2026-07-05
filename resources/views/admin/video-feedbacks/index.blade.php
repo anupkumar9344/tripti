@@ -58,10 +58,7 @@
                                             @if ($videoFeedback->display_on_home)
                                                 <span class="badge badge-soft-primary me-1">Home</span>
                                             @endif
-                                            @if ($videoFeedback->display_on_services)
-                                                <span class="badge badge-soft-info me-1">Services</span>
-                                            @endif
-                                            @if (! $videoFeedback->display_on_home && ! $videoFeedback->display_on_services)
+                                            @if (! $videoFeedback->display_on_home)
                                                 —
                                             @endif
                                         </td>

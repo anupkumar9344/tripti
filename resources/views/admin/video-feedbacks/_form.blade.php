@@ -30,7 +30,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group mb-3">
             <label class="form-label" for="display_on_home">Show on Home <span class="text-danger">*</span></label>
             @php
@@ -46,24 +46,6 @@
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="form-group mb-3">
-            <label class="form-label" for="display_on_services">Show on Services Page <span class="text-danger">*</span></label>
-            @php
-                $servicesValue = (string) old('display_on_services', $isEdit ? (int) $videoFeedback->display_on_services : 0);
-            @endphp
-            <select class="form-select @error('display_on_services') is-invalid @enderror" id="display_on_services" name="display_on_services" required>
-                <option value="1" @selected($servicesValue === '1')>Yes</option>
-                <option value="0" @selected($servicesValue === '0')>No</option>
-            </select>
-            @error('display_on_services')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-md-4">
         <div class="form-group mb-3">
             <label class="form-label" for="sort_order">Display Order</label>

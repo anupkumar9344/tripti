@@ -19,15 +19,11 @@ class DatabaseSeeder extends Seeder
             ExpertSeeder::class,
             HotelManagementSeeder::class,
             WhyChooseItemSeeder::class,
-            TreatmentSeeder::class,
-            ServiceSeeder::class,
             PatientReviewSeeder::class,
             FaqSeeder::class,
             GalleryItemSeeder::class,
             BlogPostSeeder::class,
-            HealthProgramSeeder::class,
             HeroBannerSeeder::class,
-            TrustStripItemSeeder::class,
             VideoFeedbackSeeder::class,
         ]);
     }

@@ -61,6 +61,10 @@
                         $bookingStatus = request()->routeIs('admin.bookings.index')
                             ? (string) request('status', '')
                             : null;
+                        $inquiryMenuOpen = request()->routeIs('admin.hotel-inquiries.*');
+                        $inquiryStatus = request()->routeIs('admin.hotel-inquiries.index')
+                            ? (string) request('status', '')
+                            : null;
                         $hotelMenuOpen = request()->routeIs('admin.hotel-amenities.*')
                             || request()->routeIs('admin.hotel-facilities.*')
                             || request()->routeIs('admin.bed-types.*')
@@ -93,6 +97,41 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ $bookingStatus === 'completed' ? 'active' : '' }}" href="{{ route('admin.bookings.index', ['status' => 'completed']) }}">Completed</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="#sidebarInquiries"
+                            data-bs-toggle="collapse"
+                            role="button"
+                            aria-expanded="{{ $inquiryMenuOpen ? 'true' : 'false' }}"
+                            aria-controls="sidebarInquiries"
+                        >
+                            <i class="ti ti-mail menu-icon"></i>
+                            <span>Inquiries</span>
+                        </a>
+                        <div class="collapse {{ $inquiryMenuOpen ? 'show' : '' }}" id="sidebarInquiries">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $inquiryStatus === '' ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index') }}">All Inquiries</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $inquiryStatus === 'new' ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index', ['status' => 'new']) }}">New</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $inquiryStatus === 'in_progress' ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index', ['status' => 'in_progress']) }}">In Progress</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $inquiryStatus === 'quoted' ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index', ['status' => 'quoted']) }}">Quoted</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $inquiryStatus === 'closed' ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index', ['status' => 'closed']) }}">Closed</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $inquiryStatus === 'cancelled' ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index', ['status' => 'cancelled']) }}">Cancelled</a>
                                 </li>
                             </ul>
                         </div>
@@ -134,12 +173,6 @@
                         <a class="nav-link {{ request()->routeIs('admin.hero-banners.*') ? 'active' : '' }}" href="{{ route('admin.hero-banners.index') }}">
                             <i class="ti ti-photo menu-icon"></i>
                             <span>Hero Banners</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.trust-strip-items.*') ? 'active' : '' }}" href="{{ route('admin.trust-strip-items.index') }}">
-                            <i class="ti ti-shield-check menu-icon"></i>
-                            <span>Trust Strip</span>
                         </a>
                     </li>
                     <li class="nav-item">

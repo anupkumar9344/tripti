@@ -17,10 +17,7 @@ class SitePages
         return [
             ['label' => 'Home', 'path' => '/'],
             ['label' => 'About Us', 'path' => '/about-us'],
-            ['label' => 'Treatment', 'path' => '/treatment'],
-            ['label' => 'Services', 'path' => '/services'],
-            ['label' => 'Our Expert Team', 'path' => '/our-expert-team'],
-            ['label' => 'Health Programs', 'path' => '/health-programs'],
+            ['label' => 'Our Expert Team', 'path' => '/experts'],
             ['label' => 'Gallery', 'path' => '/gallery'],
             ['label' => 'Blog', 'path' => '/blog'],
             ['label' => 'FAQs', 'path' => '/faq'],

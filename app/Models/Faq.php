@@ -19,10 +19,8 @@ class Faq extends Model
         'sort_order',
         'status',
         'display_on_home',
-        'display_on_service_detail',
         'display_on_expert_detail',
         'display_on_faq_page',
-        'service_id',
         'expert_id',
     ];
 
@@ -36,18 +34,9 @@ class Faq extends Model
         return [
             'status' => 'boolean',
             'display_on_home' => 'boolean',
-            'display_on_service_detail' => 'boolean',
             'display_on_expert_detail' => 'boolean',
             'display_on_faq_page' => 'boolean',
         ];
-    }
-
-    /**
-     * Get the service this FAQ is assigned to.
-     */
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class);
     }
 
     /**
@@ -82,7 +71,6 @@ class Faq extends Model
     {
         return $query
             ->where('display_on_home', true)
-            ->whereNull('service_id')
             ->whereNull('expert_id')
             ->activeOrdered();
     }
@@ -97,30 +85,7 @@ class Faq extends Model
     {
         return $query
             ->where('display_on_faq_page', true)
-            ->whereNull('service_id')
             ->whereNull('expert_id')
-            ->activeOrdered();
-    }
-
-    /**
-     * Scope FAQs shown on a service detail page.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeForServiceDetail(Builder $query, Service $service): Builder
-    {
-        return $query
-            ->where(function (Builder $builder) use ($service) {
-                $builder
-                    ->where('service_id', $service->id)
-                    ->orWhere(function (Builder $global) {
-                        $global
-                            ->whereNull('service_id')
-                            ->whereNull('expert_id')
-                            ->where('display_on_service_detail', true);
-                    });
-            })
             ->activeOrdered();
     }
 
@@ -138,7 +103,6 @@ class Faq extends Model
                     ->where('expert_id', $expert->id)
                     ->orWhere(function (Builder $global) {
                         $global
-                            ->whereNull('service_id')
                             ->whereNull('expert_id')
                             ->where('display_on_expert_detail', true);
                     });

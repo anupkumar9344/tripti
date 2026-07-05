@@ -12,7 +12,7 @@
             <div class="page-title-box d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <div>
                     <h4 class="page-title mb-1">Icon Reference</h4>
-                    <p class="text-muted mb-0 font-13">Click an icon to copy its name. Paste it into icon fields on Services, Treatments, Gallery, and other forms.</p>
+                    <p class="text-muted mb-0 font-13">Click an icon to copy its name. Paste it into icon fields on Gallery, Amenities, and other forms.</p>
                 </div>
                 <span class="badge bg-soft-primary text-primary">{{ number_format($iconCount) }} icons</span>
             </div>

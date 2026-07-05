@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\Faq;
 use App\Models\GalleryItem;
-use App\Models\HealthProgram;
 use App\Models\HeroBanner;
 use App\Models\HotelFacility;
 use App\Models\PatientReview;
 use App\Models\RoomType;
 use App\Models\Setting;
-use App\Models\TrustStripItem;
 use App\Models\VideoFeedback;
 use App\Models\WhyChooseItem;
 use Illuminate\View\View;
@@ -59,9 +57,7 @@ class HomeController extends Controller
         $homeFacilities = HotelFacility::query()->forHome()->limit(6)->get();
         $homeTestimonials = PatientReview::query()->activeOrdered()->limit(6)->get();
         $homeBlogPosts = BlogPost::query()->forHome()->limit(4)->get();
-        $healthPrograms = HealthProgram::query()->activeOrdered()->get();
         $heroBanners = HeroBanner::query()->activeOrdered()->get();
-        $trustStripItems = TrustStripItem::query()->activeOrdered()->get();
         $homeGalleryItems = GalleryItem::query()->forHome()->get();
         $homeVideoFeedbacks = VideoFeedback::query()->forHome()->limit(10)->get();
 
@@ -72,9 +68,7 @@ class HomeController extends Controller
             'homeFacilities',
             'homeTestimonials',
             'homeBlogPosts',
-            'healthPrograms',
             'heroBanners',
-            'trustStripItems',
             'homeGalleryItems',
             'homeVideoFeedbacks',
         ));

@@ -69,7 +69,7 @@
                                         <td>
                                             <div class="admin-table-actions">
                                                 <a href="{{ route('admin.room-types.rooms.index', $roomType) }}" class="btn btn-sm btn-outline-primary btn-with-label" title="Manage Rooms">
-                                                    <i class="ti ti-door me-1"></i>Rooms ({{ $roomType->rooms_count }})
+                                                    <i class="ti ti-home-2 me-1"></i>Rooms ({{ $roomType->rooms_count }})
                                                 </a>
                                                 <a href="{{ route('admin.room-types.edit', $roomType) }}" class="btn btn-sm btn-outline-secondary" title="Edit">
                                                     <i class="las la-pen"></i>

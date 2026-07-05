@@ -62,6 +62,8 @@ class RoomController extends Controller
      */
     public function edit(RoomType $roomType, Room $room): View
     {
+        $this->ensureRoomBelongsToRoomType($roomType, $room);
+
         $bedTypes = BedType::query()->orderBy('sort_order')->orderBy('name')->get();
 
         return view('admin.rooms.edit', compact('roomType', 'room', 'bedTypes'));
@@ -74,6 +76,8 @@ class RoomController extends Controller
      */
     public function update(Request $request, RoomType $roomType, Room $room): RedirectResponse
     {
+        $this->ensureRoomBelongsToRoomType($roomType, $room);
+
         $room->update($this->validatedData($request));
 
         return redirect()
@@ -88,6 +92,8 @@ class RoomController extends Controller
      */
     public function toggleStatus(RoomType $roomType, Room $room): RedirectResponse
     {
+        $this->ensureRoomBelongsToRoomType($roomType, $room);
+
         $room->status = ! $room->status;
         $room->save();
 
@@ -103,6 +109,8 @@ class RoomController extends Controller
      */
     public function destroy(RoomType $roomType, Room $room): RedirectResponse
     {
+        $this->ensureRoomBelongsToRoomType($roomType, $room);
+
         $room->delete();
 
         return redirect()
@@ -128,5 +136,15 @@ class RoomController extends Controller
         $validated['bed_type_id'] = $validated['bed_type_id'] ?? null;
 
         return $validated;
+    }
+
+    /**
+     * Ensure the room belongs to the given room type.
+     */
+    private function ensureRoomBelongsToRoomType(RoomType $roomType, Room $room): void
+    {
+        if ((int) $room->room_type_id !== (int) $roomType->id) {
+            abort(404);
+        }
     }
 }

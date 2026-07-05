@@ -27,7 +27,6 @@ class VideoFeedback extends Model
         'video_url',
         'thumbnail',
         'display_on_home',
-        'display_on_services',
         'sort_order',
         'status',
     ];
@@ -41,7 +40,6 @@ class VideoFeedback extends Model
     {
         return [
             'display_on_home' => 'boolean',
-            'display_on_services' => 'boolean',
             'status' => 'boolean',
         ];
     }
@@ -70,19 +68,6 @@ class VideoFeedback extends Model
     {
         return $query
             ->where('display_on_home', true)
-            ->activeOrdered();
-    }
-
-    /**
-     * Scope video feedbacks shown on the services page.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeForServices(Builder $query): Builder
-    {
-        return $query
-            ->where('display_on_services', true)
             ->activeOrdered();
     }
 
