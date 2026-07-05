@@ -23,6 +23,7 @@ class PatientReviewController extends Controller
      */
     private const SECTION_SETTING_KEYS = [
         'patient_feedback_rating_label',
+        'patient_feedback_average_rating',
         'patient_feedback_total_reviews',
         'patient_feedback_read_more_url',
     ];
@@ -53,6 +54,7 @@ class PatientReviewController extends Controller
     {
         $validated = $request->validate([
             'patient_feedback_rating_label' => ['required', 'string', 'max:50'],
+            'patient_feedback_average_rating' => ['required', 'numeric', 'min:0', 'max:5'],
             'patient_feedback_total_reviews' => ['required', 'string', 'max:50'],
             'patient_feedback_read_more_url' => ['nullable', 'string', 'max:500'],
         ]);

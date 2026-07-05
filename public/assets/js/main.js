@@ -668,8 +668,7 @@
     const autoplayDelay = 5000;
 
     function showAmenity(index) {
-      const $tabs = $section.find("[data-amenity-tab]");
-      const total = $tabs.length;
+      const total = $section.find("[data-amenity-slide]").length;
 
       if (!total) {
         return;
@@ -677,12 +676,13 @@
 
       activeIndex = ((index % total) + total) % total;
 
-      $section.find("[data-amenity-slide], [data-amenity-panel], [data-amenity-tab], .home-amenities-dot").removeClass("is-active");
-      $section.find("[data-amenity-slide], [data-amenity-panel], [data-amenity-tab], .home-amenities-dot").attr("aria-selected", "false");
+      $section.find("[data-amenity-slide], [data-amenity-panel], .home-amenities-tab, .home-amenities-dot").removeClass("is-active");
+      $section.find(".home-amenities-tab, .home-amenities-dot").attr("aria-selected", "false");
 
       $section.find('[data-amenity-slide="' + activeIndex + '"]').addClass("is-active");
       $section.find('[data-amenity-panel="' + activeIndex + '"]').addClass("is-active");
-      $section.find('[data-amenity-tab="' + activeIndex + '"]').addClass("is-active").attr("aria-selected", "true");
+      $section.find('.home-amenities-tabs [data-amenity-tab="' + activeIndex + '"]').addClass("is-active").attr("aria-selected", "true");
+      $section.find('.home-amenities-dot[data-amenity-tab="' + activeIndex + '"]').addClass("is-active").attr("aria-selected", "true");
     }
 
     function startAutoplay() {
@@ -694,6 +694,11 @@
 
     $section.on("click", "[data-amenity-tab]", function () {
       const index = parseInt($(this).attr("data-amenity-tab"), 10);
+
+      if (Number.isNaN(index)) {
+        return;
+      }
+
       showAmenity(index);
       startAutoplay();
     });
@@ -706,6 +711,7 @@
       startAutoplay();
     });
 
+    showAmenity(0);
     startAutoplay();
   })();
 

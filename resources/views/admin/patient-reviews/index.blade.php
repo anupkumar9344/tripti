@@ -41,6 +41,15 @@
                         </div>
 
                         <div class="form-group mb-3">
+                            <label class="form-label" for="patient_feedback_average_rating">Average Rating <span class="text-danger">*</span></label>
+                            <input type="number" step="0.1" min="0" max="5" class="form-control @error('patient_feedback_average_rating') is-invalid @enderror" id="patient_feedback_average_rating" name="patient_feedback_average_rating" value="{{ old('patient_feedback_average_rating', $sectionSettings['patient_feedback_average_rating'] ?? '5.0') }}" required placeholder="5.0">
+                            @error('patient_feedback_average_rating')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">Shown on the home page hero (e.g. 4.8, 5.0).</small>
+                        </div>
+
+                        <div class="form-group mb-3">
                             <label class="form-label" for="patient_feedback_total_reviews">Total Reviews Text <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('patient_feedback_total_reviews') is-invalid @enderror" id="patient_feedback_total_reviews" name="patient_feedback_total_reviews" value="{{ old('patient_feedback_total_reviews', $sectionSettings['patient_feedback_total_reviews'] ?? '346') }}" required placeholder="346">
                             @error('patient_feedback_total_reviews')

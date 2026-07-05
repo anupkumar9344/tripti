@@ -18,6 +18,7 @@ class PatientReviewSeeder extends Seeder
     {
         $sectionSettings = [
             'patient_feedback_rating_label' => 'Excellent',
+            'patient_feedback_average_rating' => '5.0',
             'patient_feedback_total_reviews' => '428',
             'patient_feedback_read_more_url' => '#',
         ];

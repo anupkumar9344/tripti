@@ -1,5 +1,4 @@
 @php
-    use App\Models\PatientReview;
     use App\Support\IconMap;
 
     $fallbackSlides = [
@@ -53,8 +52,11 @@
     $addressShort = \Illuminate\Support\Str::limit($addressDisplay, 42);
 
     $featureTags = isset($whyChooseItems) ? $whyChooseItems->take(3) : collect();
-    $averageRating = round((float) (PatientReview::query()->activeOrdered()->avg('rating') ?: 4.5), 1);
+
+    $averageRating = round((float) (($settings ?? [])['patient_feedback_average_rating'] ?? 5.0), 1);
     $totalReviews = ($settings ?? [])['patient_feedback_total_reviews'] ?? '428';
+    $filledStars = min(5, max(0, (int) round($averageRating)));
+
     $lowestFare = isset($homeRooms) && $homeRooms->isNotEmpty()
         ? $homeRooms->min('fare')
         : null;
@@ -157,9 +159,12 @@
 
                     <div class="hero-info-rating">
                         <span class="hero-info-rating-badge">{{ number_format($averageRating, 1) }}</span>
-                        <span class="hero-info-rating-stars" aria-hidden="true">
-                            @for ($i = 0; $i < 5; $i++)
-                                <i class="ri-star-fill"></i>
+                        <span class="hero-info-rating-stars" aria-label="{{ number_format($averageRating, 1) }} out of 5 stars">
+                            @for ($i = 0; $i < $filledStars; $i++)
+                                <i class="ri-star-fill" aria-hidden="true"></i>
+                            @endfor
+                            @for ($i = $filledStars; $i < 5; $i++)
+                                <i class="ri-star-line" aria-hidden="true"></i>
                             @endfor
                         </span>
                         <span class="hero-info-rating-count">({{ $totalReviews }} reviews)</span>

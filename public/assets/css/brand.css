@@ -297,7 +297,7 @@ button.btn-pill,
 
 .site-header .rx-inner-menu-desk .rx-main-menu ul.site-nav li a.nav-link.active,
 .site-header .site-nav .nav-link.active {
-    color: #1c1510;
+    color: #fff;
     background: linear-gradient(135deg, var(--theme-primary-light) 0%, var(--theme-secondary) 100%);
     border-color: rgba(228, 208, 168, 0.9);
     font-weight: 600;
@@ -329,6 +329,7 @@ button.btn-pill,
 }
 
 .site-header .header-phone-link i {
+    color: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;

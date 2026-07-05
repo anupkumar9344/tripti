@@ -40,6 +40,7 @@ class HomeController extends Controller
         'about_stat_3_count',
         'about_stat_3_label',
         'patient_feedback_rating_label',
+        'patient_feedback_average_rating',
         'patient_feedback_total_reviews',
         'address',
         'opening_hours',
