@@ -45,11 +45,17 @@
             border-color: #7356a5;
             color: #fff;
         }
+        #inquiryFiltersOffcanvas {
+            width: min(100%, 360px);
+        }
+        #inquiryFiltersOffcanvas .offcanvas-body {
+            min-height: calc(100vh - 56px);
+        }
     </style>
 @endpush
 
 @section('content')
-    <div class="row mb-3">
+    <div class="row mb-1">
         <div class="col-sm-12">
             <div class="page-title-box d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <h4 class="page-title mb-0">{{ $pageTitle }}</h4>
@@ -74,7 +80,7 @@
         </div>
     </div>
 
-    <div class="row g-3 mb-3">
+    <div class="row g-3 mb-2">
         <div class="col-xl-3 col-md-6 col-6">
             <a href="{{ route('admin.hotel-inquiries.index', array_filter(['period' => $filters['period'] ?: null, 'date_from' => $filters['date_from'], 'date_to' => $filters['date_to']])) }}" class="card inquiry-admin-stat {{ $status === '' ? 'is-active' : '' }}">
                 <div class="card-body py-3">
@@ -132,7 +138,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
                     <h4 class="card-title mb-0">{{ $pageTitle }}</h4>
                 </div>
                 <div class="card-body">
@@ -323,6 +329,15 @@
                 input.addEventListener('change', function () {
                     if ((dateFrom && dateFrom.value) || (dateTo && dateTo.value)) {
                         setPeriod('custom');
+                    }
+                });
+            });
+
+            const filterOffcanvas = document.getElementById('inquiryFiltersOffcanvas');
+            document.querySelectorAll('[data-bs-target="#inquiryFiltersOffcanvas"]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    if (filterOffcanvas && window.bootstrap && window.bootstrap.Offcanvas) {
+                        window.bootstrap.Offcanvas.getOrCreateInstance(filterOffcanvas).show();
                     }
                 });
             });
