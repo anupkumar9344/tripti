@@ -71,6 +71,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'gallery',
                                                 'editUrl' => route('admin.gallery-items.edit', $item),
                                                 'deleteUrl' => route('admin.gallery-items.destroy', $item),
                                                 'deleteTitle' => 'Delete item?',

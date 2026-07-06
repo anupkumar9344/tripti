@@ -184,6 +184,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'faqs',
                                                 'editUrl' => route('admin.faqs.edit', $faq),
                                                 'deleteUrl' => route('admin.faqs.destroy', $faq),
                                                 'deleteTitle' => 'Delete FAQ?',

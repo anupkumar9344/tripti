@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Setting;
 use App\Support\AdminThemeColors;
 use App\Support\ThemeColors;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +25,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::before(function ($user, string $ability) {
+            if (method_exists($user, 'isSuperAdmin') && $user->isSuperAdmin()) {
+                return true;
+            }
+
+            return null;
+        });
+
+        Blade::if('admincan', function (string $permission): bool {
+            return auth()->user()?->canAdmin($permission) ?? false;
+        });
+
         View::composer(['layouts.app', 'partials.header', 'partials.footer'], function ($view): void {
             $settings = Setting::getMany([
                 'website_name',

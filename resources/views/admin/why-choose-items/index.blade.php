@@ -64,6 +64,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'why-choose',
                                                 'editUrl' => route('admin.why-choose-items.edit', $item),
                                                 'deleteUrl' => route('admin.why-choose-items.destroy', $item),
                                                 'deleteTitle' => 'Delete item?',

@@ -12,9 +12,11 @@
         <div class="col-sm-12">
             <div class="page-title-box">
                 <div class="float-end">
-                    <a href="{{ route('admin.bed-types.create') }}" class="btn btn-primary">
-                        <i class="ti ti-plus me-1"></i> Add New
-                    </a>
+                    @include('admin.partials.page-add-button', [
+                        'permission' => 'bed-types.create',
+                        'url' => route('admin.bed-types.create'),
+                        'label' => 'Add New',
+                    ])
                 </div>
                 <h4 class="page-title">Bed List</h4>
             </div>
@@ -41,6 +43,7 @@
                                         <td>{{ $bedType->name }}</td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'bed-types',
                                                 'editUrl' => route('admin.bed-types.edit', $bedType),
                                                 'deleteUrl' => route('admin.bed-types.destroy', $bedType),
                                                 'deleteTitle' => 'Delete bed type?',

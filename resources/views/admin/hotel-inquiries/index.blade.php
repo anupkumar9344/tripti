@@ -72,9 +72,11 @@
                             <span class="badge bg-primary ms-1">On</span>
                         @endif
                     </button>
+                    @admincan('inquiries.create')
                     <a href="{{ route('admin.hotel-inquiries.create') }}" class="btn btn-primary">
                         <i class="ti ti-plus me-1"></i> Add Inquiry
                     </a>
+                    @endadmincan
                 </div>
             </div>
         </div>
@@ -182,21 +184,14 @@
                                         </td>
                                         <td class="text-nowrap font-13">{{ $inquiry->created_at?->format('d M Y, h:i A') }}</td>
                                         <td>
-                                            <div class="admin-table-actions">
-                                                <a href="{{ route('admin.hotel-inquiries.show', $inquiry) }}" class="btn btn-sm btn-outline-primary" title="View">
-                                                    <i class="las la-eye"></i>
-                                                </a>
-                                                <a href="{{ route('admin.hotel-inquiries.edit', $inquiry) }}" class="btn btn-sm btn-outline-secondary" title="Edit">
-                                                    <i class="las la-pen"></i>
-                                                </a>
-                                                <form action="{{ route('admin.hotel-inquiries.destroy', $inquiry) }}" method="POST" class="js-confirm-delete d-inline" data-title="Delete inquiry?" data-text="This inquiry will be permanently removed.">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
-                                                        <i class="las la-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'inquiries',
+                                                'viewUrl' => route('admin.hotel-inquiries.show', $inquiry),
+                                                'editUrl' => route('admin.hotel-inquiries.edit', $inquiry),
+                                                'deleteUrl' => route('admin.hotel-inquiries.destroy', $inquiry),
+                                                'deleteTitle' => 'Delete inquiry?',
+                                                'deleteText' => 'This inquiry will be permanently removed.',
+                                            ])
                                         </td>
                                     </tr>
                                 @empty

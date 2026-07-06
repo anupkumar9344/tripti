@@ -3,16 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Support\AdminPermissions;
 use App\Support\MediaPath;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, HasRoles, Notifiable;
 
     public const STATUS_ACTIVE = true;
 
@@ -58,11 +60,31 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the user is an active admin.
+     * Check if the user is an active admin panel user.
      */
     public function isActiveAdmin(): bool
     {
         return $this->is_admin && $this->status;
+    }
+
+    /**
+     * Determine whether the user is a super admin with full access.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(AdminPermissions::SUPER_ADMIN_ROLE);
+    }
+
+    /**
+     * Check if the user can perform an admin panel action.
+     */
+    public function canAdmin(string $permission): bool
+    {
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
+        return $this->can($permission);
     }
 
     /**
@@ -75,5 +97,13 @@ class User extends Authenticatable
         }
 
         return asset('admin/assets/images/users/user-4.jpg');
+    }
+
+    /**
+     * Display label for the assigned role.
+     */
+    public function roleLabel(): string
+    {
+        return $this->roles->first()?->name ?? 'No role';
     }
 }

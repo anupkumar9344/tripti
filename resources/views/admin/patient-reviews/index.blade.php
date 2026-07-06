@@ -107,6 +107,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'patient-reviews',
                                                 'editUrl' => route('admin.patient-reviews.edit', $review),
                                                 'deleteUrl' => route('admin.patient-reviews.destroy', $review),
                                                 'deleteTitle' => 'Delete review?',

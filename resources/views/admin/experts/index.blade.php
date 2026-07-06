@@ -70,6 +70,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'experts',
                                                 'viewUrl' => $expert->status ? route('experts.show', $expert->slug) : null,
                                                 'viewTitle' => 'View Profile',
                                                 'viewTarget' => '_blank',

@@ -44,18 +44,6 @@
             <div class="menu-body navbar-vertical">
                 <ul class="navbar-nav">
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Menu</span></li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                            <i class="ti ti-smart-home menu-icon"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
-                            <i class="ti ti-mail menu-icon"></i>
-                            <span>Contact Messages</span>
-                        </a>
-                    </li>
                     @php
                         $bookingMenuOpen = request()->routeIs('admin.bookings.*');
                         $bookingStatus = request()->routeIs('admin.bookings.index')
@@ -66,8 +54,34 @@
                             || request()->routeIs('admin.bed-types.*')
                             || request()->routeIs('admin.room-types.*')
                             || request()->routeIs('admin.premium-services.*');
+                        $canManageHotelsMenu = auth()->user()->canAdmin('hotel-amenities.view')
+                            || auth()->user()->canAdmin('hotel-facilities.view')
+                            || auth()->user()->canAdmin('bed-types.view')
+                            || auth()->user()->canAdmin('room-types.view')
+                            || auth()->user()->canAdmin('premium-services.view');
+                        $canStaffModule = auth()->user()->canAdmin('staff.view')
+                            || auth()->user()->canAdmin('roles.view');
                     @endphp
+                    @admincan('dashboard.view')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            <i class="ti ti-smart-home menu-icon"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    @endadmincan
+                    @admincan('contacts.view')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+                            <i class="ti ti-mail menu-icon"></i>
+                            <span>Contact Messages</span>
+                        </a>
+                    </li>
+                    @endadmincan
+                    @if(auth()->user()->canAdmin('bookings.view') || auth()->user()->canAdmin('inquiries.view') || $canManageHotelsMenu)
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Manage Hotels</span></li>
+                    @endif
+                    @admincan('bookings.view')
                     <li class="nav-item">
                         <a
                             class="nav-link"
@@ -97,12 +111,16 @@
                             </ul>
                         </div>
                     </li>
+                    @endadmincan
+                    @admincan('inquiries.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.hotel-inquiries.*') ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index') }}">
                             <i class="ti ti-message-2 menu-icon"></i>
                             <span>Inquiries</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @if($canManageHotelsMenu)
                     <li class="nav-item">
                         <a
                             class="nav-link"
@@ -117,110 +135,172 @@
                         </a>
                         <div class="collapse {{ $hotelMenuOpen ? 'show' : '' }}" id="sidebarHotels">
                             <ul class="nav flex-column">
+                                @admincan('hotel-amenities.view')
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.hotel-amenities.*') ? 'active' : '' }}" href="{{ route('admin.hotel-amenities.index') }}">Amenities</a>
                                 </li>
+                                @endadmincan
+                                @admincan('hotel-facilities.view')
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.hotel-facilities.*') ? 'active' : '' }}" href="{{ route('admin.hotel-facilities.index') }}">Facilities</a>
                                 </li>
+                                @endadmincan
+                                @admincan('bed-types.view')
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.bed-types.*') ? 'active' : '' }}" href="{{ route('admin.bed-types.index') }}">Bed Types</a>
                                 </li>
+                                @endadmincan
+                                @admincan('room-types.view')
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.room-types.*') ? 'active' : '' }}" href="{{ route('admin.room-types.index') }}">Room Types</a>
                                 </li>
+                                @endadmincan
+                                @admincan('premium-services.view')
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.premium-services.*') ? 'active' : '' }}" href="{{ route('admin.premium-services.index') }}">Premium Services</a>
                                 </li>
+                                @endadmincan
                             </ul>
                         </div>
                     </li>
+                    @endif
+                    @if(auth()->user()->canAdmin('hero-banners.view') || auth()->user()->canAdmin('about.edit') || auth()->user()->canAdmin('why-choose.view') || auth()->user()->canAdmin('experts.view') || auth()->user()->canAdmin('patient-reviews.view') || auth()->user()->canAdmin('video-feedbacks.view') || auth()->user()->canAdmin('gallery.view') || auth()->user()->canAdmin('blog.view') || auth()->user()->canAdmin('faqs.view') || auth()->user()->canAdmin('legal-pages.edit'))
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Content</span></li>
+                    @endif
+                    @admincan('hero-banners.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.hero-banners.*') ? 'active' : '' }}" href="{{ route('admin.hero-banners.index') }}">
                             <i class="ti ti-photo menu-icon"></i>
                             <span>Hero Banners</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('about.edit')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.about.*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
                             <i class="ti ti-info-circle menu-icon"></i>
                             <span>About Us</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('why-choose.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : '' }}" href="{{ route('admin.why-choose-items.index') }}">
                             <i class="ti ti-star menu-icon"></i>
                             <span>Why Choose Us</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('experts.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">
                             <i class="ti ti-users menu-icon"></i>
                             <span>Team</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('patient-reviews.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.patient-reviews.*') ? 'active' : '' }}" href="{{ route('admin.patient-reviews.index') }}">
                             <i class="ti ti-stars menu-icon"></i>
                             <span>Feedback</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('video-feedbacks.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.video-feedbacks.*') ? 'active' : '' }}" href="{{ route('admin.video-feedbacks.index') }}">
                             <i class="ti ti-video menu-icon"></i>
                             <span>Shorts Video</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('gallery.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.gallery-items.*') ? 'active' : '' }}" href="{{ route('admin.gallery-items.index') }}">
                             <i class="ti ti-camera menu-icon"></i>
                             <span>Gallery</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('blog.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}" href="{{ route('admin.blog-posts.index') }}">
                             <i class="ti ti-news menu-icon"></i>
                             <span>Blog Posts</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('faqs.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}">
                             <i class="ti ti-zoom-question menu-icon"></i>
                             <span>FAQs</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('legal-pages.edit')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.legal-pages.*') ? 'active' : '' }}" href="{{ route('admin.legal-pages.edit') }}">
                             <i class="ti ti-file-text menu-icon"></i>
                             <span>Privacy &amp; Terms</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('media.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.media.*') ? 'active' : '' }}" href="{{ route('admin.media.index') }}">
                             <i class="ti ti-files menu-icon"></i>
                             <span>Media Library</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('icons.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.icons.*') ? 'active' : '' }}" href="{{ route('admin.icons.index') }}">
                             <i class="ti ti-palette menu-icon"></i>
                             <span>Icon Reference</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @if($canStaffModule)
+                    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Staff Management</span></li>
+                    @endif
+                    @admincan('staff.view')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.staff.*') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">
+                            <i class="ti ti-user-check menu-icon"></i>
+                            <span>Staff</span>
+                        </a>
+                    </li>
+                    @endadmincan
+                    @admincan('roles.view')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">
+                            <i class="ti ti-shield-lock menu-icon"></i>
+                            <span>Roles & Permissions</span>
+                        </a>
+                    </li>
+                    @endadmincan
+                    @if(auth()->user()->canAdmin('settings.general') || auth()->user()->canAdmin('cache.clear'))
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold">S<span>ettings</span></li>
+                    @endif
+                    @admincan('settings.general')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.settings.general') ? 'active' : '' }}" href="{{ route('admin.settings.general') }}">
                             <i class="ti ti-settings menu-icon"></i>
                             <span>General Settings</span>
                         </a>
                     </li>
+                    @endadmincan
+                    @admincan('cache.clear')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.cache.clear') }}">
                             <i class="ti ti-refresh menu-icon"></i>
                             <span>Clear Cache</span>
                         </a>
                     </li>
+                    @endadmincan
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}" href="{{ route('admin.profile.edit') }}">
                             <i class="ti ti-user menu-icon"></i>

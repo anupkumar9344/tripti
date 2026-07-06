@@ -79,6 +79,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'hero-banners',
                                                 'viewUrl' => url('/'),
                                                 'viewTitle' => 'View Home',
                                                 'viewTarget' => '_blank',

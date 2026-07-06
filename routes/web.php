@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\IconReferenceController;
 use App\Http\Controllers\Admin\LegalPageSettingController;
 use App\Http\Controllers\Admin\PatientReviewController;
 use App\Http\Controllers\Admin\VideoFeedbackController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
@@ -85,7 +87,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
     Route::post('login', [AdminAuthController::class, 'login'])->name('login.submit');
 
-    Route::middleware('admin.auth')->group(function () {
+    Route::middleware(['admin.auth', 'admin.permission'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('clear-cache', [CacheController::class, 'clear'])->name('cache.clear');
         Route::get('about', [AboutSettingController::class, 'edit'])->name('about.edit');
@@ -134,6 +136,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('media/{mediaFile}', [MediaController::class, 'update'])->name('media.update');
         Route::delete('media/{mediaFile}', [MediaController::class, 'destroy'])->name('media.destroy');
         Route::get('media/{mediaFile}/download', [MediaController::class, 'download'])->name('media.download');
+        Route::resource('staff', StaffController::class)->except(['show']);
+        Route::resource('roles', RoleController::class)->except(['show']);
         Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });

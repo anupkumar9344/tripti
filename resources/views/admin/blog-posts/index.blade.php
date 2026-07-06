@@ -66,6 +66,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'blog',
                                                 'viewUrl' => route('blog.show', $post->slug),
                                                 'viewTitle' => 'View',
                                                 'viewTarget' => '_blank',

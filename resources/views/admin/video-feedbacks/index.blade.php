@@ -71,6 +71,7 @@
                                         </td>
                                         <td>
                                             @include('admin.partials.table-actions', [
+                                                'permissionPrefix' => 'video-feedbacks',
                                                 'viewUrl' => $videoFeedback->embedUrl(),
                                                 'viewTitle' => 'Preview',
                                                 'viewTarget' => '_blank',
