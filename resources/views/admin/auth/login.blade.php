@@ -107,7 +107,7 @@
             <div class="admin-auth-brand-panel">
                 <div class="admin-auth-brand-visual">
                     <img
-                        src="{{ asset('assets/img/amenities/1.jpg') }}"
+                        src="{{ $adminLoginImageUrl }}"
                         alt="Tripti Hotel"
                         class="admin-auth-brand-image"
                     >
