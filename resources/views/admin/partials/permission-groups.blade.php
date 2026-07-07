@@ -17,7 +17,7 @@
         'Hero Banners' => 'ti-photo',
         'About Us' => 'ti-info-circle',
         'Why Choose Us' => 'ti-star',
-        'Team' => 'ti-users',
+        'Careers' => 'ti-briefcase',
         'Feedback' => 'ti-stars',
         'Shorts Video' => 'ti-video',
         'Gallery' => 'ti-camera',

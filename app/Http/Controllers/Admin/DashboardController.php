@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\BedType;
 use App\Models\BlogPost;
 use App\Models\Contact;
-use App\Models\Expert;
+use App\Models\CareerApplication;
+use App\Models\CareerOpening;
 use App\Models\Faq;
 use App\Models\GalleryItem;
 use App\Models\HotelAmenity;
@@ -83,12 +84,20 @@ class DashboardController extends Controller
 
         $contentStats = [
             [
-                'label' => 'Team Members',
-                'count' => Expert::query()->where('status', true)->count(),
-                'subtitle' => 'Active team profiles',
-                'icon' => 'ti-users',
+                'label' => 'Job Openings',
+                'count' => CareerOpening::query()->where('status', true)->count(),
+                'subtitle' => 'Active roles on website',
+                'icon' => 'ti-briefcase',
                 'tone' => 'warm',
-                'url' => route('admin.experts.index'),
+                'url' => route('admin.career-openings.index'),
+            ],
+            [
+                'label' => 'Career Applications',
+                'count' => CareerApplication::query()->where('status', CareerApplication::STATUS_NEW)->count(),
+                'subtitle' => 'New job applications',
+                'icon' => 'ti-user-check',
+                'tone' => 'teal',
+                'url' => route('admin.career-applications.index'),
             ],
             [
                 'label' => 'Blog Posts',

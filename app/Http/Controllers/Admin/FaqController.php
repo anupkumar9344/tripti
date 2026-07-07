@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Expert;
 use App\Models\Faq;
 use App\Models\Setting;
 use App\Support\MediaPath;
@@ -60,7 +59,6 @@ class FaqController extends Controller
     public function index(): View
     {
         $faqs = Faq::query()
-            ->with(['expert:id,name'])
             ->orderBy('sort_order')
             ->orderBy('question')
             ->get();
@@ -138,7 +136,7 @@ class FaqController extends Controller
      */
     public function create(): View
     {
-        return view('admin.faqs.create', $this->formOptions());
+        return view('admin.faqs.create');
     }
 
     /**
@@ -164,7 +162,7 @@ class FaqController extends Controller
      */
     public function edit(Faq $faq): View
     {
-        return view('admin.faqs.edit', array_merge(['faq' => $faq], $this->formOptions()));
+        return view('admin.faqs.edit', compact('faq'));
     }
 
     /**
@@ -199,18 +197,6 @@ class FaqController extends Controller
     }
 
     /**
-     * Shared form dropdown data.
-     *
-     * @return array<string, mixed>
-     */
-    private function formOptions(): array
-    {
-        return [
-            'experts' => Expert::query()->orderBy('name')->get(['id', 'name']),
-        ];
-    }
-
-    /**
      * Validate FAQ form input.
      *
      * @return array<string, mixed>
@@ -224,8 +210,6 @@ class FaqController extends Controller
             'status' => ['required', 'boolean'],
             'display_on_home' => ['required', 'boolean'],
             'display_on_faq_page' => ['required', 'boolean'],
-            'display_on_expert_detail' => ['required', 'boolean'],
-            'expert_id' => ['nullable', 'integer', 'exists:experts,id'],
         ]);
     }
 
@@ -237,17 +221,13 @@ class FaqController extends Controller
      */
     private function faqAttributes(array $validated): array
     {
-        $expertId = $validated['expert_id'] ?? null;
-
         return [
             'question' => $validated['question'],
             'answer' => $validated['answer'],
             'sort_order' => $validated['sort_order'] ?? 0,
             'status' => (bool) $validated['status'],
             'display_on_home' => (bool) $validated['display_on_home'],
-            'display_on_faq_page' => $expertId ? false : (bool) $validated['display_on_faq_page'],
-            'display_on_expert_detail' => $expertId ? false : (bool) $validated['display_on_expert_detail'],
-            'expert_id' => $expertId,
+            'display_on_faq_page' => (bool) $validated['display_on_faq_page'],
         ];
     }
 }

@@ -2,29 +2,45 @@
     <div class="col-lg-4">
         <div class="card border shadow-none mb-0">
             <div class="card-header">
-                <h4 class="card-title mb-0">Team Page</h4>
+                <h4 class="card-title mb-0">Careers Page</h4>
             </div>
             <div class="card-body">
                 <div class="form-group mb-3">
-                    <label class="form-label" for="team_page_eyebrow">Eyebrow</label>
-                    <input type="text" class="form-control @error('team_page_eyebrow') is-invalid @enderror" id="team_page_eyebrow" name="team_page_eyebrow" value="{{ old('team_page_eyebrow', $settings['team_page_eyebrow']) }}" placeholder="Our Leadership">
-                    @error('team_page_eyebrow')
+                    <label class="form-label" for="career_page_eyebrow">Eyebrow</label>
+                    <input type="text" class="form-control @error('career_page_eyebrow') is-invalid @enderror" id="career_page_eyebrow" name="career_page_eyebrow" value="{{ old('career_page_eyebrow', $settings['career_page_eyebrow']) }}" placeholder="Join Our Team">
+                    @error('career_page_eyebrow')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="form-label" for="team_page_title">Title</label>
-                    <input type="text" class="form-control @error('team_page_title') is-invalid @enderror" id="team_page_title" name="team_page_title" value="{{ old('team_page_title', $settings['team_page_title']) }}" placeholder="Meet Our Expert Team">
-                    @error('team_page_title')
+                    <label class="form-label" for="career_page_title">Title</label>
+                    <input type="text" class="form-control @error('career_page_title') is-invalid @enderror" id="career_page_title" name="career_page_title" value="{{ old('career_page_title', $settings['career_page_title']) }}" placeholder="Build Your Career at Tripti Hotel">
+                    @error('career_page_title')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label" for="career_page_intro">Introduction</label>
+                    <textarea class="form-control @error('career_page_intro') is-invalid @enderror" id="career_page_intro" name="career_page_intro" rows="3">{{ old('career_page_intro', $settings['career_page_intro']) }}</textarea>
+                    @error('career_page_intro')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label" for="career_form_title">Form Title</label>
+                    <input type="text" class="form-control @error('career_form_title') is-invalid @enderror" id="career_form_title" name="career_form_title" value="{{ old('career_form_title', $settings['career_form_title']) }}" placeholder="Apply Now">
+                    @error('career_form_title')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group mb-0">
-                    <label class="form-label" for="team_page_intro">Introduction</label>
-                    <textarea class="form-control @error('team_page_intro') is-invalid @enderror" id="team_page_intro" name="team_page_intro" rows="3">{{ old('team_page_intro', $settings['team_page_intro']) }}</textarea>
-                    @error('team_page_intro')
+                    <label class="form-label" for="career_form_description">Form Description</label>
+                    <textarea class="form-control @error('career_form_description') is-invalid @enderror" id="career_form_description" name="career_form_description" rows="2">{{ old('career_form_description', $settings['career_form_description']) }}</textarea>
+                    @error('career_form_description')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

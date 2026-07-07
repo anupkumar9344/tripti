@@ -4,7 +4,7 @@
         ['label' => 'About', 'url' => route('about'), 'active' => request()->routeIs('about'), 'icon' => 'ri-information-line'],
         ['label' => 'Rooms', 'url' => route('rooms'), 'active' => request()->routeIs('rooms*'), 'icon' => 'ri-hotel-bed-line'],
         ['label' => 'Gallery', 'url' => route('gallery'), 'active' => request()->routeIs('gallery'), 'icon' => 'ri-gallery-line'],
-        ['label' => 'Team', 'url' => route('experts'), 'active' => request()->routeIs('experts*'), 'icon' => 'ri-team-line'],
+        ['label' => 'Careers', 'url' => route('careers'), 'active' => request()->routeIs('careers*'), 'icon' => 'ri-briefcase-line'],
         ['label' => 'Blog', 'url' => route('blog'), 'active' => request()->routeIs('blog*'), 'icon' => 'ri-article-line'],
         ['label' => 'FAQ', 'url' => route('faq'), 'active' => request()->routeIs('faq'), 'icon' => 'ri-question-answer-line'],
         ['label' => 'Contact', 'url' => route('contact'), 'active' => request()->routeIs('contact'), 'icon' => 'ri-customer-service-2-line'],

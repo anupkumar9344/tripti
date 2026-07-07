@@ -165,13 +165,7 @@
                                             @if ($faq->display_on_faq_page)
                                                 <span class="badge badge-soft-success me-1">FAQ Page</span>
                                             @endif
-                                            @if ($faq->display_on_expert_detail)
-                                                <span class="badge badge-soft-warning me-1">Team</span>
-                                            @endif
-                                            @if ($faq->expert)
-                                                <span class="badge badge-soft-secondary me-1">{{ $faq->expert->name }}</span>
-                                            @endif
-                                            @if (! $faq->display_on_home && ! $faq->display_on_faq_page && ! $faq->display_on_expert_detail && ! $faq->expert)
+                                            @if (! $faq->display_on_home && ! $faq->display_on_faq_page)
                                                 —
                                             @endif
                                         </td>

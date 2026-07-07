@@ -81,8 +81,6 @@ class FaqSeeder extends Seeder
                     'status' => true,
                     'display_on_home' => $faq['display_on_home'],
                     'display_on_faq_page' => true,
-                    'display_on_expert_detail' => false,
-                    'expert_id' => null,
                 ]
             );
         }

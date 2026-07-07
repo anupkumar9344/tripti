@@ -14,22 +14,6 @@
     @enderror
 </div>
 
-<div class="form-group mb-3">
-    <label class="form-label" for="expert_id">Assign to Team Member</label>
-    @php
-        $expertId = old('expert_id', $faq->expert_id ?? '');
-    @endphp
-    <select class="form-select @error('expert_id') is-invalid @enderror" id="expert_id" name="expert_id">
-        <option value="">None</option>
-        @foreach ($experts as $expert)
-            <option value="{{ $expert->id }}" @selected((string) $expertId === (string) $expert->id)>{{ $expert->name }}</option>
-        @endforeach
-    </select>
-    @error('expert_id')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
 <div class="row">
     <div class="col-md-4">
         <div class="form-group mb-3">
@@ -63,24 +47,6 @@
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="form-group mb-3">
-            <label class="form-label" for="display_on_expert_detail">All Team Profiles <span class="text-danger">*</span></label>
-            @php
-                $expertDetailValue = (string) old('display_on_expert_detail', isset($faq) ? (int) $faq->display_on_expert_detail : 0);
-            @endphp
-            <select class="form-select @error('display_on_expert_detail') is-invalid @enderror" id="display_on_expert_detail" name="display_on_expert_detail" required>
-                <option value="1" @selected($expertDetailValue === '1')>Yes</option>
-                <option value="0" @selected($expertDetailValue === '0')>No</option>
-            </select>
-            @error('display_on_expert_detail')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-md-4">
         <div class="form-group mb-3">
             <label class="form-label" for="sort_order">Display Order</label>

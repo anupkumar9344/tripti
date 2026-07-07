@@ -59,6 +59,10 @@
                             || auth()->user()->canAdmin('bed-types.view')
                             || auth()->user()->canAdmin('room-types.view')
                             || auth()->user()->canAdmin('premium-services.view');
+                        $canCareersMenu = auth()->user()->canAdmin('career-openings.view')
+                            || auth()->user()->canAdmin('careers.view');
+                        $careersMenuOpen = request()->routeIs('admin.career-openings.*')
+                            || request()->routeIs('admin.career-applications.*');
                         $canStaffModule = auth()->user()->canAdmin('staff.view')
                             || auth()->user()->canAdmin('roles.view');
                     @endphp
@@ -164,7 +168,7 @@
                         </div>
                     </li>
                     @endif
-                    @if(auth()->user()->canAdmin('hero-banners.view') || auth()->user()->canAdmin('about.edit') || auth()->user()->canAdmin('why-choose.view') || auth()->user()->canAdmin('experts.view') || auth()->user()->canAdmin('patient-reviews.view') || auth()->user()->canAdmin('video-feedbacks.view') || auth()->user()->canAdmin('gallery.view') || auth()->user()->canAdmin('blog.view') || auth()->user()->canAdmin('faqs.view') || auth()->user()->canAdmin('legal-pages.edit'))
+                    @if(auth()->user()->canAdmin('hero-banners.view') || auth()->user()->canAdmin('about.edit') || auth()->user()->canAdmin('why-choose.view') || $canCareersMenu || auth()->user()->canAdmin('patient-reviews.view') || auth()->user()->canAdmin('video-feedbacks.view') || auth()->user()->canAdmin('gallery.view') || auth()->user()->canAdmin('blog.view') || auth()->user()->canAdmin('faqs.view') || auth()->user()->canAdmin('legal-pages.edit'))
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Content</span></li>
                     @endif
                     @admincan('hero-banners.view')
@@ -191,14 +195,35 @@
                         </a>
                     </li>
                     @endadmincan
-                    @admincan('experts.view')
+                    @if($canCareersMenu)
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.experts.*') ? 'active' : '' }}" href="{{ route('admin.experts.index') }}">
-                            <i class="ti ti-users menu-icon"></i>
-                            <span>Team</span>
+                        <a
+                            class="nav-link"
+                            href="#sidebarCareers"
+                            data-bs-toggle="collapse"
+                            role="button"
+                            aria-expanded="{{ $careersMenuOpen ? 'true' : 'false' }}"
+                            aria-controls="sidebarCareers"
+                        >
+                            <i class="ti ti-briefcase menu-icon"></i>
+                            <span>Careers</span>
                         </a>
+                        <div class="collapse {{ $careersMenuOpen ? 'show' : '' }}" id="sidebarCareers">
+                            <ul class="nav flex-column">
+                                @admincan('career-openings.view')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.career-openings.*') ? 'active' : '' }}" href="{{ route('admin.career-openings.index') }}">Job Openings</a>
+                                </li>
+                                @endadmincan
+                                @admincan('careers.view')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.career-applications.*') ? 'active' : '' }}" href="{{ route('admin.career-applications.index') }}">Applications</a>
+                                </li>
+                                @endadmincan
+                            </ul>
+                        </div>
                     </li>
-                    @endadmincan
+                    @endif
                     @admincan('patient-reviews.view')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.patient-reviews.*') ? 'active' : '' }}" href="{{ route('admin.patient-reviews.index') }}">

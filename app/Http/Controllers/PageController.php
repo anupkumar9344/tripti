@@ -50,16 +50,6 @@ class PageController extends Controller
     }
 
     /**
-     * Display the team page.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function team(): View
-    {
-        return view('team.index');
-    }
-
-    /**
      * Display the gallery page.
      *
      * @return \Illuminate\View\View

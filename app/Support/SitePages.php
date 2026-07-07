@@ -17,7 +17,7 @@ class SitePages
         return [
             ['label' => 'Home', 'path' => '/'],
             ['label' => 'About Us', 'path' => '/about-us'],
-            ['label' => 'Our Expert Team', 'path' => '/experts'],
+            ['label' => 'Careers', 'path' => '/careers'],
             ['label' => 'Gallery', 'path' => '/gallery'],
             ['label' => 'Blog', 'path' => '/blog'],
             ['label' => 'FAQs', 'path' => '/faq'],
