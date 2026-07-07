@@ -47,7 +47,7 @@
                 <div class="card-body d-flex flex-column justify-content-center">
                     <p class="text-muted mb-0 fw-semibold">Total Managed Items</p>
                     <div class="summary-count">{{ number_format($totalContent) }}</div>
-                    <p class="text-muted mb-1 font-13">Rooms, amenities, team, blogs, gallery, FAQs, and more.</p>
+                    <p class="text-muted mb-1 font-13">Rooms, bookings, content, careers, and more.</p>
                     <p class="text-muted mb-0 font-13">
                         <span class="fw-semibold text-dark">{{ number_format($totalHotel) }}</span> hotel
                         <span class="mx-1">·</span>
@@ -61,7 +61,7 @@
     <p class="admin-dashboard-section-title mt-3 mb-0">Hotel Management</p>
     <div class="row admin-dashboard-stats g-3 mt-1 mb-0">
         @foreach ($hotelStats as $stat)
-            <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="col-xl-3 col-lg-6 col-md-6">
                 <a href="{{ $stat['url'] }}" class="admin-dashboard-stat-link">
                     <div class="card admin-dashboard-stat mb-0">
                         <div class="card-body py-3">
@@ -84,7 +84,7 @@
     <p class="admin-dashboard-section-title mt-4 mb-0">Website Content</p>
     <div class="row admin-dashboard-stats g-3 mt-1 mb-0">
         @foreach ($contentStats as $stat)
-            <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="col-xl-3 col-lg-6 col-md-6">
                 <a href="{{ $stat['url'] }}" class="admin-dashboard-stat-link">
                     <div class="card admin-dashboard-stat mb-0">
                         <div class="card-body py-3">

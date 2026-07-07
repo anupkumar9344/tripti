@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\BedType;
 use App\Models\BlogPost;
 use App\Models\Contact;
@@ -12,11 +13,13 @@ use App\Models\Faq;
 use App\Models\GalleryItem;
 use App\Models\HotelAmenity;
 use App\Models\HotelFacility;
+use App\Models\HotelInquiry;
 use App\Models\PatientReview;
 use App\Models\PremiumService;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\HeroBanner;
+use App\Models\WhyChooseItem;
 use Illuminate\View\View;
 
 /**
@@ -80,6 +83,22 @@ class DashboardController extends Controller
                 'tone' => 'warm',
                 'url' => route('admin.bed-types.index'),
             ],
+            [
+                'label' => 'Bookings',
+                'count' => Booking::query()->where('status', 'pending')->count(),
+                'subtitle' => 'Pending reservations',
+                'icon' => 'ti-calendar-event',
+                'tone' => 'rose',
+                'url' => route('admin.bookings.index', ['status' => 'pending']),
+            ],
+            [
+                'label' => 'Inquiries',
+                'count' => HotelInquiry::query()->where('status', HotelInquiry::STATUS_NEW)->count(),
+                'subtitle' => 'New hotel inquiries',
+                'icon' => 'ti-message-2',
+                'tone' => 'purple',
+                'url' => route('admin.hotel-inquiries.index', ['status' => HotelInquiry::STATUS_NEW]),
+            ],
         ];
 
         $contentStats = [
@@ -138,6 +157,14 @@ class DashboardController extends Controller
                 'icon' => 'ti-photo',
                 'tone' => 'primary',
                 'url' => route('admin.hero-banners.index'),
+            ],
+            [
+                'label' => 'Why Choose Us',
+                'count' => WhyChooseItem::query()->where('status', true)->count(),
+                'subtitle' => 'Homepage highlights',
+                'icon' => 'ti-star',
+                'tone' => 'accent',
+                'url' => route('admin.why-choose-items.index'),
             ],
         ];
 
