@@ -17,7 +17,12 @@ class GalleryController extends Controller
      */
     public function index(): View
     {
-        $galleryItems = GalleryItem::query()->activeOrdered()->get();
+        $galleryItems = GalleryItem::query()
+            ->where('status', true)
+            ->orderByRaw("CASE WHEN type = 'video' THEN 1 ELSE 0 END")
+            ->orderBy('sort_order')
+            ->orderBy('title')
+            ->get();
 
         return view('gallery.index', compact('galleryItems'));
     }

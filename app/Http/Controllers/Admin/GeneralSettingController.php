@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Support\MediaPath;
+use App\Support\WelcomeModal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -26,6 +27,15 @@ class GeneralSettingController extends Controller
         'website_logo',
         'website_favicon',
         'admin_login_image',
+        'welcome_modal_enabled',
+        'welcome_modal_title',
+        'welcome_modal_message',
+        'welcome_modal_media_type',
+        'welcome_modal_image',
+        'welcome_modal_video_url',
+        'welcome_modal_button_text',
+        'welcome_modal_button_url',
+        'welcome_modal_revision',
         'footer_about',
         'email_1',
         'email_2',
@@ -71,6 +81,7 @@ class GeneralSettingController extends Controller
         'website_logo',
         'website_favicon',
         'admin_login_image',
+        'welcome_modal_image',
         'visit_us_bg_image',
         'seo_og_image',
     ];
@@ -101,6 +112,14 @@ class GeneralSettingController extends Controller
             'website_logo' => ['nullable', 'string', 'max:500'],
             'website_favicon' => ['nullable', 'string', 'max:500'],
             'admin_login_image' => ['nullable', 'string', 'max:500'],
+            'welcome_modal_enabled' => ['required', 'boolean'],
+            'welcome_modal_title' => ['nullable', 'string', 'max:255'],
+            'welcome_modal_message' => ['nullable', 'string', 'max:2000'],
+            'welcome_modal_media_type' => ['required', 'in:none,image,video'],
+            'welcome_modal_image' => ['nullable', 'string', 'max:500'],
+            'welcome_modal_video_url' => ['nullable', 'string', 'max:500'],
+            'welcome_modal_button_text' => ['nullable', 'string', 'max:100'],
+            'welcome_modal_button_url' => ['nullable', 'string', 'max:500'],
             'footer_about' => ['nullable', 'string', 'max:1000'],
             'email_1' => ['nullable', 'email', 'max:255'],
             'email_2' => ['nullable', 'email', 'max:255'],
@@ -137,7 +156,13 @@ class GeneralSettingController extends Controller
             'seo_google_site_verification' => ['nullable', 'string', 'max:255'],
         ]);
 
+        $previousWelcome = Setting::getMany(WelcomeModal::SETTING_KEYS);
+
         foreach (self::SETTING_KEYS as $key) {
+            if ($key === 'welcome_modal_revision') {
+                continue;
+            }
+
             if (in_array($key, ['theme_primary_color', 'admin_theme_primary_color'], true)) {
                 Setting::setValue($key, \App\Support\ThemeColors::normalizeHex($validated[$key] ?? null));
 
@@ -151,6 +176,13 @@ class GeneralSettingController extends Controller
             }
 
             Setting::setValue($key, $validated[$key] ?? null);
+        }
+
+        $currentWelcome = Setting::getMany(WelcomeModal::SETTING_KEYS);
+        unset($previousWelcome['welcome_modal_revision'], $currentWelcome['welcome_modal_revision']);
+
+        if ($previousWelcome !== $currentWelcome) {
+            Setting::setValue('welcome_modal_revision', (string) time());
         }
 
         return redirect()

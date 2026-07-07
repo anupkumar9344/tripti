@@ -14,9 +14,22 @@
             </div>
 
             @if ($galleryItems->isNotEmpty())
+                @php
+                    $hasImages = $galleryItems->contains(fn ($item) => ! $item->isVideo());
+                    $hasVideos = $galleryItems->contains(fn ($item) => $item->isVideo());
+                @endphp
+
+                @if ($hasImages && $hasVideos)
+                    <div class="gallery-filter" role="tablist" data-aos="fade-up" data-aos-duration="1000">
+                        <button type="button" class="gallery-filter-btn is-active" data-filter="all">All</button>
+                        <button type="button" class="gallery-filter-btn" data-filter="image">Photos</button>
+                        <button type="button" class="gallery-filter-btn" data-filter="video">Videos</button>
+                    </div>
+                @endif
+
                 <div class="gallery-bento" data-aos="fade-up" data-aos-duration="1000">
                     @foreach ($galleryItems as $item)
-                        <article class="gallery-bento-item{{ $item->isVideo() ? ' is-video' : '' }}{{ $item->is_featured ? ' is-featured' : '' }}">
+                        <article class="gallery-bento-item{{ $item->isVideo() ? ' is-video' : '' }}{{ $item->is_featured ? ' is-featured' : '' }}" data-type="{{ $item->isVideo() ? 'video' : 'image' }}">
                             <a
                                 href="{{ $item->popupHref() }}"
                                 class="gallery-bento-link"
@@ -65,6 +78,24 @@
                     youtube: { controls: 1, showinfo: 0 },
                 });
             }
+
+            var filterButtons = document.querySelectorAll('.gallery-filter-btn');
+            var galleryItems = document.querySelectorAll('.gallery-bento-item');
+
+            filterButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var filter = button.getAttribute('data-filter');
+
+                    filterButtons.forEach(function (btn) {
+                        btn.classList.toggle('is-active', btn === button);
+                    });
+
+                    galleryItems.forEach(function (item) {
+                        var matches = filter === 'all' || item.getAttribute('data-type') === filter;
+                        item.style.display = matches ? '' : 'none';
+                    });
+                });
+            });
         });
     </script>
 @endpush

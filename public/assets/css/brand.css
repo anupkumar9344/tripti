@@ -4358,53 +4358,52 @@ textarea.contact-page-input {
     color: #666;
 }
 
-/* Bento gallery layout */
+/* Gallery photo/video filter */
+.gallery-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 32px;
+}
+
+.gallery-filter-btn {
+    padding: 8px 22px;
+    border: 1px solid #ddd6ca;
+    border-radius: 999px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b6355;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.gallery-filter-btn:hover {
+    border-color: var(--theme-primary);
+    color: var(--theme-primary);
+}
+
+.gallery-filter-btn.is-active {
+    background: var(--theme-primary);
+    border-color: var(--theme-primary);
+    color: #fff;
+}
+
+/* Uniform gallery grid */
 .gallery-bento {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-rows: 240px;
-    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
 }
 
 .gallery-bento-item {
     position: relative;
     min-width: 0;
+    aspect-ratio: 4 / 3;
     border-radius: 6px;
     overflow: hidden;
     background: #e8e2d8;
-}
-
-/* Max width = col-6 (2 of 4 columns) on large screens */
-.gallery-bento-item:nth-child(8n + 1) {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.gallery-bento-item:nth-child(8n + 2) {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-
-.gallery-bento-item:nth-child(8n + 3) {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-
-.gallery-bento-item:nth-child(8n + 4),
-.gallery-bento-item:nth-child(8n + 5) {
-    grid-column: span 1;
-    grid-row: span 1;
-}
-
-.gallery-bento-item:nth-child(8n + 6) {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-
-.gallery-bento-item:nth-child(8n + 7),
-.gallery-bento-item:nth-child(8n + 8) {
-    grid-column: span 1;
-    grid-row: span 1;
 }
 
 .gallery-bento-link {
@@ -4641,55 +4640,13 @@ textarea.contact-page-input {
 
     .gallery-bento {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: 200px;
-    }
-
-    .gallery-bento-item:nth-child(8n + 1),
-    .gallery-bento-item:nth-child(8n + 2),
-    .gallery-bento-item:nth-child(8n + 3),
-    .gallery-bento-item:nth-child(8n + 4),
-    .gallery-bento-item:nth-child(8n + 5),
-    .gallery-bento-item:nth-child(8n + 6),
-    .gallery-bento-item:nth-child(8n + 7),
-    .gallery-bento-item:nth-child(8n + 8) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-
-    .gallery-bento-item:nth-child(4n + 1) {
-        grid-column: span 1;
-        grid-row: span 2;
-    }
-
-    .gallery-bento-item:nth-child(4n + 2) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-
-    .gallery-bento-item:nth-child(4n + 3) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-
-    .gallery-bento-item:nth-child(4n + 4) {
-        grid-column: span 2;
-        grid-row: span 1;
     }
 }
 
 @media (max-width: 575px) {
     .gallery-bento {
         grid-template-columns: 1fr 1fr;
-        grid-auto-rows: 160px;
         gap: 8px;
-    }
-
-    .gallery-bento-item:nth-child(4n + 1) {
-        grid-row: span 1;
-    }
-
-    .gallery-bento-item:nth-child(4n + 4) {
-        grid-column: span 2;
     }
 
     .gallery-bento-meta strong {
@@ -6791,6 +6748,146 @@ textarea.contact-page-input {
 
     .booking-search-btn,
     .booking-room-btn {
+        width: 100%;
+    }
+}
+
+/* Website welcome modal */
+.site-welcome-modal .modal-content {
+    position: relative;
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+.site-welcome-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.site-welcome-modal__media {
+    position: relative;
+    background: #111;
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.site-welcome-modal__media--video {
+    aspect-ratio: 16 / 9;
+    max-height: none;
+}
+
+.site-welcome-modal__image {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.site-welcome-modal__media iframe,
+.site-welcome-modal__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    border: 0;
+    background: #000;
+}
+
+.site-welcome-modal__body {
+    padding: 34px 36px 36px;
+    text-align: center;
+}
+
+.site-welcome-modal__eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--theme-primary);
+}
+
+.site-welcome-modal__title {
+    margin-bottom: 14px;
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: #111;
+}
+
+.site-welcome-modal__message {
+    margin: 0 auto 26px;
+    max-width: 34rem;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.site-welcome-modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.site-welcome-modal__cta {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 999px;
+    background: var(--theme-primary);
+    border: 1px solid var(--theme-primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-welcome-modal__cta:hover {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+}
+
+.site-welcome-modal__link {
+    padding: 12px 22px;
+    border: 0;
+    background: transparent;
+    color: #6b6355;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.25s ease;
+}
+
+.site-welcome-modal__link:hover {
+    color: var(--theme-primary);
+}
+
+@media (max-width: 575.98px) {
+    .site-welcome-modal__body {
+        padding: 26px 22px 28px;
+    }
+
+    .site-welcome-modal__title {
+        font-size: 24px;
+    }
+
+    .site-welcome-modal__cta,
+    .site-welcome-modal__link {
         width: 100%;
     }
 }

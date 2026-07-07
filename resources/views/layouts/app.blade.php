@@ -43,6 +43,8 @@
 
     @include('partials.booking-modal')
 
+    @include('partials.welcome-modal')
+
     <a href="#Top" class="back-to-top result-placeholder">
         <i class="ri-arrow-up-double-fill"></i>
         <div class="back-to-top-wrap active-progress">

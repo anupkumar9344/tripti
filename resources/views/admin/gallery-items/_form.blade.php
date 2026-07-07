@@ -67,6 +67,7 @@
                 'label' => 'Source URL',
                 'required' => true,
             ])
+            <span class="form-text text-muted font-12">For a photo, choose the image. For a video, paste the YouTube, Vimeo, or direct MP4 link.</span>
         </div>
     </div>
 
@@ -77,6 +78,7 @@
                 'currentValue' => old('thumbnail', isset($galleryItem) ? $galleryItem->thumbnail : ''),
                 'label' => 'Thumbnail URL',
             ])
+            <span class="form-text text-muted font-12">Preview image shown in the grid. Recommended for videos; optional for photos.</span>
         </div>
     </div>
 </div>

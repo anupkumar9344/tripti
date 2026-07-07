@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Setting;
 use App\Support\AdminThemeColors;
 use App\Support\ThemeColors;
+use App\Support\WelcomeModal;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
@@ -69,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
 
             $view->with('themeColors', ThemeColors::fromSettings($themeSettings));
+            $view->with('welcomeModal', WelcomeModal::config());
             $view->with('seo', [
                 'website_name' => 'Tripti Hotel',
                 'website_favicon' => null,
