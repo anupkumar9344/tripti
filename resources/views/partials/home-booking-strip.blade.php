@@ -1,6 +1,9 @@
 @php
     $today = date('Y-m-d');
     $tomorrow = date('Y-m-d', strtotime('+1 day'));
+    $homePromoValue = request()->has('promo_code')
+        ? request('promo_code')
+        : ($defaultPromoCode->code ?? '');
 @endphp
 
 <section class="home-booking-strip-wrap pt-4">
@@ -50,13 +53,18 @@
                     </div>
                 </div>
 
-                <label class="home-booking-field home-booking-field-promo">
-                    <span class="home-booking-field-label">Promo code</span>
-                    <span class="home-booking-field-control">
-                        <input type="text" name="promo_code" placeholder="I have a promo code" maxlength="50">
-                        <i class="ri-price-tag-3-line" aria-hidden="true"></i>
-                    </span>
-                </label>
+                <div class="home-booking-field home-booking-field-promo">
+                    @include('partials.promo-code-field', [
+                        'promoInputId' => 'home_promo_code',
+                        'promoInputClass' => '',
+                        'promoInputValue' => $homePromoValue,
+                        'promoLabel' => 'Promo code',
+                        'promoLabelClass' => 'home-booking-field-label',
+                        'promoFieldWrapperClass' => 'home-booking-field-promo-inner',
+                        'promoControlWrapperClass' => 'home-booking-field-control',
+                        'promoControlIcon' => 'ri-price-tag-3-line',
+                    ])
+                </div>
             </div>
 
             <button type="submit" class="btn-pill btn-pill--dark home-booking-strip-btn">Find Room</button>

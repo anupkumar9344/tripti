@@ -59,6 +59,9 @@
                 </div>
 
                 <button type="submit" class="booking-search-btn">Find Room</button>
+                @if (! empty($filters['promo_code']))
+                    <input type="hidden" name="promo_code" value="{{ $filters['promo_code'] }}">
+                @endif
             </form>
 
             @if ($filters['searched'])
@@ -102,7 +105,12 @@
                                     </div>
                                     <div class="booking-room-footer">
                                         <div class="booking-room-total">
-                                            Stay total: <strong>₹{{ number_format((float) $roomType->stay_total, 0) }}</strong>
+                                            @if (($roomType->discount_amount ?? 0) > 0)
+                                                <span class="booking-room-total-original">₹{{ number_format((float) $roomType->stay_total, 0) }}</span>
+                                                Stay total: <strong>₹{{ number_format((float) $roomType->final_stay_total, 0) }}</strong>
+                                            @else
+                                                Stay total: <strong>₹{{ number_format((float) $roomType->stay_total, 0) }}</strong>
+                                            @endif
                                         </div>
                                         <a
                                             href="{{ route('booking.checkout', array_filter([

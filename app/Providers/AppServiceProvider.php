@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\PromoCode;
 use App\Models\Setting;
 use App\Support\AdminThemeColors;
 use App\Support\ThemeColors;
 use App\Support\WelcomeModal;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,6 +39,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admincan', function (string $permission): bool {
             return auth()->user()?->canAdmin($permission) ?? false;
         });
+
+        View::share(
+            'defaultPromoCode',
+            Schema::hasTable('promo_codes') ? PromoCode::defaultApplicable() : null
+        );
 
         View::composer(['layouts.app', 'partials.header', 'partials.footer'], function ($view): void {
             $settings = Setting::getMany([

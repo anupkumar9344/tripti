@@ -53,6 +53,16 @@
                             <p class="fw-semibold mb-0">₹{{ number_format((float) $booking->room_fare, 0) }} / night</p>
                         </div>
                         <div class="col-md-6">
+                            <p class="text-muted mb-1 font-13">Subtotal</p>
+                            <p class="fw-semibold mb-0">₹{{ number_format($booking->subtotalAmount(), 0) }}</p>
+                        </div>
+                        @if ((float) $booking->discount_amount > 0)
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1 font-13">Promo Discount</p>
+                                <p class="fw-semibold mb-0 text-success">-₹{{ number_format((float) $booking->discount_amount, 0) }}</p>
+                            </div>
+                        @endif
+                        <div class="col-md-6">
                             <p class="text-muted mb-1 font-13">Total Amount</p>
                             <p class="fw-semibold mb-0">₹{{ number_format((float) $booking->total_amount, 0) }}</p>
                         </div>

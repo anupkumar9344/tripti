@@ -184,9 +184,15 @@
                                     <label class="booking-label" for="special_requests">Personal request</label>
                                     <textarea id="special_requests" name="special_requests" class="booking-input booking-textarea" rows="4" placeholder="If you have any special needs, please feel free to share them with us. We’ll do our best to help you.">{{ old('special_requests') }}</textarea>
                                 </div>
+                                @php
+                                    $checkoutPromoValue = old('promo_code', $filters['promo_code'] ?? '');
+                                @endphp
                                 <div class="col-md-6">
-                                    <label class="booking-label" for="promo_code">Promo code (optional)</label>
-                                    <input type="text" id="promo_code" name="promo_code" class="booking-input" value="{{ old('promo_code', $filters['promo_code'] ?? '') }}" placeholder="I have a promo code">
+                                    @include('partials.promo-code-field', [
+                                        'promoInputId' => 'promo_code',
+                                        'promoInputValue' => $checkoutPromoValue,
+                                        'promoLabel' => 'Promo code (optional)',
+                                    ])
                                 </div>
                             </div>
                         </div>
@@ -266,10 +272,24 @@
                                 <span>Room fare</span>
                                 <strong>₹{{ number_format((float) $roomType->fare, 0) }} / night</strong>
                             </li>
+                            <li>
+                                <span>Subtotal</span>
+                                <strong>₹{{ number_format((float) $stayTotal, 0) }}</strong>
+                            </li>
+                            @if ($discountAmount > 0)
+                                <li>
+                                    <span>Promo code</span>
+                                    <strong>{{ $promoCode }}</strong>
+                                </li>
+                                <li>
+                                    <span>Promo discount</span>
+                                    <strong class="text-success">-₹{{ number_format((float) $discountAmount, 0) }}</strong>
+                                </li>
+                            @endif
                         </ul>
                         <div class="booking-summary-total">
                             <span>Total</span>
-                            <strong>₹{{ number_format((float) $stayTotal, 0) }}</strong>
+                            <strong>₹{{ number_format((float) ($finalAmount ?? $stayTotal), 0) }}</strong>
                         </div>
                         <p class="booking-summary-note">Your booking will be pending until our team confirms availability.</p>
                     </div>

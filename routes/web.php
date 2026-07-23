@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BedTypeController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\Admin\CareerApplicationController;
 use App\Http\Controllers\Admin\CareerOpeningController;
 use App\Http\Controllers\Admin\HotelAmenityController;
@@ -112,6 +113,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('room-types/{room_type}/toggle-status', [RoomTypeController::class, 'toggleStatus'])->name('room-types.toggle-status');
         Route::resource('room-types.rooms', AdminRoomController::class)->except(['show']);
         Route::patch('room-types/{room_type}/rooms/{room}/toggle-status', [AdminRoomController::class, 'toggleStatus'])->name('room-types.rooms.toggle-status');
+        Route::resource('promo-codes', PromoCodeController::class)->except(['show']);
         Route::resource('premium-services', PremiumServiceController::class)->except(['show']);
         Route::patch('premium-services/{premium_service}/toggle-status', [PremiumServiceController::class, 'toggleStatus'])->name('premium-services.toggle-status');
         Route::resource('hotel-inquiries', HotelInquiryController::class);

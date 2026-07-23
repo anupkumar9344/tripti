@@ -42,6 +42,22 @@
                         <span>Status</span>
                         <strong>{{ $booking->statusLabel() }}</strong>
                     </li>
+                    @if ($booking->promo_code)
+                        <li>
+                            <span>Promo code</span>
+                            <strong>{{ $booking->promo_code }}</strong>
+                        </li>
+                    @endif
+                    <li>
+                        <span>Subtotal</span>
+                        <strong>₹{{ number_format($booking->subtotalAmount(), 0) }}</strong>
+                    </li>
+                    @if ((float) $booking->discount_amount > 0)
+                        <li>
+                            <span>Promo discount</span>
+                            <strong>-₹{{ number_format((float) $booking->discount_amount, 0) }}</strong>
+                        </li>
+                    @endif
                     <li>
                         <span>Total</span>
                         <strong>₹{{ number_format((float) $booking->total_amount, 0) }}</strong>

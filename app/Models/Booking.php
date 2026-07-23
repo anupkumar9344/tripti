@@ -57,6 +57,7 @@ class Booking extends Model
         'children',
         'nights',
         'room_fare',
+        'discount_amount',
         'total_amount',
         'booking_for',
         'first_name',
@@ -92,6 +93,7 @@ class Booking extends Model
             'check_in' => 'date',
             'check_out' => 'date',
             'room_fare' => 'decimal:2',
+            'discount_amount' => 'decimal:2',
             'total_amount' => 'decimal:2',
             'marketing_consent' => 'boolean',
             'terms_accepted' => 'boolean',
@@ -169,6 +171,14 @@ class Booking extends Model
     public function totalGuests(): int
     {
         return (int) $this->adults + (int) $this->children;
+    }
+
+    /**
+     * Get the stay subtotal before discounts.
+     */
+    public function subtotalAmount(): float
+    {
+        return round((float) $this->room_fare * (int) $this->nights, 2);
     }
 
     /**

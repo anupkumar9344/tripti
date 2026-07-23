@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\PromoCode;
 use App\Models\RoomType;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -43,6 +44,9 @@ class BookingController extends Controller
                     $roomType->available_units = $available;
                     $roomType->is_bookable = $available > 0 && $fitsGuests;
                     $roomType->stay_total = (float) $roomType->fare * $filters['nights'];
+                    $resolvedPromoCode = $this->resolvePromoCode($filters['promo_code'] ?? null, $roomType->stay_total);
+                    $roomType->discount_amount = $resolvedPromoCode['discount_amount'] ?? 0.0;
+                    $roomType->final_stay_total = max(0, $roomType->stay_total - $roomType->discount_amount);
 
                     return $roomType;
                 })
@@ -92,11 +96,22 @@ class BookingController extends Controller
         }
 
         $stayTotal = (float) $roomType->fare * $filters['nights'];
+        $discountAmount = 0.0;
+        $promoCode = null;
+        $resolvedPromoCode = $this->resolvePromoCode($filters['promo_code'] ?? null, $stayTotal);
+
+        if ($resolvedPromoCode) {
+            $promoCode = $resolvedPromoCode['code'];
+            $discountAmount = $resolvedPromoCode['discount_amount'];
+        }
 
         return view('booking.checkout', [
             'filters' => $filters,
             'roomType' => $roomType,
             'stayTotal' => $stayTotal,
+            'discountAmount' => $discountAmount,
+            'promoCode' => $promoCode,
+            'finalAmount' => max(0, $stayTotal - $discountAmount),
             'paymentMethods' => $this->availablePaymentMethods(),
         ]);
     }
@@ -181,6 +196,16 @@ class BookingController extends Controller
                 ->with('error', 'Sorry, this room type is no longer available for the selected dates.');
         }
 
+        $baseAmount = (float) $roomType->fare * $nights;
+        $promoCode = null;
+        $discountAmount = 0.0;
+        $resolvedPromoCode = $this->resolvePromoCode($validated['promo_code'] ?? null, $baseAmount);
+
+        if ($resolvedPromoCode) {
+            $promoCode = $resolvedPromoCode['code'];
+            $discountAmount = $resolvedPromoCode['discount_amount'];
+        }
+
         $paymentMethod = $validated['payment_method'];
         $paymentStatus = Booking::PAYMENT_PENDING;
         $paymentGateway = null;
@@ -200,7 +225,8 @@ class BookingController extends Controller
             'children' => $validated['children'],
             'nights' => $nights,
             'room_fare' => $roomType->fare,
-            'total_amount' => (float) $roomType->fare * $nights,
+            'discount_amount' => $discountAmount,
+            'total_amount' => max(0, $baseAmount - $discountAmount),
             'booking_for' => $validated['booking_for'],
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
@@ -211,7 +237,7 @@ class BookingController extends Controller
             'check_in_time' => $validated['check_in_time'] ?? null,
             'check_out_time' => $validated['check_out_time'] ?? null,
             'special_requests' => $validated['special_requests'] ?? null,
-            'promo_code' => $validated['promo_code'] ?? null,
+            'promo_code' => $promoCode,
             'marketing_consent' => $request->boolean('marketing_consent'),
             'terms_accepted' => true,
             'payment_method' => $paymentMethod,
@@ -219,6 +245,10 @@ class BookingController extends Controller
             'payment_gateway' => $paymentGateway,
             'status' => Booking::STATUS_PENDING,
         ]);
+
+        if ($resolvedPromoCode && isset($resolvedPromoCode['promo_code'])) {
+            $resolvedPromoCode['promo_code']->incrementUsage();
+        }
 
         return redirect()
             ->route('booking.success', $booking->booking_number)
@@ -289,7 +319,9 @@ class BookingController extends Controller
             }
         }
 
-        $promoCode = trim((string) $request->input('promo_code', ''));
+        $promoCode = $request->has('promo_code')
+            ? trim((string) $request->input('promo_code'))
+            : trim((string) (PromoCode::defaultApplicable()?->code ?? ''));
 
         return [
             'check_in' => $checkIn,
@@ -298,7 +330,7 @@ class BookingController extends Controller
             'children' => $children,
             'nights' => $nights,
             'searched' => $searched,
-            'promo_code' => $promoCode !== '' ? $promoCode : null,
+            'promo_code' => $promoCode !== '' ? strtoupper($promoCode) : null,
             'guests_label' => $adults.' adult'.($adults === 1 ? '' : 's').', '.$children.' child'.($children === 1 ? '' : 'ren'),
         ];
     }
@@ -326,6 +358,29 @@ class BookingController extends Controller
      *
      * @return array<string, array{label: string, description: string, enabled: bool}>
      */
+    private function resolvePromoCode(?string $promoCodeValue, float $baseAmount): ?array
+    {
+        $code = trim((string) $promoCodeValue);
+
+        if ($code === '') {
+            return null;
+        }
+
+        $promoCode = PromoCode::query()->where('code', strtoupper($code))->first();
+
+        if (! $promoCode || ! $promoCode->isApplicable()) {
+            return null;
+        }
+
+        $discountAmount = $promoCode->calculateDiscount($baseAmount);
+
+        return [
+            'code' => $promoCode->code,
+            'discount_amount' => $discountAmount,
+            'promo_code' => $promoCode,
+        ];
+    }
+
     private function availablePaymentMethods(): array
     {
         return [
