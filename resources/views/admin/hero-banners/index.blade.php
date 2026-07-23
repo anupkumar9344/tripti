@@ -46,11 +46,16 @@
                                     <tr>
                                         <td class="text-center text-muted">{{ $loop->iteration }}</td>
                                         <td>
-                                            <img src="{{ $banner->imageUrl() }}" alt="{{ $banner->title }}" height="40" class="rounded me-2">
+                                            <img src="{{ $banner->posterUrl() }}" alt="{{ $banner->title }}" height="40" class="rounded me-2">
                                             <span class="d-inline-block align-middle">
                                                 <span class="fw-semibold d-block">{{ $banner->title }}</span>
                                                 @if ($banner->eyebrow)
                                                     <span class="text-muted font-12">{{ $banner->eyebrow }}</span>
+                                                @endif
+                                                @if ($banner->isVideoBanner())
+                                                    <span class="badge badge-soft-info mt-1">Video</span>
+                                                @else
+                                                    <span class="badge badge-soft-primary mt-1">Image</span>
                                                 @endif
                                             </span>
                                         </td>

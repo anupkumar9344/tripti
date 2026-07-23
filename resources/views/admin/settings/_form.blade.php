@@ -20,6 +20,8 @@
         $activeTab = 'pages';
     } elseif ($errors->hasAny(['facebook_url', 'instagram_url', 'youtube_url', 'google_map_embed'])) {
         $activeTab = 'social';
+    } elseif ($errors->hasAny(['razorpay_enabled', 'razorpay_key_id', 'razorpay_key_secret'])) {
+        $activeTab = 'payments';
     } elseif ($errors->hasAny($seoKeys)) {
         $activeTab = 'seo';
     } elseif ($errors->hasAny(['website_name', 'footer_about', 'website_logo', 'website_favicon', 'admin_login_image', 'theme_primary_color', 'admin_theme_primary_color'])) {
@@ -43,6 +45,9 @@
                 <button class="nav-link {{ $activeTab === 'social' ? 'active' : '' }}" id="settings-social-tab" data-bs-toggle="tab" data-bs-target="#settings-social" type="button" role="tab" aria-controls="settings-social" aria-selected="{{ $activeTab === 'social' ? 'true' : 'false' }}">Social &amp; Map</button>
             </li>
             <li class="nav-item" role="presentation">
+                <button class="nav-link {{ $activeTab === 'payments' ? 'active' : '' }}" id="settings-payments-tab" data-bs-toggle="tab" data-bs-target="#settings-payments" type="button" role="tab" aria-controls="settings-payments" aria-selected="{{ $activeTab === 'payments' ? 'true' : 'false' }}">Payments</button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link {{ $activeTab === 'seo' ? 'active' : '' }}" id="settings-seo-tab" data-bs-toggle="tab" data-bs-target="#settings-seo" type="button" role="tab" aria-controls="settings-seo" aria-selected="{{ $activeTab === 'seo' ? 'true' : 'false' }}">SEO</button>
             </li>
         </ul>
@@ -64,6 +69,10 @@
 
             <div class="tab-pane fade {{ $activeTab === 'social' ? 'show active' : '' }}" id="settings-social" role="tabpanel" aria-labelledby="settings-social-tab">
                 @include('admin.settings._tab-social')
+            </div>
+
+            <div class="tab-pane fade {{ $activeTab === 'payments' ? 'show active' : '' }}" id="settings-payments" role="tabpanel" aria-labelledby="settings-payments-tab">
+                @include('admin.settings._tab-payments')
             </div>
 
             <div class="tab-pane fade {{ $activeTab === 'seo' ? 'show active' : '' }}" id="settings-seo" role="tabpanel" aria-labelledby="settings-seo-tab">

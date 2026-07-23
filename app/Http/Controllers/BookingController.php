@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\PromoCode;
 use App\Models\RoomType;
+use App\Support\RazorpayGateway;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -145,8 +146,14 @@ class BookingController extends Controller
             'promo_code' => ['nullable', 'string', 'max:50'],
             'marketing_consent' => ['nullable', 'boolean'],
             'terms_accepted' => ['accepted'],
-            'payment_method' => ['required', Rule::in(array_keys($this->availablePaymentMethods()))],
+            'payment_method' => ['required', Rule::in($this->enabledPaymentMethodKeys())],
         ]);
+
+        if ($validated['payment_method'] === Booking::PAYMENT_RAZORPAY && ! RazorpayGateway::isEnabled()) {
+            return back()
+                ->withInput()
+                ->with('error', 'Online payment is currently unavailable. Please choose Pay at Hotel.');
+        }
 
         $guests = [];
         if ($validated['booking_for'] === 'someone_else') {
@@ -208,13 +215,7 @@ class BookingController extends Controller
 
         $paymentMethod = $validated['payment_method'];
         $paymentStatus = Booking::PAYMENT_PENDING;
-        $paymentGateway = null;
-
-        // Razorpay (and other gateways) can be enabled later without changing the booking schema.
-        if ($paymentMethod === Booking::PAYMENT_RAZORPAY) {
-            $paymentGateway = 'razorpay';
-            // Future: create Razorpay order, redirect to payment, then mark paid via webhook/callback.
-        }
+        $paymentGateway = $paymentMethod === Booking::PAYMENT_RAZORPAY ? 'razorpay' : null;
 
         $booking = Booking::query()->create([
             'booking_number' => Booking::generateBookingNumber(),
@@ -246,6 +247,12 @@ class BookingController extends Controller
             'status' => Booking::STATUS_PENDING,
         ]);
 
+        if ($paymentMethod === Booking::PAYMENT_RAZORPAY) {
+            return redirect()
+                ->route('booking.payment', $booking->booking_number)
+                ->with('info', 'Please complete your online payment to confirm the booking.');
+        }
+
         if ($resolvedPromoCode && isset($resolvedPromoCode['promo_code'])) {
             $resolvedPromoCode['promo_code']->incrementUsage();
         }
@@ -253,6 +260,138 @@ class BookingController extends Controller
         return redirect()
             ->route('booking.success', $booking->booking_number)
             ->with('success', 'Your booking request has been received.');
+    }
+
+    /**
+     * Display the Razorpay payment page for a pending booking.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function payment(string $bookingNumber): RedirectResponse|View
+    {
+        if (! RazorpayGateway::isEnabled()) {
+            return redirect()
+                ->route('booking')
+                ->with('error', 'Online payment is currently unavailable.');
+        }
+
+        $booking = Booking::query()
+            ->with('roomType')
+            ->where('booking_number', $bookingNumber)
+            ->firstOrFail();
+
+        if ($booking->payment_method !== Booking::PAYMENT_RAZORPAY) {
+            return redirect()
+                ->route('booking.success', $booking->booking_number);
+        }
+
+        if ($booking->payment_status === Booking::PAYMENT_PAID) {
+            return redirect()
+                ->route('booking.success', $booking->booking_number)
+                ->with('success', 'Payment already completed for this booking.');
+        }
+
+        try {
+            $gateway = new RazorpayGateway;
+            $order = $gateway->createOrder($booking);
+
+            $booking->update([
+                'payment_gateway' => 'razorpay',
+                'payment_order_id' => $order['id'],
+                'payment_meta' => [
+                    'razorpay_order' => $order,
+                ],
+            ]);
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            return redirect()
+                ->route('booking.success', $booking->booking_number)
+                ->with('error', 'Unable to start online payment. Please contact us to complete your booking.');
+        }
+
+        return view('booking.payment', [
+            'booking' => $booking->fresh('roomType'),
+            'razorpayKeyId' => RazorpayGateway::keyId(),
+            'razorpayOrderId' => $order['id'],
+            'amountPaise' => (new RazorpayGateway)->amountInPaise((float) $booking->total_amount),
+        ]);
+    }
+
+    /**
+     * Verify a Razorpay payment and mark the booking as paid.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function verifyPayment(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'booking_number' => ['required', 'string', 'max:50'],
+            'razorpay_order_id' => ['required', 'string', 'max:255'],
+            'razorpay_payment_id' => ['required', 'string', 'max:255'],
+            'razorpay_signature' => ['required', 'string', 'max:255'],
+        ]);
+
+        $booking = Booking::query()
+            ->where('booking_number', $validated['booking_number'])
+            ->firstOrFail();
+
+        if ($booking->payment_method !== Booking::PAYMENT_RAZORPAY) {
+            return redirect()
+                ->route('booking.success', $booking->booking_number);
+        }
+
+        if ($booking->payment_status === Booking::PAYMENT_PAID) {
+            return redirect()
+                ->route('booking.success', $booking->booking_number)
+                ->with('success', 'Payment already completed for this booking.');
+        }
+
+        if ($booking->payment_order_id !== $validated['razorpay_order_id']) {
+            return redirect()
+                ->route('booking.payment', $booking->booking_number)
+                ->with('error', 'Payment verification failed. Please try again.');
+        }
+
+        $gateway = new RazorpayGateway;
+
+        if (! $gateway->verifyPaymentSignature(
+            $validated['razorpay_order_id'],
+            $validated['razorpay_payment_id'],
+            $validated['razorpay_signature']
+        )) {
+            $booking->update([
+                'payment_status' => Booking::PAYMENT_FAILED,
+                'payment_meta' => array_merge($booking->payment_meta ?? [], [
+                    'last_failed_payment_id' => $validated['razorpay_payment_id'],
+                ]),
+            ]);
+
+            return redirect()
+                ->route('booking.payment', $booking->booking_number)
+                ->with('error', 'Payment verification failed. Please try again.');
+        }
+
+        $booking->update([
+            'payment_status' => Booking::PAYMENT_PAID,
+            'payment_reference' => $validated['razorpay_payment_id'],
+            'payment_meta' => array_merge($booking->payment_meta ?? [], [
+                'razorpay_payment_id' => $validated['razorpay_payment_id'],
+                'razorpay_signature' => $validated['razorpay_signature'],
+                'paid_at' => now()->toIso8601String(),
+            ]),
+        ]);
+
+        if (filled($booking->promo_code)) {
+            PromoCode::query()
+                ->where('code', $booking->promo_code)
+                ->first()
+                ?->incrementUsage();
+        }
+
+        return redirect()
+            ->route('booking.success', $booking->booking_number)
+            ->with('success', 'Payment successful. Your booking request has been received.');
     }
 
     /**
@@ -383,6 +522,8 @@ class BookingController extends Controller
 
     private function availablePaymentMethods(): array
     {
+        $razorpayEnabled = RazorpayGateway::isEnabled();
+
         return [
             Booking::PAYMENT_COD => [
                 'label' => 'Pay at Hotel (COD)',
@@ -391,9 +532,24 @@ class BookingController extends Controller
             ],
             Booking::PAYMENT_RAZORPAY => [
                 'label' => 'Pay Online (Razorpay)',
-                'description' => 'Secure online payment will be available soon.',
-                'enabled' => false,
+                'description' => $razorpayEnabled
+                    ? 'Pay securely now using UPI, cards, or net banking.'
+                    : 'Configure Razorpay in admin settings to enable online payment.',
+                'enabled' => $razorpayEnabled,
             ],
         ];
+    }
+
+    /**
+     * Get enabled payment method keys for validation.
+     *
+     * @return list<string>
+     */
+    private function enabledPaymentMethodKeys(): array
+    {
+        return array_keys(array_filter(
+            $this->availablePaymentMethods(),
+            fn (array $method) => $method['enabled']
+        ));
     }
 }

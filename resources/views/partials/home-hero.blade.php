@@ -78,7 +78,8 @@
                     @foreach ($slides as $index => $slide)
                         @php
                             $isModel = is_object($slide) && method_exists($slide, 'imageUrl');
-                            $imageUrl = $isModel ? $slide->imageUrl() : $slide['image'];
+                            $isVideoBanner = $isModel && $slide->isVideoBanner();
+                            $imageUrl = $isModel ? $slide->posterUrl() : $slide['image'];
                             $eyebrow = $isModel ? $slide->eyebrow : ($slide['eyebrow'] ?? null);
                             $title = $isModel ? $slide->title : $slide['title'];
                             $text = $isModel ? $slide->text : $slide['text'];
@@ -89,7 +90,25 @@
                             $isVideo = $isModel ? $slide->isSecondaryVideo() : false;
                             $hasSecondary = $isModel ? $slide->hasSecondaryAction() : filled($secondaryLabel) && filled($secondaryUrl);
                         @endphp
-                        <div class="rx-slide rx-slide-dynamic slide-{{ $index + 1 }}" style="background-image: url('{{ $imageUrl }}');">
+                        <div class="rx-slide rx-slide-dynamic{{ $isVideoBanner ? ' rx-slide-video' : '' }} slide-{{ $index + 1 }}" @unless($isVideoBanner) style="background-image: url('{{ $imageUrl }}');" @endunless>
+                            @if ($isVideoBanner)
+                                <div class="hero-slide-video-wrap" aria-hidden="true">
+                                    @if ($slide->isDirectVideo())
+                                        <video class="hero-slide-video-media" muted loop playsinline preload="metadata" poster="{{ $imageUrl }}">
+                                            <source src="{{ $slide->videoSourceUrl() }}" type="video/mp4">
+                                        </video>
+                                    @else
+                                        <iframe
+                                            class="hero-slide-video-iframe"
+                                            src="{{ $slide->videoEmbedUrl() }}"
+                                            title="{{ $title }}"
+                                            allow="autoplay; encrypted-media; picture-in-picture"
+                                            referrerpolicy="strict-origin-when-cross-origin"
+                                            loading="lazy"
+                                        ></iframe>
+                                    @endif
+                                </div>
+                            @endif
                             <img src="{{ $imageUrl }}" alt="" class="banner-arrow-img" aria-hidden="true">
                             <div class="rx-slide-overlay"></div>
                             <div class="rx-hero-contact">
@@ -201,6 +220,32 @@
                     youtube: { controls: 1, showinfo: 0 },
                 });
             }
+
+            const heroSlider = document.querySelector('.section-hero-split .rx-slider');
+
+            if (!heroSlider || typeof jQuery === 'undefined') {
+                return;
+            }
+
+            const syncHeroVideos = function () {
+                heroSlider.querySelectorAll('.hero-slide-video-media').forEach(function (video) {
+                    const slide = video.closest('.rx-slide');
+                    const isActive = slide && slide.classList.contains('slick-active');
+
+                    if (isActive) {
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(function () {});
+                        }
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            };
+
+            jQuery(heroSlider).on('init afterChange', syncHeroVideos);
+            syncHeroVideos();
         });
     </script>
 @endpush

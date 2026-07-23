@@ -1,6 +1,7 @@
 @php
     $isEdit = isset($heroBanner);
     $secondaryType = old('secondary_type', $heroBanner->secondary_type ?? '');
+    $mediaType = old('media_type', $heroBanner->media_type ?? 'image');
 @endphp
 
 <div class="row g-3">
@@ -34,13 +35,36 @@
                     @enderror
                 </div>
 
-                <div class="form-group mb-0">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="media_type">Banner Media <span class="text-danger">*</span></label>
+                    <select class="form-select @error('media_type') is-invalid @enderror" id="media_type" name="media_type" required>
+                        <option value="image" @selected($mediaType === 'image')>Image</option>
+                        <option value="video" @selected($mediaType === 'video')>Video</option>
+                    </select>
+                    @error('media_type')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div id="bannerImageField" class="form-group mb-3">
                     @include('admin.media.partials.url-field', [
                         'name' => 'image',
-                        'currentValue' => $isEdit ? $heroBanner->image : '',
+                        'currentValue' => $isEdit ? ($heroBanner->image ?? '') : '',
                         'label' => 'Banner Image',
-                        'required' => ! $isEdit,
+                        'required' => ! $isEdit && $mediaType === 'image',
                     ])
+                    <span id="bannerImageHelp" class="form-text text-muted font-12">
+                        {{ $mediaType === 'video' ? 'Optional poster image shown before the video loads.' : 'Used as the full banner background image.' }}
+                    </span>
+                </div>
+
+                <div id="bannerVideoField" @class(['form-group mb-0', 'd-none' => $mediaType !== 'video'])>
+                    <label class="form-label" for="video">Banner Video URL <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('video') is-invalid @enderror" id="video" name="video" value="{{ old('video', $heroBanner->video ?? '') }}" placeholder="https://www.youtube.com/watch?v=... or direct MP4 URL">
+                    @error('video')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <span class="form-text text-muted font-12">Supports YouTube, Vimeo, or a direct MP4 link from the media library.</span>
                 </div>
             </div>
         </div>
@@ -137,14 +161,35 @@
         document.addEventListener('DOMContentLoaded', function () {
             const secondaryType = document.getElementById('secondary_type');
             const secondaryFields = document.getElementById('secondaryActionFields');
+            const mediaType = document.getElementById('media_type');
+            const imageField = document.getElementById('bannerImageField');
+            const videoField = document.getElementById('bannerVideoField');
 
-            if (!secondaryType || !secondaryFields) {
+            if (secondaryType && secondaryFields) {
+                secondaryType.addEventListener('change', function () {
+                    secondaryFields.classList.toggle('d-none', secondaryType.value === '');
+                });
+            }
+
+            if (!mediaType || !imageField || !videoField) {
                 return;
             }
 
-            secondaryType.addEventListener('change', function () {
-                secondaryFields.classList.toggle('d-none', secondaryType.value === '');
-            });
+            const syncMediaFields = function () {
+                const isVideo = mediaType.value === 'video';
+                const imageHelp = document.getElementById('bannerImageHelp');
+
+                videoField.classList.toggle('d-none', !isVideo);
+
+                if (imageHelp) {
+                    imageHelp.textContent = isVideo
+                        ? 'Optional poster image shown before the video loads.'
+                        : 'Used as the full banner background image.';
+                }
+            };
+
+            mediaType.addEventListener('change', syncMediaFields);
+            syncMediaFields();
         });
     </script>
 @endpush

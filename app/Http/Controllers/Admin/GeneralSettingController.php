@@ -72,6 +72,9 @@ class GeneralSettingController extends Controller
         'seo_twitter_card',
         'seo_twitter_site',
         'seo_google_site_verification',
+        'razorpay_enabled',
+        'razorpay_key_id',
+        'razorpay_key_secret',
     ];
 
     /**
@@ -158,12 +161,19 @@ class GeneralSettingController extends Controller
             'seo_twitter_card' => ['nullable', 'string', 'max:50'],
             'seo_twitter_site' => ['nullable', 'string', 'max:100'],
             'seo_google_site_verification' => ['nullable', 'string', 'max:255'],
+            'razorpay_enabled' => ['required', 'boolean'],
+            'razorpay_key_id' => ['nullable', 'string', 'max:255'],
+            'razorpay_key_secret' => ['nullable', 'string', 'max:255'],
         ]);
 
         $previousWelcome = Setting::getMany(WelcomeModal::SETTING_KEYS);
 
         foreach (self::SETTING_KEYS as $key) {
             if ($key === 'welcome_modal_revision') {
+                continue;
+            }
+
+            if ($key === 'razorpay_key_secret' && blank($validated['razorpay_key_secret'] ?? null)) {
                 continue;
             }
 
@@ -175,6 +185,12 @@ class GeneralSettingController extends Controller
 
             if (in_array($key, self::MEDIA_SETTING_KEYS, true)) {
                 Setting::setValue($key, MediaPath::normalize($validated[$key] ?? null));
+
+                continue;
+            }
+
+            if ($key === 'razorpay_enabled') {
+                Setting::setValue($key, (bool) $validated['razorpay_enabled']);
 
                 continue;
             }

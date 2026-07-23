@@ -17,7 +17,9 @@ class HeroBanner extends Model
         'eyebrow',
         'title',
         'text',
+        'media_type',
         'image',
+        'video',
         'primary_label',
         'primary_url',
         'secondary_label',
@@ -54,11 +56,84 @@ class HeroBanner extends Model
     }
 
     /**
-     * Get the public URL for the banner image.
+     * Get the public URL for the banner image or video poster.
      */
     public function imageUrl(): string
     {
-        return MediaPath::url($this->image);
+        return $this->posterUrl();
+    }
+
+    /**
+     * Determine whether the banner uses a background video.
+     */
+    public function isVideoBanner(): bool
+    {
+        return $this->media_type === 'video' && filled($this->video);
+    }
+
+    /**
+     * Get the poster image shown before or behind video banners.
+     */
+    public function posterUrl(): string
+    {
+        if (filled($this->image)) {
+            return MediaPath::url($this->image);
+        }
+
+        return asset('assets/img/hero/hero-1.png');
+    }
+
+    /**
+     * Determine whether the banner video is a direct MP4/WebM file.
+     */
+    public function isDirectVideo(): bool
+    {
+        if (! filled($this->video)) {
+            return false;
+        }
+
+        $url = strtolower($this->video);
+
+        return str_ends_with($url, '.mp4')
+            || str_ends_with($url, '.webm')
+            || str_contains($url, '.mp4?')
+            || str_contains($url, '.webm?');
+    }
+
+    /**
+     * Resolve the direct video source URL.
+     */
+    public function videoSourceUrl(): string
+    {
+        return MediaPath::url($this->video);
+    }
+
+    /**
+     * Resolve an embeddable video URL for background players.
+     */
+    public function videoEmbedUrl(): string
+    {
+        $url = trim((string) $this->video);
+
+        if ($url === '') {
+            return '';
+        }
+
+        if (preg_match('/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/', $url, $matches)) {
+            $videoId = $matches[1];
+
+            return 'https://www.youtube.com/embed/'.$videoId.'?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist='.$videoId.'&playsinline=1';
+        }
+
+        if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $url, $matches)) {
+            return 'https://player.vimeo.com/video/'.$matches[1].'?autoplay=1&muted=1&background=1&loop=1';
+        }
+
+        if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
+            return $url;
+        }
+
+        return MediaPath::url($url);
     }
 
     /**

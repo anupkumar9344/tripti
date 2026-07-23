@@ -10,7 +10,13 @@
                     <i class="ri-checkbox-circle-fill"></i>
                 </div>
                 <h1>Thank you, {{ $booking->first_name }}!</h1>
-                <p>Your booking request has been received. Our team will review and confirm your stay shortly.</p>
+                <p>
+                    @if ($booking->payment_method === \App\Models\Booking::PAYMENT_RAZORPAY && $booking->payment_status === \App\Models\Booking::PAYMENT_PAID)
+                        Your payment was successful and your booking request has been received. Our team will review and confirm your stay shortly.
+                    @else
+                        Your booking request has been received. Our team will review and confirm your stay shortly.
+                    @endif
+                </p>
 
                 <div class="booking-success-number">
                     Booking No. <strong>{{ $booking->booking_number }}</strong>
@@ -65,7 +71,11 @@
                 </ul>
 
                 <div class="booking-success-actions">
-                    <a href="{{ url('/') }}" class="booking-search-btn">Back to Home</a>
+                    @if ($booking->payment_method === \App\Models\Booking::PAYMENT_RAZORPAY && $booking->payment_status === \App\Models\Booking::PAYMENT_PENDING)
+                        <a href="{{ route('booking.payment', $booking->booking_number) }}" class="booking-search-btn">Complete Payment</a>
+                    @else
+                        <a href="{{ url('/') }}" class="booking-search-btn">Back to Home</a>
+                    @endif
                     <a href="{{ route('contact') }}" class="booking-back-link">Need help? Contact us</a>
                 </div>
             </div>

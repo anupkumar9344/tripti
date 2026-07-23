@@ -87,6 +87,8 @@ Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.s
 Route::get('/booking', [BookingController::class, 'index'])->name('booking');
 Route::get('/booking/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/booking/pay/{bookingNumber}', [BookingController::class, 'payment'])->name('booking.payment');
+Route::post('/booking/payment/verify', [BookingController::class, 'verifyPayment'])->name('booking.payment.verify');
 Route::get('/booking/success/{bookingNumber}', [BookingController::class, 'success'])->name('booking.success');
 Route::get('/banquet-meeting-booking', [EventBookingController::class, 'index'])->name('event-booking');
 Route::post('/banquet-meeting-booking', [EventBookingController::class, 'store'])->name('event-booking.store');
