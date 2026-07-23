@@ -4609,7 +4609,7 @@ body.mobile-menu-open{
 	line-height: 1.45;
 	color: var(--primary-color);
 	background: transparent;
-	padding: 18px 52px 18px 20px;
+	padding: 18px 18px 18px 20px;
 	box-shadow: none;
 }
 
@@ -4753,7 +4753,7 @@ body.mobile-menu-open{
 
 	.home-faq-item .accordion-button{
 		font-size: 16px;
-		padding: 16px 18px 16px 16px;
+		padding: 16px 16px 16px 16px;
 	}
 
 	.home-faq-contact-box{

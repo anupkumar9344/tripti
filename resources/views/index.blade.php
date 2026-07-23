@@ -10,7 +10,6 @@
     @include('partials.home-amenities')
     @include('partials.home-testimonials')
     @include('partials.home-gallery-section')
-    @include('partials.home-faq-section')
     @include('partials.video-feedback-section', [
         'videoFeedbacks' => $homeVideoFeedbacks,
         'eyebrow' => 'Shorts Video',
@@ -18,5 +17,6 @@
         'lead' => 'Real stories from our community',
     ])
     @include('partials.home-blog')
+    @include('partials.home-faq-section')
 @endsection
 

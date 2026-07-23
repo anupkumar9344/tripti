@@ -2435,7 +2435,7 @@ button.btn-pill,
 .home-testimonials-meta-stars {
     display: inline-flex;
     gap: 3px;
-    color: var(--theme-primary);
+    color: #fbbc04;
     font-size: 13px;
 }
 
@@ -2484,7 +2484,7 @@ button.btn-pill,
     justify-content: center;
     gap: 4px;
     margin-bottom: 18px;
-    color: var(--theme-primary);
+    color: #fbbc04;
     font-size: 14px;
 }
 
@@ -7574,7 +7574,7 @@ textarea.contact-page-input {
 }
 
 .home-faq-item .accordion-button {
-    padding: 18px 52px 18px 20px;
+    padding: 18px 18px 18px 20px;
     font-family: "Playfair Display", serif;
     font-size: 17px;
     font-weight: 600;
@@ -7756,7 +7756,7 @@ textarea.contact-page-input {
     }
 
     .home-faq-item .accordion-button {
-        padding: 16px 48px 16px 16px;
+        padding: 16px 16px 16px 16px;
         font-size: 16px;
     }
 
