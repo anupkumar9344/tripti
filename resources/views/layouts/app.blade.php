@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/remixicon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/jquery.fancybox.min.css') }}">
