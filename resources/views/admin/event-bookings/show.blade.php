@@ -17,10 +17,6 @@
         </div>
     </div>
 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card mb-4">

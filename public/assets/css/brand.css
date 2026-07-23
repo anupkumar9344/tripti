@@ -5602,7 +5602,7 @@ textarea.contact-page-input {
 
 .home-booking-strip-fields {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) minmax(200px, 1.4fr);
     gap: 12px;
     align-items: end;
 }
@@ -5893,6 +5893,10 @@ textarea.contact-page-input {
 
     .home-booking-strip-fields {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-booking-field-guests {
+        grid-column: 1 / -1;
     }
 
     .home-booking-strip-btn {
