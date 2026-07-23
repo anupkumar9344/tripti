@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\PromoCode;
 use App\Models\RoomType;
+use App\Support\BookingNotificationService;
 use App\Support\RazorpayGateway;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -257,6 +258,8 @@ class BookingController extends Controller
             $resolvedPromoCode['promo_code']->incrementUsage();
         }
 
+        app(BookingNotificationService::class)->send($booking->fresh('roomType'));
+
         return redirect()
             ->route('booking.success', $booking->booking_number)
             ->with('success', 'Your booking request has been received.');
@@ -388,6 +391,8 @@ class BookingController extends Controller
                 ->first()
                 ?->incrementUsage();
         }
+
+        app(BookingNotificationService::class)->send($booking->fresh('roomType'));
 
         return redirect()
             ->route('booking.success', $booking->booking_number)

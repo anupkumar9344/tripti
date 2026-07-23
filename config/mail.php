@@ -115,4 +115,16 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Notification Address
+    |--------------------------------------------------------------------------
+    |
+    | Booking and other admin alerts are sent to this address when SMTP is
+    | configured. Set ADMIN_EMAIL in your .env file.
+    |
+    */
+
+    'admin_address' => env('ADMIN_EMAIL'),
+
 ];
