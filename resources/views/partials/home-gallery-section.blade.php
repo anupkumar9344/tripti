@@ -72,7 +72,7 @@
 
         <div class="container">
             <div class="home-gallery-showcase-action text-center wow fadeInUp" data-wow-delay="0.2s">
-                <a href="{{ url('/gallery') }}" class="btn-default">See More</a>
+                <a href="{{ url('/gallery') }}" class="btn-pill btn-pill--dark">See More</a>
             </div>
         </div>
     </div>

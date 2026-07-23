@@ -82,7 +82,7 @@
                         </a>
                     </li>
                     @endadmincan
-                    @if(auth()->user()->canAdmin('bookings.view') || auth()->user()->canAdmin('inquiries.view') || auth()->user()->canAdmin('promo-codes.view') || $canManageHotelsMenu)
+                    @if(auth()->user()->canAdmin('bookings.view') || auth()->user()->canAdmin('inquiries.view') || auth()->user()->canAdmin('event-bookings.view') || auth()->user()->canAdmin('promo-codes.view') || $canManageHotelsMenu)
                     <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>Manage Hotels</span></li>
                     @endif
                     @admincan('bookings.view')
@@ -121,6 +121,14 @@
                         <a class="nav-link {{ request()->routeIs('admin.hotel-inquiries.*') ? 'active' : '' }}" href="{{ route('admin.hotel-inquiries.index') }}">
                             <i class="ti ti-message-2 menu-icon"></i>
                             <span>Inquiries</span>
+                        </a>
+                    </li>
+                    @endadmincan
+                    @admincan('event-bookings.view')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.event-bookings.*') ? 'active' : '' }}" href="{{ route('admin.event-bookings.index') }}">
+                            <i class="ti ti-calendar-event menu-icon"></i>
+                            <span>Banquet & Meetings</span>
                         </a>
                     </li>
                     @endadmincan

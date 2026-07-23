@@ -48,10 +48,29 @@ class HotelFacility extends Model
     }
 
     /**
+     * Default images used when a facility has no uploaded image.
+     *
+     * @var list<string>
+     */
+    private const DEFAULT_IMAGES = [
+        'assets/img/amenities/1.jpg',
+        'assets/img/amenities/2.jpg',
+        'assets/img/amenities/3.jpg',
+        'assets/img/amenities/4.jpg',
+    ];
+
+    /**
      * Get the public URL for the facility image.
      */
-    public function imageUrl(): string
+    public function imageUrl(int $fallbackIndex = 0): string
     {
-        return MediaPath::url($this->image, 'assets/img/amenities/1.jpg');
+        if (filled($this->image)) {
+            return MediaPath::url($this->image);
+        }
+
+        $defaults = self::DEFAULT_IMAGES;
+        $index = max(0, $fallbackIndex) % count($defaults);
+
+        return asset($defaults[$index]);
     }
 }

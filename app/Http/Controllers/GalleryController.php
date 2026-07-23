@@ -17,13 +17,10 @@ class GalleryController extends Controller
      */
     public function index(): View
     {
-        $galleryItems = GalleryItem::query()
-            ->where('status', true)
-            ->orderByRaw("CASE WHEN type = 'video' THEN 1 ELSE 0 END")
-            ->orderBy('sort_order')
-            ->orderBy('title')
-            ->get();
+        $galleryItems = GalleryItem::query()->activeOrdered()->get();
+        $galleryVideos = $galleryItems->filter(fn (GalleryItem $item) => $item->isVideo())->values();
+        $galleryPhotos = $galleryItems->reject(fn (GalleryItem $item) => $item->isVideo())->values();
 
-        return view('gallery.index', compact('galleryItems'));
+        return view('gallery.index', compact('galleryVideos', 'galleryPhotos'));
     }
 }

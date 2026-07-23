@@ -45,6 +45,28 @@ class HomeController extends Controller
     ];
 
     /**
+     * Setting keys for the home gallery section.
+     *
+     * @var list<string>
+     */
+    private const GALLERY_HOME_SETTING_KEYS = [
+        'gallery_home_title',
+    ];
+
+    /**
+     * Setting keys for the home FAQ section.
+     *
+     * @var list<string>
+     */
+    private const FAQ_HOME_SETTING_KEYS = [
+        'faq_home_eyebrow',
+        'faq_home_title',
+        'faq_home_description',
+        'faq_home_image',
+        'faq_home_contact_label',
+    ];
+
+    /**
      * Display the home page.
      *
      * @return \Illuminate\View\View
@@ -54,11 +76,14 @@ class HomeController extends Controller
         $settings = Setting::getMany(self::HOME_SETTING_KEYS);
         $whyChooseItems = WhyChooseItem::query()->activeOrdered()->get();
         $homeRooms = RoomType::query()->forHome()->limit(6)->get();
-        $homeFacilities = HotelFacility::query()->forHome()->limit(6)->get();
+        $homeFacilities = HotelFacility::query()->forHome()->get();
         $homeTestimonials = PatientReview::query()->activeOrdered()->limit(6)->get();
         $homeBlogPosts = BlogPost::query()->forHome()->limit(4)->get();
         $heroBanners = HeroBanner::query()->activeOrdered()->get();
         $homeGalleryItems = GalleryItem::query()->forHome()->get();
+        $homeFaqs = Faq::query()->forHome()->get();
+        $galleryHomeSettings = Setting::getMany(self::GALLERY_HOME_SETTING_KEYS);
+        $faqHomeSettings = Setting::getMany(self::FAQ_HOME_SETTING_KEYS);
         $homeVideoFeedbacks = VideoFeedback::query()->forHome()->limit(10)->get();
 
         return view('index', compact(
@@ -70,6 +95,9 @@ class HomeController extends Controller
             'homeBlogPosts',
             'heroBanners',
             'homeGalleryItems',
+            'homeFaqs',
+            'galleryHomeSettings',
+            'faqHomeSettings',
             'homeVideoFeedbacks',
         ));
     }

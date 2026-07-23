@@ -9,6 +9,14 @@
 @section('og_image', $post->seoOgImageUrl())
 
 @section('content')
+    @php
+        $socialLinks = array_filter([
+            ['url' => $siteSettings['facebook_url'] ?? null, 'icon' => 'ri-facebook-fill', 'label' => 'Facebook'],
+            ['url' => $siteSettings['instagram_url'] ?? null, 'icon' => 'ri-instagram-line', 'label' => 'Instagram'],
+            ['url' => $siteSettings['youtube_url'] ?? null, 'icon' => 'ri-youtube-fill', 'label' => 'YouTube'],
+        ], fn (array $item) => filled($item['url']));
+    @endphp
+
     @include('partials.breadcrumb', [
         'breadcrumbTitle' => $post->title,
         'breadcrumbParent' => 'Blog',
@@ -51,6 +59,7 @@
                                 @endforeach
                             </div>
                         @endif
+
                     </article>
                 </div>
 
@@ -79,6 +88,17 @@
                                 <a href="{{ route('rooms') }}" class="blog-sidebar-btn">View Rooms</a>
                                 <a href="{{ route('contact') }}" class="blog-sidebar-link">Contact Us</a>
                             </div>
+
+                            
+                        @if ($socialLinks !== [])
+                            <div class="blog-detail-social site-footer-social text-center justify-content-center">
+                                @foreach ($socialLinks as $social)
+                                    <a href="{{ $social['url'] }}" class="site-footer-social-link" target="_blank" rel="noopener noreferrer" aria-label="{{ $social['label'] }}">
+                                        <i class="{{ $social['icon'] }}"></i>
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
                         </div>
                     </aside>
                 </div>

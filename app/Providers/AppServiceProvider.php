@@ -45,31 +45,29 @@ class AppServiceProvider extends ServiceProvider
             Schema::hasTable('promo_codes') ? PromoCode::defaultApplicable() : null
         );
 
-        View::composer(['layouts.app', 'partials.header', 'partials.footer'], function ($view): void {
-            $settings = Setting::getMany([
-                'website_name',
-                'website_logo',
-                'footer_about',
-                'phone_1',
-                'phone_2',
-                'email_1',
-                'email_2',
-                'whatsapp_number',
-                'address',
-                'opening_hours',
-                'facebook_url',
-                'instagram_url',
-                'youtube_url',
-            ]);
+        $siteSettings = Setting::getMany([
+            'website_name',
+            'website_logo',
+            'footer_about',
+            'phone_1',
+            'phone_2',
+            'email_1',
+            'email_2',
+            'whatsapp_number',
+            'address',
+            'opening_hours',
+            'facebook_url',
+            'instagram_url',
+            'youtube_url',
+        ]);
 
-            $view->with('siteSettings', $settings);
-            $view->with('siteLogoUrl', filled($settings['website_logo'] ?? null)
-                ? Setting::imageUrl($settings['website_logo'], 'logo/logo.png')
-                : asset('assets/img/logo/logo.png'));
-            $view->with('sitePhone', $settings['phone_1'] ?? '+91 98765 43210');
-            $view->with('siteEmail', $settings['email_1'] ?? 'info@triptihotel.com');
-            $view->with('siteName', $settings['website_name'] ?? 'Tripti Hotel');
-        });
+        View::share('siteSettings', $siteSettings);
+        View::share('siteLogoUrl', filled($siteSettings['website_logo'] ?? null)
+            ? Setting::imageUrl($siteSettings['website_logo'], 'logo/logo.png')
+            : asset('assets/img/logo/logo.png'));
+        View::share('sitePhone', $siteSettings['phone_1'] ?? '+91 98765 43210');
+        View::share('siteEmail', $siteSettings['email_1'] ?? 'info@triptihotel.com');
+        View::share('siteName', $siteSettings['website_name'] ?? 'Tripti Hotel');
 
         View::composer('layouts.app', function ($view): void {
             $themeSettings = Setting::getMany([

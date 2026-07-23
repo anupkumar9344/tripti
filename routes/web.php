@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutSettingController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\CacheController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventBookingController as AdminEventBookingController;
 use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BedTypeController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\EventBookingController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FaqPageController;
@@ -86,6 +88,8 @@ Route::get('/booking', [BookingController::class, 'index'])->name('booking');
 Route::get('/booking/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/booking/success/{bookingNumber}', [BookingController::class, 'success'])->name('booking.success');
+Route::get('/banquet-meeting-booking', [EventBookingController::class, 'index'])->name('event-booking');
+Route::post('/banquet-meeting-booking', [EventBookingController::class, 'store'])->name('event-booking.store');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
@@ -118,6 +122,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('premium-services/{premium_service}/toggle-status', [PremiumServiceController::class, 'toggleStatus'])->name('premium-services.toggle-status');
         Route::resource('hotel-inquiries', HotelInquiryController::class);
         Route::patch('hotel-inquiries/{hotel_inquiry}/status', [HotelInquiryController::class, 'updateStatus'])->name('hotel-inquiries.update-status');
+        Route::resource('event-bookings', AdminEventBookingController::class);
+        Route::patch('event-bookings/{event_booking}/status', [AdminEventBookingController::class, 'updateStatus'])->name('event-bookings.update-status');
         Route::put('patient-reviews/settings', [PatientReviewController::class, 'updateSettings'])->name('patient-reviews.settings.update');
         Route::resource('patient-reviews', PatientReviewController::class)->except(['show']);
         Route::resource('video-feedbacks', VideoFeedbackController::class)->except(['show']);

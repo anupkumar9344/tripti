@@ -55,7 +55,7 @@
                             <img src="{{ $imageUrl }}" alt="{{ $title ?: 'FAQs' }}">
                         </figure>
                         <a href="{{ url('/contact-us') }}" class="home-faq-contact-box">
-                            <span class="home-faq-contact-icon"><i class="fa-solid fa-phone-volume"></i></span>
+                            <span class="home-faq-contact-icon"><i class="ri-phone-line"></i></span>
                             <span class="home-faq-contact-text">
                                 <strong>{{ $contactLabel }}</strong>
                                 @if ($contactPhone)

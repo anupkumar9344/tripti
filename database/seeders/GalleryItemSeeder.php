@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\GalleryItem;
+use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
 /**
@@ -15,6 +16,8 @@ class GalleryItemSeeder extends Seeder
      */
     public function run(): void
     {
+        Setting::setValue('gallery_home_title', 'Gallery');
+
         $homeItems = [
             [
                 'title' => 'Luxury Rooms',

@@ -914,6 +914,30 @@
       initVideoFeedbackThumbnails(document.querySelector(".video-shorts-section"));
     }
 
+    if ($(".home-gallery-mobile-swiper").length && typeof Swiper !== "undefined") {
+      var galleryMobileSwiper = new Swiper(".home-gallery-mobile-swiper", {
+        slidesPerView: 1.08,
+        spaceBetween: 16,
+        speed: 650,
+        loop: true,
+        grabCursor: true,
+        centeredSlides: true,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        pagination: {
+          el: ".home-gallery-mobile-pagination",
+          clickable: true,
+        },
+      });
+
+      galleryMobileSwiper.on("resize", function () {
+        this.update();
+      });
+    }
+
     initVideoFeedbackThumbnails(document);
 
     $(document).on("click", ".video-feedback-play", function (event) {
